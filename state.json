@@ -12,7 +12,7 @@
       "last_edit": 1793814174,
       "revision": 17,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         ".obsidian/app.json": {
@@ -218,8 +218,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Add Dispatch Obsidian vault and board configuration",
+        "description": "Set up the Obsidian vault with Dispatch 0.3.1, workspace settings, and a configured ticket board covering milestones, meetings, todos, and agent chips. Add wiki index and log, team and note templates, and reorganize product discovery documents under `02_Product/` while removing their former root-level copies."
+      },
+      "message_base": "1b1971e870829cde77af50fb63f57ceaf3e6d983"
     },
     "0ea29c85-4a1f-4874-b01b-26446b462e9b": {
       "id": "0ea29c85-4a1f-4874-b01b-26446b462e9b",
