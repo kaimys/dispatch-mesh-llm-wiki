@@ -201,7 +201,7 @@
       "last_edit": 1793809534,
       "revision": 6,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "Dispatch Mesh milestone plan.md": {
