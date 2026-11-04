@@ -345,7 +345,7 @@
       "last_edit": 1793808528,
       "revision": 1,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "Dispatch Mesh milestone plan.md": {
@@ -392,8 +392,11 @@
           "created_at": 1793808483
         }
       },
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Prioritize cross-platform desktop delivery before cloud MCP",
+        "description": "Update the existing milestone plan, requirements, and concept documentation to schedule macOS beta at 0.7, Linux beta at 0.8, cross-platform desktop beta at 0.9, and stable desktop release at 1.0. Defer authenticated cloud MCP previews and release to the 2.0 cycle, and clarify related dependencies and delivery gates. Documentation changes only; no implementation is included.\n\nRecorded user intent (requested purpose):\n\nFiles: Dispatch Mesh milestone plan.md, git-sync requirements and architecture.md, git-sync.md\nPurpose: Prioritize macOS and Linux desktop releases before cloud work, defer authenticated cloud MCP to version 2.0, and align roadmap milestones and concept documentation with this release order."
+      },
+      "message_base": "2959c53921ccd2a1f65a89a1f30f08b834e5b6df"
     },
     "f228dc61-aefd-4b3e-b5e7-f19e0abcf865": {
       "id": "f228dc61-aefd-4b3e-b5e7-f19e0abcf865",
