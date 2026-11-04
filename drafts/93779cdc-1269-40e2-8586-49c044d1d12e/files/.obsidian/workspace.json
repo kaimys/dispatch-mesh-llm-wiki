@@ -8,16 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "af88385a168b1037",
-            "type": "leaf",
-            "state": {
-              "type": "dispatch-board",
-              "state": {},
-              "icon": "play",
-              "title": "Dispatch board"
-            }
-          },
-          {
             "id": "d347610810d2fba1",
             "type": "leaf",
             "state": {
@@ -213,7 +203,7 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "55ceda3168845134",
+  "active": "d347610810d2fba1",
   "lastOpenFiles": [
     "00_Start-Here/sedW44df6",
     "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
