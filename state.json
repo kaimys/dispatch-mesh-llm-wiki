@@ -121,7 +121,7 @@
       "last_edit": 1793806162,
       "revision": 13,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "README.md": {
