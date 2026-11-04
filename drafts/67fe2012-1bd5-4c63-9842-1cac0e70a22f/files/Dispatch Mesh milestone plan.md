@@ -208,7 +208,7 @@ Exit criteria:
 - Installation, guided setup, bundled Git, desktop controls, login startup, and recovery are validated on all supported platforms.
 - Release artifacts, updates, compatibility policy, support matrix, and recovery guidance are ready for users.
 - Users can perform the normal synchronization workflow without Git knowledge or cloud MCP access.
-- Create documentation 
+- Create documentation in a su
 
 ## 2.0 alpha — authenticated cloud MCP private alpha
 
