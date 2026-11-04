@@ -171,7 +171,7 @@ Exit criteria:
 - Token expiry, revocation, account unlinking, worker restart, and publication races have tested recovery behavior.
 - A remote agent can edit a file, attach purpose, optionally finish its session, and observe synchronization without a local clone.
 
-## 0.8 — cloud beta and operational readiness
+## 0.9 — cloud beta and operational readiness
 
 Expand beyond the private alpha after the identity and recovery boundaries are validated.
 
