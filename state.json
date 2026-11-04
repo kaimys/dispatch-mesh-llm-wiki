@@ -120,7 +120,7 @@
       "created_at": 1793806081,
       "last_edit": 1793806162,
       "revision": 13,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -151,8 +151,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Update Markdown files",
+        "description": "Delete README.md and little.md; add test-notiz.md."
+      },
+      "message_base": "26ffcbc200d8364e4a7c4ef3f72f3cefebc1e978"
     },
     "749543b5-f9c1-456b-8eab-198c13f33f5e": {
       "id": "749543b5-f9c1-456b-8eab-198c13f33f5e",
