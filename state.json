@@ -1,6 +1,66 @@
 {
   "version": 2,
   "sessions": {
+    "05767776-8724-48b7-94ee-7eadb839c9ff": {
+      "id": "05767776-8724-48b7-94ee-7eadb839c9ff",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793813695,
+      "last_edit": 1793813695,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/Templates/adr.md": {
+          "base": null,
+          "content": {
+            "blob": "878b101de879b1b27f5416562cef6cd5f519a100"
+          },
+          "intent": null,
+          "last_edit": 1793813695
+        },
+        "00_Start-Here/Templates/meeting.md": {
+          "base": null,
+          "content": {
+            "blob": "f3c248dd8f6c723c4057da78e2863c24f885749e"
+          },
+          "intent": null,
+          "last_edit": 1793813695
+        },
+        "00_Start-Here/Templates/release-note.md": {
+          "base": null,
+          "content": {
+            "blob": "0f7197f2ed0ae04ad54a8f046ed59bc9afa56e8d"
+          },
+          "intent": null,
+          "last_edit": 1793813695
+        },
+        "00_Start-Here/Templates/ticket-bug.md": {
+          "base": null,
+          "content": {
+            "blob": "9d76a3210e899891381f514f3817cbbcaa92efb2"
+          },
+          "intent": null,
+          "last_edit": 1793813695
+        },
+        "00_Start-Here/Templates/ticket-story.md": {
+          "base": null,
+          "content": {
+            "blob": "d2a2f2f74f52ee297657c9c10860c6b0ea8487c2"
+          },
+          "intent": null,
+          "last_edit": 1793813695
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "0ea29c85-4a1f-4874-b01b-26446b462e9b": {
       "id": "0ea29c85-4a1f-4874-b01b-26446b462e9b",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
