@@ -409,7 +409,7 @@
       "last_edit": 1793808926,
       "revision": 10,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "Dispatch Mesh milestone plan.md": {
@@ -473,8 +473,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: rebrand git-sync discovery as Dispatch Mesh",
+        "description": "Add Dispatch Mesh naming recommendations, product requirements and architecture, and a README covering sessions, conflicts, presence, and synchronization. Update the existing milestone plan with renamed document links and consistent milestone-table formatting; remove the superseded git-sync discovery pages."
+      },
+      "message_base": "d88d34fea28217d9079377cde4f30aeb7e38e3ad"
     },
     "f228dc61-aefd-4b3e-b5e7-f19e0abcf865": {
       "id": "f228dc61-aefd-4b3e-b5e7-f19e0abcf865",
