@@ -227,6 +227,34 @@
         "description": "Saved editing session. No AI-generated explanation is available."
       },
       "message_base": "9ac2259f650b6d08ee7fcc2e1f0ecc6b820002ef"
+    },
+    "f228dc61-aefd-4b3e-b5e7-f19e0abcf865": {
+      "id": "f228dc61-aefd-4b3e-b5e7-f19e0abcf865",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793806287,
+      "last_edit": 1793806287,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "test-notiz.md": {
+          "base": {
+            "blob": "c2002fc4f93d8d4377104bc5637a8469ba0bcdf8"
+          },
+          "content": null,
+          "intent": null,
+          "last_edit": 1793806287
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
     }
   },
   "resolutions": {},
