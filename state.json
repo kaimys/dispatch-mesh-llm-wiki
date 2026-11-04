@@ -238,7 +238,7 @@
       "created_at": 1793806287,
       "last_edit": 1793806287,
       "revision": 1,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -253,8 +253,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Delete test-notiz.md",
+        "description": "Remove the test-notiz.md file."
+      },
+      "message_base": "b1784408eee204c4527e57f9caa24f3cf47845ff"
     }
   },
   "resolutions": {},
