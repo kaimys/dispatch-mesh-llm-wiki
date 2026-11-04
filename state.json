@@ -565,7 +565,7 @@
       "last_edit": 1793815442,
       "revision": 7,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         ".obsidian/workspace.json": {
@@ -609,8 +609,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: add US00001 tray host story to the wiki",
+        "description": "Add the v0.3.0 tray icon and status window story, outlining its scope, acceptance context, and unresolved implementation decisions. Link it from the wiki index and record it in the change log. Update the Obsidian workspace to open the Dispatch board with product docs available in tabs."
+      },
+      "message_base": "42b5e139f847738ea41b849aba53f55bda1e5b26"
     },
     "a46feca4-ae0e-457e-b25e-dec106968f82": {
       "id": "a46feca4-ae0e-457e-b25e-dec106968f82",
