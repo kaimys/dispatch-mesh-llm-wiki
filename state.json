@@ -228,6 +228,43 @@
       },
       "message_base": "9ac2259f650b6d08ee7fcc2e1f0ecc6b820002ef"
     },
+    "a73b6cd7-b760-431b-8a38-450925765e2d": {
+      "id": "a73b6cd7-b760-431b-8a38-450925765e2d",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793806927,
+      "last_edit": 1793806927,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "Dispatch Mesh milestone plan.md": {
+          "base": null,
+          "content": {
+            "blob": "6e77139477d7fb2d6001dbb5b2e6b7c3b64edd60"
+          },
+          "intent": "aaa4f7fd-3e02-4bc4-8797-f81b276afc12",
+          "last_edit": 1793806927
+        }
+      },
+      "dependencies": [],
+      "intents": {
+        "aaa4f7fd-3e02-4bc4-8797-f81b276afc12": {
+          "id": "aaa4f7fd-3e02-4bc4-8797-f81b276afc12",
+          "purpose": "Define the release sequence, dependencies, and acceptance criteria for the Dispatch Mesh tray application, bundled Git, guided account and repository setup, login startup, and authenticated cloud MCP server.",
+          "paths": [
+            "Dispatch Mesh milestone plan.md"
+          ],
+          "created_at": 1793806791
+        }
+      },
+      "message": null,
+      "message_base": null
+    },
     "f228dc61-aefd-4b3e-b5e7-f19e0abcf865": {
       "id": "f228dc61-aefd-4b3e-b5e7-f19e0abcf865",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
