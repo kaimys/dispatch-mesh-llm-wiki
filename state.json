@@ -334,6 +334,67 @@
       },
       "message_base": "43218da108d2cfa64c564bcea52ffa0280b67aa8"
     },
+    "ba227071-16b8-48ff-ba3c-28bb2bd3682e": {
+      "id": "ba227071-16b8-48ff-ba3c-28bb2bd3682e",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793808528,
+      "last_edit": 1793808528,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "Dispatch Mesh milestone plan.md": {
+          "base": {
+            "blob": "04cbeba70d34cdf90cbec9437b0c30f23622dc22"
+          },
+          "content": {
+            "blob": "67e849e165a7e4c08fa48373b1a62ab21f32a216"
+          },
+          "intent": "48f29898-efa7-4e5e-a913-095e9da98539",
+          "last_edit": 1793808528
+        },
+        "git-sync requirements and architecture.md": {
+          "base": {
+            "blob": "9b22717e8926216e6e25a7a35494b822cbe97572"
+          },
+          "content": {
+            "blob": "f9e797951d618d84976fd39803d4865cf5c56202"
+          },
+          "intent": "48f29898-efa7-4e5e-a913-095e9da98539",
+          "last_edit": 1793808528
+        },
+        "git-sync.md": {
+          "base": {
+            "blob": "c9a151ce38154c744428d72b9a649069e1bc6755"
+          },
+          "content": {
+            "blob": "0eaa33d8efbfa11283a9cbe696d4ddcd5c4fa660"
+          },
+          "intent": "48f29898-efa7-4e5e-a913-095e9da98539",
+          "last_edit": 1793808528
+        }
+      },
+      "dependencies": [],
+      "intents": {
+        "48f29898-efa7-4e5e-a913-095e9da98539": {
+          "id": "48f29898-efa7-4e5e-a913-095e9da98539",
+          "purpose": "Prioritize macOS and Linux desktop releases before cloud work, defer authenticated cloud MCP to version 2.0, and align roadmap milestones and concept documentation with this release order.",
+          "paths": [
+            "Dispatch Mesh milestone plan.md",
+            "git-sync requirements and architecture.md",
+            "git-sync.md"
+          ],
+          "created_at": 1793808483
+        }
+      },
+      "message": null,
+      "message_base": null
+    },
     "f228dc61-aefd-4b3e-b5e7-f19e0abcf865": {
       "id": "f228dc61-aefd-4b3e-b5e7-f19e0abcf865",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
