@@ -9,8 +9,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793813695,
-      "last_edit": 1793813886,
-      "revision": 13,
+      "last_edit": 1793813906,
+      "revision": 14,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -30,6 +30,14 @@
           },
           "intent": null,
           "last_edit": 1793813740
+        },
+        ".obsidian/community-plugins.json": {
+          "base": null,
+          "content": {
+            "blob": "04c617480e53224b1a0a303090888226d0782d8b"
+          },
+          "intent": null,
+          "last_edit": 1793813906
         },
         ".obsidian/core-plugins.json": {
           "base": null,
