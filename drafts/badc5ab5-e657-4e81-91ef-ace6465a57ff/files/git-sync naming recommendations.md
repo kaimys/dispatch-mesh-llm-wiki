@@ -6,7 +6,7 @@ copilot_chat: obsidian://copilot-chat?vault=Dispatch-Wiki&id=epoch%3A17930994315
 Date: 2026-10-27
 Status: Naming exploration; no final name selected.
 
-Related: [[Dispatch Mesh]] and [[git-sync requirements and architecture]].
+Related: [[04_Discovery/git-sync/README]] and [[git-sync requirements and architecture]].
 
 ## Product positioning
 
