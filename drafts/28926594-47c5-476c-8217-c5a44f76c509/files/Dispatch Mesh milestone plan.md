@@ -140,7 +140,7 @@ Exit criteria:
 - Confirm the remaining lifecycle choices, including screen-lock behavior, before declaring the Windows desktop beta complete.
 
 ## 0.7 — macOS build
-## 0.8 — authenticated cloud MCP private alpha
+## 1.9 — authenticated cloud MCP private alpha
 
 Host the engine behind a remote MCP interface with explicit user and workspace authorization.
 
