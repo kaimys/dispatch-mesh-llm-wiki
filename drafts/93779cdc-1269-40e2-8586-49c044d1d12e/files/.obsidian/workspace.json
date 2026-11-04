@@ -22,6 +22,16 @@
             }
           },
           {
+            "id": "8fc4e83af58370bc",
+            "type": "leaf",
+            "state": {
+              "type": "dispatch-board",
+              "state": {},
+              "icon": "play",
+              "title": "Dispatch board"
+            }
+          },
+          {
             "id": "b4cdfb50d62d678f",
             "type": "leaf",
             "state": {
@@ -35,7 +45,8 @@
               "title": "README"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -203,7 +214,7 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "d347610810d2fba1",
+  "active": "8fc4e83af58370bc",
   "lastOpenFiles": [
     "00_Start-Here/sedW44df6",
     "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
