@@ -9,8 +9,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793813695,
-      "last_edit": 1793813779,
-      "revision": 7,
+      "last_edit": 1793813787,
+      "revision": 9,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -50,10 +50,10 @@
         ".obsidian/workspace.json": {
           "base": null,
           "content": {
-            "blob": "57cd1fcaeadcc60326de3e3fac59226e5afccaa5"
+            "blob": "b20ddaeac54b867a838197ee2fcee73a96c67c40"
           },
           "intent": null,
-          "last_edit": 1793813779
+          "last_edit": 1793813787
         },
         "00_Start-Here/Team/Kai.md": {
           "base": null,

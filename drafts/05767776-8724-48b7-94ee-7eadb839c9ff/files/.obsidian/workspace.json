@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "00_Start-Here/index.md",
-                "mode": "source",
+                "file": "00_Start-Here/log.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "log"
             }
           }
         ]
@@ -99,7 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "00_Start-Here/index.md",
+                "file": "00_Start-Here/log.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -118,7 +118,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "00_Start-Here/index.md",
+                "file": "00_Start-Here/log.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -161,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "00_Start-Here/index.md",
+                "file": "00_Start-Here/log.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -190,6 +190,7 @@
   },
   "active": "750cf0ac3be3e0ff",
   "lastOpenFiles": [
+    "00_Start-Here/index.md",
     "00_Start-Here/Team/Kai.md"
   ]
 }
