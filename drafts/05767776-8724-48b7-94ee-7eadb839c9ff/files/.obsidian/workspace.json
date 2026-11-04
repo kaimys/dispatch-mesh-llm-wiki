@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "00_Start-Here/log.md",
+                "file": "02_Product/Dispatch Mesh naming recommendations.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "log"
+              "title": "Dispatch Mesh naming recommendations"
             }
           }
         ]
@@ -99,7 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "00_Start-Here/log.md",
+                "file": "02_Product/Dispatch Mesh naming recommendations.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -118,7 +118,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "00_Start-Here/log.md",
+                "file": "02_Product/Dispatch Mesh naming recommendations.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -161,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "00_Start-Here/log.md",
+                "file": "02_Product/Dispatch Mesh naming recommendations.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -188,8 +188,12 @@
       "bases:Neue Base erstellen": false
     }
   },
-  "active": "750cf0ac3be3e0ff",
+  "active": "55ceda3168845134",
   "lastOpenFiles": [
+    "02_Product/Dispatch Mesh milestone plan.md",
+    "02_Product/Dispatch Mesh naming recommendations.md",
+    "02_Product/Dispatch Mesh requirements and architecture.md",
+    "00_Start-Here/log.md",
     "00_Start-Here/index.md",
     "00_Start-Here/Team/Kai.md"
   ]
