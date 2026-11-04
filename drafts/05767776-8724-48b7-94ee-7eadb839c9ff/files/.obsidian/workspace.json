@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02_Product/Dispatch Mesh naming recommendations.md",
+                "file": "04_Discovery/git-sync/README.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Dispatch Mesh naming recommendations"
+              "title": "README"
             }
           }
         ]
@@ -99,7 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "02_Product/Dispatch Mesh naming recommendations.md",
+                "file": "04_Discovery/git-sync/README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -118,7 +118,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "02_Product/Dispatch Mesh naming recommendations.md",
+                "file": "04_Discovery/git-sync/README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -161,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "02_Product/Dispatch Mesh naming recommendations.md",
+                "file": "04_Discovery/git-sync/README.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -188,10 +188,10 @@
       "bases:Neue Base erstellen": false
     }
   },
-  "active": "55ceda3168845134",
+  "active": "750cf0ac3be3e0ff",
   "lastOpenFiles": [
-    "02_Product/Dispatch Mesh milestone plan.md",
     "02_Product/Dispatch Mesh naming recommendations.md",
+    "02_Product/Dispatch Mesh milestone plan.md",
     "02_Product/Dispatch Mesh requirements and architecture.md",
     "00_Start-Here/log.md",
     "00_Start-Here/index.md",
