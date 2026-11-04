@@ -217,8 +217,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Add documentation site requirement to desktop 1.0 milestone",
+        "description": "Update the existing Dispatch Mesh milestone plan to include creating documentation in a sub-site of the project’s GitHub Pages site as a 1.0 exit criterion."
+      },
+      "message_base": "fdf3bfa294f01eddea5495dcc6810c0bf3ad7fd9"
     },
     "749543b5-f9c1-456b-8eab-198c13f33f5e": {
       "id": "749543b5-f9c1-456b-8eab-198c13f33f5e",
