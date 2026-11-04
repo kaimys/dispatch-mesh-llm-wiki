@@ -139,7 +139,7 @@ Exit criteria:
 - Startup registration does not leave duplicate processes or stale application entries after upgrades.
 - Confirm the remaining lifecycle choices, including screen-lock behavior, before declaring the Windows desktop beta complete.
 
-## 0.7 — macOS build an public beta
+## 0.7 — macOS build 
 ## 0.8 — authenticated cloud MCP private alpha
 
 Host the engine behind a remote MCP interface with explicit user and workspace authorization.
