@@ -34,6 +34,7 @@ Entry point for people and agents. Read this first, then follow the links. Every
 ## Requirements
 
 - `05_Requirements/Tickets/` — tickets (the Dispatch board)
+  - [[Story - US00001 - Tray icon and status window host|US00001]] — tray icon and status window host (v0.3.0)
 
 ## Engineering
 
