@@ -2,7 +2,7 @@
 copilot_chat: obsidian://copilot-chat?vault=Dispatch-Wiki&id=epoch%3A1793099431555
 ---
 
-# git-sync requirements and architecture
+# Dispatch Mesh requirements and architecture
 
 Status: Product discovery; requirements and implementation recommendation, not an implementation ticket.
 
