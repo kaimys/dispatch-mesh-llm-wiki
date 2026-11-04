@@ -120,7 +120,7 @@
       "created_at": 1793808191,
       "last_edit": 1793808295,
       "revision": 15,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -137,8 +137,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Add macOS build milestone section to delivery plan",
+        "description": "Update the existing milestone plan with a dedicated 0.7 macOS build heading before the authenticated cloud MCP private-alpha section."
+      },
+      "message_base": "08b93665bdcc0bf8139b015636086ea1507de7d5"
     },
     "35bca660-edcd-43fa-a8be-ef21e46f56bd": {
       "id": "35bca660-edcd-43fa-a8be-ef21e46f56bd",
