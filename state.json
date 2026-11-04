@@ -90,7 +90,7 @@
       "last_edit": 1793802745,
       "revision": 5,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "little.md": {
@@ -113,8 +113,11 @@
           "created_at": 1793802718
         }
       },
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Update little.md",
+        "description": "Saved editing session. No AI-generated explanation is available."
+      },
+      "message_base": "e3b65eaefb0b952f33ab6474b5a42522d21448b8"
     },
     "a46feca4-ae0e-457e-b25e-dec106968f82": {
       "id": "a46feca4-ae0e-457e-b25e-dec106968f82",
