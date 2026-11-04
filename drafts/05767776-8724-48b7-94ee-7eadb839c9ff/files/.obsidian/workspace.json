@@ -20,8 +20,19 @@
               "icon": "lucide-file",
               "title": "README"
             }
+          },
+          {
+            "id": "af88385a168b1037",
+            "type": "leaf",
+            "state": {
+              "type": "dispatch-board",
+              "state": {},
+              "icon": "play",
+              "title": "Dispatch board"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -185,10 +196,11 @@
       "daily-notes:Heutige Notiz öffnen": false,
       "templates:Vorlage einfügen": false,
       "command-palette:Befehlspalette öffnen": false,
-      "bases:Neue Base erstellen": false
+      "bases:Neue Base erstellen": false,
+      "dispatch:Open Dispatch board": false
     }
   },
-  "active": "750cf0ac3be3e0ff",
+  "active": "af88385a168b1037",
   "lastOpenFiles": [
     "02_Product/Dispatch Mesh naming recommendations.md",
     "02_Product/Dispatch Mesh milestone plan.md",
