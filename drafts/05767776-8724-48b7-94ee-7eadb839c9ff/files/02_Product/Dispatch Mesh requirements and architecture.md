@@ -6,7 +6,7 @@ copilot_chat: obsidian://copilot-chat?vault=Dispatch-Wiki&id=epoch%3A17930994315
 
 Status: Product discovery; requirements and implementation recommendation, not an implementation ticket.
 
-Based on [[04_Discovery/git-sync/README]] and the subsequent discussion about desktop operation, autonomous agents, and cloud access through MCP.
+Based on [[README]] and the subsequent discussion about desktop operation, autonomous agents, and cloud access through MCP.
 
 ## Product objective
 
@@ -210,7 +210,7 @@ SQLite is recommended for desktop and individual worker state. A horizontally sc
 
 ## Session, synchronization, and recovery recommendations
 
-These extend the design hypotheses in [[04_Discovery/git-sync/README]] and still require validation.
+These extend the design hypotheses in [[README]] and still require validation.
 
 - Extend only the current unpublished editing session. Once published into shared history, treat its commit as permanent.
 - Use a stable session ID independent of changing draft commit hashes.
@@ -278,7 +278,7 @@ Design the engine's identity and storage boundaries for cloud use from the start
 
 ## References
 
-- [[04_Discovery/git-sync/README]] — original discovery discussion, session model, and synchronization precedents.
+- [[README]] — original discovery discussion, session model, and synchronization precedents.
 - [Tokio tutorial](https://tokio.rs/tokio/tutorial) — asynchronous runtime.
 - [notify documentation](https://docs.rs/notify/latest/notify/) — filesystem notifications, polling fallback, and platform limitations.
 - [Git merge-tree documentation](https://git-scm.com/docs/git-merge-tree) — merge computation without modifying the working tree or index.

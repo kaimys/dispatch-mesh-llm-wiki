@@ -3,7 +3,7 @@
 Date: 2026-11-04  
 Status: Proposed delivery plan. Version numbers describe intended scope; they are not delivery-date commitments.
 
-Related: [[Dispatch Mesh requirements and architecture]], [[04_Discovery/git-sync/README]].
+Related: [[Dispatch Mesh requirements and architecture]], [[README]].
 
 ## Objective
 

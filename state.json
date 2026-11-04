@@ -9,8 +9,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793813695,
-      "last_edit": 1793813930,
-      "revision": 16,
+      "last_edit": 1793814174,
+      "revision": 17,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -18,10 +18,10 @@
         ".obsidian/app.json": {
           "base": null,
           "content": {
-            "blob": "9e26dfeeb6e641a33dae4961196235bdb965b21b"
+            "blob": "6abe4c134a9c03f65b3c19323a4081ec2782d1af"
           },
           "intent": null,
-          "last_edit": 1793813740
+          "last_edit": 1793814174
         },
         ".obsidian/appearance.json": {
           "base": null,
@@ -138,10 +138,10 @@
         "00_Start-Here/index.md": {
           "base": null,
           "content": {
-            "blob": "081b175118a8c324e9c3949c8321ccbe6ce5697b"
+            "blob": "ee3feedcc96f430b483a3fdfc76a0ee858e5f0d6"
           },
           "intent": null,
-          "last_edit": 1793813715
+          "last_edit": 1793814174
         },
         "00_Start-Here/log.md": {
           "base": null,
@@ -154,26 +154,26 @@
         "02_Product/Dispatch Mesh milestone plan.md": {
           "base": null,
           "content": {
-            "blob": "61a9616d66e4631e3d39a981e56690742d193251"
+            "blob": "0c549f50b030f2999e8f100df97ed070be492738"
           },
           "intent": null,
-          "last_edit": 1793813703
+          "last_edit": 1793814174
         },
         "02_Product/Dispatch Mesh naming recommendations.md": {
           "base": null,
           "content": {
-            "blob": "c191181770d82ab0018b06a592559411ba41e4cd"
+            "blob": "94542d76a9bef1e5360d62a09ef40c96cc3aa1ff"
           },
           "intent": null,
-          "last_edit": 1793813703
+          "last_edit": 1793814174
         },
         "02_Product/Dispatch Mesh requirements and architecture.md": {
           "base": null,
           "content": {
-            "blob": "4db950e016d78c2ae2844c723fc07740f89ac7dd"
+            "blob": "c4c9f72f478e27703ed037c7cfa7d171d9e078ff"
           },
           "intent": null,
-          "last_edit": 1793813703
+          "last_edit": 1793814174
         },
         "02_Product/README.md": {
           "base": null,

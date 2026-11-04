@@ -29,7 +29,7 @@ Entry point for people and agents. Read this first, then follow the links. Every
 
 ## Discovery
 
-- [[04_Discovery/git-sync/README|git-sync discovery]] — concept updates and the original discovery discussion
+- [[README|git-sync discovery]] — concept updates and the original discovery discussion
 
 ## Requirements
 
