@@ -1,7 +1,7 @@
 ---
 copilot_chat: obsidian://copilot-chat?vault=Dispatch-Wiki&id=epoch%3A1793099431555
 ---
-# git-sync
+# Dispatch Mesh
 
 ## Concept update: sessions, conflicts, and editing presence (2026-11-04)
 
