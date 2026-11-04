@@ -239,7 +239,7 @@
       "last_edit": 1793806287,
       "revision": 1,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "test-notiz.md": {
