@@ -11,7 +11,7 @@
       "created_at": 1793813695,
       "last_edit": 1793814174,
       "revision": 17,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -515,6 +515,38 @@
         "description": "Add `Dispatch Mesh milestone plan.md`."
       },
       "message_base": "8666e2d536dd1a1d9880e938b6f51c51346282e6"
+    },
+    "8d897d95-6824-4982-a669-de63f56b2cb3": {
+      "id": "8d897d95-6824-4982-a669-de63f56b2cb3",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793814481,
+      "last_edit": 1793814481,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        ".obsidian/workspace.json": {
+          "base": {
+            "blob": "e4a02e4d2e739da9a4bc6f133b2a74b52707cdb9"
+          },
+          "content": {
+            "blob": "ad30f0d6a38a3b8ad68ee77a7bccecc5f3ce62eb"
+          },
+          "intent": null,
+          "last_edit": 1793814481
+        }
+      },
+      "dependencies": [
+        "05767776-8724-48b7-94ee-7eadb839c9ff"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
     },
     "a46feca4-ae0e-457e-b25e-dec106968f82": {
       "id": "a46feca4-ae0e-457e-b25e-dec106968f82",
