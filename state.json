@@ -1,6 +1,34 @@
 {
   "version": 2,
   "sessions": {
+    "0ea29c85-4a1f-4874-b01b-26446b462e9b": {
+      "id": "0ea29c85-4a1f-4874-b01b-26446b462e9b",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793804285,
+      "last_edit": 1793804285,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "Unbenannt.md": {
+          "base": null,
+          "content": {
+            "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          "intent": null,
+          "last_edit": 1793804285
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "16bcef2e-800a-47e7-a542-bbf713b2be19": {
       "id": "16bcef2e-800a-47e7-a542-bbf713b2be19",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
