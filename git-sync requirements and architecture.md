@@ -14,6 +14,8 @@ Provide reliable Git-backed synchronization for Dispatch on Windows, macOS, and 
 
 The first release targets Windows. The same synchronization engine should later support desktop clients on other platforms and a cloud-hosted Dispatch service that users can access without a local setup.
 
+Delivery priority: complete the Windows, macOS, and Linux desktop product before the authenticated cloud MCP upgrade. The roadmap targets macOS beta in 0.7, Linux beta in 0.8, cross-platform desktop beta in 0.9, and a stable desktop release in 1.0. Cloud MCP previews and release belong to the later 2.0 cycle. Cloud requirements below describe that deferred scope; retain the engine boundaries needed for it without making cloud hosting a desktop prerequisite. See [[Dispatch Mesh milestone plan]].
+
 ## Confirmed requirements
 
 ### Desktop operation
@@ -253,9 +255,9 @@ Record a resolution as a new traceable change, retaining the competing inputs. B
 1. Build a Windows console executable with durable snapshots, session management, Git integration, and recovery.
 2. Add login startup and desktop status controls around that engine.
 3. Validate offline operation, restart recovery, concurrent edits, and conflict preservation.
-4. Add macOS and Linux hosts without changing the core session model.
-5. Build the cloud host with persistent workspaces, identity isolation, and durable jobs.
-6. Expose Dispatch operations through authenticated MCP tools and per-user GitHub authorization.
+4. Add macOS beta in 0.7 and Linux beta in 0.8 without changing the core session model, then validate cross-platform desktop operation in 0.9 and release the stable desktop product in 1.0.
+5. In the 2.0 upgrade cycle, build the cloud host with persistent workspaces, identity isolation, and durable jobs.
+6. In that same 2.0 cycle, expose Dispatch operations through authenticated MCP tools and per-user GitHub authorization, with private-alpha and beta gates before release.
 7. Add recurring autonomous work under its explicitly configured identity.
 
 Design the engine's identity and storage boundaries for cloud use from the start, while implementing the Windows experience first.

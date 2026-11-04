@@ -7,20 +7,24 @@ Related: [[git-sync requirements and architecture]], [[git-sync]].
 
 ## Objective
 
-Move from the current console preview to a Windows application that people can set up and use without knowing Git, then expose the same workspace operations through an authenticated cloud MCP service.
+Move from the current console preview to desktop applications for Windows, macOS, and Linux that people can set up and use without knowing Git. Deliver the desktop product first; authenticated cloud MCP is deferred to the 2.0 upgrade.
 
-The five requested capabilities are the main delivery milestones. Bundled Git precedes guided setup so that the setup flow can be tested on a computer with no Git installation.
+Bundled Git precedes guided setup so that the setup flow can be tested on a computer with no Git installation. macOS and Linux builds precede cloud delivery. The 1.0 release gate covers the desktop product; MCP previews and release belong to the later 2.0 delivery cycle.
 
-| Version | Milestone                             | Result for the user                                                         | Dependencies                                                  |
-| ------- | ------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| 0.2.x   | Stabilize the engine preview          | Reliable capture, synchronization, recovery, and understandable diagnostics | Current implementation                                        |
-| 0.3     | Tray application                      | See activity, finish a session, and review conflicts from the desktop       | Engine stabilization                                          |
-| 0.4     | Bundled Git and Windows packaging     | Install and run Mesh without installing Git separately                      | Tray host and a tested Git backend                            |
-| 0.5     | Guided account and repository setup   | Create or join a workspace without Git commands                             | Tray UI, bundled Git, and credential integration              |
-| 0.6     | Login startup and desktop beta        | Mesh starts with the user's login and recovers automatically                | Packaged application and guided setup                         |
-| 0.7     | macOS beta                            | A macOS build                                                               | ?                                                             |
-| 0.8     | Authenticated cloud MCP private alpha | Use Dispatch workspaces through a remote assistant without a local clone    | Stable engine contracts, durable jobs, and identity isolation |
-| 0.9     | Cloud beta and operational readiness  | Predictable hosted operation, recovery, and account lifecycle handling      | Cloud private-alpha acceptance                                |
+| Version | Milestone | Result for the user | Dependencies |
+|---|---|---|---|
+| 0.2.x | Stabilize the engine preview | Reliable capture, synchronization, recovery, and understandable diagnostics | Current implementation |
+| 0.3 | Tray application | See activity, finish a session, and review conflicts from the desktop | Engine stabilization |
+| 0.4 | Bundled Git and Windows packaging | Install and run Mesh without installing Git separately | Tray host and a tested Git backend |
+| 0.5 | Guided account and repository setup | Create or join a workspace without Git commands | Tray UI, bundled Git, and credential integration |
+| 0.6 | Login startup and Windows desktop beta | Mesh starts with the user's login and recovers automatically | Packaged application and guided setup |
+| 0.7 | macOS beta | Install and use Mesh on the supported macOS systems | Portable engine, desktop controls, setup, and packaging contracts |
+| 0.8 | Linux beta | Install and use Mesh on the supported Linux distributions and desktops | Shared engine and desktop behavior, Linux packaging and credential integration |
+| 0.9 | Cross-platform desktop beta | Work reliably across Windows, macOS, and Linux devices | All three desktop betas |
+| 1.0 | Stable desktop release | Supported desktop operation without Git knowledge on all three platforms | Cross-platform acceptance and release readiness |
+| 2.0 alpha | Authenticated cloud MCP private alpha | Use Dispatch workspaces through a remote assistant without a local clone | Stable desktop engine contracts, durable jobs, and identity isolation |
+| 2.0 beta | Cloud operational readiness | Predictable hosted operation, recovery, and account lifecycle handling | Cloud private-alpha acceptance |
+| 2.0 | Authenticated cloud MCP release | Supported cloud access alongside the established desktop clients | Cloud beta, authorization review, and operational acceptance |
 
 ## Product decisions carried into every milestone
 
@@ -34,6 +38,7 @@ The five requested capabilities are the main delivery milestones. Bundled Git pr
 - Provide advisory, per-file recent-save presence. Editor integrations can later provide a more precise active-editing signal.
 - Keep manual Git operations in managed folders outside the initial supported workflow.
 - Keep the engine independent of the desktop host, startup mechanism, AI provider, and cloud authentication layer.
+- Complete the Windows, macOS, and Linux desktop delivery before the cloud MCP upgrade. Cloud authentication and hosting are not prerequisites for desktop setup or synchronization.
 
 ## 0.2.x — engine stabilization
 
@@ -139,8 +144,72 @@ Exit criteria:
 - Startup registration does not leave duplicate processes or stale application entries after upgrades.
 - Confirm the remaining lifecycle choices, including screen-lock behavior, before declaring the Windows desktop beta complete.
 
-## 0.7 — macOS build
-## 0.8 — authenticated cloud MCP private alpha
+## 0.7 — macOS beta
+
+Deliver the desktop workflow on macOS using the shared synchronization engine.
+
+Work:
+
+- Define the supported macOS versions and CPU architectures, then build and test that release matrix.
+- Port the tray controls to a menu-bar application with workspace status, conflict review, recent-save presence, and optional **Finish session**.
+- Provide guided setup, platform-appropriate credential storage, packaged Git and authentication helpers, and user-controlled login startup.
+- Prepare signing, notarization, installation, upgrade, and uninstall handling for the chosen distribution method.
+- Validate filesystem watching, file replacement, path handling, permissions, sleep/resume, logout, and recovery on actual macOS systems.
+
+Exit criteria:
+
+- A user can install, create or join a workspace, and synchronize without installing Git or using a terminal.
+- A macOS device exchanges drafts and finalized sessions with Windows while preserving content, authorship, intent, and conflict records.
+- Restart, sleep/resume, and application upgrades preserve pending work and preferences.
+- Published artifacts are tested on every supported architecture and OS version.
+
+## 0.8 — Linux beta
+
+Deliver Linux desktop builds before beginning the cloud MCP release cycle.
+
+Work:
+
+- Define supported distributions, CPU architectures, desktop environments, and package formats.
+- Deliver tray/status controls, guided setup, platform-appropriate credential storage, bundled Git and helpers, and per-user desktop startup integration.
+- Validate the desktop UI and access to status and conflict actions across the supported environment matrix.
+- Exercise filesystem watching and reconciliation, file permissions, path behavior, logout, sleep/resume, and network recovery.
+- Define the supported desktop lifecycle explicitly; keep independently supervised cloud hosting in the 2.0 scope.
+
+Exit criteria:
+
+- A user can install and complete setup on each supported distribution without a Git CLI or a separate Git installation.
+- Linux, macOS, and Windows devices share a workspace and converge after offline and concurrent editing.
+- Startup, quit, pause, upgrade, and recovery behavior match the documented desktop rules.
+- Packaging and credential failures provide actionable diagnostics without exposing secrets.
+
+## 0.9 — cross-platform desktop beta
+
+Validate the three desktop hosts as one product before declaring desktop stability.
+
+Work:
+
+- Run collaboration and recovery scenarios across mixed Windows, macOS, and Linux clients.
+- Validate line endings, Unicode filenames, case sensitivity, supported file modes, renames, deletions, and binary conflict handling. Document unsupported cases explicitly.
+- Exercise upgrades and transport/storage migrations with clients on different supported versions.
+- Complete platform-specific onboarding, installation, diagnostics, and recovery documentation.
+
+Exit criteria:
+
+- The cross-platform regression matrix passes, including offline recovery and concurrent publication.
+- Supported filesystem and version-compatibility policies are explicit and verified.
+- Remaining release-blocking data preservation, setup, and platform lifecycle issues are resolved.
+
+## 1.0 — stable desktop release
+
+Release the supported desktop product for Windows, macOS, and Linux. Cloud MCP remains deferred to 2.0.
+
+Exit criteria:
+
+- Installation, guided setup, bundled Git, desktop controls, login startup, and recovery are validated on all supported platforms.
+- Release artifacts, updates, compatibility policy, support matrix, and recovery guidance are ready for users.
+- Users can perform the normal synchronization workflow without Git knowledge or cloud MCP access.
+
+## 2.0 alpha — authenticated cloud MCP private alpha
 
 Host the engine behind a remote MCP interface with explicit user and workspace authorization.
 
@@ -173,7 +242,7 @@ Exit criteria:
 - Token expiry, revocation, account unlinking, worker restart, and publication races have tested recovery behavior.
 - A remote agent can edit a file, attach purpose, optionally finish its session, and observe synchronization without a local clone.
 
-## 0.9 — cloud beta and operational readiness
+## 2.0 beta — cloud operational readiness
 
 Expand beyond the private alpha after the identity and recovery boundaries are validated.
 
@@ -191,6 +260,16 @@ Exit criteria:
 - Operational limits and retention behavior are documented and visible to administrators and users where relevant.
 - Security and authorization review findings are resolved before widening access.
 
+## 2.0 — authenticated cloud MCP release
+
+Release authenticated remote MCP access after the established desktop product and the cloud alpha/beta gates are complete.
+
+Exit criteria:
+
+- The supported MCP operations, account linking, authorization, identity attribution, and queued-job behavior are documented and validated.
+- Operational recovery, retention, quotas, monitoring, and support procedures have passed the cloud beta gates.
+- Desktop clients continue to work independently, and mixed desktop/cloud collaboration preserves session history and conflict recovery.
+
 ## Decisions to close during delivery
 
 | Decision | Needed before |
@@ -199,14 +278,17 @@ Exit criteria:
 | Git distribution, credential-helper packaging, installer format, and distribution review | Shipping 0.4 |
 | Desktop GitHub authorization flow, repository visibility default, and existing-folder reconciliation UX | Shipping 0.5 |
 | Startup preference defaults, screen-lock behavior, quit semantics, and supported Windows versions | Shipping 0.6 |
-| Cloud hosting, identity provider, workspace sharing, multi-account selection, and first tool schemas | Shipping 0.7 |
-| Retention, capacity, quotas, backup objectives, and the boundary between user-directed and autonomous jobs | Widening cloud access in 0.8 |
+| Supported macOS versions and architectures, distribution, credential storage, and menu-bar integration | Shipping 0.7 |
+| Supported Linux distributions and desktops, package formats, credential storage, and startup lifecycle | Shipping 0.8 |
+| Cross-platform filesystem policy, upgrade compatibility, support matrix, and release readiness | Shipping 1.0 |
+| Cloud hosting, identity provider, workspace sharing, multi-account selection, and first tool schemas | Shipping 2.0 alpha |
+| Retention, capacity, quotas, backup objectives, and the boundary between user-directed and autonomous jobs | Widening cloud access in 2.0 beta |
 
 These decisions do not change the confirmed synchronization and session behavior above.
 
 ## Parallel and later tracks
 
-- Keep portability checks running as the shared engine evolves. Schedule macOS and Linux desktop hosts and their startup integration as separate platform releases; prioritize them explicitly alongside the cloud work.
+- Keep portability checks running as the shared engine evolves. macOS 0.7 and Linux 0.8 are explicit desktop milestones before 1.0; cloud MCP is scheduled for the later 2.0 cycle.
 - Add editor integrations for precise editing presence after the recent-save feature is established.
 - Add richer text conflict editing, format-aware validation, and optional AI conflict proposals after preservation and manual review are dependable.
 - Keep recurring autonomous-agent execution separate from synchronization. Schedule it once the required operations and identity policy are defined.

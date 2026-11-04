@@ -5,6 +5,8 @@ copilot_chat: obsidian://copilot-chat?vault=Dispatch-Wiki&id=epoch%3A17930994315
 
 ## Concept update: sessions, conflicts, and editing presence (2026-11-04)
 
+Release priority: Windows, macOS, and Linux desktop delivery comes first, with authenticated cloud MCP deferred to the 2.0 upgrade. The roadmap places macOS beta at 0.7, Linux beta at 0.8, cross-platform desktop beta at 0.9, and desktop stability at 1.0. See [[Dispatch Mesh milestone plan]] for scope, dependencies, and acceptance criteria.
+
 Text files are the primary focus, but binary files are synchronized and committed as well. Binary conflicts preserve both complete versions and can only be resolved by choosing one of those versions; Mesh does not merge binary contents or ask AI to synthesize a resolution.
 
 Users do not need Git knowledge or a Git CLI to set up Mesh. Guided desktop setup supports creating a workspace and backing repository, joining an existing workspace by cloning its repository, and connecting an existing local folder with or without Git history. Mesh handles repository operations and account connection, preserving existing content and history when connecting local and remote data. Present familiar workspace and folder concepts, with clear destination account and visibility choices when creating a repository.
