@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "04_Discovery/git-sync/README.md",
+                "file": "02_Product/README.md",
                 "mode": "preview",
                 "source": false
               },
@@ -200,7 +200,7 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "af88385a168b1037",
+  "active": "55ceda3168845134",
   "lastOpenFiles": [
     "02_Product/Dispatch Mesh naming recommendations.md",
     "02_Product/Dispatch Mesh milestone plan.md",

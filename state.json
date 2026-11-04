@@ -9,8 +9,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793813695,
-      "last_edit": 1793813911,
-      "revision": 15,
+      "last_edit": 1793813930,
+      "revision": 16,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -82,10 +82,10 @@
         ".obsidian/workspace.json": {
           "base": null,
           "content": {
-            "blob": "2df278b88d514dddd3a0757789e1a23a18b3ad1c"
+            "blob": "e4a02e4d2e739da9a4bc6f133b2a74b52707cdb9"
           },
           "intent": null,
-          "last_edit": 1793813911
+          "last_edit": 1793813930
         },
         "00_Start-Here/Team/Kai.md": {
           "base": null,
@@ -175,13 +175,13 @@
           "intent": null,
           "last_edit": 1793813703
         },
-        "04_Discovery/git-sync/README.md": {
+        "02_Product/README.md": {
           "base": null,
           "content": {
             "blob": "54fcf1f6ffd151e13aa4d97eac88a545f8714d18"
           },
           "intent": null,
-          "last_edit": 1793813703
+          "last_edit": 1793813930
         },
         "Dispatch Mesh milestone plan.md": {
           "base": {
