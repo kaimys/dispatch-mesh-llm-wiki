@@ -1,7 +1,7 @@
 ---
 copilot_chat: obsidian://copilot-chat?vault=Dispatch-Wiki&id=epoch%3A1793099431555
 ---
-# git-sync
+# Dispatch Mesh
 
 ## Concept update: sessions, conflicts, and editing presence (2026-11-04)
 
@@ -25,7 +25,7 @@ Recent-save presence is tracked per file and expires after five minutes without 
 
 The tray icon opens a Mesh status window with file activity and an unresolved-conflicts list. Selecting a conflict exposes the competing versions, authors, and resolution actions. GitHub stores synchronized data but does not automatically supply this user interface.
 
-The selected session model is continuous draft synchronization, with related changes across multiple files collected into one session. Five minutes without local edits ends the session; switching files does not. The discovery discussion below records earlier alternatives. See [[git-sync requirements and architecture]] for the current requirements and editing-presence behavior.
+The selected session model is continuous draft synchronization, with related changes across multiple files collected into one session. Five minutes without local edits ends the session; switching files does not. The discovery discussion below records earlier alternatives. See [[Dispatch Mesh requirements and architecture]] for the current requirements and editing-presence behavior.
 
 "Finish session" is optional and available from the tray menu and status window. Local agents can use a CLI operation, and remote agents can use an authenticated MCP tool; both access the same operation and default to the caller's own session. Users and agents can simply rely on the five-minute timeout instead. Further edits can begin a new session while the previous one is being finalized.
 

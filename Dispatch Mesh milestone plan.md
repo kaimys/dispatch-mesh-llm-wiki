@@ -3,7 +3,7 @@
 Date: 2026-11-04  
 Status: Proposed delivery plan. Version numbers describe intended scope; they are not delivery-date commitments.
 
-Related: [[git-sync requirements and architecture]], [[git-sync]].
+Related: [[Dispatch Mesh requirements and architecture]], [[04_Discovery/git-sync/README]].
 
 ## Objective
 
@@ -11,20 +11,20 @@ Move from the current console preview to desktop applications for Windows, macOS
 
 Bundled Git precedes guided setup so that the setup flow can be tested on a computer with no Git installation. macOS and Linux builds precede cloud delivery. The 1.0 release gate covers the desktop product; MCP previews and release belong to the later 2.0 delivery cycle.
 
-| Version | Milestone | Result for the user | Dependencies |
-|---|---|---|---|
-| 0.2.x | Stabilize the engine preview | Reliable capture, synchronization, recovery, and understandable diagnostics | Current implementation |
-| 0.3 | Tray application | See activity, finish a session, and review conflicts from the desktop | Engine stabilization |
-| 0.4 | Bundled Git and Windows packaging | Install and run Mesh without installing Git separately | Tray host and a tested Git backend |
-| 0.5 | Guided account and repository setup | Create or join a workspace without Git commands | Tray UI, bundled Git, and credential integration |
-| 0.6 | Login startup and Windows desktop beta | Mesh starts with the user's login and recovers automatically | Packaged application and guided setup |
-| 0.7 | macOS beta | Install and use Mesh on the supported macOS systems | Portable engine, desktop controls, setup, and packaging contracts |
-| 0.8 | Linux beta | Install and use Mesh on the supported Linux distributions and desktops | Shared engine and desktop behavior, Linux packaging and credential integration |
-| 0.9 | Cross-platform desktop beta | Work reliably across Windows, macOS, and Linux devices | All three desktop betas |
-| 1.0 | Stable desktop release | Supported desktop operation without Git knowledge on all three platforms | Cross-platform acceptance and release readiness |
-| 2.0 alpha | Authenticated cloud MCP private alpha | Use Dispatch workspaces through a remote assistant without a local clone | Stable desktop engine contracts, durable jobs, and identity isolation |
-| 2.0 beta | Cloud operational readiness | Predictable hosted operation, recovery, and account lifecycle handling | Cloud private-alpha acceptance |
-| 2.0 | Authenticated cloud MCP release | Supported cloud access alongside the established desktop clients | Cloud beta, authorization review, and operational acceptance |
+| Version   | Milestone                              | Result for the user                                                         | Dependencies                                                                   |
+| --------- | -------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| 0.2.x     | Stabilize the engine preview           | Reliable capture, synchronization, recovery, and understandable diagnostics | Current implementation                                                         |
+| 0.3       | Tray application                       | See activity, finish a session, and review conflicts from the desktop       | Engine stabilization                                                           |
+| 0.4       | Bundled Git and Windows packaging      | Install and run Mesh without installing Git separately                      | Tray host and a tested Git backend                                             |
+| 0.5       | Guided account and repository setup    | Create or join a workspace without Git commands                             | Tray UI, bundled Git, and credential integration                               |
+| 0.6       | Login startup and Windows desktop beta | Mesh starts with the user's login and recovers automatically                | Packaged application and guided setup                                          |
+| 0.7       | macOS beta                             | Install and use Mesh on the supported macOS systems                         | Portable engine, desktop controls, setup, and packaging contracts              |
+| 0.8       | Linux beta                             | Install and use Mesh on the supported Linux distributions and desktops      | Shared engine and desktop behavior, Linux packaging and credential integration |
+| 0.9       | Cross-platform desktop beta            | Work reliably across Windows, macOS, and Linux devices                      | All three desktop betas                                                        |
+| 1.0       | Stable desktop release                 | Supported desktop operation without Git knowledge on all three platforms    | Cross-platform acceptance and release readiness                                |
+| 2.0 alpha | Authenticated cloud MCP private alpha  | Use Dispatch workspaces through a remote assistant without a local clone    | Stable desktop engine contracts, durable jobs, and identity isolation          |
+| 2.0 beta  | Cloud operational readiness            | Predictable hosted operation, recovery, and account lifecycle handling      | Cloud private-alpha acceptance                                                 |
+| 2.0       | Authenticated cloud MCP release        | Supported cloud access alongside the established desktop clients            | Cloud beta, authorization review, and operational acceptance                   |
 
 ## Product decisions carried into every milestone
 
