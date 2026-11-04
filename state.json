@@ -562,8 +562,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793815185,
-      "last_edit": 1793815208,
-      "revision": 2,
+      "last_edit": 1793815358,
+      "revision": 5,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -573,10 +573,38 @@
             "blob": "ad30f0d6a38a3b8ad68ee77a7bccecc5f3ce62eb"
           },
           "content": {
-            "blob": "28e3c14e348851dd4602b3dda6f2f3378a491d71"
+            "blob": "ebf5cb9d1fb78fd5c4caff33d3f86e63dccedf11"
           },
           "intent": null,
-          "last_edit": 1793815208
+          "last_edit": 1793815358
+        },
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "ee3feedcc96f430b483a3fdfc76a0ee858e5f0d6"
+          },
+          "content": {
+            "blob": "be66c1649b79404ef12256c8c67a3d9ddeb57c0f"
+          },
+          "intent": null,
+          "last_edit": 1793815356
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "327e4369ca0619d5e9754ae43289c3745e0022e4"
+          },
+          "content": {
+            "blob": "030d5eeca2cf7a2a0afa843976afabeba5f0bca8"
+          },
+          "intent": null,
+          "last_edit": 1793815356
+        },
+        "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md": {
+          "base": null,
+          "content": {
+            "blob": "4d6d13fb2ec145b58b0176b32455453c3da39933"
+          },
+          "intent": null,
+          "last_edit": 1793815354
         }
       },
       "dependencies": [],

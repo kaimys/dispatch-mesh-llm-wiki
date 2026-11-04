@@ -45,8 +45,7 @@
               "title": "README"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -108,7 +107,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 255.5
+    "width": 295.5
   },
   "right": {
     "id": "be9201a3d6b37774",
@@ -214,8 +213,11 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "d347610810d2fba1",
+  "active": "55ceda3168845134",
   "lastOpenFiles": [
+    "00_Start-Here/sedW44df6",
+    "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
+    "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md.tmp.13304.79653b317089",
     "02_Product/README.md",
     "02_Product/Dispatch Mesh milestone plan.md",
     "02_Product/Dispatch Mesh naming recommendations.md",
