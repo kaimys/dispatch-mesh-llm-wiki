@@ -46,7 +46,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -214,10 +214,10 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "b4cdfb50d62d678f",
+  "active": "d347610810d2fba1",
   "lastOpenFiles": [
-    "02_Product/Dispatch Mesh milestone plan.md",
     "02_Product/README.md",
+    "02_Product/Dispatch Mesh milestone plan.md",
     "02_Product/Dispatch Mesh naming recommendations.md",
     "02_Product/Dispatch Mesh requirements and architecture.md",
     "00_Start-Here/log.md",
