@@ -11,15 +11,16 @@ Move from the current console preview to a Windows application that people can s
 
 The five requested capabilities are the main delivery milestones. Bundled Git precedes guided setup so that the setup flow can be tested on a computer with no Git installation.
 
-| Version | Milestone | Result for the user | Dependencies |
-|---|---|---|---|
-| 0.2.x | Stabilize the engine preview | Reliable capture, synchronization, recovery, and understandable diagnostics | Current implementation |
-| 0.3 | Tray application | See activity, finish a session, and review conflicts from the desktop | Engine stabilization |
-| 0.4 | Bundled Git and Windows packaging | Install and run Mesh without installing Git separately | Tray host and a tested Git backend |
-| 0.5 | Guided account and repository setup | Create or join a workspace without Git commands | Tray UI, bundled Git, and credential integration |
-| 0.6 | Login startup and desktop beta | Mesh starts with the user's login and recovers automatically | Packaged application and guided setup |
-| 0.7 | Authenticated cloud MCP private alpha | Use Dispatch workspaces through a remote assistant without a local clone | Stable engine contracts, durable jobs, and identity isolation |
-| 0.8 | Cloud beta and operational readiness | Predictable hosted operation, recovery, and account lifecycle handling | Cloud private-alpha acceptance |
+| Version | Milestone                             | Result for the user                                                         | Dependencies                                                  |
+| ------- | ------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| 0.2.x   | Stabilize the engine preview          | Reliable capture, synchronization, recovery, and understandable diagnostics | Current implementation                                        |
+| 0.3     | Tray application                      | See activity, finish a session, and review conflicts from the desktop       | Engine stabilization                                          |
+| 0.4     | Bundled Git and Windows packaging     | Install and run Mesh without installing Git separately                      | Tray host and a tested Git backend                            |
+| 0.5     | Guided account and repository setup   | Create or join a workspace without Git commands                             | Tray UI, bundled Git, and credential integration              |
+| 0.6     | Login startup and desktop beta        | Mesh starts with the user's login and recovers automatically                | Packaged application and guided setup                         |
+| 0.7     | macOS beta                            | A macOS build                                                               | ?                                                             |
+| 0.8     | Authenticated cloud MCP private alpha | Use Dispatch workspaces through a remote assistant without a local clone    | Stable engine contracts, durable jobs, and identity isolation |
+| 0.9     | Cloud beta and operational readiness  | Predictable hosted operation, recovery, and account lifecycle handling      | Cloud private-alpha acceptance                                |
 
 ## Product decisions carried into every milestone
 
@@ -138,7 +139,7 @@ Exit criteria:
 - Startup registration does not leave duplicate processes or stale application entries after upgrades.
 - Confirm the remaining lifecycle choices, including screen-lock behavior, before declaring the Windows desktop beta complete.
 
-## 0.7 — authenticated cloud MCP private alpha
+## 0.8 — authenticated cloud MCP private alpha
 
 Host the engine behind a remote MCP interface with explicit user and workspace authorization.
 
@@ -171,7 +172,7 @@ Exit criteria:
 - Token expiry, revocation, account unlinking, worker restart, and publication races have tested recovery behavior.
 - A remote agent can edit a file, attach purpose, optionally finish its session, and observe synchronization without a local clone.
 
-## 0.8 — cloud beta and operational readiness
+## 0.9 — cloud beta and operational readiness
 
 Expand beyond the private alpha after the identity and recovery boundaries are validated.
 
