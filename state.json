@@ -530,7 +530,7 @@
       "last_edit": 1793814481,
       "revision": 1,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         ".obsidian/workspace.json": {
@@ -548,8 +548,11 @@
         "05767776-8724-48b7-94ee-7eadb839c9ff"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Update workspace to focus on Dispatch planning",
+        "description": "Replace the Product README tab with the Dispatch Mesh milestone plan, keep the Dispatch board open, and make it the active tab."
+      },
+      "message_base": "a4c2490ffd8e3aac7f3d6c0428547dde087b9f47"
     },
     "a46feca4-ae0e-457e-b25e-dec106968f82": {
       "id": "a46feca4-ae0e-457e-b25e-dec106968f82",
