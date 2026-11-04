@@ -18,6 +18,7 @@ The five requested capabilities are the main delivery milestones. Bundled Git pr
 | 0.4     | Bundled Git and Windows packaging     | Install and run Mesh without installing Git separately                      | Tray host and a tested Git backend                            |
 | 0.5     | Guided account and repository setup   | Create or join a workspace without Git commands                             | Tray UI, bundled Git, and credential integration              |
 | 0.6     | Login startup and desktop beta        | Mesh starts with the user's login and recovers automatically                | Packaged application and guided setup                         |
+
 | 0.8     | Authenticated cloud MCP private alpha | Use Dispatch workspaces through a remote assistant without a local clone    | Stable engine contracts, durable jobs, and identity isolation |
 | 0.9     | Cloud beta and operational readiness  | Predictable hosted operation, recovery, and account lifecycle handling      | Cloud private-alpha acceptance                                |
 
