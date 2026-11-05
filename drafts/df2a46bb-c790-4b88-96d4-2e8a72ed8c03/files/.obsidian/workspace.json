@@ -51,12 +51,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02_Product/Dispatch Mesh milestone plan.md",
+                "file": "02_Product/Dispatch Mesh concept.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Dispatch Mesh milestone plan"
+              "title": "Dispatch Mesh concept"
             }
           },
           {
@@ -73,7 +73,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -241,14 +241,15 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "1c1c00966f008fa6",
+  "active": "d347610810d2fba1",
   "lastOpenFiles": [
+    "02_Product/Dispatch Mesh milestone plan.md",
+    "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
     "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md.tmp.13304.fa953988dbbf",
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
     "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md.tmp.13304.45daabed78e7",
     "07_Engineering/Decisions.base",
     "05_Requirements/Tickets/sed3gV3vF",
-    "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
     "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md.tmp.13304.fbf27315e1b3",
     "05_Requirements/Tickets/Task - TASK00002 - Choose the Git backend before bundling Git.md.tmp.13304.dfc124779640",
     "05_Requirements/Tickets/Task - TASK00002 - Choose the Git backend before bundling Git.md.tmp.13304.4b89075f5c46",
@@ -256,7 +257,6 @@
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md.tmp.13304.516e544aed4d",
     "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
     "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md.tmp.13304.74bc1a240f37",
-    "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md.tmp.13304.a2aedc72fc84",
     "08_Delivery-and-QA/Reports/github-workflow-findings-2026-11-04.md",
     "00_Start-Here/Team/Kai.md",
     "02_Product/Dispatch Mesh requirements and architecture.md",
@@ -273,7 +273,6 @@
     "00_Start-Here/index.md",
     "00_Start-Here/log.md",
     "08_Delivery-and-QA/Reports/github-workflow-test-2026-11-04.md",
-    "02_Product/Dispatch Mesh milestone plan.md",
     "05_Requirements/Tickets/Task - TASK00002 - Choose the Git backend before bundling Git.md",
     "02_Product/Dispatch Mesh concept.md",
     "02_Product/Dispatch Mesh naming recommendations.md"
