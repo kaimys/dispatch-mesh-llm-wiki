@@ -70,6 +70,7 @@ ADR-0001–0008 record implemented console-preview decisions. Their original ind
 
 - `08_Delivery-and-QA/Releases/` — release notes (`version` + `date`, feeds the Release Plan)
   - [[v0.2.5]] — engine stabilization: status model, AI failures, in-process engine interface (2026-11-05)
+    - [[v0.2.5 GitHub release]] — paste-ready GitHub release text, links to the public wiki repo (`GitHub/`)
 - `08_Delivery-and-QA/Reports/` — verification reports
   - [[github-workflow-test-2026-11-04]] — live GitHub workflow test of 0.2.4, per-case results
   - [[github-workflow-findings-2026-11-04]] — findings and known limitations from that run

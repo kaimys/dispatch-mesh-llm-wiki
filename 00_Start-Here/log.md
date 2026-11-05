@@ -142,3 +142,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-05] release | v0.2.5
 - Created [[v0.2.5]] (listed in [[index]]). Scope: [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]] and [[Story - US00002 - Local engine control interface for the tray host]], both promoted `Done` → `Released` (`completed` unchanged). Gates green (79 tests); CI run `42049287074` green on main. `Cargo.toml`/`Cargo.lock` bumped to 0.2.5, commit `85bfac3`, annotated tag `v0.2.5`, both pushed at Kai's request; packaged `dist/dispatch-mesh-0.2.5-windows-x64.zip`. No GitHub Release object created. Deferred: US00001 (v0.3.0), TASK00002 (v0.4.0) — unchanged targets.
+
+## [2026-11-05] release | v0.2.5 GitHub release text
+- Created [[v0.2.5 GitHub release]] in `08_Delivery-and-QA/Releases/GitHub/` (listed in [[index]] under [[v0.2.5]]): paste-ready GitHub release body with ticket, ADR and milestone-plan links to `kaimys/dispatch-mesh-llm-wiki`, breaking-change and upgrade notes, and package checksums. No `version:` frontmatter, so the Release Plan does not count it as a second release.
