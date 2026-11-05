@@ -1000,8 +1000,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793889037,
-      "last_edit": 1793890278,
-      "revision": 13,
+      "last_edit": 1793890362,
+      "revision": 14,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1026,25 +1026,45 @@
           "intent": null,
           "last_edit": 1793889403
         },
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "35ccc88365ea3e7b2cd6e65abf49aa108533930c"
+          },
+          "content": {
+            "blob": "c859f4bca367ca4b40a4a8a05d9ccded872350a3"
+          },
+          "intent": null,
+          "last_edit": 1793890362
+        },
         "00_Start-Here/log.md": {
           "base": {
             "blob": "2b6316f54f31741db7e09d627d6e0ecf3ea89466"
           },
           "content": {
-            "blob": "56ed5f3fafe4677b0b8c295a040bfb89c81adedc"
+            "blob": "eb1432587dc3d18dae68fcaa8977812720906cac"
           },
           "intent": null,
-          "last_edit": 1793890198
+          "last_edit": 1793890362
         },
         "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md": {
           "base": {
             "blob": "349df52002206243c155831ceebd15ee8cff619d"
           },
           "content": {
-            "blob": "4419c6dcf129c28c1766dd077090b9b51077470d"
+            "blob": "4fb7b5c88e6e2ce67aa5f3e5efb91494f1206d7f"
           },
           "intent": null,
-          "last_edit": 1793890278
+          "last_edit": 1793890362
+        },
+        "07_Engineering/Decisions/ADR-0009 — Embed the engine with a runner handle and published status.md": {
+          "base": {
+            "blob": "d891cc8ce53242d0e7d97fccc776d8d39916ddd6"
+          },
+          "content": {
+            "blob": "901b6558a155e0ecb11c88a5f8958fb322b5c96a"
+          },
+          "intent": null,
+          "last_edit": 1793890362
         }
       },
       "dependencies": [

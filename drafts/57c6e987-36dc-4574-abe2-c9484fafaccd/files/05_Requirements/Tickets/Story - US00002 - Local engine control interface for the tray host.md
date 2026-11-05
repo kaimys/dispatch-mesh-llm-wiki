@@ -385,6 +385,18 @@ Findings R1 and R2 below leave criterion 8 incomplete: `cargo test` fails in the
 
 **Before this leaves review.** `/test-plan US00002` is next and should stamp the freeze against reviewed commit `0e4c9a6`. Retain the ADR-0009 amendment/acceptance at completion. Status remains `In progress`; `open_tests`, `frozen` and `completed` are unchanged. No implementation was edited in this re-review.
 
+### 2026-11-05 — ADR-0009 amended and accepted; merged to `main`
+
+At Kai's request, [[ADR-0009 — Embed the engine with a runner handle and published status]] was amended to the API as built and set to `accepted` (criterion 1). The amendment records:
+
+- the `acquire` + `run(lease, shutdown, status)` split;
+- the `Option<RunnerSnapshot>` initial value;
+- stop-on-drop;
+- the runtime built on the calling thread;
+- the deferred named-pipe/Unix-socket extension point.
+
+The branch `us00002-engine-control-interface` (`f2b3e1c`, `0e4c9a6`) was fast-forwarded into `main` and pushed. The status stays `Review`; Kai moves it to `Done`.
+
 ## Follow-ups
 
 ### 2026-11-05 — Architecture decisions recorded
