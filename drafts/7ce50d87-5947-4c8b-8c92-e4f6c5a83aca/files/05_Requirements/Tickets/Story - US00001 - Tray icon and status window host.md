@@ -132,6 +132,9 @@ Draft. These are sharpened as the open questions are answered; they are not fina
 
 ## Dispatch runs
 
+- 2026-11-05 09:10 — Start refinement (claude, done, 846 min)
+    > I created `.claude/settings.local.json` with `"defaultMode": "bypassPermissions"`. New Claude sessions started in `dispatch-mesh` will now skip permission prompts, after you accept the one-time bypass warning. This session's mode stays as it is. Git ignores the file, but through your global ignore file (`~/.config/git/ignore`), not the repo's `.gitignore`. So it stays out of commits on this machin…
+
 - 2026-11-05 09:09 — Start refinement (claude, done, 845 min)
 
 - 2026-11-05 09:09 — Start refinement (claude, done, 845 min)
