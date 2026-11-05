@@ -1272,8 +1272,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793872504,
-      "last_edit": 1793872601,
-      "revision": 5,
+      "last_edit": 1793872620,
+      "revision": 6,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1298,15 +1298,55 @@
           "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
           "last_edit": 1793872601
         },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "e469978d1c338cc2a2b5e11f70a4e5c4cb9b54bc"
+          },
+          "content": {
+            "blob": "15863cd3a051e16e6446044e328718a2fe41d5c1"
+          },
+          "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
+          "last_edit": 1793872620
+        },
         "02_Product/Dispatch Mesh requirements and architecture.md": {
           "base": {
             "blob": "d99b0c171066fff5d7aaef38c9d9560d08e2e54a"
           },
           "content": {
-            "blob": "293f82652a9abdad8f756d34615188bc45c3afcd"
+            "blob": "012bae2a79dc4df7c46fa87bea268aaf7245fceb"
           },
           "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
-          "last_edit": 1793872601
+          "last_edit": 1793872620
+        },
+        "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md": {
+          "base": {
+            "blob": "4d3ee4bdb938e4b5aad5a6947459f4f1c01f5913"
+          },
+          "content": {
+            "blob": "cbc8dd8227ef75fee0ebd1cae3a1eaf680aa2ed6"
+          },
+          "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
+          "last_edit": 1793872620
+        },
+        "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md": {
+          "base": {
+            "blob": "8168e5634ee310a795b9a0902d5a1ae182da44d2"
+          },
+          "content": {
+            "blob": "f42df9bc04318eb9f45548c532e148c3e0b02591"
+          },
+          "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
+          "last_edit": 1793872620
+        },
+        "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md": {
+          "base": {
+            "blob": "9d8e91ebbdc2db09add5ef0db6fc8c5cd02dc53b"
+          },
+          "content": {
+            "blob": "500ac8b80a34c635b16422ac9f20808b5fee6965"
+          },
+          "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
+          "last_edit": 1793872620
         },
         "07_Engineering/Decisions/ADR-0001 — Synchronize drafts separately from permanent history.md": {
           "base": null,

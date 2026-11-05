@@ -1,5 +1,7 @@
 ---
 copilot_chat: obsidian://copilot-chat?vault=Dispatch-Wiki&id=epoch%3A1793099431555
+owner: "[[Kai]]"
+updated: 2026-11-05
 ---
 
 # Dispatch Mesh requirements and architecture
@@ -231,7 +233,7 @@ Continuous draft synchronization is the selected product model. Keep draft revis
 
 Keep recurring agent execution separate from synchronization. The autonomous agent performs housekeeping or support work; git-sync captures and integrates resulting repository changes. The agent can explicitly finish a session at the end of a logical task.
 
-Expose the optional finish-session operation through the local CLI and authenticated remote MCP interface as well as the desktop controls. Proposed interfaces are `dispatch-mesh session finish --workspace <id>` and an MCP `finish_session` tool accepting a workspace and optionally a session ID. By default, scope the action to the caller's own session. Return finalization status or an operation ID, since summarization and publication are asynchronous. Agents may rely on the same inactivity timeout instead of explicitly finishing; exact command and tool schemas remain to be specified.
+Expose the optional finish-session operation through the local CLI and future authenticated remote MCP interface as well as desktop controls. The preview implements `dispatch-mesh --workspace <folder> session finish`, scoped to the local device's session; it queues finalization, which `run` or `sync` then processes. An MCP `finish_session` tool with workspace/session scope and asynchronous operation status remains a future design. Agents may rely on the same inactivity timeout instead of explicitly finishing.
 
 ## Conflict handling recommendation
 
