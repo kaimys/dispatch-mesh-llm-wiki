@@ -235,7 +235,7 @@
       "last_edit": 1793871310,
       "revision": 18,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         ".obsidian/plugins/dispatch/data.json": {
@@ -329,8 +329,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Advance engine stabilization and add Git backend planning ticket",
+        "description": "Draft the TASK00001 implementation plan and move it to In progress; advance US00002 to In progress and add the TASK00002 Git backend decision ticket to the index. Update the change log and Dispatch board configuration, including a bulk development action. Refresh the Obsidian workspace to show the GitHub workflow findings report."
+      },
+      "message_base": "5bfbf91897e3550dd420e267290c56bca709694d"
     },
     "0ea29c85-4a1f-4874-b01b-26446b462e9b": {
       "id": "0ea29c85-4a1f-4874-b01b-26446b462e9b",
