@@ -44,6 +44,7 @@ As a Mesh user on Windows, I want Mesh to live in the system tray with an icon t
   - A failed background sync (other than `WorkspaceBusy`) writes `state.attention = "Synchronization waiting: …"`, cleared only by the next successful `sync()`. Under today's mapping, being offline therefore reads as `needs_attention`.
   - CLI commands already coexist with `run`: they take the short-lived `.mesh/lock` operation lock and `.mesh/network.lock`, and `status` reads a read-only SQLite snapshot (`Workspace::inspect`). No IPC exists today.
   - The 0.2.x milestone lists "Define the local engine/control interface that the tray host will use" as stabilization work. No such interface exists in code or docs; this ticket has to close it (see Open questions).
+- *Code drift, 2026-11-05:* 0.2.5 shipped both decisions below. `src/runner.rs` (`acquire`, `run`, `Runner::start`, `RunnerHandle`, `AlreadyRunning`, `RunnerSnapshot`) and `src/status.rs` (`Summary`, `Stage`, `Status` with `reason`, `active_session`, `presence`) are now library modules; CLI `run` uses `runner::run`. The 0.2.4 bullets above are kept for history.
 - **Governing decisions (2026-11-05).** The three bullets above describe 0.2.4 and are being replaced:
   - [[ADR-0009 — Embed the engine with a runner handle and published status]] (proposed; built under US00002): the tray embeds the engine through `Runner::start(root) -> RunnerHandle`, receives changed status snapshots on a watch channel, and stops it with `stop()`, which captures saved edits without waiting for the network. A held runner lock yields an explicit, retryable "already running" error.
   - [[ADR-0010 — Report workspace status and session stages separately]] (proposed; built under [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps|TASK00001]]): the workspace summary becomes `needs_attention` > `offline` > `saved_locally` > `draft_uploaded` > `waiting_for_finalization` > `synced`, with a sanitized `reason` and per-session stages. Offline is no longer reported as `needs_attention`.
@@ -140,8 +141,121 @@ Final as of 2026-11-05 (refinement ended by Kai).
 
 ## Implementation plan
 
-<!-- GUIDE: Written by /implementation-plan — ordered steps, files, risks, verification,
-     and the reason behind any order that matters. -->
+*Drafted 2026-11-05 against `main` at `7e13efd` (0.2.5). Plan only; no code written. Review and iterate here.*
+
+### Ground truth that shapes the plan
+
+- **The engine side is done.** `dispatch_mesh::runner` already gives a host everything this ticket needs: `Runner::start(root)` fails synchronously with `AlreadyRunning`, `status()` is a `watch::Receiver<Option<RunnerSnapshot>>` replaced only on change, `stop()` is idempotent, and dropping a handle stops and joins it (ADR-0009). `RunnerSnapshot.status` is ADR-0010's `Status`, with `status` (six-value `Summary`), a sanitized `reason` for `needs_attention`/`offline`, and `active_session`. **No library change is planned.** If one turns up, it goes into the library with tests, not into the tray crate.
+- One `RunnerHandle` per workspace, several per process, works today: the runner lock is a per-file-handle `fs2` lock, and `a_held_runner_lock_is_refused_until_it_is_released` in `tests/runner.rs` covers refusal and retry.
+- Tauri 2's async runtime is Tokio, so the host can `await rx.changed()` per workspace: no polling and no `on_change` callback (ADR-0009 leaves that callback optional).
+- `report_failure` and the "resumed" messages in `src/runner.rs` still `println!`/`eprintln!`. In a GUI-subsystem process, Rust's std on Windows discards writes to a missing std handle instead of failing. The spike confirms this; logging is not in scope.
+- The project is a single package today (`Cargo.toml`, no `[workspace]`). CI runs the gates on `windows-latest` and `ubuntu-latest`.
+- Dev machine: Rust 1.98, Node 24 (not needed by this plan), WebView2 runtime present, no `tauri-cli`.
+- Design source: [[Dispatch Mesh desktop app.pdf]] deliverables 1–3 and 6 (icons, menu Variant A, status window frames, token sheet). The HTML version is a self-unpacking bundle; icon SVGs and tokens are extracted from it once (step 4).
+
+### Steps, in order
+
+1. **Spike, on a throwaway branch (gate for everything below).** A minimal Tauri 2 app that embeds `Runner::start` on one workspace and shows: a tray icon whose image and tooltip change with the snapshot; left-click opens a window and right-click a menu; the window hides on close while capture continues; **Quit** stops, joins and exits; one toast; Narrator reads the tray tooltip and an `aria-live` state label in the window; `println!` from the runner does no harm in a `windows_subsystem = "windows"` build. Also time a clean `cargo build` and the Linux CI build with the Tauri system packages.
+   *Why first:* the toolkit answer made this test a condition. **If any must-have fails, stop** and reopen the toolkit question in this ticket (runner-up: egui/eframe + `tray-icon`) rather than working around it. The spike code is not merged.
+2. **Cargo workspace and an empty tray crate.**
+   - Root `Cargo.toml` gains `[workspace] members = [".", "tray"]`, `default-members = [".", "tray"]`, and `[workspace.package] version`; both packages use `version.workspace = true`, so one bump in `/release` versions both programs. `Cargo.lock` stays shared.
+   - New `tray/` package `dispatch-mesh-tray` (binary `dispatch-mesh-tray.exe`): `Cargo.toml` (depends on `dispatch-mesh` by path, `tauri` 2, `serde`), `build.rs` (`tauri_build::build()`), `tauri.conf.json` (no `version`, so it follows Cargo; no bundle config, which is 0.4; strict CSP, no remote URLs), `capabilities/default.json` (main window: core events only), `src/main.rs` with `#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]`.
+   - The frontend is plain static files in `tray/ui/` (HTML, CSS, a small vanilla JS file) served from `frontendDist` with `withGlobalTauri`. **No npm, no bundler, no `tauri-cli`** in 0.3; `cargo build` embeds the assets. This removes most of the "JS toolchain" cost accepted with Tauri.
+   - CI: on Ubuntu, install the Tauri 2 Linux prerequisites (WebKitGTK 4.1, AppIndicator, librsvg, xdo; exact list from the spike) before the gates.
+   *Why second, and why `default-members`:* the unchanged gate commands then cover both packages on both CI platforms. The Linux build keeps 0.8 honest from the first commit, and the gates in `dispatch/invariants.md` and `AGENTS.md` need no rewording. The cost is that building anything on Linux now needs the GTK packages.
+3. **Pure presentation model** (`tray/src/model.rs`, no Tauri types).
+   - `WorkspaceState`: `Running(RunnerSnapshot)`, `Starting`, `AlreadyRunning`, `Stopped(reason)` (the loop ended with an error, or the folder is not a Mesh workspace).
+   - `label(Summary)`: user labels from the briefing (Up to date, Saved on this device, Shared as draft, Finishing up, Offline — changes saved on this device, Needs attention).
+   - `icon(Summary)`: `synced → UpToDate`, `saved_locally | draft_uploaded | waiting_for_finalization → Working`, `offline → Offline`, `needs_attention → Attention`.
+   - `aggregate(&[Workspace])`: highest precedence wins, Needs attention > Offline > Working > Up to date. `Stopped` counts as needs attention. `AlreadyRunning` does not count, because another runner is syncing that folder; if *no* workspace is running, the icon shows needs attention ("Mesh isn't syncing any workspace").
+   - `tooltip(...)`: `Dispatch Mesh — <label>`, with `: <reason>` for attention and offline; with several workspaces, it names the deciding workspace and sums up the rest ("· 2 other workspaces fine"). Windows caps tooltips at 127 characters, so it truncates the summary first, then the reason, never the state.
+   - `order(...)`: the window list, most urgent first, then by name.
+   - The view model sent to the window is built here, so the tray and window share every word.
+   *Why before the host:* it is all the logic the AC tests depend on, and it is unit-testable without a window.
+4. **Host core** (`tray/src/host.rs`, no Tauri types; the Tauri side passes callbacks in).
+   - Workspaces come from repeated `--workspace <path>` arguments; display name = folder name. Started with none, the window shows a "No workspace yet" state with the `dispatch-mesh init` command and how to start the tray with `--workspace`. Adding workspaces from the UI is 0.5, and no workspace list is persisted in 0.3, so there is nothing to migrate later.
+   - `start(path)` → `Runner::start`; `AlreadyRunning` → `WorkspaceState::AlreadyRunning`; any other error → `Stopped(sanitized message)`. `retry(id)` repeats it.
+   - Per running workspace, one task awaits `changed()` and pushes the new `WorkspaceState` to the host callback. A closed channel means the loop ended; the task joins the handle and reports `Stopped` with the error, which offers Retry.
+   - `quit()`: hide the tray icon at once, `stop()` all handles (so they shut down in parallel), join them on a background thread, then exit. Worst case is about 10 s per ADR-0009's shutdown lock wait, with the icon already gone.
+   *Why separate from Tauri:* the Retry, AlreadyRunning and Quit behavior is then integration-testable with real workspaces (see Tests).
+5. **Tray** (`tray/src/tray.rs`).
+   - Icons: four states × light/dark taskbar as multi-size `.ico` (16, 20, 24, 32 px for 100–200 % scaling) in `tray/icons/`, rasterized once from the design's SVGs. Paused is not shipped. The design asks for hand hinting at 16 px, which is a design task for Kai and not a blocker for development; the rasterized set is used until it lands.
+   - Taskbar theme: read `HKCU\…\Themes\Personalize\SystemUsesLightTheme` (the taskbar's setting, not the apps' setting) at start, on each status change and on a 5 s timer, and swap the icon set on change. Off Windows, use the light set for now (0.7/0.8 add template images).
+   - Left-click opens and focuses the window; the right-click menu is **Open status window**, **Quit Dispatch Mesh**, and, only while any workspace has an `active_session`, a disabled hint line under Quit: "Your edits stay saved. The session continues next start." No Finish session or Pause items in 0.3.
+   - The tooltip string from step 3 is also the icon's accessible name.
+6. **Status window** (`tray/ui/`, `tray/src/main.rs` commands).
+   - Compact fixed-width utility window, about 440 px, built from the token sheet (CSS variables for light and dark via `prefers-color-scheme`). One workspace: opens straight on it. Several: the list, most urgent first, with a detail view per workspace.
+   - Header card per workspace: name, folder path, state label, and for attention and offline the `reason` (offline adds "Keep working — your changes upload when the connection returns."). Only attention gets color, offline is grey. No action buttons except Retry, which belongs to already-running and stopped states. No activity list, conflicts, presence or last-synced time; those are later 0.3 tickets.
+   - Already-running view per the design ("Mesh is already running for this workspace … Retry").
+   - Commands: `workspaces()` for the initial render, `retry(id)`; the host emits a `workspaces` event on every change. The JS only renders the view model.
+   - Accessibility: the state label is an `aria-live="polite"` region; all controls are reachable by keyboard; state is never shown by color alone (glyph + text).
+   - Close: `CloseRequested` → `prevent_close()` + hide. On the **first** close ever, one toast: "Dispatch Mesh is still running. It keeps syncing from the tray." The "seen" flag is stored in `tray-settings.json` in the app config directory. This is the only toast in 0.3; the notification rules are the notifications ticket's.
+   - `RunEvent::ExitRequested` without an exit code is prevented, so hiding the last window never ends the process.
+7. **Docs.**
+   - `README.md`: a "Tray (preview)" section with how to start `dispatch-mesh-tray --workspace <folder>`, what it shows, and what it doesn't do yet.
+   - `AGENTS.md`: the product summary says tray controls are future work; update to "a tray host with status (0.3, in progress)", keeping the not-yet-built parts marked.
+   - The ADRs and wiki updates listed below.
+8. **Gates:** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test`, now covering both packages through `default-members`, green on Windows and Linux CI.
+
+### Tests
+
+- **Unit, `tray/src/model.rs`:** label and icon for all six summaries; aggregate precedence for every pair, including `Stopped`, `AlreadyRunning` and "none running"; tooltip format for one and several workspaces, with the 127-character truncation keeping the state; list ordering. These pin AC 3–7 and the multi-workspace AC at the level that decides them.
+- **Integration, `tray/tests/host.rs`** (real temp workspaces via `Workspace::init` without a remote, no window): two workspaces start and both publish; a workspace whose runner lock is held by `runner::acquire` reports `AlreadyRunning` while the other runs, and `retry` succeeds after the lease drops; an edit saved right before `quit()` is captured when `quit()` returns; a runner whose loop ends with an error is reported as `Stopped` with Retry.
+- **Already covered, not duplicated:** CLI commands against a workspace with a running handle, final capture on stop, snapshot publication and error clearing (`tests/runner.rs`, `tests/cli.rs`).
+- **Newly assertable:** host-level multi-workspace behavior and the shared wording, which had no code before.
+- **Manual (for `/test-plan`):** no console window; icon and tooltip on light and dark taskbars at 100 % and 150 % scaling; left/right click; hide on close and the first-close toast; Quit with a session open (hint shown, no prompt); offline by unplugging the network; Narrator; CLI `dispatch-mesh.exe` output and piping unchanged while the tray runs.
+
+### External changes and migration
+
+- None to storage, transport or the on-disk format. The tray only reads published snapshots and uses existing locks.
+- New per-user file `tray-settings.json` (first-close flag only). Losing it repeats one toast; no migration needed.
+- The Tauri `identifier` fixes the app config and data directories, and later the installer and login-startup registration. It must be chosen once (see Decisions for review).
+- CI gains the Linux system packages and a longer build.
+
+### Cross-ticket effects
+
+- **Later 0.3 tickets** (per-stage detail, Finish session/pause, conflicts, presence, notifications) build on `host.rs`, the view model and `tray/ui/`. The notifications ticket owns the toast rules; this ticket's single first-close toast should move under them.
+- **0.4 packaging** adds the Tauri bundler (and `tauri-cli` or its build API), the WebView2 bootstrapper, and ships both executables.
+- **0.5 guided setup** replaces `--workspace` arguments with a persisted workspace list.
+- **0.6 login startup** registers `dispatch-mesh-tray.exe` and adds the one-host-per-user rule. 0.3 deliberately has no single-instance check, because the AC expects a second host to report "already running" per workspace.
+
+### Wiki pages this makes wrong
+
+| Page | Change | Who |
+|---|---|---|
+| [[Dispatch Mesh milestone plan]] → *Decisions to close during delivery* | Mark "Tray UI toolkit" closed by the toolkit ADR | this workflow, at ADR extraction |
+| ADR index in [[index]] | Add the new ADRs | this workflow, at ADR extraction |
+| [[Claude Design briefing — desktop app]] §7 "Toolkit not chosen yet" | Note the decision; the brief is a draft source, so add a dated note instead of rewriting | `/develop`, docs step |
+| `AGENTS.md`, `README.md` | Step 7 | `/develop` |
+| Release note for 0.3 | Mentions the second executable | `/release` |
+
+### Risks and rollback
+
+- **Spike failure:** handled by the gate in step 1; the plan stops and the toolkit question reopens.
+- **Taskbar theme detection** is registry-based and polled; a missed change shows a low-contrast icon until the next 5 s tick. Acceptable for 0.3.
+- **Tooltip length:** multi-workspace tooltips get truncated; tested.
+- **WebView2 missing** on some Windows 10 machines: Windows 11 ships it; the 0.4 installer bootstraps it. 0.3 shows Windows' own missing-runtime error.
+- **CI time and Linux dependencies grow.** If the Linux Tauri build becomes a burden, the fallback is a Linux-only `cargo check -p dispatch-mesh-tray` instead of the full build, not dropping Linux.
+- **Process kill** (Task Manager, crash) skips the final capture; captured work survives through ADR-0007 journals, as ADR-0009 already accepts. Logoff and shutdown handling is 0.6.
+- **Rollback:** the tray is additive. Reverting the tray commits and the workspace change restores the single-package CLI; no data migration in either direction.
+
+### Decisions for review
+
+These are plan choices, not reopened questions. Change them here if you disagree:
+
+1. **Tauri identifier**, e.g. `io.github.kaimys.dispatch-mesh`. Durable (it names the app directories and later registrations), and the product name is not final. Pick the value you want to live with.
+2. **Already-running workspaces don't count** toward the tray icon; if nothing runs at all, the icon shows needs attention.
+3. **Workspaces from `--workspace` arguments only**, nothing persisted until 0.5.
+4. **First-close notice as a single toast**, not an in-window banner.
+5. **`default-members` covers both packages**, so Linux builds need the GTK packages.
+
+### Size
+
+Roughly 7–9 focused days: spike 1, workspace and CI 0.5, model 1, host 1.5, tray and icons 1.5, window 2, docs and gates 0.5. Order-of-magnitude estimate, not a commitment; the spike may move it either way.
+
+### ADRs
+
+After sign-off this workflow extracts, as `proposed`: **ADR-0011 — Build the desktop host with Tauri 2** (rejected: egui/eframe, Slint, native Win32; static frontend without npm) and **ADR-0012 — Ship the tray as a separate executable in a Cargo workspace** (rejected: one binary with a console-attach workaround; one host serving several workspaces). Applying ADR-0009 and ADR-0010 needs no new ADR.
 
 <!-- ═══════════ RECORD ZONE ═══════════
      What actually happened. Always appendable, including after the freeze.

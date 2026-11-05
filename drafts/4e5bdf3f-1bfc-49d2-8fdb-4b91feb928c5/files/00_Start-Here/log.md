@@ -157,3 +157,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-05] refine | US00001 refinement ended
 - [[Story - US00001 - Tray icon and status window host]]: refinement ended by Kai. Acceptance criteria marked final; added criteria for the tooltip format, Narrator labels and the tray menu with the Quit hint. `open_questions: 0`, `version_target: v0.3.0`. Status stays `Refinement`; next step is `/implementation-plan`, starting with the Tauri spike.
+
+## [2026-11-05] plan | US00001 implementation plan
+- [[Story - US00001 - Tray icon and status window host]]: folded in code drift (0.2.5 shipped `runner.rs` and `status.rs`), then wrote the implementation plan for review. Spike first as a gate, Cargo workspace with a `dispatch-mesh-tray` package, a Tauri-free presentation model and host core, tray, static status window, docs. No library change planned. ADR-0011 (Tauri 2) and ADR-0012 (separate executable) to be extracted after sign-off. Status stays `Refinement`.

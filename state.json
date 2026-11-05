@@ -1025,8 +1025,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793894555,
-      "last_edit": 1793894807,
-      "revision": 6,
+      "last_edit": 1793894880,
+      "revision": 7,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1036,30 +1036,30 @@
             "blob": "68d64b8877123f507b3dc8da5ffb2fb0ffb4c363"
           },
           "content": {
-            "blob": "d9cd0ae4ebbf9e3ddd843c36c72f7d317a8e04fe"
+            "blob": "f2bdeb86273af80b1eabb9e884cbf8b0ff0d07db"
           },
           "intent": null,
-          "last_edit": 1793894807
+          "last_edit": 1793894880
         },
         "00_Start-Here/log.md": {
           "base": {
             "blob": "957ae8de88eddf10ab6215c723646a2ea9176788"
           },
           "content": {
-            "blob": "1b1fc34bb77093281a30f59622b48eb9419361cd"
+            "blob": "4bd8a484655edfbba74a55da5967eea943c3980b"
           },
           "intent": null,
-          "last_edit": 1793894604
+          "last_edit": 1793894880
         },
         "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md": {
           "base": {
             "blob": "2d09f411ef90bbf6d56d92b426b22e7f2eb0e79a"
           },
           "content": {
-            "blob": "730c5608d5e9801553f3fb2ef49e58244f5b733c"
+            "blob": "f43dbb733d36ece4772f2d0863487774d174487d"
           },
           "intent": null,
-          "last_edit": 1793894604
+          "last_edit": 1793894880
         }
       },
       "dependencies": [
