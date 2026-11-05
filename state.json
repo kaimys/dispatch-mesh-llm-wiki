@@ -1272,8 +1272,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793872504,
-      "last_edit": 1793873757,
-      "revision": 44,
+      "last_edit": 1793873770,
+      "revision": 45,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1303,10 +1303,10 @@
             "blob": "e469978d1c338cc2a2b5e11f70a4e5c4cb9b54bc"
           },
           "content": {
-            "blob": "52ffc44ac2377e2edea50f9ed84d547d3f115a9b"
+            "blob": "3f3ee85cf24a8949b04106164113c516860e6985"
           },
           "intent": null,
-          "last_edit": 1793873350
+          "last_edit": 1793873770
         },
         "02_Product/Dispatch Mesh requirements and architecture.md": {
           "base": {
@@ -1333,10 +1333,10 @@
             "blob": "8168e5634ee310a795b9a0902d5a1ae182da44d2"
           },
           "content": {
-            "blob": "b02175f75e0075210149f8f01fd4c99b8d284953"
+            "blob": "4e533703e7ea9f46d9bfd09d88f35013f5573ca6"
           },
           "intent": null,
-          "last_edit": 1793873757
+          "last_edit": 1793873770
         },
         "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md": {
           "base": {

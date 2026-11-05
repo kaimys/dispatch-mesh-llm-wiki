@@ -197,7 +197,7 @@ As the developer of the Mesh tray host, I want one defined way to observe and co
    - **Timing:** tests use 2 s deadlines with 50 ms polling of `has_changed()`, not fixed sleeps, except the deliberate 3 s quiet window. Engine tests are slow on Windows, so the deadlines leave margin for CI.
 7. **Docs.**
    - `README.md`: one paragraph, under the `status` section, saying that hosts embed the engine through `dispatch_mesh::runner::Runner`, plus the already-running message. The API is not yet a stable public crate surface; say so.
-   - `AGENTS.md`: update the code-layout line if it lists `main.rs` as holding the run loop.
+   - `AGENTS.md:11`: move "watcher, capture loop, and synchronization scheduling" from `src/main.rs` to a new `src/runner.rs` bullet.
 8. **Gates:** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test`.
 
 ### External changes and migration
@@ -217,8 +217,9 @@ As the developer of the Mesh tray host, I want one defined way to observe and co
 ### Wiki pages this makes wrong
 
 - [[ADR-0009 — Embed the engine with a runner handle and published status]]: the `acquire`/`run(lease, …)` split, `Option<RunnerSnapshot>` and stop-on-`Drop`. Amend it and set it to `accepted` at `Done` (criterion 1).
-- [[Dispatch Mesh requirements and architecture]]: check its component description of the CLI/run loop. If it places the loop in the binary, Kai annotates it at `Done`.
-- `AGENTS.md` and `README.md` (step 7, in the code change).
+- `AGENTS.md:11` says `src/main.rs` holds the "watcher, capture loop, and synchronization scheduling". Step 7 points that line at `src/runner.rs` in the same change.
+- `README.md`: step 7 adds the host paragraph. Line 69 ("The run loop can capture while a summary request is pending") stays true.
+- [[Dispatch Mesh requirements and architecture]]: it doesn't say where the loop lives, so no change is needed.
 
 ### Risks and rollback
 

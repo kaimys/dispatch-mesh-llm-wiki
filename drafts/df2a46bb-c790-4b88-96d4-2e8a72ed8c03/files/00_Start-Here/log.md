@@ -57,3 +57,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: plan step 4 requires lock-free status per [[ADR-0007 — Persist state transactionally with recovery journals]]; ADR section lists governing ADRs; Git-classification ADR still a candidate.
 - [[Task - TASK00002 - Choose the Git backend before bundling Git]]: constraints from ADR-0003/0006/0008 added; merge-equivalence question sharpened.
 - ADR-0010 amended: offline definition moved into Decision; rejected push, unknown Git failure and AI-summary failure → `needs_attention`; lock-free status read (Kai's approval of the TASK00001 review points).
+
+## [2026-11-05] plan | US00002 implementation plan drafted
+- [[Story - US00002 - Local engine control interface for the tray host]]: `## Implementation plan` written: 8 ordered steps, starting once TASK00001 steps 2–4 land. It also covers the `acquire`/`run`/`Runner::start` split, bounded busy-lock retry on shutdown, a scan-free per-tick snapshot, and tests for criteria 3–7. It asks [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]] step 4 for a scan-free `status_from` core. No new ADRs; [[ADR-0009 — Embed the engine with a runner handle and published status]] is to be amended at Done. Awaiting Kai's sign-off.
