@@ -120,18 +120,20 @@ The host works on a workspace already created with `dispatch-mesh init`.
 
 ## Acceptance criteria
 
-Draft. These are sharpened as the open questions are answered; they are not final.
+Final as of 2026-11-05 (refinement ended by Kai).
 
 - With the host running on an initialized workspace, no console window is visible and a Mesh icon is in the notification area.
 - `dispatch-mesh.exe` still prints its output to the terminal it was started from, and its output can be piped, as in 0.2.x.
-- Editing a file changes the icon from *synced* to a working state, and back to *synced* after the change synchronizes. The tooltip names the current state.
+- Editing a file changes the icon from *synced* to a working state, and back to *synced* after the change synchronizes. The tooltip names the current state, in the form `Dispatch Mesh — <state>`.
 - Creating an unresolved conflict changes the icon to *needs attention*, and the tooltip names the reason (for example "2 unresolved conflicts").
 - With the remote unreachable, the icon shows *offline* (not *needs attention*), the tooltip says changes are saved on this device, and saved edits are still captured.
 - *Saved locally*, *shared as draft* and *finishing up* show the same working icon; the tooltip names which one applies.
 - The icon states are distinguishable without color (badge shape), on light and dark taskbars.
+- Narrator reads the tooltip text as the icon's name, and reads the window's workspace name, state and reason.
 - Left-clicking the icon, or choosing **Open status window**, shows a window with the workspace name, path and current state. In *needs attention* or *offline*, the window also shows the reason.
 - With two workspaces, one with a conflict and one up to date, the icon shows *needs attention*, the tooltip names the conflicted workspace, and the window lists it first. With one workspace, the window shows it directly without a list.
 - Closing the status window leaves the icon present; a file edited afterwards is still captured and synchronized. The first close tells the user Mesh keeps running.
+- The tray menu offers **Open status window** and **Quit**. With a session open, Quit carries the hint that edits stay saved and the session continues next start.
 - Choosing **Quit** removes the icon and ends the process without a prompt, even with a session open. An edit saved just before Quit is captured, and the next `run` or host start synchronizes it.
 - Starting the host on a workspace that already has a `dispatch-mesh run` or another host shows a message saying Mesh is already running for that workspace, with **Retry**, and starts no second engine for it. After the other runner stops, Retry starts it. The host's other workspaces run normally meanwhile.
 - While the host runs, `dispatch-mesh status`, `sync`, `session finish` and `intent begin/end` succeed against the same workspace.

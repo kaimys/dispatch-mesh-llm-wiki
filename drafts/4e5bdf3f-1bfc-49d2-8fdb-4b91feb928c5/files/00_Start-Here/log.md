@@ -154,3 +154,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-05] refine | US00001 toolkit and binary decided
 - [[Story - US00001 - Tray icon and status window host]]: closed the last two questions. UI toolkit: Tauri 2, with a Windows spike before the implementation plan, which records it as an ADR (closes the milestone's "Tray UI toolkit" item). Binary: separate `dispatch-mesh-tray.exe`; the CLI stays a console program. Context, scope and acceptance criteria updated; `open_questions` 2 → 0. Status stays `Refinement` until Kai ends refinement.
+
+## [2026-11-05] refine | US00001 refinement ended
+- [[Story - US00001 - Tray icon and status window host]]: refinement ended by Kai. Acceptance criteria marked final; added criteria for the tooltip format, Narrator labels and the tray menu with the Quit hint. `open_questions: 0`, `version_target: v0.3.0`. Status stays `Refinement`; next step is `/implementation-plan`, starting with the Tauri spike.
