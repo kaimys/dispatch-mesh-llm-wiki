@@ -42,3 +42,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-05] ticket | TASK00002 Choose the Git backend before bundling Git
 - Created [[Task - TASK00002 - Choose the Git backend before bundling Git]] (Backlog, v0.4.0) from the question whether `src/git.rs` should use a Git library instead of the CLI; 6 open questions. Listed in [[index]].
+
+## [2026-11-05] plan | TASK00001 implementation plan drafted
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: `## Implementation plan` written (9 ordered steps, review points, cross-ticket effects on US00002/US00001, ADR candidates). Awaiting Kai's sign-off; no ADRs created yet.

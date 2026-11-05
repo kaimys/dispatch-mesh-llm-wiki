@@ -232,8 +232,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793870175,
-      "last_edit": 1793871104,
-      "revision": 16,
+      "last_edit": 1793871310,
+      "revision": 18,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -273,10 +273,10 @@
             "blob": "cb992eb3c8b46e0c4aad61887aeb84d70efdd590"
           },
           "content": {
-            "blob": "f825d953f375cf2c65bd1e974b1f88950018c310"
+            "blob": "e469978d1c338cc2a2b5e11f70a4e5c4cb9b54bc"
           },
           "intent": null,
-          "last_edit": 1793870482
+          "last_edit": 1793871310
         },
         "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md": {
           "base": {
@@ -303,10 +303,10 @@
             "blob": "7a66f4de71ac257dddff96d51c07ded6d5afb59d"
           },
           "content": {
-            "blob": "a75e5f72175ba0bc2a80d4ce1d000e4230745e37"
+            "blob": "9d8e91ebbdc2db09add5ef0db6fc8c5cd02dc53b"
           },
           "intent": null,
-          "last_edit": 1793870946
+          "last_edit": 1793871307
         },
         "05_Requirements/Tickets/Task - TASK00002 - Choose the Git backend before bundling Git.md": {
           "base": null,

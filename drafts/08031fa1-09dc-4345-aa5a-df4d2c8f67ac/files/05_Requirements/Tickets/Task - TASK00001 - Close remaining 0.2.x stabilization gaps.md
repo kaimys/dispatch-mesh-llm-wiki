@@ -122,8 +122,130 @@ Downstream: [[Story - US00001 - Tray icon and status window host|US00001]] deriv
 
 ## Implementation plan
 
-<!-- GUIDE: Written by /implementation-plan — ordered steps, files, risks, verification,
-     and the reason behind any order that matters. -->
+*Drafted 2026-11-05 against `main` at `3c2d513`. Awaiting Kai's sign-off.*
+
+### Ground truth that shapes the plan
+
+- **Git stderr is discarded on purpose.** `Git::execute` (`src/git.rs:46`) bails with a generic "Git operation failed (exit N)" and never reads stderr, because a server or credential helper may put secrets there. No error that reaches `sync()`'s caller says *why* Git failed. Offline/authentication classification must therefore happen **inside `execute`**, while stderr is still in hand, and leave as a typed kind. The stderr text itself still never leaves `execute`.
+- **The recovery path covers the interrupted-publication case.** `fetch` (`src/engine.rs:597`) sets `state.main` to the remote `main` before `reconcile_published` runs. `publish_ready` pushes, then sets `published = true` and saves. A crash between the push and the save leaves the commit on the remote while local state still says unpublished, and the next `sync` re-detects it by its trailers. Without that match, `message_base != main` would clear the message and the session would be re-summarized and **published twice**. That is exactly what criterion 1 must rule out.
+- **AI failures are swallowed.** `ai::generate` (`src/ai.rs:250`) returns a `Message`, prints `AI summary failed: …` to stderr and falls back. The 429 branch (`src/ai.rs:229`) sees only the status code, never headers or body.
+- **Sync failures are recorded only by the runner.** `watch` in `src/main.rs:417` writes `attention = "Synchronization waiting: …"`; the CLI `sync` command just returns the error. `sync()` clears `attention` on success (`src/engine.rs:594`). Engine-raised attentions (`src/engine.rs:433`, `:449`) are separate.
+- **State persistence:**
+  - `State` goes through `State::map_blobs` (`src/codec.rs:95`) as a struct literal, so a new field fails to compile until it is mapped.
+  - No type uses `deny_unknown_fields`, so new `#[serde(default)]` fields load as empty from old state, and an older binary ignores them (downgrade-safe).
+  - The state DB runs in WAL mode (`src/storage.rs:14`).
+
+### Steps, in order
+
+1. **Typed Git failures plus `LC_ALL=C`** (`src/git.rs`)
+   - `Git::command()` sets `LC_ALL=C` alongside the existing `GIT_TERMINAL_PROMPT`/`GCM_INTERACTIVE`.
+   - On a non-zero exit, `execute` reads stderr (bounded, 64 KiB) only to classify it into a new `GitFailure { kind: Offline | Authentication | Rejected | Other, exit }`. The kind is chosen by fixed patterns:
+     - offline: `Could not resolve host`, `Failed to connect`, `Connection refused`, `timed out`, `Network is unreachable`, TLS handshake failures;
+     - authentication: `Authentication failed`, `could not read Username`, `Permission denied (publickey)`, HTTP 401/403, `Repository not found`;
+     - rejected: `[rejected]`, `non-fast-forward`, `failed to push some refs`.
+
+     The 30 s kill becomes `Offline` only for `fetch`/`push`.
+   - `Display` stays generic, with a short kind-specific hint and no stderr. `run()` keeps its `Git <op>` context, so callers can `downcast_ref::<GitFailure>()`.
+   - *Why first:* the offline state (step 3) cannot be derived without it. It is self-contained and has unit tests on captured `LC_ALL=C` stderr samples.
+2. **State fields** (`src/model.rs`, `src/codec.rs`). Add to `State`, each `#[serde(default)]`, all mapped in `map_blobs`:
+   - `uploaded: BTreeMap<String, u64>`: own session id → last revision pushed to the device branch. Local-only, never part of `Manifest`.
+   - `offline: Option<String>`: the reason, when the last sync failed as `Offline`.
+   - `summary_failure: Option<String>`: the last AI-summary failure message (already credential- and body-free).
+
+   *Why before the logic:* the codec mapping must change in lockstep, or state silently fails to persist. A storage round-trip test with an old-format state proves the defaults load.
+3. **Engine bookkeeping** (`src/engine.rs`, `src/ai.rs`, `src/main.rs`)
+   - `push_manifest`: after a successful push, and also on the early "remote already at this commit" return, set `uploaded[id] = revision` for every own session in the pushed manifest. Drop entries for settled sessions. This touches only `State`, so the manifest, and therefore the next push, is unaffected (criterion 5).
+   - New `Workspace::record_sync_failure(&error)`: `Offline` sets `offline` and leaves `attention` alone; everything else sets `attention = "Synchronization waiting: …"` as today. Both the runner (`main.rs:413`) and the CLI `sync` command call it, so `status` after a failed CLI `sync` also shows the cause. On success, `sync()` clears `offline` next to `attention`.
+   - `ai::generate` returns `(Message, Option<String>)`, with the failure text instead of an `eprintln`. `summarize_ready` writes `state.summary_failure` and clears it on a successful provider summary. Disabled text sharing is not a failure. This is the persistence half of US00002's criterion 6 (see *Cross-ticket effects*).
+4. **Status model in the library** (new `src/status.rs`; `show_status` in `src/main.rs` delegates)
+   - `Workspace::status_snapshot() -> Status` (serde). `status` JSON keeps every existing field and adds `reason` at the top level, plus `stage` per session.
+   - **Session stage:**
+
+     | Session | Own, remote configured | Own, local-only workspace | Received from another device |
+     |---|---|---|---|
+     | published or discarded | `published` / `discarded` | same | same |
+     | open | `draft_uploaded` if `uploaded[id] == revision`, else `saved_locally` | `saved_locally` | `draft_uploaded` |
+     | closed, not settled | `waiting_for_finalization` if `uploaded[id] == revision`, else `saved_locally` | `waiting_for_finalization` | `waiting_for_finalization` |
+
+     A local-only workspace has no upload step. A received session reached us through the remote, so it is uploaded by definition.
+   - **Workspace summary**, decided precedence, first match wins:
+     1. `needs_attention`: `attention`, capture error, unresolved conflicts or `summary_failure`;
+     2. `offline`: `offline` is set;
+     3. `saved_locally`: uncaptured local changes, or any own session at `saved_locally`;
+     4. `draft_uploaded`: any own session at that stage;
+     5. `waiting_for_finalization`: any own session at that stage;
+     6. `synced`.
+   - **`reason`** is the cause, picked in the same order: "N unresolved conflicts", the capture error, `attention`, `summary_failure`, then `offline`. It is `null` otherwise.
+   - *Why the library and not `main.rs`:* US00002 must move status computation into the crate anyway (its criterion 2). Building it there now avoids writing it twice, and the runner snapshot can reuse it as is.
+5. **AI 429 split** (`src/ai.rs`)
+   - In the 429 branch, read `Retry-After` (seconds or HTTP date) and up to 64 KiB of body. Parse only `error.code`/`error.type`.
+     - `insufficient_quota` / `billing_*` → "Provider quota or billing exhausted: check the provider account".
+     - `rate_limit*`, or any `Retry-After` → "Temporary provider rate limit; retry after N s".
+     - Otherwise, today's generic hint.
+   - The body is never formatted into the message. The existing one-retry loop is unchanged.
+   - Independent of steps 1–4, so it can move anywhere.
+6. **Regression tests for interrupted publication and renames** (`tests/engine.rs`). These are pure test additions, after step 4 so they can also assert `stage`.
+   - **Interrupted publication:**
+     1. Finish a session.
+     2. Drop the workspace and copy `.mesh/state.sqlite*` (all three WAL files).
+     3. `sync` until it publishes.
+     4. Drop the workspace, restore the copied files, reopen.
+
+     Now the commit is on the remote but local state says unpublished: the exact crash window. Then `sync` again and assert: `published`, exactly one commit with that `Mesh-Session` trailer on `main`, and file content intact.
+   - **Rename:** Alice renames `Notizen für März.md` → `Archiv/Notizen für März.md` and deletes `old.md`. Bob converges: new path present, old path and `old.md` absent, and both finalize on `main`.
+7. **Status, offline and locale tests**
+   - The offline, authentication and locale tests run in **`tests/cli.rs` through the binary**, because they need per-process environment variables. Setting `LANG` or Git config in the shared test process would race with parallel tests.
+   - **Offline:** remote `https://127.0.0.1:9/x.git` (connection refused). After `sync` fails, `status` shows `offline` with a reason, and capture still records a new save.
+   - **Authentication:** a mock HTTP server (pattern from `tests/provider.rs`) answers the Git request with 401. Credential helpers are disabled for that child (`GIT_CONFIG_NOSYSTEM=1`, empty `GIT_CONFIG_GLOBAL`). Expect `needs_attention`.
+   - **Locale:** the same two cases with `LANG=de_DE.UTF-8`/`LC_MESSAGES=de_DE.UTF-8`.
+   - **Plumbing:** a unit test asserts `Git::command()` carries `LC_ALL=C`. That check is deterministic even on hosts without German Git translations, where the locale test would pass trivially.
+   - **Engine:**
+     - each session stage and summary value (criteria 3, 4 and 8);
+     - criterion 5: a second `sync` with no edits leaves the device-branch commit unchanged, and the manifest decoded from the device branch contains no `uploaded` data;
+     - an old-format state loads with an empty `uploaded`.
+   - **Update** `tests/cli.rs:250` for the new value set.
+8. **README** (criterion 11), last, so it documents the behavior as built:
+   - extend the `status` paragraph (line 36) with summary values, precedence, stages and `reason`;
+   - a *Storage growth* subsection: `.mesh/state.sqlite` and its blob table, `.mesh/objects.git`, `.mesh/recovery/`, device branches and `main`; nothing is pruned in this preview;
+   - a *Recovery procedures* subsection with one procedure per `needs_attention` cause and for `offline`, the pending-capture fallback, and restoring from `.mesh/recovery/<id>/`.
+9. **Gates:** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test`. Engine tests take several minutes on Windows.
+
+### Review points (decided in this plan; flag them if you disagree)
+
+- **An AI-summary failure counts as `needs_attention`.** It does not block publication, because the factual fallback is used, but it is actionable (fix key, quota or endpoint). Without this, criterion 7's "reason from the persisted AI-summary failure" would never surface. The alternative is to show it as `reason` without raising the summary state.
+- **A rejected push stays `needs_attention`**, per criterion 6, although a non-fast-forward publication race is normally resolved by the next cycle. It can therefore flash for one cycle, which is unchanged from today.
+- **An unknown Git failure falls back to `needs_attention`.** Misclassifying an unknown failure as harmless `offline` would hide something the user must act on.
+
+### External changes and migration
+
+- No change to the remote format: device-branch manifests and `main` trailers are untouched, and clients on 0.2.4 and this version interoperate.
+- Local state gains three defaulted fields. There is no migration step, and downgrading works because unknown fields are ignored.
+- The `status` value set changes (`waiting_to_sync` is removed), as decided. `tests/cli.rs` is the only consumer.
+
+### Cross-ticket effects
+
+- **[[Story - US00002 - Local engine control interface for the tray host|US00002]]:** this plan delivers the persistence half of its criterion 6 (`summary_failure`) and the library-side status computation its criterion 2 needs. US00002 then only moves `watch` and `summarize_ready` and publishes `status_snapshot()`. Record this in US00002 via `/update-ticket` once this ticket's code lands.
+- **[[Story - US00001 - Tray icon and status window host|US00001]]:** its icon-state question can map 1:1 onto the summary values above.
+
+### Wiki pages this makes wrong
+
+- [[Dispatch Mesh requirements and architecture]] line 106 lists four desktop states ("saved locally, waiting to sync, synced, and needs attention"). Kai should annotate it with the six-state model when this ticket is done.
+- [[Dispatch Mesh milestone plan]]: no change, since its six states are what this implements.
+
+### Risks and rollback
+
+- **Brittle classification patterns.** Messages differ between Git versions and TLS backends (schannel vs. OpenSSL). Mitigations: `LC_ALL=C`, unit samples for both backends, and the safe fallback to `needs_attention`. TASK00002 (a library backend) eventually replaces this with typed errors.
+- **The WAL copy in the interruption test.** If restoring `state.sqlite*` proves flaky on Windows because of file handles, the fallback is a test-only fault hook behind a Cargo feature. Prefer the copy, since it needs no production code.
+- **Rollback:** revert the commit. Older binaries read the new state, and the remote format is unchanged.
+
+### Size
+
+Roughly 3–5 focused days: steps 1–4 about 60%, tests about 30%, docs 10%. This is an order-of-magnitude estimate, not a commitment.
+
+### ADR candidates (to extract after sign-off)
+
+- **Status model:** summary precedence, session stages, local-only upload record, `reason`. Durable, and US00001, US00002 and later hosts must obey it.
+- **Git failure classification:** stderr is classified inside `execute` and never echoed, with `LC_ALL=C` on every Git process, and unknown failures go to `needs_attention`. Durable until TASK00002 replaces the CLI backend, which would supersede it.
 
 <!-- ═══════════ RECORD ZONE ═══════════
      What actually happened. Always appendable, including after the freeze.
