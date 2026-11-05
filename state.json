@@ -831,8 +831,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793882639,
-      "last_edit": 1793882639,
-      "revision": 1,
+      "last_edit": 1793882694,
+      "revision": 4,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -846,6 +846,16 @@
           },
           "intent": null,
           "last_edit": 1793882639
+        },
+        "06_UX/Claude Design briefing — desktop app.md": {
+          "base": {
+            "blob": "3d973027e46e05984b17e23e51d6e66fae8830a2"
+          },
+          "content": {
+            "blob": "d32a31836d74d9d7a8c4a322379bd32da849faf7"
+          },
+          "intent": null,
+          "last_edit": 1793882694
         }
       },
       "dependencies": [
