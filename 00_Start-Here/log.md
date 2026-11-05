@@ -104,3 +104,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-05] fix | TASK00001 Linux lock race and CI fail-fast
 - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: spurious `WorkspaceBusy` on Linux (flock held briefly by spawned children) fixed by a 500 ms lock retry in `07903c4`; CI matrix no longer fail-fast. Re-review needed for `af1d3a0` + `07903c4`.
+
+## [2026-11-05] ux | Claude Design briefing
+- [[Claude Design briefing — desktop app]]: new design brief in `06_UX/` for the 0.3 tray app (icon states, menu, status window, conflicts, presence, notifications), with a flow-level sketch of 0.5 guided setup. It is built from ADR-0010, ADR-0009, ADR-0003, the requirements, the milestone plan, US00001 and the README status/recovery tables, and it lists US00001's open UI questions for the design to inform. Index updated.

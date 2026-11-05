@@ -42,6 +42,11 @@ Entry point for people and agents. Read this first, then follow the links. Every
   - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps|TASK00001]] — close remaining 0.2.x stabilization gaps (v0.2.5)
   - [[Task - TASK00002 - Choose the Git backend before bundling Git|TASK00002]] — choose the Git backend before bundling Git (v0.4.0)
 
+## UX
+
+- `06_UX/`
+  - [[Claude Design briefing — desktop app]] — design brief for the tray icon, status window, conflicts, presence and guided setup
+
 ## Engineering
 
 - `07_Engineering/Decisions/` — ADRs
