@@ -51,12 +51,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "file:C:/MeshManual/note.md",
+                "file": "00_Start-Here/Team/Kai.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "note"
+              "title": "Kai"
             }
           },
           {
@@ -244,8 +244,8 @@
   },
   "active": "c16e9cc6b3c50763",
   "lastOpenFiles": [
-    "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
     "file:C:/MeshManual/note.md",
+    "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
     "02_Product/Dispatch Mesh concept.md",
     "README.md",
     "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",

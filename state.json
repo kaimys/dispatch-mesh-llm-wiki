@@ -1000,8 +1000,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793889037,
-      "last_edit": 1793889268,
-      "revision": 3,
+      "last_edit": 1793889362,
+      "revision": 4,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1011,10 +1011,10 @@
             "blob": "c06216401f01892543b4184b1b695de317fc6066"
           },
           "content": {
-            "blob": "96bafde49e94c5cba088a68f669cc38b778c4a6b"
+            "blob": "c80b12ec8d44330dd72f47d8aef24a369768a5b7"
           },
           "intent": null,
-          "last_edit": 1793889075
+          "last_edit": 1793889362
         },
         "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md": {
           "base": {
