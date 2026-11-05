@@ -18,3 +18,10 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-04] refine | US00001 Tray icon and status window host
 - Started refinement of [[Story - US00001 - Tray icon and status window host]]: Backlog → Refinement. Verified the context against the code (run loop and status derivation live in `src/main.rs`; three-value `status`; offline reads as needs attention; 0.2.x control interface not yet defined). Added a seventh open question (attention reason in the shell) and draft acceptance criteria.
+
+## [2026-11-05] ticket | US00002 Local engine control interface for the tray host
+- Created [[Story - US00002 - Local engine control interface for the tray host]] (Backlog, v0.2.5) from the 0.2.x item "Define the local engine/control interface"; 6 open questions.
+
+## [2026-11-05] ticket | TASK00001 Close remaining 0.2.x stabilization gaps
+- Created [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]] (Backlog, v0.2.5) bundling the partly done 0.2.x items: interrupted-publication and rename tests, six-state status model, 429 rate-limit vs. quota, storage-growth and recovery docs; 6 open questions.
+- Linked both from [[Story - US00001 - Tray icon and status window host]] (References) and listed both in [[index]].

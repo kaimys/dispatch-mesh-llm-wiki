@@ -126,8 +126,18 @@ Draft. These are sharpened as the open questions are answered; they are not fina
 - [[Dispatch Mesh milestone plan]] — 0.3 tray application; Decisions to close during delivery
 - [[Dispatch Mesh requirements and architecture]] — desktop interface, tray and status window
 - Code: `src/main.rs` (`run`, `.mesh/runner.lock`, `status`), `src/engine.rs`
+- [[Story - US00002 - Local engine control interface for the tray host|US00002]] — decides the host↔engine interface (open question on the local control interface)
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps|TASK00001]] — status model the icon states derive from
 - Discussion: no chat integration is configured; refinement questions and answers are recorded in this ticket.
 
 ## Dispatch runs
+
+- 2026-11-05 09:10 — Start refinement (claude, done, 846 min)
+    > I created `.claude/settings.local.json` with `"defaultMode": "bypassPermissions"`. New Claude sessions started in `dispatch-mesh` will now skip permission prompts, after you accept the one-time bypass warning. This session's mode stays as it is. Git ignores the file, but through your global ignore file (`~/.config/git/ignore`), not the repo's `.gitignore`. So it stays out of commits on this machin…
+
+- 2026-11-05 09:09 — Start refinement (claude, done, 845 min)
+
+- 2026-11-05 09:09 — Start refinement (claude, done, 845 min)
+    > I created `.claude/settings.local.json` with `"defaultMode": "bypassPermissions"`. New Claude sessions started in `dispatch-mesh` will now skip permission prompts, after you accept the one-time bypass warning. This session's mode stays as it is. Git ignores the file, but through your global ignore file (`~/.config/git/ignore`), not the repo's `.gitignore`. So it stays out of commits on this machin…
 
 <!-- GUIDE: Appended automatically by the run-lifecycle hook when an agent session ends. -->
