@@ -8,8 +8,8 @@ views:
       - file.name
       - recorded
       - date
+      - owner
       - status
       - superseded_by
-      - owner
     columnSize:
       note.status: 89
