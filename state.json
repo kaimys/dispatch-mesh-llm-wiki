@@ -633,8 +633,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793876360,
-      "last_edit": 1793876360,
-      "revision": 1,
+      "last_edit": 1793876412,
+      "revision": 2,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -644,10 +644,10 @@
             "blob": "1115dbf277ab860a78c587358c7d2b76075ae10e"
           },
           "content": {
-            "blob": "90304b8ef05a872196041df56a2177b499aa6f13"
+            "blob": "b9ea829de94a7a9ed509dc8d05e3e9e8efbda5a8"
           },
           "intent": null,
-          "last_edit": 1793876360
+          "last_edit": 1793876412
         },
         "02_Product/Competitors/Agentic Git Sync.md": {
           "base": null,
