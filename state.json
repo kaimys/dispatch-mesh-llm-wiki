@@ -1771,6 +1771,58 @@
       },
       "message_base": "7d471cc084f11860ed6b98f16ffb60206ec52210"
     },
+    "89c2d8bb-3eb7-4a40-8592-eebd988322c4": {
+      "id": "89c2d8bb-3eb7-4a40-8592-eebd988322c4",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793894081,
+      "last_edit": 1793894081,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        ".obsidian/workspace.json": {
+          "base": {
+            "blob": "b6386c4a60760ec0068128dac8faf480a10343b2"
+          },
+          "content": {
+            "blob": "68d64b8877123f507b3dc8da5ffb2fb0ffb4c363"
+          },
+          "intent": null,
+          "last_edit": 1793894081
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "e5084093d9c0f3c39fe3b04f2e45b535d5d543af"
+          },
+          "content": {
+            "blob": "957ae8de88eddf10ab6215c723646a2ea9176788"
+          },
+          "intent": null,
+          "last_edit": 1793894081
+        },
+        "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md": {
+          "base": {
+            "blob": "c521f0848692ec375df0a74bfbbb4a36722857ed"
+          },
+          "content": {
+            "blob": "2d09f411ef90bbf6d56d92b426b22e7f2eb0e79a"
+          },
+          "intent": null,
+          "last_edit": 1793894081
+        }
+      },
+      "dependencies": [
+        "39df02d9-6758-4615-8df9-c44281deeaf6"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "8d897d95-6824-4982-a669-de63f56b2cb3": {
       "id": "8d897d95-6824-4982-a669-de63f56b2cb3",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
