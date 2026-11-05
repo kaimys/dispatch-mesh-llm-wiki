@@ -94,7 +94,8 @@ As the developer of the Mesh tray host, I want one defined way to observe and co
   - No separate event stream.
   - How these failures are classified and presented is part of the status model in [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps|TASK00001]]. This ticket only guarantees they reach the snapshot and state.
   - Per the invariants, messages must not contain credentials or provider response bodies.
-- [ ] **Lock ownership on handover.** If a host starts while a CLI `run` holds `runner.lock`, does the host attach to that runner as an observer, or refuse to start and offer to take over?
+- [x] **Lock ownership on handover.** If a host starts while a CLI `run` holds `runner.lock`, does the host attach to that runner as an observer, or refuse to start and offer to take over?
+  **Answer (Kai, 2026-11-05):** refuse, explain and retry. `Runner::start` fails with a distinct "already running" error when `runner.lock` is held, and the host never starts a second engine. The host shows: "Mesh is already running for this workspace from another window. Stop it there, then choose Retry." Retry attempts the lock again. There is no observer mode.
 
 ## Acceptance criteria
 
