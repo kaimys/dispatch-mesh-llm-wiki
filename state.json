@@ -263,8 +263,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793867796,
-      "last_edit": 1793869627,
-      "revision": 20,
+      "last_edit": 1793869693,
+      "revision": 21,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -274,10 +274,10 @@
             "blob": "994ae3fead81d17d868afa82cd40d094efa6b5de"
           },
           "content": {
-            "blob": "d1c556341f07105b3ff9a994b94aab79e18f7958"
+            "blob": "c1d601f2076541edcfb31bbba99c9783efdde5d5"
           },
           "intent": null,
-          "last_edit": 1793869627
+          "last_edit": 1793869693
         },
         "00_Start-Here/log.md": {
           "base": {
@@ -314,10 +314,26 @@
             "blob": "a752aacf1238bfdbded3fc2430387f59897d6395"
           },
           "content": {
-            "blob": "7c38a39a0a3b20734f299f8ce325faccc2211a8b"
+            "blob": "7a66f4de71ac257dddff96d51c07ded6d5afb59d"
           },
           "intent": null,
-          "last_edit": 1793869352
+          "last_edit": 1793869693
+        },
+        "08_Delivery-and-QA/Reports/github-workflow-findings-2026-11-04.md": {
+          "base": null,
+          "content": {
+            "blob": "26cd1e02ce8b99430baf024f22e3b18a23c28d35"
+          },
+          "intent": null,
+          "last_edit": 1793869693
+        },
+        "08_Delivery-and-QA/Reports/github-workflow-test-2026-11-04.md": {
+          "base": null,
+          "content": {
+            "blob": "6ad0cf94381abff291a8e50d8a7b3c661119e436"
+          },
+          "intent": null,
+          "last_edit": 1793869693
         }
       },
       "dependencies": [

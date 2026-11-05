@@ -36,7 +36,7 @@ As a Mesh user, I want to see exactly where my changes are (saved, uploaded as a
 
 ## Context
 
-Gap analysis of 2026-11-05 against [[Dispatch Mesh milestone plan]] → *0.2.x — engine stabilization*, from the code, tests and README at 0.2.4 and the live run in `reports/github-workflow-findings-2026-11-04.md`.
+Gap analysis of 2026-11-05 against [[Dispatch Mesh milestone plan]] → *0.2.x — engine stabilization*, from the code, tests and README at 0.2.4 and the live run in [[github-workflow-findings-2026-11-04]].
 
 1. **Regression coverage.** Two-device drafts, restart and crash recovery, offline capture, binary conflicts and edits during incoming changes are covered (`tests/engine.rs`, `tests/cli.rs`). Two cases are missing:
    - **Interrupted publication:** a crash or network loss between pushing a finalized session to `main` and recording it as published. `reconcile_published` in `src/engine.rs` suggests a recovery path, but no test asserts it.
@@ -144,7 +144,7 @@ Downstream: [[Story - US00001 - Tray icon and status window host|US00001]] deriv
 ## References
 
 - [[Dispatch Mesh milestone plan]] — 0.2.x engine stabilization (work items and exit criteria)
-- `reports/github-workflow-findings-2026-11-04.md` — live verification of 0.2.4
+- [[github-workflow-findings-2026-11-04]] — live verification of 0.2.4
 - [[Story - US00001 - Tray icon and status window host|US00001]], [[Story - US00002 - Local engine control interface for the tray host|US00002]]
 - Code: `src/main.rs` (`show_status`), `src/engine.rs` (`reconcile_published`), `src/ai.rs` (`http_failure`), `README.md` (*Conflicts and recovery*, limits)
 
