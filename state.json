@@ -2977,6 +2977,59 @@
       },
       "message_base": "a3e96d3818d1d22294abe05f3a4c03ab7bab0316"
     },
+    "e26d9c26-80bc-40a6-b93d-fcfa31d8b4a5": {
+      "id": "e26d9c26-80bc-40a6-b93d-fcfa31d8b4a5",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793897611,
+      "last_edit": 1793897611,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "b4a6e39ffc7adbd0ca27a1b1101309133f827ed4"
+          },
+          "content": {
+            "blob": "d9ad0774c8326d7770b38f736042d93fd70641dd"
+          },
+          "intent": null,
+          "last_edit": 1793897611
+        },
+        "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md": {
+          "base": {
+            "blob": "bf12d1b8a224019da0db2a5a9b604b8324c0b894"
+          },
+          "content": {
+            "blob": "44589de1282e18064c3b4a8425a6b7ec4e432968"
+          },
+          "intent": null,
+          "last_edit": 1793897611
+        },
+        "06_UX/Claude Design briefing — desktop app.md": {
+          "base": {
+            "blob": "591a20c657c42ce6084728546e15538abfb15d48"
+          },
+          "content": {
+            "blob": "18a5ab0c7d2023b7bc31e1b9dd839674debeeccb"
+          },
+          "intent": null,
+          "last_edit": 1793897611
+        }
+      },
+      "dependencies": [
+        "667fae1f-b58b-4481-968c-f334ddc466e5",
+        "66b5ef56-abe2-4e77-b736-3582d1a7e245"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "e7868d2f-0de7-4e6b-9b84-e600bd1b2b41": {
       "id": "e7868d2f-0de7-4e6b-9b84-e600bd1b2b41",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
