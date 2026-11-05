@@ -1,1 +1,1 @@
-This is the LLM Wiki for  
+This is the LLM Wiki for the [Disptach Mesh project](https://github.com/kaimys/dispatch-mesh). It uses  
