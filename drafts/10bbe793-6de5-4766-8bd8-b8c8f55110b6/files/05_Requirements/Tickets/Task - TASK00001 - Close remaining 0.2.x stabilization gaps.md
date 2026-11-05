@@ -86,7 +86,8 @@ Downstream: [[Story - US00001 - Tray icon and status window host|US00001]] deriv
 - [x] **"Draft uploaded" bookkeeping.** Should the engine record the last draft revision successfully pushed per session (a new state field and migration), or derive it from the device branch on demand?
   **Answer (Kai, 2026-11-05):** store it. After a successful device-branch push, record each own session's pushed revision; a session is `draft_uploaded` when that equals its current `revision`. The record must load as empty from older state, so no migration step is needed.
   > Constraint found while recording this (2026-11-05): keep the record **local-only**, e.g. `State.uploaded: BTreeMap<session id, revision>`, not a field on `Session`. `push_manifest` serializes own `Session`s into the device-branch manifest. A field set after each push would change that manifest and trigger another push on every cycle, and it would also publish a device-local fact to peers.
-- [ ] **Compatibility.** Can existing `status` JSON consumers (scripts, the GitHub harness) tolerate a changed `status` value set, or must the old three values stay as a separate field?
+- [x] **Compatibility.** Can existing `status` JSON consumers (scripts, the GitHub harness) tolerate a changed `status` value set, or must the old three values stay as a separate field?
+  **Answer (Kai, 2026-11-05):** replace and document. `status` carries the new workspace summary values: `synced` and `needs_attention` keep their names, and `waiting_to_sync` is removed. Update `tests/cli.rs` accordingly and document the value set in the README. There is no legacy field, because no external consumer exists in this 0.x preview.
 - [ ] **Docs location.** Should the documentation go in the README only, or the README plus a recovery page in the wiki?
 
 ## Acceptance criteria
