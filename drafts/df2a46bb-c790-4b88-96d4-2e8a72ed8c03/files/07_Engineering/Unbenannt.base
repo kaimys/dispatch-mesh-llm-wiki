@@ -4,3 +4,5 @@ views:
     filters:
       and:
         - file.inFolder("07_Engineering/Decisions")
+    order:
+      - file.name
