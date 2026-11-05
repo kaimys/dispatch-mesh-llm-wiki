@@ -477,7 +477,7 @@
       "created_at": 1793879053,
       "last_edit": 1793879148,
       "revision": 3,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -1363,6 +1363,47 @@
         "description": "Add the v0.3.0 tray icon and status window story, outlining its scope, acceptance context, and unresolved implementation decisions. Link it from the wiki index and record it in the change log. Update the Obsidian workspace to open the Dispatch board with product docs available in tabs."
       },
       "message_base": "42b5e139f847738ea41b849aba53f55bda1e5b26"
+    },
+    "99acae47-298b-4061-877a-a6ef12723d4d": {
+      "id": "99acae47-298b-4061-877a-a6ef12723d4d",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793879449,
+      "last_edit": 1793879449,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        ".obsidian/workspace.json": {
+          "base": {
+            "blob": "aef69d9571d24d64561a9bc4b88394a23bcfd533"
+          },
+          "content": {
+            "blob": "52459dd041ed30e734266da1f0409dffeb1ad145"
+          },
+          "intent": null,
+          "last_edit": 1793879449
+        },
+        "01_Sources/Clippings/BEST free sync solution Github but for normal people.md": {
+          "base": null,
+          "content": {
+            "blob": "f79f79f004d90eb1181edbbc8ebdccd1c031fb3f"
+          },
+          "intent": null,
+          "last_edit": 1793879449
+        }
+      },
+      "dependencies": [
+        "10f5c3cb-d492-485c-86e1-64db6e62c0bb",
+        "89872dbb-0142-4c5a-b0e2-b5282b327920"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
     },
     "9b1a1984-e975-4d0e-90e2-018897c39778": {
       "id": "9b1a1984-e975-4d0e-90e2-018897c39778",
