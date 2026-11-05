@@ -1,7 +1,7 @@
 ---
 id: US00002
 type: story
-status: In progress
+status: Review
 priority: high
 rank: 2048
 version_target: v0.2.5
@@ -9,12 +9,12 @@ size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests:
+open_tests: 3
 open_findings: 0
 discussion:
 updated: 2026-11-05
 completed:
-frozen:
+frozen: 2026-11-05
 ---
 Define, and record as an ADR, how a desktop host drives the Mesh engine for a workspace: how it reads state, triggers actions such as sync and finish session, and is stopped, while CLI intent and finish commands keep working. Then implement the minimum the 0.3 tray needs. This is the 0.2.x milestone item "Define the local engine/control interface that the tray host will use", and it settles open question 2 of [[Story - US00001 - Tray icon and status window host|US00001]].
 
@@ -243,8 +243,47 @@ Roughly 2–3 focused days after TASK00001 steps 2–4 land: the move and handle
 
 ## Test plan
 
-<!-- GUIDE: Written by /test-plan — `- [ ]` manual checks only, excluding what the
-     automated suites already assert. Keep `open_tests:` in sync as items are ticked. -->
+Manual checks for the in-process runner and the CLI `run` rewiring on `us00002-engine-control-interface` at `0e4c9a6` (reviewed build). Build it with `cargo build` and use `target\debug\dispatch-mesh.exe` (Windows) or `target/debug/dispatch-mesh`. The automated suites already cover:
+
+- the handle API: start without a runtime, quiet and changed snapshots, CLI changes within 2 s, stop with and without a held lock or a stalled remote;
+- published capture, sync and summary errors, and their recovery;
+- secrets: no response body or API key in any output;
+- refusal of a second runner in every combination.
+
+These checks are not repeated below.
+
+- [ ] **Kai:** *Ctrl+C in a real terminal still saves the last edit.*
+  1. In PowerShell, create a scratch workspace with `dispatch-mesh.exe --workspace C:\MeshManual init --name Kai --email kai@example.test`, then start `dispatch-mesh.exe --workspace C:\MeshManual run`.
+  2. In an editor, create `C:\MeshManual\note.md` containing `hello`, save it, and **within one second** press Ctrl+C in the `run` window.
+
+  Expected:
+  - The window prints `Local changes saved. Mesh stopped.` and returns to the prompt.
+  - `$LASTEXITCODE` is `0`.
+  - `dispatch-mesh.exe --workspace C:\MeshManual status` lists a session whose `files` include `note.md`.
+
+  Automation cannot send Ctrl+C to a console process on Windows; the tests drive the same shutdown path through `RunnerHandle::stop()`.
+- [ ] **Kai:** *Ctrl+C during a real network outage does not hang.*
+  1. Use a workspace connected to a real GitHub test repository (`init --remote https://github.com/<you>/<test-repo>.git`), with working credentials.
+  2. Start `run`, edit and save a file, and wait until `status` shows that session at `draft_uploaded`.
+  3. Disconnect the network (Wi-Fi off or cable out). Edit and save a second file, wait about 5 s, then press Ctrl+C.
+
+  Expected:
+  - `run` stops within about 5 s with `Local changes saved. Mesh stopped.`
+  - No credential prompt appears.
+  - After reconnecting, `status` lists the second file in a session, and starting `run` again uploads it (the session returns to `draft_uploaded`).
+
+  Automation covers this against a loopback mock, not real Git with the Windows credential helper and a real network drop.
+- [ ] **Kai:** *Linux CI is green for this branch.*
+  1. Push `us00002-engine-control-interface`.
+  2. Open the `ci` workflow run for it on GitHub.
+
+  Expected: both the `windows-latest` and `ubuntu-latest` jobs pass, including `tests/runner.rs` (10 tests).
+
+  On Linux the runner lock is a `flock` per open file description, so it is the only place where refusing a second same-process `Runner::start` is verified. This machine has neither WSL nor Docker, and the branch has not been pushed yet.
+
+Deliberately omitted:
+- A GUI-subsystem host (no console for stdio) does not exist until [[Story - US00001 - Tray icon and status window host|US00001]]; its tests cover that.
+- A real AI provider: the provider failure path and credential suppression are asserted against loopback mocks with a child-process sentinel key, and real-provider checks belong to [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps|TASK00001]].
 
 ## As-built notes
 

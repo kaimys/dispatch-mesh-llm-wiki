@@ -130,3 +130,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 ## [2026-11-05] code-review | US00002 fixes clear at 0e4c9a6
 - [[Story - US00002 - Local engine control interface for the tray host]]: independent re-review resolves R1–R3 with 0 blocking and 0 non-blocking findings. Formatting, clippy and the full local Windows test suite passed (79 tests); a separate runner-suite run also passed 10/10. No live remote/provider requests were made.
 - Set `open_findings: 0`, preserving status, `open_tests` and the unfrozen contract. `/test-plan US00002` is next against `0e4c9a6`; ADR-0009 amendment/acceptance remains due at completion. No implementation code changed and no PR comment was posted.
+
+## [2026-11-05] test-plan | US00002 test plan written, frozen, moved to Review
+- [[Story - US00002 - Local engine control interface for the tray host]]: manual plan for reviewed build `0e4c9a6` with 3 items (Ctrl+C in a real terminal, Ctrl+C during a real network outage, Linux CI on the pushed branch); `open_tests: 3`. Gates re-run green (79 tests). Contract zone frozen 2026-11-05; status `In progress` → `Review`. ADR-0009 amendment/acceptance remains due at Done.
