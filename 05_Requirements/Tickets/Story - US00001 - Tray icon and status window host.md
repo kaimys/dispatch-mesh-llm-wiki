@@ -1,14 +1,14 @@
 ---
 id: US00001
 type: story
-status: Backlog
+status: Refinement
 priority: high
-rank: -24
+rank: 1024
 version_target: v0.3.0
 size:
 assignee:
 owner: "[[Kai]]"
-open_questions: 6
+open_questions: 5
 open_tests:
 open_findings:
 discussion:
@@ -53,6 +53,7 @@ As a Mesh user on Windows, I want Mesh to live in the system tray with an icon t
 
 - A Windows tray host process that runs the engine's watch/capture/sync loop for a workspace, reusing the same code path as `dispatch-mesh run` rather than a parallel implementation.
 - A tray icon with distinct states derived from engine status (at least: synced/idle, working (saved locally or waiting to sync), needs attention), updated as status changes, with a tooltip naming the state.
+  *Settled 2026-11-05 (see Open questions → Icon state set):* four icons, Up to date, Working, Offline and Needs attention; the tooltip names the exact ADR-0010 state.
 - A tray menu with **Open status window** and **Quit**. Left-click opens the status window.
 - A status window shell that shows the workspace and its current overall state. Closing it hides the window and leaves the host and synchronization running.
 - **Quit** stops the host the same way Ctrl+C stops `run` today: saved changes are captured, and in-flight state stays recoverable.
@@ -87,10 +88,15 @@ The host works on a workspace already created with `dispatch-mesh init`.
   - If a CLI `run` or another host holds the workspace, the tray refuses to start a second engine, explains why, and offers Retry.
 - [ ] **Single executable or separate binary.** Should this be a new `dispatch-mesh tray` subcommand in the existing binary, or a separate `dispatch-mesh-tray.exe`? Windows constraint: a tray app should be built with `windows_subsystem = "windows"` so no console window appears, but that subsystem detaches the CLI from its console. One binary therefore needs a console-attach workaround; two binaries avoid it.
 - [ ] **Workspaces per host.** One host per workspace (`--workspace`, like the CLI), or one host for several workspaces from the start? The milestone says "each workspace's … state", which suggests several. Choosing one now affects the icon-state aggregation and the window layout.
-- [ ] **Icon state set.** What exact states does the icon show, and how do they map to the `status` fields? Is "paused" reserved now, although pause lands in a later ticket? Two sub-points found in the code: (a) `status` has three values and merges *saved locally* with *waiting to sync*; do the icon states split them? (b) an offline device currently becomes `needs_attention` via the sync-failure attention message; should offline be its own, non-alarming state?
+- [x] **Icon state set.** What exact states does the icon show, and how do they map to the `status` fields? Is "paused" reserved now, although pause lands in a later ticket? Two sub-points found in the code: (a) `status` has three values and merges *saved locally* with *waiting to sync*; do the icon states split them? (b) an offline device currently becomes `needs_attention` via the sync-failure attention message; should offline be its own, non-alarming state?
   *Narrowed (2026-11-05):* [[ADR-0010 — Report workspace status and session stages separately]] defines the state set: `needs_attention`, `offline`, `saved_locally`, `draft_uploaded`, `waiting_for_finalization`, `synced`. That answers sub-points (a) and (b): they are split, and offline is its own state. Still open:
   - which of the six get distinct icons, as opposed to sharing a "working" icon;
   - whether "paused" is reserved. Pause is not in ADR-0010's model, so adding it later means extending that ADR.
+  **Answer (Kai, 2026-11-05, from the Claude Design result of [[Claude Design briefing — desktop app]], deliverable 1 in [[Dispatch Mesh desktop app.pdf]]):**
+  - Four icons in 0.3: **Up to date** (`synced`; the plain mark, no badge), **Working** (`saved_locally`, `draft_uploaded`, `waiting_for_finalization` share one icon), **Offline** (`offline`; dimmed mark with a slash, calm rather than red) and **Needs attention** (`needs_attention`; exclamation badge).
+  - The badge *shape* carries the state, so it reads without color and on a monochrome macOS template image.
+  - The tooltip, not the icon, names the exact state, as `Dispatch Mesh — <label>` with the reason for attention and offline, for example "Dispatch Mesh — Shared as draft (Team Wiki)" or "Dispatch Mesh — Needs attention: 2 unresolved conflicts". Screen readers get the tooltip text as the icon name.
+  - **Paused** is reserved: a glyph slot exists in the design, but 0.3 ships no paused icon. The pause ticket adds it together with the ADR-0010 extension.
 - [ ] **Attention reason in the shell.** When the icon shows *needs attention*, does the status window shell show the reason (the `attention` message, capture error, or "N unresolved conflicts"), or only the state name until the later detail ticket? Per-stage detail is out of scope, but a bare "needs attention" with no reason is not actionable.
   *Narrowed (2026-11-05):* [[ADR-0010 — Report workspace status and session stages separately]] supplies a sanitized `reason` whenever the summary is `needs_attention` or `offline`, so showing it costs the shell one label. What remains is only the UI choice of whether the shell displays it.
 - [ ] **Quit with pending work.** When Quit is chosen while a session is open or a publication is in flight, should it quit immediately after capture (as Ctrl+C does), or offer to finish or publish first?
@@ -102,7 +108,10 @@ Draft. These are sharpened as the open questions are answered; they are not fina
 
 - With the host running on an initialized workspace, no console window is visible and a Mesh icon is in the notification area.
 - Editing a file changes the icon from *synced* to a working state, and back to *synced* after the change synchronizes. The tooltip names the current state.
-- Creating an unresolved conflict changes the icon to *needs attention*.
+- Creating an unresolved conflict changes the icon to *needs attention*, and the tooltip names the reason (for example "2 unresolved conflicts").
+- With the remote unreachable, the icon shows *offline* (not *needs attention*), the tooltip says changes are saved on this device, and saved edits are still captured.
+- *Saved locally*, *shared as draft* and *finishing up* show the same working icon; the tooltip names which one applies.
+- The icon states are distinguishable without color (badge shape), on light and dark taskbars.
 - Left-clicking the icon, or choosing **Open status window**, shows a window with the workspace path and its current state.
 - Closing the status window leaves the icon present; a file edited afterwards is still captured and synchronized.
 - Choosing **Quit** removes the icon and ends the process. An edit saved just before Quit is captured, and the next `run` or host start synchronizes it.
@@ -140,6 +149,7 @@ Draft. These are sharpened as the open questions are answered; they are not fina
 
 - [[Dispatch Mesh milestone plan]] — 0.3 tray application; Decisions to close during delivery
 - [[Dispatch Mesh requirements and architecture]] — desktop interface, tray and status window
+- [[Claude Design briefing — desktop app]] and its results [[Dispatch Mesh desktop app.pdf]] / [[Dispatch Mesh desktop app.html]] — icon set, tray menu, status window, toasts and token sheet
 - Code: `src/main.rs` (`run`, `.mesh/runner.lock`, `status`), `src/engine.rs`
 - [[Story - US00002 - Local engine control interface for the tray host|US00002]] — decides the host↔engine interface (open question on the local control interface)
 - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps|TASK00001]] — status model the icon states derive from

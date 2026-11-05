@@ -16,8 +16,21 @@
               "icon": "play",
               "title": "Dispatch board"
             }
+          },
+          {
+            "id": "1db05cc8cdbfd73f",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "06_UX/Dispatch Mesh desktop app.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "Dispatch Mesh desktop app"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -95,6 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "06_UX/Dispatch Mesh desktop app.pdf",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -113,6 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "06_UX/Dispatch Mesh desktop app.pdf",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -183,15 +198,17 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "8fc4e83af58370bc",
+  "active": "1db05cc8cdbfd73f",
   "lastOpenFiles": [
+    "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
+    "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md",
+    "06_UX/Claude Design briefing — desktop app.md",
     "08_Delivery-and-QA/Releases/v0.2.5.md",
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
     "08_Delivery-and-QA/Releases/GitHub/v0.2.5 GitHub release.md",
     "file:C:/Users/kai/AppData/Local/Temp/claude/4b8f75bbeb1eb607/6998f873-9e5b-4e46-a36d-d0b0ef1ab545/scratchpad/github-release-v0.2.5.md",
     "08_Delivery-and-QA/Releases/GitHub",
     "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
-    "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
     "00_Start-Here/Team/Kai.md",
     "02_Product/Dispatch Mesh concept.md",
     "file:C:/MeshNet/second.md",
@@ -199,7 +216,6 @@
     "file:C:/MeshManual/note.md",
     "README.md",
     "file:C:/MeshTask1Net/auth.md",
-    "06_UX/Claude Design briefing — desktop app.md",
     "Dispatch.md",
     "06_UX/Dispatch Mesh desktop app.pdf",
     "file:C:/MeshTask1Net/net.md",
@@ -217,7 +233,6 @@
     "02_Product/Competitors/git-annex assistant.md",
     "02_Product/Competitors/Obsidian Git.md",
     "02_Product/Competitors/SparkleShare.md",
-    "02_Product/Competitors/gitwatch.md",
     "02_Product/Competitors",
     "02_Product/Competititors",
     "05_Requirements/Tickets/sedopX6Kw"

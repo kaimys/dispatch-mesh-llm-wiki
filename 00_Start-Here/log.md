@@ -145,3 +145,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-05] release | v0.2.5 GitHub release text
 - Created [[v0.2.5 GitHub release]] in `08_Delivery-and-QA/Releases/GitHub/` (listed in [[index]] under [[v0.2.5]]): paste-ready GitHub release body with ticket, ADR and milestone-plan links to `kaimys/dispatch-mesh-llm-wiki`, breaking-change and upgrade notes, and package checksums. No `version:` frontmatter, so the Release Plan does not count it as a second release.
+
+## [2026-11-05] refine | US00001 icon state set answered
+- [[Story - US00001 - Tray icon and status window host]]: closed the *Icon state set* question from the Claude Design result ([[Dispatch Mesh desktop app.pdf]], deliverable 1). Four icons (Up to date, Working shared by the three in-progress states, Offline, Needs attention), the tooltip names the exact state, and Paused stays reserved until the pause ticket extends ADR-0010. Scope note, acceptance criteria and references updated; `open_questions` 6 → 5.
