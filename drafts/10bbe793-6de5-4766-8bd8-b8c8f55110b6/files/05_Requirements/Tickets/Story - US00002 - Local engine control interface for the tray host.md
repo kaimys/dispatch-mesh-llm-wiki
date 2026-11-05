@@ -8,7 +8,7 @@ version_target: v0.2.5
 size:
 assignee:
 owner: "[[Kai]]"
-open_questions: 4
+open_questions: 3
 open_tests:
 open_findings:
 discussion:
@@ -76,7 +76,8 @@ As the developer of the Mesh tray host, I want one defined way to observe and co
 
 - [x] **Model.** Should the host embed the engine in-process, supervise a `run` child process, or talk to an independently started runner? Embedding is the simplest; supervising isolates a UI crash from capture.
   **Answer (Kai, 2026-11-05):** in-process. The run loop moves into the library with a shutdown handle and a status/event channel. The tray calls it directly, and the CLI keeps working against the same workspace through the existing on-disk locks. Accepted trade-off: a UI crash stops capture until the host restarts, and captured work survives through the existing journals.
-- [ ] **Observation.** Can hosts poll the committed SQLite snapshot cheaply enough (and how often), or does the engine need to push changes (in-process channel, named pipe, file-change watch on the state DB)?
+- [x] **Observation.** Can hosts poll the committed SQLite snapshot cheaply enough (and how often), or does the engine need to push changes (in-process channel, named pipe, file-change watch on the state DB)?
+  **Answer (Kai, 2026-11-05):** the runner publishes. After each tick it computes the status snapshot (the same data `status` returns) and publishes it on a watch channel, but only when it differs from the last one. Changes made by the CLI in another process are included, because the runner re-reads workspace state on every tick. Latency is at most about one tick (1 s), and the host does no polling of its own.
 - [x] **Waking and stopping a runner from another process.** Is a control channel needed in 0.3 at all (for example, CLI `session finish` waking the tray-owned runner to publish immediately), or is "the next sync cycle picks it up" acceptable?
   **Answer (follows from the in-process decision and the run-loop finding, 2026-11-05):** no cross-process channel in 0.3. The host stops its own in-process engine through the shutdown handle. The runner already picks up CLI `session finish` within its ~3 s sync cadence.
 - [x] **Channel, if any.** Named pipe on Windows and a Unix socket elsewhere, or a localhost TCP port? Either way, how is access restricted to the current user?
