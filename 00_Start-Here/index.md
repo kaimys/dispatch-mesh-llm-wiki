@@ -45,6 +45,9 @@ Entry point for people and agents. Read this first, then follow the links. Every
 ## Delivery and QA
 
 - `08_Delivery-and-QA/Releases/` — release notes (`version` + `date`, feeds the Release Plan)
+- `08_Delivery-and-QA/Reports/` — verification reports
+  - [[github-workflow-test-2026-11-04]] — live GitHub workflow test of 0.2.4, per-case results
+  - [[github-workflow-findings-2026-11-04]] — findings and known limitations from that run
 
 ## Meetings
 

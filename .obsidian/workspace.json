@@ -23,12 +23,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
+                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Task - TASK00001 - Close remaining 0.2.x stabilization gaps"
+              "title": "Story - US00001 - Tray icon and status window host"
             }
           },
           {
@@ -59,8 +59,7 @@
               "title": "Dispatch Mesh concept"
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
@@ -230,7 +229,15 @@
   },
   "active": "55ceda3168845134",
   "lastOpenFiles": [
+    "05_Requirements/Tickets/sedqfEOzl",
+    "08_Delivery-and-QA/Reports/github-workflow-test-2026-11-04.md",
+    "08_Delivery-and-QA/Reports/github-workflow-findings-2026-11-04.md",
+    "08_Delivery-and-QA/Reports",
     "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
+    "02_Product/Dispatch Mesh concept.md",
+    "05_Requirements/Tickets/sedK39aWs",
+    "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md.tmp.13304.a8a43f67635a",
+    "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md.tmp.13304.ef2216d0b882",
     "01_Sources/Clippings",
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md.tmp.13304.38824ac81016",
     "02_Product/Dispatch Mesh milestone plan.md",
@@ -239,12 +246,7 @@
     "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md.tmp.13304.c080e0697426",
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md.tmp.13304.08879b50a313",
-    "02_Product/Dispatch Mesh concept.md",
-    "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md.tmp.14144.41e0d521f9d3",
-    "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md.tmp.14144.db57bfd3a095",
-    "00_Start-Here/sedW44df6",
     "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
-    "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md.tmp.13304.79653b317089",
     "02_Product/Dispatch Mesh naming recommendations.md",
     "02_Product/Dispatch Mesh requirements and architecture.md",
     "00_Start-Here/log.md",
