@@ -833,7 +833,7 @@
       "created_at": 1793882639,
       "last_edit": 1793882982,
       "revision": 14,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -1867,6 +1867,42 @@
         "description": "Add Dispatch Mesh naming recommendations, product requirements and architecture, and a README covering sessions, conflicts, presence, and synchronization. Update the existing milestone plan with renamed document links and consistent milestone-table formatting; remove the superseded git-sync discovery pages."
       },
       "message_base": "d88d34fea28217d9079377cde4f30aeb7e38e3ad"
+    },
+    "c3c781a6-eecd-4291-82d2-3aa62bea045c": {
+      "id": "c3c781a6-eecd-4291-82d2-3aa62bea045c",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793883283,
+      "last_edit": 1793883283,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        ".obsidian/workspace.json": {
+          "base": {
+            "blob": "7f6072a46036529c24543eb6d8f0f1421be5dcbe"
+          },
+          "content": {
+            "blob": "55c9e00a5dea8b9b5148ce5b307b5a4590ca5a40"
+          },
+          "intent": null,
+          "last_edit": 1793883283
+        }
+      },
+      "dependencies": [
+        "10f5c3cb-d492-485c-86e1-64db6e62c0bb",
+        "4fb3fc57-85ae-419f-a958-a5b36b5825b7",
+        "7a28b929-6d9c-4115-853d-80e59a59e4e7",
+        "99acae47-298b-4061-877a-a6ef12723d4d",
+        "e7868d2f-0de7-4e6b-9b84-e600bd1b2b41"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
     },
     "ca6102a4-9425-4626-b7e3-70a2f268d64c": {
       "id": "ca6102a4-9425-4626-b7e3-70a2f268d64c",
