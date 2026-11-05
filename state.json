@@ -467,6 +467,39 @@
       },
       "message_base": "cc5af848750815dcb82e9d134974d828b91109fd"
     },
+    "10f5c3cb-d492-485c-86e1-64db6e62c0bb": {
+      "id": "10f5c3cb-d492-485c-86e1-64db6e62c0bb",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793879053,
+      "last_edit": 1793879053,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        ".obsidian/workspace.json": {
+          "base": {
+            "blob": "3393abd02b656001a82ab71de4ddfaa5bc6e50d9"
+          },
+          "content": {
+            "blob": "ed02965c7b0fd2f37fc330a3222c75e321ec14f2"
+          },
+          "intent": null,
+          "last_edit": 1793879053
+        }
+      },
+      "dependencies": [
+        "89872dbb-0142-4c5a-b0e2-b5282b327920",
+        "9b1a1984-e975-4d0e-90e2-018897c39778"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "16bcef2e-800a-47e7-a542-bbf713b2be19": {
       "id": "16bcef2e-800a-47e7-a542-bbf713b2be19",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
@@ -1343,8 +1376,11 @@
         "6ceaf325-23a7-4272-ab72-af4f3c9c5d57"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Record TASK00001 Linux CI fix and update its verification handoff",
+        "description": "Document the Ubuntu CI failure and test-only fix in af1d3a0, update TASK00001’s manual test plan to target that commit, and append the change to the wiki log. Clear the findings count pending re-review; ticket status remains Review."
+      },
+      "message_base": "c65e611ece549da3ab97fa6149fa4e25053d94ad"
     },
     "a46feca4-ae0e-457e-b25e-dec106968f82": {
       "id": "a46feca4-ae0e-457e-b25e-dec106968f82",
