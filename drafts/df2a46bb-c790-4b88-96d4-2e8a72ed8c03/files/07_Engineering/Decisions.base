@@ -10,6 +10,6 @@ views:
       - date
       - status
       - superseded_by
-      - file.links
+      - owner
     columnSize:
       note.status: 89
