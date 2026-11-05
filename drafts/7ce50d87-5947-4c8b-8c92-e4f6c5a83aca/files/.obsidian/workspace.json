@@ -45,8 +45,7 @@
               "title": "Dispatch Mesh milestone plan"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -214,7 +213,7 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "1c1c00966f008fa6",
+  "active": "8fc4e83af58370bc",
   "lastOpenFiles": [
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md.tmp.13304.38824ac81016",
     "02_Product/Dispatch Mesh milestone plan.md",
