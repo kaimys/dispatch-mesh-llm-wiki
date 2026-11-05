@@ -24,13 +24,13 @@ This is an analyst assessment derived from the seven linked profiles, not a meas
 
 ## Strengths — internal, implemented
 
-| Strength | Competitive evidence and implication |
-|---|---|
-| Draft sharing and permanent history have separate timing | [[gitwatch]] commits after short batching; [[Obsidian Git]] documents scheduled Git synchronization. Mesh can share work during a session while retaining a quieter permanent history. Validate whether users understand the two states. |
-| Recorded purpose is distinct from an AI summary | [[Agentic Git Sync]] documents AI-generated messages. Mesh attaches declared purpose to exact paths and retains it through local fallback. This supports human/agent audit trails; the review does not establish that this combination is unique across the market. |
-| Durable, synchronized conflict evidence | [[Syncthing]] and [[git-annex assistant]] preserve alternatives as files. Mesh retains base and both sides plus synchronized selections, while unrelated paths continue. This supplies a foundation for a clearer future conflict workflow. |
-| AI is optional to synchronization | Compared with [[Agentic Git Sync]]'s agent-operated Git approach, Mesh keeps the sync engine independent and supports configured local or hosted summary endpoints. This creates a credible privacy/control proposition without promising secret detection. |
-| Works independently of an editor | [[Obsidian Git]] and [[Agentic Git Sync]] operate inside Obsidian. Mesh can capture saved files from multiple applications and agent CLIs. That broadens the workflow beyond a single plugin host. |
+| Strength                                                 | Competitive evidence and implication                                                                                                                                                                                                                                |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Draft sharing and permanent history have separate timing | [[gitwatch]] commits after short batching; [[Obsidian Git]] documents scheduled Git synchronization. Mesh can share work during a session while retaining a quieter permanent history. Validate whether users understand the two states.                            |
+| Recorded purpose is distinct from an AI summary          | [[Agentic Git Sync]] documents AI-generated messages. Mesh attaches declared purpose to exact paths and retains it through local fallback. This supports human/agent audit trails; the review does not establish that this combination is unique across the market. |
+| Durable, synchronized conflict evidence                  | [[Syncthing]] and [[git-annex assistant]] preserve alternatives as files. Mesh retains base and both sides plus synchronized selections, while unrelated paths continue. This supplies a foundation for a clearer future conflict workflow.                         |
+| AI is optional to synchronization                        | Compared with [[Agentic Git Sync]]'s agent-operated Git approach, Mesh keeps the sync engine independent and supports configured local or hosted summary endpoints. This creates a credible privacy/control proposition without promising secret detection.         |
+| Works independently of an editor                         | [[Obsidian Git]] and [[Agentic Git Sync]] operate inside Obsidian. Mesh can capture saved files from multiple applications and agent CLIs. That broadens the workflow beyond a single plugin host.                                                                  |
 
 ## Weaknesses — internal, current gaps
 
