@@ -1813,8 +1813,11 @@
         "e7868d2f-0de7-4e6b-9b84-e600bd1b2b41"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: record successful authentication-failure recovery check",
+        "description": "Update the existing TASK00001 ticket to mark the refused-login manual check complete. Record that sync failed without prompting, status showed a sanitized `needs_attention` reason, and a subsequent successful sync cleared the failure. Reduce the remaining open test count from 2 to 1."
+      },
+      "message_base": "d71ed0bb0833b498bfd7de9c3875d8e77b360e77"
     },
     "ba227071-16b8-48ff-ba3c-28bb2bd3682e": {
       "id": "ba227071-16b8-48ff-ba3c-28bb2bd3682e",
