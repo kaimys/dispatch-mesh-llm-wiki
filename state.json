@@ -1726,6 +1726,42 @@
       },
       "message_base": "4f85230da4ad55198baf50d39c7c8373547d996f"
     },
+    "ad5fc0e4-f89f-47c4-8b6d-6095b756c216": {
+      "id": "ad5fc0e4-f89f-47c4-8b6d-6095b756c216",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793884258,
+      "last_edit": 1793884258,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md": {
+          "base": {
+            "blob": "a142e531f2b66df2400f7f36fe15ff703f555300"
+          },
+          "content": {
+            "blob": "61203f8ec56338a157a403d6b323b1aadfd4163c"
+          },
+          "intent": null,
+          "last_edit": 1793884258
+        }
+      },
+      "dependencies": [
+        "4fb3fc57-85ae-419f-a958-a5b36b5825b7",
+        "7a28b929-6d9c-4115-853d-80e59a59e4e7",
+        "99acae47-298b-4061-877a-a6ef12723d4d",
+        "c3c781a6-eecd-4291-82d2-3aa62bea045c",
+        "e7868d2f-0de7-4e6b-9b84-e600bd1b2b41"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "ba227071-16b8-48ff-ba3c-28bb2bd3682e": {
       "id": "ba227071-16b8-48ff-ba3c-28bb2bd3682e",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
