@@ -1470,7 +1470,7 @@
       "last_edit": 1793880006,
       "revision": 8,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         ".obsidian/workspace.json": {
@@ -1517,8 +1517,11 @@
         "89872dbb-0142-4c5a-b0e2-b5282b327920"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Update sync research, stabilization records, and workspace layout",
+        "description": "Add a Reddit clipping about GitHub-based Obsidian sync, update the existing engine-control story and stabilization task with recorded decisions and verification progress, and adjust the Obsidian workspace to focus on the stabilization task in preview mode."
+      },
+      "message_base": "9a401c28943e589556e6e141f161a5f0d9822893"
     },
     "9b1a1984-e975-4d0e-90e2-018897c39778": {
       "id": "9b1a1984-e975-4d0e-90e2-018897c39778",
