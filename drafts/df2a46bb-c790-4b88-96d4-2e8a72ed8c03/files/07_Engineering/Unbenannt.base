@@ -6,3 +6,5 @@ views:
         - file.inFolder("07_Engineering/Decisions")
     order:
       - file.name
+      - recorded
+      - status
