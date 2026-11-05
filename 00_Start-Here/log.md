@@ -95,3 +95,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 ## [2026-11-05] code-review | TASK00001 clean at c079e9d
 - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: independently verified the B4 fix, with 360 cutoff cases, both original reproductions and 509 earlier calendar comparisons. Formatting, Clippy and all 69 tests passed locally on Windows. Confirmed the files reviewed before the author committed match `c079e9d`; no new findings.
 - Recorded 0 blocking and 0 non-blocking findings; set `open_findings: 0`. Kept `In progress`, unfrozen, and left `open_tests` unchanged. `/test-plan TASK00001` is next against the reviewed commit. No implementation changes or PR comment; no live remote/provider or Linux/macOS checks.
+
+## [2026-11-05] test-plan | TASK00001 → Review
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: manual test plan written for `c079e9d` (5 items: CI on Linux, real network loss, real refused login via GCM, locale with translated Git, README review); `open_tests: 5`; contract zone frozen 2026-11-05; status → Review.

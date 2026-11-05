@@ -1,7 +1,7 @@
 ---
 id: TASK00001
 type: task
-status: In progress
+status: "Review"
 priority: high
 rank: 1024
 version_target: v0.2.5
@@ -9,12 +9,12 @@ size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests:
+open_tests: 5
 open_findings: 0
 discussion:
 updated: 2026-11-05
 completed:
-frozen:
+frozen: 2026-11-05
 ---
 Finish the four 0.2.x engine-stabilization items that are only partly done in 0.2.4, so the milestone's exit criteria hold before the tray work builds on them:
 1. regression tests for interrupted publication and renames;
@@ -259,8 +259,45 @@ Roughly 3–5 focused days: steps 1–4 about 60%, tests about 30%, docs 10%. Th
 
 ## Test plan
 
-<!-- GUIDE: Written by /test-plan — `- [ ]` manual checks only, excluding what the
-     automated suites already assert. Keep `open_tests:` in sync as items are ticked. -->
+Manual checks for the six-state status, offline/attention classification, the HTTP 429 split and the new README sections. They apply to branch `task00001-stabilization-gaps` at `c079e9d`, which passed a clean code review. The automated suites already assert everything else (see the report below this list). Live checks use a **disposable folder** and the designated test repository `https://github.com/kaimys/dispatch-mesh-test.git` (per `AGENTS.md`), never the wiki remote.
+
+- [ ] **Kai:** Push the branch to `origin` (`git push -u origin task00001-stabilization-gaps`). In the repository's **Actions** tab, open the *Engine checks* run for `c079e9d`. **Expected:** both the `windows-latest` and `ubuntu-latest` jobs are green. Only Windows has been verified so far; Linux has never run this code.
+- [ ] **Kai:** Real network loss against GitHub.
+  1. In PowerShell: `dispatch-mesh --workspace C:\MeshTask1Net init --name Kai --email kai@eightnine.de --remote https://github.com/kaimys/dispatch-mesh-test.git`, then `dispatch-mesh --workspace C:\MeshTask1Net run` in its own window.
+  2. Turn Wi-Fi/Ethernet off, save `C:\MeshTask1Net\net.md` with any text, wait 15 s, then run `dispatch-mesh --workspace C:\MeshTask1Net status` in a second window.
+
+  **Expected:** `"status": "offline"`; `reason` starts with `Git fetch: Remote unreachable`; `attention` is `null`; the session listing `net.md` is at stage `saved_locally`. Turn the network back on and wait 15 s. **Expected:** `status` is `draft_uploaded`, `offline` and `reason` are `null`. Stop `run` with Ctrl+C.
+- [ ] **Kai:** Real refused login through Git Credential Manager.
+  1. Open *Windows Credential Manager → Windows Credentials* and note the `git:https://github.com` entry, which you will need to restore.
+  2. Remove that entry.
+  3. In the `C:\MeshTask1Net` workspace from the previous item, save another file and run `dispatch-mesh --workspace C:\MeshTask1Net sync`.
+
+  **Expected:** the command fails without a sign-in window, because Mesh sets `GCM_INTERACTIVE=never`. `status` then shows `"status": "needs_attention"`, a `reason` starting with `Synchronization waiting: Git fetch: Remote refused access`, and `"offline": null`. Neither field contains a token, a URL with credentials, or Git's raw output. Sign in again (`git ls-remote https://github.com/kaimys/dispatch-mesh-test.git` triggers GCM), then run `sync` again. **Expected:** `attention` and `reason` are `null`.
+- [ ] **Kai:** Locale independence on a host whose Git actually translates. This Windows machine's Git 2.35.1 ships no message catalogs, so the automated locale test cannot fail here. Use a Linux machine or WSL distribution with Git, its German messages (e.g. Debian/Ubuntu `git` plus `locales`, with `de_DE.UTF-8` generated) and Rust.
+  1. Confirm the precondition: `LANG=de_DE.UTF-8 LC_ALL=de_DE.UTF-8 git -C /tmp status` prints a **German** message (for example `fatal: Kein Git-Repository …`). If it prints English, this check is not meaningful on that host.
+  2. In a checkout of `c079e9d`, run `cargo test --test cli failure_classification_does_not_depend_on_the_user_locale`.
+
+  **Expected:** the test passes.
+- [ ] **Kai:** Read the new README sections on the pushed branch on GitHub: the `status` table under *Build and run*, and *Storage growth* and *Recovery procedures* under *Conflicts and recovery*. **Expected:** both tables render as tables, and every recovery step is one you would give a user as written: correct commands, correct order, and no step that could discard `.mesh` data. Note any wording to change as a dated entry under *As-built notes*.
+
+**Not in this plan, and why.**
+- **Covered by the automated suites (69 tests, green on Windows; clean review at `c079e9d`):**
+  - every summary value and session stage, including `discarded` and reopening;
+  - precedence and `reason`;
+  - the local-only upload record with no extra push;
+  - interrupted publication recovered exactly once (mutation-checked);
+  - two-client rename and deletion with a non-ASCII, spaced path;
+  - offline vs. refused login via the binary, with an isolated Git config;
+  - failure recording under lock contention (checked against the pre-fix code);
+  - `LC_ALL=C` on every Git process;
+  - the 429 quota, rate-limit and generic cases;
+  - all three HTTP-date forms, the RFC 850 50-year cutoff and impossible dates;
+  - AI-failure persistence through the real summary path;
+  - lock-free `status`.
+- **Verified by the plan's author on 2026-11-05 with the built binary:**
+  - the background `run` loop, which has no automated offline test, recorded `offline` with reason `Git fetch: Remote unreachable …` and `attention: null`, and kept capturing (`a.md` at `saved_locally`) against an unreachable HTTPS remote;
+  - the status lifecycle `synced` → `saved_locally` → `draft_uploaded` → `synced`/`published` (recorded in the first development pass).
+- **Deliberately omitted:** a real provider in a quota-exhausted state, which cannot be produced on demand; the quota, rate-limit and body-redaction paths are asserted against mock responses. A real crash in the publication window was also left out: its outcome is asserted by restoring pre-publication state, and timing a real kill into that window is not reproducible.
 
 ## As-built notes
 
