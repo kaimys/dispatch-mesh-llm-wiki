@@ -1372,8 +1372,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793879449,
-      "last_edit": 1793879449,
-      "revision": 1,
+      "last_edit": 1793879480,
+      "revision": 2,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1391,10 +1391,10 @@
         "01_Sources/Clippings/BEST free sync solution Github but for normal people.md": {
           "base": null,
           "content": {
-            "blob": "f79f79f004d90eb1181edbbc8ebdccd1c031fb3f"
+            "blob": "1117b8fec22cead73165b251f1aa806215afb69d"
           },
           "intent": null,
-          "last_edit": 1793879449
+          "last_edit": 1793879480
         }
       },
       "dependencies": [
