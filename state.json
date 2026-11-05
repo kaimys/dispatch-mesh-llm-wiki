@@ -1072,8 +1072,11 @@
         "f1e96a40-04f7-45bb-9499-bc4e882f189b"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Complete US00002 and accept runner architecture ADR",
+        "description": "Mark US00002 Done with its test plan complete, update ADR-0009 to the implemented runner API and accepted status, and record the completion in the wiki index and log. Add Kai’s GitHub username and update the Obsidian workspace state."
+      },
+      "message_base": "9692a575d4b503139ee1d36905cf0bce7ed41ae4"
     },
     "67fe2012-1bd5-4c63-9842-1cac0e70a22f": {
       "id": "67fe2012-1bd5-4c63-9842-1cac0e70a22f",
@@ -1207,6 +1210,86 @@
         "description": "- Add five manual verification checks for TASK00001, set it to Review, and freeze the ticket.\n- Update the Obsidian workspace to open the stabilization task in source mode and make the Dispatch board active."
       },
       "message_base": "89c208f3bd405f7c32d8bd73939be2873eceddfc"
+    },
+    "74689f7a-cc1a-4a88-b738-f5dd99e4e7b9": {
+      "id": "74689f7a-cc1a-4a88-b738-f5dd99e4e7b9",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793891191,
+      "last_edit": 1793891191,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        ".obsidian/workspace.json": {
+          "base": {
+            "blob": "b62574546b8b589b46ec432ad42feb47319f9c03"
+          },
+          "content": {
+            "blob": "583ae37418a454a9548c796019caed3eb9287c8a"
+          },
+          "intent": null,
+          "last_edit": 1793891191
+        },
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "c859f4bca367ca4b40a4a8a05d9ccded872350a3"
+          },
+          "content": {
+            "blob": "722048c6ea086fadab70df5887f3358f19e5463a"
+          },
+          "intent": null,
+          "last_edit": 1793891191
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "eb1432587dc3d18dae68fcaa8977812720906cac"
+          },
+          "content": {
+            "blob": "1b8d4898c51c67e2cd677da0cd5e9fa3f414c437"
+          },
+          "intent": null,
+          "last_edit": 1793891191
+        },
+        "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md": {
+          "base": {
+            "blob": "4fb7b5c88e6e2ce67aa5f3e5efb91494f1206d7f"
+          },
+          "content": {
+            "blob": "cde6d582d5f32910af854a5bc0d9c2ef9c9c9569"
+          },
+          "intent": null,
+          "last_edit": 1793891191
+        },
+        "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md": {
+          "base": {
+            "blob": "0cc3f8ef8c3c8310aa0fed79a81fca805dbb000a"
+          },
+          "content": {
+            "blob": "a0ecd6f1d649c8bf7a2a7162da8c6e14bacf0141"
+          },
+          "intent": null,
+          "last_edit": 1793891191
+        },
+        "08_Delivery-and-QA/Releases/v0.2.5.md": {
+          "base": null,
+          "content": {
+            "blob": "283f45e43a3b78d3363ea5e7aafbcec226a47bf8"
+          },
+          "intent": null,
+          "last_edit": 1793891191
+        }
+      },
+      "dependencies": [
+        "57c6e987-36dc-4574-abe2-c9484fafaccd"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
     },
     "749543b5-f9c1-456b-8eab-198c13f33f5e": {
       "id": "749543b5-f9c1-456b-8eab-198c13f33f5e",
