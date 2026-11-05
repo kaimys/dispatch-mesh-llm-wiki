@@ -243,8 +243,9 @@
   },
   "active": "cbcac4b34f5396d0",
   "lastOpenFiles": [
-    "02_Product/Dispatch Mesh requirements and architecture.md",
+    "00_Start-Here/Team/Kai.md",
     "07_Engineering/Decisions.base",
+    "02_Product/Dispatch Mesh requirements and architecture.md",
     "07_Engineering/Decisions/ADR-0001 — Synchronize drafts separately from permanent history.md",
     "07_Engineering/Decisions/ADR-0002 — Group files into sessions with an inactivity boundary.md",
     "07_Engineering/Decisions/ADR-0003 — Preserve synchronized conflict inputs and traceable resolutions.md",
@@ -274,7 +275,6 @@
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md.tmp.13304.ef2216d0b882",
     "01_Sources/Clippings",
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
-    "02_Product/Dispatch Mesh naming recommendations.md",
-    "00_Start-Here/Team/Kai.md"
+    "02_Product/Dispatch Mesh naming recommendations.md"
   ]
 }

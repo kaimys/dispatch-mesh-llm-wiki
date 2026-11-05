@@ -10,5 +10,6 @@ views:
       - date
       - status
       - superseded_by
+      - file.links
     columnSize:
       note.status: 89
