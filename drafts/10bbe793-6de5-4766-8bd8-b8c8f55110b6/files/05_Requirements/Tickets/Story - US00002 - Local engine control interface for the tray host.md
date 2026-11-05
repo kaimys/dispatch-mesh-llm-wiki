@@ -8,7 +8,7 @@ version_target: v0.2.5
 size:
 assignee:
 owner: "[[Kai]]"
-open_questions: 2
+open_questions: 1
 open_tests:
 open_findings:
 discussion:
@@ -87,7 +87,13 @@ As the developer of the Mesh tray host, I want one defined way to observe and co
   - `Runner::start(root) -> RunnerHandle` runs the loop on a background thread with its own tokio runtime. The handle exposes `status()` (watch receiver of the status snapshot), `stop()` (capture saved changes, then end the loop, as Ctrl+C does today) and `join()`.
   - Underneath, a public async `run(root, shutdown, status_tx)` is what both the handle and the CLI's `run` command use.
   - UI toolkits keep the main thread, and UI code never needs tokio.
-- [ ] **Failure reporting to hosts.** Should the runner persist capture and AI-summary failures into engine state (as sync failures already are), or emit them as events, so that a host can show the cause of a failed operation? Today they are printed only.
+- [x] **Failure reporting to hosts.** Should the runner persist capture and AI-summary failures into engine state (as sync failures already are), or emit them as events, so that a host can show the cause of a failed operation? Today they are printed only.
+  **Answer (Kai, 2026-11-05):** persist, and include in the snapshot.
+  - The latest AI-summary failure is persisted in workspace state, as sync failures already are, so CLI `status` shows it too. It is cleared when a summary succeeds.
+  - The runner's current capture, sync and summary errors are part of the status snapshot it publishes.
+  - No separate event stream.
+  - How these failures are classified and presented is part of the status model in [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps|TASK00001]]. This ticket only guarantees they reach the snapshot and state.
+  - Per the invariants, messages must not contain credentials or provider response bodies.
 - [ ] **Lock ownership on handover.** If a host starts while a CLI `run` holds `runner.lock`, does the host attach to that runner as an observer, or refuse to start and offer to take over?
 
 ## Acceptance criteria
