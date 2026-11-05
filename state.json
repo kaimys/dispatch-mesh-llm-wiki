@@ -1302,7 +1302,7 @@
       "created_at": 1793895683,
       "last_edit": 1793895683,
       "revision": 1,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
