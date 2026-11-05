@@ -1,7 +1,7 @@
 ---
 id: TASK00001
 type: task
-status: "Review"
+status: Done
 priority: high
 rank: 1024
 version_target: v0.2.5
@@ -9,11 +9,11 @@ size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests: 1
-open_findings:
+open_tests: 0
+open_findings: 0
 discussion:
 updated: 2026-11-05
-completed:
+completed: 2026-11-05
 frozen: 2026-11-05
 ---
 Finish the four 0.2.x engine-stabilization items that are only partly done in 0.2.4, so the milestone's exit criteria hold before the tray work builds on them:
@@ -259,7 +259,7 @@ Roughly 3–5 focused days: steps 1–4 about 60%, tests about 30%, docs 10%. Th
 
 ## Test plan
 
-Manual checks for the six-state status, offline/attention classification, the HTTP 429 split and the new README sections. They apply to branch `task00001-stabilization-gaps` at `c079e9d`, which passed a clean code review. *(2026-11-05: now `07903c4`, after two CI fixes on top; see As-built notes.)* The automated suites already assert everything else (see the report below this list). Live checks use a **disposable folder** and the designated test repository `https://github.com/kaimys/dispatch-mesh-test.git` (per `AGENTS.md`), never the wiki remote.
+Manual checks for the six-state status, offline/attention classification, the HTTP 429 split and the new README sections. They apply to branch `task00001-stabilization-gaps` at `c079e9d`, which passed a clean code review. *(2026-11-05: now `41a543b`, after two CI fixes and the CI locale step on top; see As-built notes.)* The automated suites already assert everything else (see the report below this list). Live checks use a **disposable folder** and the designated test repository `https://github.com/kaimys/dispatch-mesh-test.git` (per `AGENTS.md`), never the wiki remote.
 
 - [x] **Kai:** Push the branch to `origin` (`git push -u origin task00001-stabilization-gaps`). In the repository's **Actions** tab, open the *Engine checks* run for `c079e9d`. **Expected:** both the `windows-latest` and `ubuntu-latest` jobs are green. Only Windows has been verified so far; Linux has never run this code.
 - [x] **Kai:** Real network loss against GitHub.
@@ -283,11 +283,16 @@ Manual checks for the six-state status, offline/attention classification, the HT
     - **Status:** `status: "needs_attention"`, `reason` "Synchronization waiting: Git push: Remote refused access (exit 128) …", `offline: null`, and no token, URL credentials or raw Git output anywhere. It reads *push*, not fetch, because `kaimys/dispatch-mesh-test` is public, so the fetch needs no credentials.
     - **Re-sign-in, corrected procedure:** `git ls-remote` on a public repository never prompts. A `git push --dry-run` to the test repository did, and restored the credential without creating a branch (`mesh-login-check` absent on GitHub).
     - **Recovery:** the next `sync` succeeded with `attention`/`reason`/`offline` all `null`. `main` = `7c032b3`, adding `auth.md` with trailer `Mesh-Session: 07173d39-699b-4993-b648-abe7f5433270`, the session that was active during the refusal.
-- [ ] **Kai:** Locale independence on a host whose Git actually translates. This Windows machine's Git 2.35.1 ships no message catalogs, so the automated locale test cannot fail here. Use a Linux machine or WSL distribution with Git, its German messages (e.g. Debian/Ubuntu `git` plus `locales`, with `de_DE.UTF-8` generated) and Rust.
+- [x] **Kai:** Locale independence on a host whose Git actually translates. This Windows machine's Git 2.35.1 ships no message catalogs, so the automated locale test cannot fail here. Use a Linux machine or WSL distribution with Git, its German messages (e.g. Debian/Ubuntu `git` plus `locales`, with `de_DE.UTF-8` generated) and Rust.
   1. Confirm the precondition: `LANG=de_DE.UTF-8 LC_ALL=de_DE.UTF-8 git -C /tmp status` prints a **German** message (for example `fatal: Kein Git-Repository …`). If it prints English, this check is not meaningful on that host.
   2. In a checkout of `c079e9d`, run `cargo test --test cli failure_classification_does_not_depend_on_the_user_locale`.
 
   **Expected:** the test passes.
+  - *Result 2026-11-05 (CI, commit `41a543b`; method chosen by Kai): **passed.***
+    - **No local Linux:** this machine has no WSL distribution, so the check runs as a new Ubuntu CI step instead.
+    - **Precondition proven:** in GitHub Actions run 42033691572, the step generated `de_DE.UTF-8` and showed that Git really translates: `Git under de_DE.UTF-8: Schwerwiegend: Kein Git-Repository (oder irgendeines der Elternverzeichnisse): .git`.
+    - **Test:** `failure_classification_does_not_depend_on_the_user_locale ... ok`.
+    - **Ongoing:** the step now runs on every push, and fails if the German catalog is ever missing, so it cannot pass trivially.
 - [x] **Kai:** Read the new README sections on the pushed branch on GitHub: the `status` table under *Build and run*, and *Storage growth* and *Recovery procedures* under *Conflicts and recovery*. **Expected:** both tables render as tables, and every recovery step is one you would give a user as written: correct commands, correct order, and no step that could discard `.mesh` data. Note any wording to change as a dated entry under *As-built notes*.
 
 **Not in this plan, and why.**
@@ -405,6 +410,22 @@ CI run 42018932901 on `af1d3a0` failed again on `ubuntu-latest` (attempt 1: thre
 - **CI:** `fail-fast: false` in `.github/workflows/ci.yml`. Until now every Ubuntu failure cancelled the Windows job, so CI never reported a Windows result for this branch.
 - **Review impact:** `open_findings` stays empty. The re-review must cover `af1d3a0` (test) and `07903c4` (lock retry and CI config).
 - **CI result:** run 42020325879 on `07903c4` was green on **both** `ubuntu-latest` and `windows-latest` in **three of three attempts** (the original run plus two reruns of the same commit). This is evidence against the race, not proof: it was random before.
+
+### 2026-11-05 — CI locale step added in `41a543b`
+
+- **New step:** test-plan item 4 is automated in `.github/workflows/ci.yml` as an Ubuntu-only step, *Locale independence with a translating Git*. It runs `locale-gen de_DE.UTF-8`, checks that Git prints German (`Kein Git-Repository`), failing with an error annotation if not, and then runs `failure_classification_does_not_depend_on_the_user_locale`.
+- **Result:** run 42033691572 on `41a543b` was green on `ubuntu-latest` (locale step passed) and `windows-latest` (step skipped). It also completed all four manual test-plan items: `open_tests: 0`.
+- **Review impact:** `open_findings` stays empty. The pending re-review covers `af1d3a0` (test), `07903c4` (lock retry, `fail-fast: false`) and `41a543b` (locale step).
+
+### 2026-11-05 — No re-review of the post-review commits (Kai's decision)
+
+Kai decided that one code review is enough: the clean review of `c079e9d` stands, and `af1d3a0`, `07903c4` and `41a543b` are not re-reviewed. Recorded so the history is explicit:
+- `07903c4` changes production code (`operation_lock` retries up to 500 ms) after the last review. It is covered by green CI on both platforms in three attempts and by the full local suite, not by an independent review.
+- `open_findings` stays empty, because only `/code-review` may write a count. The gate out of Review is `open_tests: 0`, which is met.
+
+### 2026-11-05 — Merged into `main`
+
+`task00001-stabilization-gaps` was fast-forwarded into `main` (`3c2d513..41a543b`) and pushed on Kai's request. CI run 42035665583 on `main` at `41a543b` was green on `ubuntu-latest` (including the locale step) and on `windows-latest`.
 
 ## Code review
 

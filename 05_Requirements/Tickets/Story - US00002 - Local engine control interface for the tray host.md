@@ -6,7 +6,7 @@ priority: high
 rank: 2048
 version_target: v0.2.5
 size:
-assignee:
+assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
@@ -111,7 +111,7 @@ As the developer of the Mesh tray host, I want one defined way to observe and co
 
 ## Implementation plan
 
-*Drafted 2026-11-05 against `main` at `3c2d513` (branch `task00001-stabilization-gaps`, with TASK00001 step 1 uncommitted in `src/git.rs`). Awaiting Kai's sign-off.*
+*Drafted 2026-11-05 against `main` at `3c2d513` (branch `task00001-stabilization-gaps`, with TASK00001 step 1 uncommitted in `src/git.rs`). Development started 2026-11-05 via `/develop US00002`, on `us00002-engine-control-interface` off `main` at `41a543b` (TASK00001 merged).*
 
 ### Ground truth that shapes the plan
 

@@ -107,3 +107,12 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-05] ux | Claude Design briefing
 - [[Claude Design briefing — desktop app]]: new design brief in `06_UX/` for the 0.3 tray app (icon states, menu, status window, conflicts, presence, notifications), with a flow-level sketch of 0.5 guided setup. It is built from ADR-0010, ADR-0009, ADR-0003, the requirements, the milestone plan, US00001 and the README status/recovery tables, and it lists US00001's open UI questions for the design to inform. Index updated.
+
+## [2026-11-05] test | TASK00001 manual checks complete
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: checks 2 (real network loss) and 3 (refused login via GCM) passed with Kai; check 4 (locale on a translating Git) automated as an Ubuntu CI step in `41a543b` and passed (run 42033691572). `open_tests: 0`. Re-review of `af1d3a0`..`41a543b` still pending before Done.
+
+## [2026-11-05] decision | TASK00001 no re-review
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: Kai decided one code review is enough; post-review commits `af1d3a0`..`41a543b` not re-reviewed (recorded in As-built notes). Ready for Done.
+
+## [2026-11-05] merge | TASK00001 into main
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: fast-forwarded into `main` at `41a543b`; CI green on both platforms (run 42035665583). Card still in Review until moved to Done.
