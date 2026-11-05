@@ -58,7 +58,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -136,7 +136,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
+                "file": "06_UX/Dispatch Mesh desktop app.pdf",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -155,7 +155,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
+                "file": "06_UX/Dispatch Mesh desktop app.pdf",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -226,14 +226,14 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "f7b3d9fe981edde0",
+  "active": "1db05cc8cdbfd73f",
   "lastOpenFiles": [
+    "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
     "07_Engineering/Decisions/ADR-0012 — Ship the desktop host as a separate executable serving several workspaces.md",
     "07_Engineering/Decisions/ADR-0011 — Build the desktop host with Tauri 2.md",
     "02_Product/Dispatch Mesh milestone plan.md",
     "05_Requirements/Tickets/sedL0R3Qg",
     "06_UX/Dispatch Mesh desktop app.pdf",
-    "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
     "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md",
     "06_UX/Claude Design briefing — desktop app.md",
     "08_Delivery-and-QA/Releases/v0.2.5.md",
