@@ -992,6 +992,39 @@
       },
       "message_base": "ee44c5fc8e77acabc5cf66e322520533c3a72688"
     },
+    "57c6e987-36dc-4574-abe2-c9484fafaccd": {
+      "id": "57c6e987-36dc-4574-abe2-c9484fafaccd",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793889037,
+      "last_edit": 1793889037,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        ".obsidian/workspace.json": {
+          "base": {
+            "blob": "c06216401f01892543b4184b1b695de317fc6066"
+          },
+          "content": {
+            "blob": "c10729ce2abb417527f19b2cae82546287cc44c9"
+          },
+          "intent": null,
+          "last_edit": 1793889037
+        }
+      },
+      "dependencies": [
+        "6bef1b80-3aed-4cfd-9bda-00a78c9fd325",
+        "f1e96a40-04f7-45bb-9499-bc4e882f189b"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "67fe2012-1bd5-4c63-9842-1cac0e70a22f": {
       "id": "67fe2012-1bd5-4c63-9842-1cac0e70a22f",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
