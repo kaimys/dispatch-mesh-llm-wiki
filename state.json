@@ -3065,8 +3065,11 @@
         "66b5ef56-abe2-4e77-b736-3582d1a7e245"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: record US00001 tray host implementation and app-run results",
+        "description": "Update the existing US00001 ticket with as-built notes for the Tauri tray host, Windows build gates, and app-run checks; record remaining manual checks and Linux CI as pending. Append the code-complete milestone to the wiki log and annotate the existing design briefing with the Tauri 2 decision."
+      },
+      "message_base": "f35f7ac3b735feb50b23a1be93ed9d1a4505678a"
     },
     "e7868d2f-0de7-4e6b-9b84-e600bd1b2b41": {
       "id": "e7868d2f-0de7-4e6b-9b84-e600bd1b2b41",
