@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings: 2
+open_findings:
 discussion:
 updated: 2026-11-05
 completed:
@@ -259,6 +259,26 @@ Deviations from the plan:
 - **The criterion 6 runner test asserts response-body absence with a marker string, not an API-key value.** Setting a process environment variable in parallel tests is unsafe and racy. The CLI-level credential and body checks remain in `tests/provider.rs` (TASK00001).
 - **A mutation check of the shutdown retry was done by hand, not committed.** With `SHUTDOWN_LOCK_WAIT = 0`, `shutdown_capture_rides_out_a_briefly_held_operation_lock` fails with `WorkspaceBusy`; with the 10 s wait, it passes.
 - **Criterion 1 is still open by design.** ADR-0009 is to be amended (the `acquire`/`run(lease, …)` split, `Option<RunnerSnapshot>`, stop-on-`Drop`) and set to `accepted` when this ticket reaches `Done`.
+
+> ⚠️ Correction 2026-11-05 (review R3): the bullet above on the criterion 6 runner test overstated the evidence. `tests/provider.rs` configures `api_key_env: None`, and its secret-looking strings are response-body markers. Its missing-variable test checks a variable *name*, not that an actual key value is suppressed, so nothing covered suppression of a real key until `0e4c9a6` (below).
+
+### 2026-11-05 — Review fixes (`0e4c9a6`)
+
+Fixes for the 2026-11-05 review of `f2b3e1c`. Only test code changed; `src/` is untouched.
+
+- **R1:** the `mesh_ok` helper in `tests/runner.rs` retries the documented `WorkspaceBusy` ("retry shortly") outcome for up to 15 s, with any other CLI failure still failing at once. The runner can hold the operation lock past the engine's 500 ms settle time while finalizing, which is the existing CLI contract and not a product change. The summary-recovery assertions are unchanged.
+- **R2:** three new tests cover the host error fields and busy-lock filtering:
+  - `capture_errors_are_published_and_clear_once_the_folder_is_readable`: an oversized file under a 16-byte `max_file_bytes` produces a capture error that clears once the file shrinks.
+  - `sync_errors_are_published_with_durable_state_and_clear_after_recovery`: a missing bare remote produces a sync error alongside a durable attention or offline state, and both clear once the remote is created.
+  - `a_held_operation_lock_still_publishes_and_is_not_an_error`: with the lock held across ticks, no busy error is published, and a committed change made under the held lock reaches the snapshot through the lock-free fallback within 2 s.
+
+  Each test also asserts that the other error fields stay clear. Mutation checks were done by hand, not committed: publishing `sync_error: None` fails the sync test, and dropping the busy filter in `report_failure` fails the held-lock test.
+- **R3:** `a_failing_provider_never_exposes_the_api_key_in_status` sets a sentinel key only in a CLI `run` child's environment, so this test process's environment is never touched. It checks that the mock received the key, and that neither `status` nor the runner's stderr contains it.
+- **Remaining deviations, recorded per R3:**
+  - **File-capture waits are 10 s, not the plan's general 2 s.** Capture needs two identical scans and runs on a Windows file watcher. The 2 s bound is kept where criterion 5 sets it: for a change made by a separate CLI process.
+  - **`Runner::start` builds the Tokio runtime on the calling thread** and moves it into the engine thread, instead of building it inside that thread. A failure to build the runtime is then returned synchronously from `start`, like the lock refusal. Building a current-thread runtime is cheap and does not block on the loop.
+  - **Shutdown during a stalled AI request has no separate test.** The summary task is never awaited on shutdown and is dropped with the runtime. The stalled-network test covers the analogous Git path.
+- **Gates:** `cargo fmt --check` and `cargo clippy --all-targets -- -D warnings` pass. Full `cargo test` passed twice in a row (79 tests), and the runner suite passed three more times on its own (10/10 each). `open_findings` is cleared to empty until the next review.
 
 ### 2026-11-05 — Code-review hand-off blocked at `f2b3e1c`
 

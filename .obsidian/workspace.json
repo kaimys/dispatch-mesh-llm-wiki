@@ -30,9 +30,23 @@
               "icon": "lucide-file",
               "title": "Story - US00002 - Local engine control interface for the tray host"
             }
+          },
+          {
+            "id": "db81a74e15870060",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "02_Product/Dispatch Mesh concept.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Dispatch Mesh concept"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -94,7 +108,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 350.8333435058594
+    "width": 372.16668701171875
   },
   "right": {
     "id": "be9201a3d6b37774",
@@ -200,11 +214,11 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "c8481b76b229688c",
+  "active": "db81a74e15870060",
   "lastOpenFiles": [
-    "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
-    "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
     "README.md",
+    "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
+    "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
     "file:C:/MeshTask1Net/auth.md",
     "06_UX/Claude Design briefing — desktop app.md",
     "Dispatch.md",
