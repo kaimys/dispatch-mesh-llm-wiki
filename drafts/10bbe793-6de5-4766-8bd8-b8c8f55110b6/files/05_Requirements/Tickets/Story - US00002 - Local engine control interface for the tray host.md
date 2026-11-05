@@ -1,9 +1,9 @@
 ---
 id: US00002
 type: story
-status: "Refinement"
+status: Refinement
 priority: high
-rank: 1000
+rank: 1536
 version_target: v0.2.5
 size:
 assignee:

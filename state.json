@@ -263,8 +263,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793867796,
-      "last_edit": 1793869329,
-      "revision": 17,
+      "last_edit": 1793869352,
+      "revision": 18,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -274,10 +274,10 @@
             "blob": "994ae3fead81d17d868afa82cd40d094efa6b5de"
           },
           "content": {
-            "blob": "31080de50bfeaada6a5174b484bc0ab71b849e90"
+            "blob": "64821e91c7d33ed2aea1b4f12147729193773f1a"
           },
           "intent": null,
-          "last_edit": 1793869037
+          "last_edit": 1793869352
         },
         "00_Start-Here/log.md": {
           "base": {
@@ -289,25 +289,35 @@
           "intent": null,
           "last_edit": 1793869329
         },
+        "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md": {
+          "base": {
+            "blob": "0d91fc57a28cce8567f79e91dd0101d492a17d52"
+          },
+          "content": {
+            "blob": "e4512c08c5b206357412aaad7ddce8ee517c566f"
+          },
+          "intent": null,
+          "last_edit": 1793869352
+        },
         "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md": {
           "base": {
             "blob": "83d5f73b80825b5abc7ce7d877bf8abcf641876d"
           },
           "content": {
-            "blob": "009cc9bc38db5493d3e4630abb5ce147ead5954e"
+            "blob": "57f70f843e6ee644813137c56033814eae32998d"
           },
           "intent": null,
-          "last_edit": 1793868522
+          "last_edit": 1793869352
         },
         "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md": {
           "base": {
             "blob": "a752aacf1238bfdbded3fc2430387f59897d6395"
           },
           "content": {
-            "blob": "9c21a0d7f9439e0376f6bf93df313acade2aec0a"
+            "blob": "7c38a39a0a3b20734f299f8ce325faccc2211a8b"
           },
           "intent": null,
-          "last_edit": 1793869322
+          "last_edit": 1793869352
         }
       },
       "dependencies": [

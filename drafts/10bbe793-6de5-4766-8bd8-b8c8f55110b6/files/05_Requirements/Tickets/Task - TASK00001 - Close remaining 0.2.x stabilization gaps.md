@@ -1,9 +1,9 @@
 ---
 id: TASK00001
 type: task
-status: "Refinement"
+status: Refinement
 priority: high
-rank: 2000
+rank: 1024
 version_target: v0.2.5
 size:
 assignee:
