@@ -280,6 +280,30 @@ Throwaway Tauri 2.12 app in a scratch folder (not in the repo), embedding `Runne
 
 No must-have failed, so Tauri stays.
 
+### 2026-11-05 — Build (steps 2–8)
+
+Commits on `us00001-tray-host`: `bf7a68f` (tray package, workspace, CI), `091180e` (README, AGENTS.md). Built as planned, with these differences:
+
+- **Window shown at start.** The window opens when the tray starts, so a user who launches the program sees something besides a possibly hidden tray icon. Login startup (0.6) can add a start-hidden option.
+- **Debug builds keep a console.** `windows_subsystem = "windows"` applies to release builds only (`cfg_attr(not(debug_assertions))`), so `cargo run` still shows panics during development.
+- **Not-a-workspace message.** A folder without `.mesh/config.json` is checked before starting and reported as "This folder is not a Mesh workspace yet. Set it up with dispatch-mesh init, then retry." instead of the raw file error. The first draft repeated the path and made the window scroll sideways; fixed before commit.
+- **Loop ending on its own: not tested.** `host.rs` reports an engine whose loop ends without Quit as *Not syncing* with Retry, but the runner offers no way to make its loop fail on demand (capture and sync errors are reported, not fatal), so `tray/tests/host.rs` covers start failures instead. No library change was made to force it.
+- **Same folder twice** in `--workspace` is one workspace, not a refused second engine (tested).
+- **Icons** are supersampled renders from `scripts/tray_icons.py`, not yet hand-hinted at 16 px as the design asks. Rendered at 16, 20, 24 and 32 px and chosen by the primary monitor's scale factor.
+- **Fonts:** the window uses Segoe UI and Cascadia Mono instead of the design's IBM Plex, because the CSP allows no remote fonts and bundling Plex was not planned.
+- **Gates:** `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings` and `cargo test` green on Windows for both packages (CLI/engine 79, tray 11 unit + 6 host tests). Linux CI not yet run: the branch has not been pushed.
+
+**App run, 2026-11-05 (release build, Windows 11 at 150 %):** checked by the agent with screenshots and UI Automation:
+
+- three workspaces, one held by a CLI `run`: list ordered held → saved on this device → up to date, with the design's glyphs;
+- the held workspace's detail shows the already-running text and Retry; after the CLI `run` stopped, Retry started it (*Up to date*);
+- UI Automation exposes each row as a named button and the live region as "Held: Mesh is already running for this workspace. Research notes: Saved on this device. Team Wiki: Up to date", which is what Narrator reads;
+- closing the window hid it, the process kept running, and `tray-settings.json` recorded the first close;
+- an edit made with the window hidden was captured, and `status`, `intent begin/end`, `session finish` and `sync` all succeeded against the tray-owned workspace, printing to the console as before;
+- a plain folder shows the attention card with its reason and Retry.
+
+**Still to check by a person** (the agent can't see the notification area or toasts): the icon and tooltip on light and dark taskbars, left and right click, the Quit hint with an open session, Quit from the menu, whether the first-close toast is displayed for an unpackaged build, and Narrator itself. These belong in `/test-plan`.
+
 ## Follow-ups
 
 ### 2026-11-05 — Governing engine decisions

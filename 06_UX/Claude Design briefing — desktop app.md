@@ -140,7 +140,8 @@ Login startup setting (0.6), macOS/Linux platform adaptations (0.7/0.8), editor-
 ## 7. Constraints
 
 - **Platform:** Windows 11 first, then macOS menu bar, then Linux trays. Respect each platform's tray conventions and light/dark themes.
-- **Toolkit not chosen yet** (open in [[Story - US00001 - Tray icon and status window host|US00001]]: webview, Tauri, egui or native). Keep the design implementable as a small, compact desktop window, not a web-app shell. Avoid effects that only a browser engine can render cheaply.
+- **Toolkit not chosen yet** (open in [[Story - US00001 - Tray icon and status window host|US00001]]: webview, Tauri, egui or native).
+  > 2026-11-05: decided as Tauri 2 with a static frontend, see [[ADR-0011 — Build the desktop host with Tauri 2]]; built under US00001. Keep the design implementable as a small, compact desktop window, not a web-app shell. Avoid effects that only a browser engine can render cheaply.
 - **Compact footprint.** A utility window of about 420–480 px wide for the overview, expandable for conflict comparison.
 - **Accessibility:** WCAG AA contrast, keyboard operation, screen-reader labels for icon states, and state never shown by color alone.
 - **Privacy in UI:** never display credentials, API keys, raw Git errors or provider response bodies, even in "details".

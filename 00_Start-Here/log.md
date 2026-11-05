@@ -164,3 +164,7 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 ## [2026-11-05] develop | US00001 started; ADR-0011 and ADR-0012
 - [[Story - US00001 - Tray icon and status window host]]: development started (already `In progress`; assignee Kai), branch `us00001-tray-host`. Plan signed off; identifier `de.eightnine.mesh` chosen by Kai.
 - New ADRs (proposed): [[ADR-0011 — Build the desktop host with Tauri 2]], [[ADR-0012 — Ship the desktop host as a separate executable serving several workspaces]]. Listed in [[index]]. [[Dispatch Mesh milestone plan]]: noted which 0.3 decisions are closed.
+
+## [2026-11-05] develop | US00001 code complete
+- [[Story - US00001 - Tray icon and status window host]]: tray host built on `us00001-tray-host` (`bf7a68f`, `091180e`); as-built notes and the agent's app run recorded; gates green on Windows, Linux CI pending a push. `open_findings` left empty. Next: `/code-review US00001` in a fresh session.
+- [[Claude Design briefing — desktop app]]: dated note that the toolkit is decided (ADR-0011).
