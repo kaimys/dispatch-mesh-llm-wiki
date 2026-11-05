@@ -57,8 +57,7 @@
               "title": "Dispatch Mesh milestone plan"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -226,7 +225,7 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "f7b3d9fe981edde0",
+  "active": "8fc4e83af58370bc",
   "lastOpenFiles": [
     "02_Product/Dispatch Mesh milestone plan.md",
     "05_Requirements/Tickets/sedL0R3Qg",

@@ -1,7 +1,7 @@
 ---
 id: US00001
 type: story
-status: Refinement
+status: In progress
 priority: high
 rank: 1024
 version_target: v0.3.0
