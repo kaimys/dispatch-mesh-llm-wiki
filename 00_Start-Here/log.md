@@ -68,3 +68,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 ## [2026-11-05] code-review | TASK00001 changes required at 08c0b02
 - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: independent review recorded against `main...08c0b02`; all mechanical gates passed locally on Windows (63 tests). Three blocking findings: sync-failure persistence can be skipped under lock contention (reproduced), HTTP-date retry delays are omitted, and the discarded status stage lacks an automated assertion. One non-blocking gap requests actual AI-failure persistence/recovery coverage through CLI summarization.
 - Set `open_findings: 3`; kept `In progress`, unfrozen, and left `open_tests` unchanged. Added a dated as-built blocker entry and repair plan for a fresh `/develop` session; `/test-plan` remains blocked. No implementation code changed and no PR comment was posted. Disposable probe evidence remains in ignored `target/review-task00001/`.
+
+## [2026-11-05] develop | TASK00001 review fixes
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: B1–B3 and N1 from the review of `08c0b02` fixed in `7ac5316`; gates green (68 tests); `open_findings` cleared to empty. Awaiting a fresh `/code-review TASK00001`.

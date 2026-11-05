@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings: 3
+open_findings:
 discussion:
 updated: 2026-11-05
 completed:
@@ -285,6 +285,29 @@ The plan was followed in its step order. These are the deviations and things a r
 ### 2026-11-05 — Code-review hand-off blocked at `08c0b02`
 
 Independent review found three blocking findings: **B1**, failed-sync status can be lost during operation-lock contention (criteria 6 and 7); **B2**, an HTTP-date `Retry-After` loses its retry delay (criterion 9 and plan step 5); **B3**, the `discarded` status stage has no automated assertion (criterion 8). The card remains `In progress`, unfrozen. `/test-plan` must wait for repairs and a fresh review. See the review and repair steps below; implementation code was not changed in this session.
+
+### 2026-11-05 — Fix round for the review of `08c0b02`
+
+All four findings of the 2026-11-05 review are addressed. `open_findings` is cleared to empty because the code under that count changed; only the next review may write a number.
+
+- **B1 (failure recorded under lock contention).**
+  - `sync_and_record` now records the failure on the workspace that ran the sync, while it still owns the operation lock. It no longer drops the workspace and makes a single reopen attempt.
+  - If a network step lost the lock to a concurrent operation, the new `persist_sync_failure` waits up to 30 s to re-acquire it instead of skipping the record. It then reloads durable state and records against that, discarding anything the failed sync left half-applied in memory, exactly as the old reopen did.
+  - Root cause found while fixing: `network_call` replaced the original Git error with `WorkspaceBusy` when re-acquiring the lock timed out. Since `WorkspaceBusy` is deliberately not recorded, the cause vanished. It now returns the original failure in that case. The lock helper is shared as `acquire_lock`.
+  - If even recording fails, the returned error carries both causes.
+  - Regression: `a_failed_sync_records_its_cause_even_when_another_operation_holds_the_lock`. A loopback remote signals when the network step starts; a competing open takes the lock and holds it for 7 s, past the 5 s re-acquire window. The test asserts a non-busy error, a durable `needs_attention` reason after reopening, and clearing on the next successful sync. **Checked against `08c0b02`'s `engine.rs`:** there the test fails with "Another Mesh operation is using this workspace", which is the reviewed defect.
+- **B2 (HTTP-date `Retry-After`).**
+  - `ai::retry_after_seconds` accepts delta-seconds and IMF-fixdate HTTP dates, the form RFC 9110 requires senders to use. A past date gives 0 s, never a negative delay.
+  - The obsolete RFC 850 and asctime forms, and malformed values, keep the generic "retry later". No new dependency was added: `httpdate` is not in the tree, so a ~35-line parser was written.
+  - Tests:
+    - a deterministic unit test, with reference times computed independently in Python, covering the RFC example, a leap day, an elapsed date and malformed forms;
+    - two mock-provider cases, a future and an elapsed date, both asserting that the body is not echoed.
+
+  This supersedes the earlier as-built note on `Retry-After`.
+- **B3 (`discarded` stage).** `identical_concurrent_changes_do_not_add_an_empty_session_commit` now asserts `Stage::Discarded`, serialized `"stage": "discarded"` and a `synced` summary, before and after reopening. The existing snapshot and no-empty-commit assertions are kept, and `main` is unchanged after the restart.
+- **N1 (AI-failure persistence through the real path).** `a_failed_summary_is_persisted_for_status_and_cleared_by_the_next_success` drives the binary (`session finish`, `sync`, `status`) against a mock provider. On a 401 the session still publishes, and `status` in a new process shows `needs_attention` with a sanitized `AI summary failed: … HTTP 401` reason that contains no response body. A later successful summary returns the workspace to `synced`.
+- **Gates (2026-11-05, Windows 11, Git 2.35.1):** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` green on commit `7ac5316`. 68 tests: 5 lib unit, 9 CLI, 27 engine, 19 provider, 8 storage/transport. The Ubuntu CI leg has not been run (not pushed).
+- **Next:** a fresh `/code-review TASK00001` against `7ac5316`. Only a clean review hands off to `/test-plan`.
 
 ## Code review
 
