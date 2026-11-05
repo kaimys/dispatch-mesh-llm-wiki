@@ -263,8 +263,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793867796,
-      "last_edit": 1793869693,
-      "revision": 21,
+      "last_edit": 1793869701,
+      "revision": 22,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -279,15 +279,25 @@
           "intent": null,
           "last_edit": 1793869693
         },
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "204aee5938fcf0b02d3c7e833baae801f334fad5"
+          },
+          "content": {
+            "blob": "62a6a751906a1f07c65d5cf6638a5c26ea319636"
+          },
+          "intent": null,
+          "last_edit": 1793869701
+        },
         "00_Start-Here/log.md": {
           "base": {
             "blob": "861e13b2a4d61ff9fe688d4dd5a598f004da95e9"
           },
           "content": {
-            "blob": "cb0a2b7c58e4ecacf0c343a31e8ee9a99770e99c"
+            "blob": "cb992eb3c8b46e0c4aad61887aeb84d70efdd590"
           },
           "intent": null,
-          "last_edit": 1793869329
+          "last_edit": 1793869701
         },
         "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md": {
           "base": {

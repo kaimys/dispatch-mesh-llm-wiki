@@ -31,3 +31,8 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-05] refinement | TASK00001 Close remaining 0.2.x stabilization gaps
 - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]] → Refinement. 6 questions answered by Kai: keep as one ticket, workspace summary + per-session stage with fixed precedence, offline = connection-level errors only, local-only uploaded-revision record, replace `status` values, README-only docs. Acceptance criteria written; open_questions 0.
+
+## [2026-11-05] move | Verification reports into the wiki
+- Moved `reports/github-workflow-test-2026-11-04.md` and `reports/github-workflow-findings-2026-11-04.md` from the source repository to `08_Delivery-and-QA/Reports/` as [[github-workflow-test-2026-11-04]] and [[github-workflow-findings-2026-11-04]]. The content is unchanged; only `owner` frontmatter was added.
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]] now links to the findings page instead of the old repository path.
+- Listed in [[index]].
