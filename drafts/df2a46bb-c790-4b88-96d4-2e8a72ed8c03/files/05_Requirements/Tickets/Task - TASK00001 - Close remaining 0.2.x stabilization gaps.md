@@ -6,7 +6,7 @@ priority: high
 rank: 1024
 version_target: v0.2.5
 size:
-assignee:
+assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
