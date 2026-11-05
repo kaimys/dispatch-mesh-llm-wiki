@@ -8,7 +8,7 @@ version_target: v0.2.5
 size:
 assignee:
 owner: "[[Kai]]"
-open_questions: 3
+open_questions: 2
 open_tests:
 open_findings:
 discussion:
@@ -82,7 +82,11 @@ As the developer of the Mesh tray host, I want one defined way to observe and co
   **Answer (follows from the in-process decision and the run-loop finding, 2026-11-05):** no cross-process channel in 0.3. The host stops its own in-process engine through the shutdown handle. The runner already picks up CLI `session finish` within its ~3 s sync cadence.
 - [x] **Channel, if any.** Named pipe on Windows and a Unix socket elsewhere, or a localhost TCP port? Either way, how is access restricted to the current user?
   **Deferred (2026-11-05):** not needed with the in-process model. Revisit if a later milestone needs cross-process control (e.g. attaching to a CLI-started runner, or the 2.0 MCP host). The ADR records this as a known extension point.
-- [ ] **Library API shape.** Should the crate expose a blocking API, an async (tokio) API, or both? The current run loop is tokio-based and `main.rs`-internal.
+- [x] **Library API shape.** Should the crate expose a blocking API, an async (tokio) API, or both? The current run loop is tokio-based and `main.rs`-internal.
+  **Answer (Kai, 2026-11-05):** both, layered.
+  - `Runner::start(root) -> RunnerHandle` runs the loop on a background thread with its own tokio runtime. The handle exposes `status()` (watch receiver of the status snapshot), `stop()` (capture saved changes, then end the loop, as Ctrl+C does today) and `join()`.
+  - Underneath, a public async `run(root, shutdown, status_tx)` is what both the handle and the CLI's `run` command use.
+  - UI toolkits keep the main thread, and UI code never needs tokio.
 - [ ] **Failure reporting to hosts.** Should the runner persist capture and AI-summary failures into engine state (as sync failures already are), or emit them as events, so that a host can show the cause of a failed operation? Today they are printed only.
 - [ ] **Lock ownership on handover.** If a host starts while a CLI `run` holds `runner.lock`, does the host attach to that runner as an observer, or refuse to start and offer to take over?
 
