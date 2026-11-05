@@ -59,8 +59,7 @@
               "title": "github-workflow-findings-2026-11-04"
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
@@ -228,7 +227,7 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "b538895ee024e6de",
+  "active": "8fc4e83af58370bc",
   "lastOpenFiles": [
     "08_Delivery-and-QA/Reports/github-workflow-test-2026-11-04.md",
     "08_Delivery-and-QA/Reports/github-workflow-findings-2026-11-04.md",
