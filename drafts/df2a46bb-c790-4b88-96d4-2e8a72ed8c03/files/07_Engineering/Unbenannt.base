@@ -7,4 +7,6 @@ views:
     order:
       - file.name
       - recorded
+      - date
       - status
+      - superseded_by
