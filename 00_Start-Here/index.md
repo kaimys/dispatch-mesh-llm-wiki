@@ -29,7 +29,7 @@ Entry point for people and agents. Read this first, then follow the links. Every
 
 ## Discovery
 
-- [[README|git-sync discovery]] — concept updates and the original discovery discussion
+- [[Dispatch Mesh concept|git-sync discovery]] — concept updates and the original discovery discussion
 
 ## Requirements
 
