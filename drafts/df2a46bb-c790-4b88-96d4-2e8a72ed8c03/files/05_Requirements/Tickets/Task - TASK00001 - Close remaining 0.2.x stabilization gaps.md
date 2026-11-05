@@ -278,6 +278,9 @@ The plan was followed in its step order. These are the deviations and things a r
 - **Step 7, locale test: limited evidence on this host.** Git for Windows 2.35.1 here ships no message catalogs: even `not a git repository` stays English under `LANG=de_DE.UTF-8`. The German-locale CLI test therefore passes trivially on this machine. The guarantee rests on the unit test `every_git_process_runs_with_untranslated_messages`, which asserts `LC_ALL=C` and a removed `LANGUAGE` on every `Git::command()`. The CLI test becomes a real check on a host with German Git translations (e.g. Linux with the `de` catalog and locale installed).
 - **Step 6, interrupted publication.** The test restores a pre-publication copy of `.mesh/state.sqlite*`, as planned; no production fault hook was needed. It was **mutation-checked**: with `reconcile_published()` disabled in `sync()`, the test fails.
 - **Wiki:** [[Dispatch Mesh requirements and architecture]] line 110 annotated with the six-state model.
+- **Gates (2026-11-05, Windows 11, Git 2.35.1):** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` green. 63 tests: 5 lib unit, 9 CLI, 26 engine, 15 provider, 8 storage/transport, of which 19 are new. The Ubuntu CI leg has not been run yet; it runs on push.
+- **Manual check with the built binary:** a scratch workspace with a local bare remote showed `synced` → `saved_locally` (uncaptured edit) → `draft_uploaded` (after `sync`) → `synced` with the session `published` (after `session finish` + `sync`). With no provider configured, CLI `sync` summarizes and publishes in one invocation, so `waiting_for_finalization` is not observable there; the engine test `status_follows_a_session_from_local_save_to_publication` asserts it.
+- **Code review:** not yet run. Next step is `/code-review TASK00001` in a fresh session.
 
 ## Follow-ups
 
