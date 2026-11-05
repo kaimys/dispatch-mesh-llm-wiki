@@ -1032,7 +1032,7 @@
       "created_at": 1793887443,
       "last_edit": 1793887443,
       "revision": 1,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
