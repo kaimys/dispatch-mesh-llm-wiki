@@ -266,7 +266,7 @@
       "last_edit": 1793869701,
       "revision": 22,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         ".obsidian/workspace.json": {
@@ -350,8 +350,11 @@
         "a7d68c99-1d51-4935-b34c-5c4ed7253a7b"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Document engine refinement decisions and add GitHub verification reports",
+        "description": "Resolve open questions and define API, status, failure-reporting, and acceptance criteria in US00002 and TASK00001; update US00001 refinement metadata. Add the GitHub workflow test and findings reports to the wiki, link them from the index, and record the changes in the log. Update the Obsidian workspace to open US00001 and refresh its recent-file list."
+      },
+      "message_base": "cc5af848750815dcb82e9d134974d828b91109fd"
     },
     "16bcef2e-800a-47e7-a542-bbf713b2be19": {
       "id": "16bcef2e-800a-47e7-a542-bbf713b2be19",
