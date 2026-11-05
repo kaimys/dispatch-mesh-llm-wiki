@@ -580,8 +580,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793865793,
-      "last_edit": 1793865793,
-      "revision": 1,
+      "last_edit": 1793865825,
+      "revision": 3,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -591,10 +591,40 @@
             "blob": "7f123b099c34113b2c32e2616282223e04d6e734"
           },
           "content": {
-            "blob": "1f72e75905fde4a32d1ea564b6b047b24a82ce18"
+            "blob": "c8a33f771f689955c8463373f3918a8fc54302f8"
           },
           "intent": null,
-          "last_edit": 1793865793
+          "last_edit": 1793865825
+        },
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "be66c1649b79404ef12256c8c67a3d9ddeb57c0f"
+          },
+          "content": {
+            "blob": "fcc707b41ae6ab0a59021efafecc23cb3509c9ce"
+          },
+          "intent": null,
+          "last_edit": 1793865825
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "b3134dc59ed238d9b309134a5723261811189548"
+          },
+          "content": {
+            "blob": "861e13b2a4d61ff9fe688d4dd5a598f004da95e9"
+          },
+          "intent": null,
+          "last_edit": 1793865825
+        },
+        "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md": {
+          "base": {
+            "blob": "7ade9154216790b885728d066eb4e910ef63eeca"
+          },
+          "content": {
+            "blob": "47c13a8a456400a1467940eec1a8b2e1ca9b21a0"
+          },
+          "intent": null,
+          "last_edit": 1793865825
         },
         "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md": {
           "base": null,
@@ -603,6 +633,14 @@
           },
           "intent": null,
           "last_edit": 1793865793
+        },
+        "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md": {
+          "base": null,
+          "content": {
+            "blob": "a752aacf1238bfdbded3fc2430387f59897d6395"
+          },
+          "intent": null,
+          "last_edit": 1793865819
         }
       },
       "dependencies": [],
