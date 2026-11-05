@@ -23,12 +23,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
+                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Task - TASK00001 - Close remaining 0.2.x stabilization gaps"
+              "title": "Story - US00001 - Tray icon and status window host"
             }
           },
           {
@@ -230,11 +230,11 @@
   },
   "active": "1c1c00966f008fa6",
   "lastOpenFiles": [
+    "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
     "02_Product/Dispatch Mesh concept.md",
     "05_Requirements/Tickets/sedK39aWs",
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md.tmp.13304.a8a43f67635a",
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md.tmp.13304.ef2216d0b882",
-    "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
     "01_Sources/Clippings",
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md.tmp.13304.38824ac81016",
     "02_Product/Dispatch Mesh milestone plan.md",
