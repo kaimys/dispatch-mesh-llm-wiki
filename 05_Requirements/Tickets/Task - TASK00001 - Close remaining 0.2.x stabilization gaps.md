@@ -9,7 +9,7 @@ size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests: 3
+open_tests: 2
 open_findings:
 discussion:
 updated: 2026-11-05
@@ -262,11 +262,16 @@ Roughly 3–5 focused days: steps 1–4 about 60%, tests about 30%, docs 10%. Th
 Manual checks for the six-state status, offline/attention classification, the HTTP 429 split and the new README sections. They apply to branch `task00001-stabilization-gaps` at `c079e9d`, which passed a clean code review. *(2026-11-05: now `07903c4`, after two CI fixes on top; see As-built notes.)* The automated suites already assert everything else (see the report below this list). Live checks use a **disposable folder** and the designated test repository `https://github.com/kaimys/dispatch-mesh-test.git` (per `AGENTS.md`), never the wiki remote.
 
 - [x] **Kai:** Push the branch to `origin` (`git push -u origin task00001-stabilization-gaps`). In the repository's **Actions** tab, open the *Engine checks* run for `c079e9d`. **Expected:** both the `windows-latest` and `ubuntu-latest` jobs are green. Only Windows has been verified so far; Linux has never run this code.
-- [ ] **Kai:** Real network loss against GitHub.
+- [x] **Kai:** Real network loss against GitHub.
   1. In PowerShell: `dispatch-mesh --workspace C:\MeshTask1Net init --name Kai --email kai@eightnine.de --remote https://github.com/kaimys/dispatch-mesh-test.git`, then `dispatch-mesh --workspace C:\MeshTask1Net run` in its own window.
   2. Turn Wi-Fi/Ethernet off, save `C:\MeshTask1Net\net.md` with any text, wait 15 s, then run `dispatch-mesh --workspace C:\MeshTask1Net status` in a second window.
 
   **Expected:** `"status": "offline"`; `reason` starts with `Git fetch: Remote unreachable`; `attention` is `null`; the session listing `net.md` is at stage `saved_locally`. Turn the network back on and wait 15 s. **Expected:** `status` is `draft_uploaded`, `offline` and `reason` are `null`. Stop `run` with Ctrl+C.
+  - *Result 2026-11-05 (Kai, build `07903c4`): **passed.***
+    - **While offline:** `status: "offline"`, `reason` "Git fetch: Remote unreachable (exit 128) …", `attention: null`, `net.md` session at `saved_locally`.
+    - **Waiting more than 5 minutes after saving** let the session close itself (`closed: true`, still `saved_locally`, as the model specifies). So on reconnect Mesh uploaded and published straight away: `status: "synced"`, stage `published`, and `offline`/`reason`/`attention` all `null`.
+    - **On GitHub:** `main` on `kaimys/dispatch-mesh-test` contains `net.md`, with trailer `Mesh-Session: 7cc213cb-3056-4cf8-a986-51022f94f597`.
+    - **Not observed:** the expected `draft_uploaded` only appears when checked within 5 minutes of saving. The plan should have said so. That stage is asserted by `status_follows_a_session_from_local_save_to_publication`.
 - [ ] **Kai:** Real refused login through Git Credential Manager.
   1. Open *Windows Credential Manager → Windows Credentials* and note the `git:https://github.com` entry, which you will need to restore.
   2. Remove that entry.
