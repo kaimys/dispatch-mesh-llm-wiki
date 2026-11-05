@@ -1791,7 +1791,7 @@
       "last_edit": 1793884258,
       "revision": 1,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md": {
