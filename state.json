@@ -2056,6 +2056,48 @@
       },
       "message_base": "a3e96d3818d1d22294abe05f3a4c03ab7bab0316"
     },
+    "e7868d2f-0de7-4e6b-9b84-e600bd1b2b41": {
+      "id": "e7868d2f-0de7-4e6b-9b84-e600bd1b2b41",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793880597,
+      "last_edit": 1793880597,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        ".obsidian/workspace.json": {
+          "base": {
+            "blob": "71a2a8702ac6557a4521326444539ffb5dfa69af"
+          },
+          "content": {
+            "blob": "80be1fa69cd439333592a1e8355d2be8b132f41e"
+          },
+          "intent": null,
+          "last_edit": 1793880597
+        },
+        "06_UX/Dispatch Mesh desktop app.pdf": {
+          "base": null,
+          "content": {
+            "blob": "595eccb039bf6ab5186c128f7e56a1bdcd71f41c"
+          },
+          "intent": null,
+          "last_edit": 1793880597
+        }
+      },
+      "dependencies": [
+        "10f5c3cb-d492-485c-86e1-64db6e62c0bb",
+        "89872dbb-0142-4c5a-b0e2-b5282b327920",
+        "99acae47-298b-4061-877a-a6ef12723d4d"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "f228dc61-aefd-4b3e-b5e7-f19e0abcf865": {
       "id": "f228dc61-aefd-4b3e-b5e7-f19e0abcf865",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
