@@ -65,11 +65,11 @@
             "state": {
               "type": "bases",
               "state": {
-                "file": "07_Engineering/Unbenannt.base",
+                "file": "07_Engineering/Decisions.base",
                 "viewName": "Sicht"
               },
               "icon": "lucide-table",
-              "title": "Unbenannt"
+              "title": "Decisions"
             }
           }
         ],
@@ -241,10 +241,10 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "cbcac4b34f5396d0",
+  "active": "55ceda3168845134",
   "lastOpenFiles": [
     "07_Engineering/Decisions/ADR-0001 — Synchronize drafts separately from permanent history.md",
-    "07_Engineering/Unbenannt.base",
+    "07_Engineering/Decisions.base",
     "07_Engineering/Decisions/ADR-0002 — Group files into sessions with an inactivity boundary.md",
     "07_Engineering/Decisions/ADR-0003 — Preserve synchronized conflict inputs and traceable resolutions.md",
     "07_Engineering/Decisions/ADR-0004 — Bind agent intent to attributable changes.md",

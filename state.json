@@ -1272,8 +1272,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793872504,
-      "last_edit": 1793872946,
-      "revision": 17,
+      "last_edit": 1793872957,
+      "revision": 18,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1283,10 +1283,10 @@
             "blob": "c90ad487155c590ab6bada1af9b4f710bfb33a66"
           },
           "content": {
-            "blob": "5c1002229efc9cfc4e7746e0fa7ff761fd7b3cd1"
+            "blob": "09cce21f8d806428ed436c48fe321bc69dcc9dca"
           },
           "intent": null,
-          "last_edit": 1793872865
+          "last_edit": 1793872957
         },
         "00_Start-Here/index.md": {
           "base": {
@@ -1347,6 +1347,14 @@
           },
           "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
           "last_edit": 1793872620
+        },
+        "07_Engineering/Decisions.base": {
+          "base": null,
+          "content": {
+            "blob": "2c4fda7a6d5279af740a67e22fa5e5f9110ab33c"
+          },
+          "intent": null,
+          "last_edit": 1793872957
         },
         "07_Engineering/Decisions/ADR-0001 — Synchronize drafts separately from permanent history.md": {
           "base": null,
@@ -1427,14 +1435,6 @@
           },
           "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
           "last_edit": 1793872580
-        },
-        "07_Engineering/Unbenannt.base": {
-          "base": null,
-          "content": {
-            "blob": "2c4fda7a6d5279af740a67e22fa5e5f9110ab33c"
-          },
-          "intent": null,
-          "last_edit": 1793872946
         }
       },
       "dependencies": [],
