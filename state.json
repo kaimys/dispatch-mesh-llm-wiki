@@ -756,8 +756,11 @@
         "ca6102a4-9425-4626-b7e3-70a2f268d64c"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: add competitor research and record TASK00001 clean review",
+        "description": "Add a dated competitor overview, seven competitor profiles, and a Dispatch Mesh SWOT analysis; link the research from the wiki index and log. Update TASK00001 with the clean review of c079e9d (zero findings), leaving it In Progress pending the test plan. Refresh the Obsidian workspace to open the SWOT analysis and related project pages."
+      },
+      "message_base": "157de6f96a419e0d8aa281789a3f59cc3e84f455"
     },
     "51e94ff4-7021-4346-8663-f3116a595c90": {
       "id": "51e94ff4-7021-4346-8663-f3116a595c90",
@@ -1244,6 +1247,49 @@
         "description": "Add the v0.3.0 tray icon and status window story, outlining its scope, acceptance context, and unresolved implementation decisions. Link it from the wiki index and record it in the change log. Update the Obsidian workspace to open the Dispatch board with product docs available in tabs."
       },
       "message_base": "42b5e139f847738ea41b849aba53f55bda1e5b26"
+    },
+    "9b1a1984-e975-4d0e-90e2-018897c39778": {
+      "id": "9b1a1984-e975-4d0e-90e2-018897c39778",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793877998,
+      "last_edit": 1793877998,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "39dd46672b46c3077b28331789b928e2424e3946"
+          },
+          "content": {
+            "blob": "69040b72ac36ceeafca81fbb6e1125dfb950480a"
+          },
+          "intent": null,
+          "last_edit": 1793877998
+        },
+        "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md": {
+          "base": {
+            "blob": "555275fec0191ee62dcbdc8a39c86c9d39ebb151"
+          },
+          "content": {
+            "blob": "3a2477cc61cf4d4379a7b655cb73518b9250c41a"
+          },
+          "intent": null,
+          "last_edit": 1793877998
+        }
+      },
+      "dependencies": [
+        "4cb3d5ea-2375-42c9-800b-777a7d3e8b10",
+        "6ceaf325-23a7-4272-ab72-af4f3c9c5d57"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
     },
     "a46feca4-ae0e-457e-b25e-dec106968f82": {
       "id": "a46feca4-ae0e-457e-b25e-dec106968f82",
