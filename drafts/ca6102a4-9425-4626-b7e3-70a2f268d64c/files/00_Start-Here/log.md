@@ -75,3 +75,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 ## [2026-11-05] code-review | TASK00001 re-review at 7ac5316
 - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: re-reviewed the repair commit; independently passed formatting, Clippy and all 68 tests on Windows. Closed B1, B3 and N1; the original contention probe observed five failures with none missing from durable status.
 - B2 remains blocking for the rejected RFC 850/asctime HTTP-date variants of `Retry-After`; recorded RFC 9110 recipient requirements and concrete probe evidence. Added non-blocking N2 for impossible dates being normalized instead of rejected. Set `open_findings: 1`; kept `In progress`, unfrozen, and left `open_tests` unchanged. Added a dated as-built hand-off blocker and the next repair steps. No implementation changes or PR comment.
+
+## [2026-11-05] develop | TASK00001 re-review fixes
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: B2 (all HTTP-date forms) and N2 (impossible dates rejected) from the re-review of `7ac5316` fixed in `291c263`; gates green (69 tests); `open_findings` cleared to empty. Awaiting a fresh `/code-review TASK00001`.

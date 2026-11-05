@@ -322,6 +322,8 @@ The re-review closes B1, B3 and N1 from `08c0b02`. B2 is partially repaired: IMF
   - A new mock-provider test sends RFC 850 and asctime headers and asserts the numeric delay, with no body echo.
 - **N2 (impossible calendar dates).** Day-of-month is validated against month length with Gregorian leap-year rules before conversion, so 31 Feb, 30 Feb 2028, 29 Feb 2027, 31 Apr and day 00 all fall back to "retry later" in every form. Valid leap days (IMF-fixdate and asctime) still parse.
 - **Malformed-form coverage tightened:** wrong digit counts per form, an unknown weekday, a non-GMT zone and a trailing zone on asctime are rejected.
+- **Gates (2026-11-05, Windows 11, Git 2.35.1):** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` green on commit `291c263`. 69 tests: 5 lib unit, 9 CLI, 27 engine, 20 provider, 8 storage/transport. The Ubuntu CI leg has not been run (not pushed).
+- **Next:** a fresh `/code-review TASK00001` against `291c263`.
 
 ### 2026-11-05 — branch task00001-stabilization-gaps at 08c0b02
 
