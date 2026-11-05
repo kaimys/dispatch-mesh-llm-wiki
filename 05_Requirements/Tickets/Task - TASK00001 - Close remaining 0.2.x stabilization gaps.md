@@ -9,7 +9,7 @@ size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests: 5
+open_tests: 3
 open_findings:
 discussion:
 updated: 2026-11-05
@@ -261,7 +261,7 @@ Roughly 3–5 focused days: steps 1–4 about 60%, tests about 30%, docs 10%. Th
 
 Manual checks for the six-state status, offline/attention classification, the HTTP 429 split and the new README sections. They apply to branch `task00001-stabilization-gaps` at `c079e9d`, which passed a clean code review. *(2026-11-05: now `07903c4`, after two CI fixes on top; see As-built notes.)* The automated suites already assert everything else (see the report below this list). Live checks use a **disposable folder** and the designated test repository `https://github.com/kaimys/dispatch-mesh-test.git` (per `AGENTS.md`), never the wiki remote.
 
-- [ ] **Kai:** Push the branch to `origin` (`git push -u origin task00001-stabilization-gaps`). In the repository's **Actions** tab, open the *Engine checks* run for `c079e9d`. **Expected:** both the `windows-latest` and `ubuntu-latest` jobs are green. Only Windows has been verified so far; Linux has never run this code.
+- [x] **Kai:** Push the branch to `origin` (`git push -u origin task00001-stabilization-gaps`). In the repository's **Actions** tab, open the *Engine checks* run for `c079e9d`. **Expected:** both the `windows-latest` and `ubuntu-latest` jobs are green. Only Windows has been verified so far; Linux has never run this code.
 - [ ] **Kai:** Real network loss against GitHub.
   1. In PowerShell: `dispatch-mesh --workspace C:\MeshTask1Net init --name Kai --email kai@eightnine.de --remote https://github.com/kaimys/dispatch-mesh-test.git`, then `dispatch-mesh --workspace C:\MeshTask1Net run` in its own window.
   2. Turn Wi-Fi/Ethernet off, save `C:\MeshTask1Net\net.md` with any text, wait 15 s, then run `dispatch-mesh --workspace C:\MeshTask1Net status` in a second window.
@@ -394,6 +394,7 @@ CI run 42018932901 on `af1d3a0` failed again on `ubuntu-latest` (attempt 1: thre
 - **Fix (production code):** `operation_lock` retries for up to 500 ms (`LOCK_SETTLE`) before reporting `WorkspaceBusy`. Real contention from another operation lasts far longer and is still reported; no test depends on an immediate busy. Local gates green on Windows (69 tests).
 - **CI:** `fail-fast: false` in `.github/workflows/ci.yml`. Until now every Ubuntu failure cancelled the Windows job, so CI never reported a Windows result for this branch.
 - **Review impact:** `open_findings` stays empty. The re-review must cover `af1d3a0` (test) and `07903c4` (lock retry and CI config).
+- **CI result:** run 42020325879 on `07903c4` was green on **both** `ubuntu-latest` and `windows-latest` in **three of three attempts** (the original run plus two reruns of the same commit). This is evidence against the race, not proof: it was random before.
 
 ## Code review
 
