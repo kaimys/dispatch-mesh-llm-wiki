@@ -156,6 +156,7 @@ Final as of 2026-11-05 (refinement ended by Kai).
 ### Steps, in order
 
 1. **Spike, on a throwaway branch (gate for everything below).** A minimal Tauri 2 app that embeds `Runner::start` on one workspace and shows: a tray icon whose image and tooltip change with the snapshot; left-click opens a window and right-click a menu; the window hides on close while capture continues; **Quit** stops, joins and exits; one toast; Narrator reads the tray tooltip and an `aria-live` state label in the window; `println!` from the runner does no harm in a `windows_subsystem = "windows"` build. Also time a clean `cargo build` and the Linux CI build with the Tauri system packages.
+   > ⚙️ Plan update 2026-11-05 (development): an agent can't operate Narrator or judge how the icon and toast look, and the Linux build runs only in CI. The spike therefore checks the lifecycle automatically; the visual, Narrator and toast checks move to the app run before `/code-review` (step 8), and the Linux build to the first CI run of step 2. Either failing still reopens the toolkit question. Results under As-built notes.
    *Why first:* the toolkit answer made this test a condition. **If any must-have fails, stop** and reopen the toolkit question in this ticket (runner-up: egui/eframe + `tray-icon`) rather than working around it. The spike code is not merged.
 2. **Cargo workspace and an empty tray crate.**
    - Root `Cargo.toml` gains `[workspace] members = [".", "tray"]`, `default-members = [".", "tray"]`, and `[workspace.package] version`; both packages use `version.workspace = true`, so one bump in `/release` versions both programs. `Cargo.lock` stays shared.
@@ -268,7 +269,16 @@ Extracted on 2026-11-05 at sign-off, both `proposed`: [[ADR-0011 — Build the d
 
 ## As-built notes
 
-<!-- GUIDE: Where the implementation deviated from the plan, and why. Dated entries. -->
+### 2026-11-05 — Spike (step 1)
+
+Throwaway Tauri 2.12 app in a scratch folder (not in the repo), embedding `Runner::start` on a local workspace, driven by an autopilot and a log file. Results on Windows 11, WebView2 156:
+
+- **Passed:** tray icon and tooltip updates from the status channel (`set_icon`/`set_tooltip` OK; Synced → SavedLocally within about 1 s of an edit); the window loads the static frontend under a strict CSP with `withGlobalTauri`, receives `status` events and calls commands; `CloseRequested` → `prevent_close` + hide keeps the process and capture running (edit captured with the window hidden); `ExitRequested` without a code is prevented; Quit hides the icon, stops and joins the runner (57 ms with nothing in flight) and exits 0; an edit saved 300 ms before Quit was captured; `println!`/`eprintln!` in a GUI-subsystem build (PE subsystem 2) do not panic; the notification plugin's `show()` returns Ok.
+- **Measured:** clean release build of the spike 3 min 50 s.
+- **Not checkable by an agent, moved:** Narrator reading the tooltip and the window's live state, the icon's look on light and dark taskbars, whether the first-close toast is actually displayed for an unpackaged app. These go to the app run before `/code-review`. The Linux build goes to the first CI run.
+- WebView2 logs `Failed to unregister class Chrome_WidgetWin_0` to stderr at exit; harmless and invisible in a GUI build.
+
+No must-have failed, so Tauri stays.
 
 ## Follow-ups
 
