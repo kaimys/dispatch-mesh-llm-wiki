@@ -2064,8 +2064,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793880597,
-      "last_edit": 1793880597,
-      "revision": 1,
+      "last_edit": 1793880663,
+      "revision": 2,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -2075,10 +2075,18 @@
             "blob": "71a2a8702ac6557a4521326444539ffb5dfa69af"
           },
           "content": {
-            "blob": "80be1fa69cd439333592a1e8355d2be8b132f41e"
+            "blob": "98dd2afe8f854408fc20bfef8ff6dee5478fb8bd"
           },
           "intent": null,
-          "last_edit": 1793880597
+          "last_edit": 1793880663
+        },
+        "06_UX/Dispatch Mesh desktop app.html": {
+          "base": null,
+          "content": {
+            "blob": "1e10a9766c6306f93f3b4cd098dba72f9bc50fc3"
+          },
+          "intent": null,
+          "last_edit": 1793880663
         },
         "06_UX/Dispatch Mesh desktop app.pdf": {
           "base": null,
