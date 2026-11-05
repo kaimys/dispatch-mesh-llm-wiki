@@ -264,7 +264,20 @@ Roughly 3–5 focused days: steps 1–4 about 60%, tests about 30%, docs 10%. Th
 
 ## As-built notes
 
-<!-- GUIDE: Where the implementation deviated from the plan, and why. Dated entries. -->
+### 2026-11-05 — First development pass (branch `task00001-stabilization-gaps`)
+
+The plan was followed in its step order. These are the deviations and things a reviewer should know:
+
+- **Step 3, failure recording.** Instead of calling `record_sync_failure` from two places, a shared `Workspace::sync_and_record(root)` opens, syncs and, on failure, reopens and records. Both the runner (`src/main.rs`) and CLI `sync` use it, which removed the runner's inline copy. An `offline` result replaces a previous *sync-failure* attention (text prefixed `Synchronization waiting: `) but keeps engine-raised attention (pending capture). A non-offline failure clears `offline`.
+- **Step 3, AI failures.** `ai::generate` keeps its signature as a wrapper. The new `ai::generate_with_failure` returns `(Message, Option<String>)`. This avoided changing the three `tests/provider.rs` call sites. `summarize_ready` saves `summary_failure` only when it changed.
+- **Step 3, upload record.** `push_manifest` captures the own sessions' revisions before encoding and records them only after the push returns. `network_call` reloads state from disk, so recording earlier would be lost. The record keeps only unsettled sessions.
+- **Step 4, status JSON.** As well as `reason` and per-session `stage`, the JSON now carries the raw `offline` and `summary_failure` fields next to `attention`. `Identity` gained `PartialEq, Eq` so `Status` can be compared, which US00002 needs for "publish only when changed".
+- **Step 5, `Retry-After`.** Only the delta-seconds form becomes "retry after N s". An HTTP-date value yields "temporary rate limit; retry later". Parsing HTTP dates would need a new dependency for little gain.
+- **Step 7, `tests/cli.rs:250`.** No change was needed: an empty workspace still reports `synced` under the new model. The existing lock-held status test (`status_remains_readable_while_an_operation_holds_the_workspace_lock`) already covers the lock-free requirement, now exercising `status_snapshot()`.
+- **Step 7, offline and authentication CLI tests.** These use the test-only loopback HTTP remote override that the slow-remote test already uses, because users may only configure HTTPS, SSH or local remotes. Each child gets an isolated Git config (`GIT_CONFIG_NOSYSTEM=1`, empty `GIT_CONFIG_GLOBAL`), so this machine's Git Credential Manager cannot answer the 401.
+- **Step 7, locale test: limited evidence on this host.** Git for Windows 2.35.1 here ships no message catalogs: even `not a git repository` stays English under `LANG=de_DE.UTF-8`. The German-locale CLI test therefore passes trivially on this machine. The guarantee rests on the unit test `every_git_process_runs_with_untranslated_messages`, which asserts `LC_ALL=C` and a removed `LANGUAGE` on every `Git::command()`. The CLI test becomes a real check on a host with German Git translations (e.g. Linux with the `de` catalog and locale installed).
+- **Step 6, interrupted publication.** The test restores a pre-publication copy of `.mesh/state.sqlite*`, as planned; no production fault hook was needed. It was **mutation-checked**: with `reconcile_published()` disabled in `sync()`, the test fails.
+- **Wiki:** [[Dispatch Mesh requirements and architecture]] line 110 annotated with the six-state model.
 
 ## Follow-ups
 
