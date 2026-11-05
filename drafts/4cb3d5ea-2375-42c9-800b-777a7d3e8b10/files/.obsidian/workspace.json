@@ -51,12 +51,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02_Product/Competitor overview.md",
+                "file": "02_Product/Dispatch Mesh SWOT analysis.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Competitor overview"
+              "title": "Dispatch Mesh SWOT analysis"
             }
           },
           {
@@ -241,11 +241,11 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "55ceda3168845134",
+  "active": "d347610810d2fba1",
   "lastOpenFiles": [
-    "02_Product/Competitors/Agentic Git Sync.md",
-    "02_Product/Competitors/Dispatch Mesh SWOT analysis.md",
     "02_Product/Competitor overview.md",
+    "02_Product/Competitors/Agentic Git Sync.md",
+    "02_Product/Dispatch Mesh SWOT analysis.md",
     "02_Product/Dispatch Mesh concept.md",
     "02_Product/Competitors/Jujutsu.md",
     "02_Product/Competitors/Syncthing.md",
