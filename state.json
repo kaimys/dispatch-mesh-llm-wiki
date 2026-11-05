@@ -1221,7 +1221,7 @@
       "created_at": 1793891191,
       "last_edit": 1793891537,
       "revision": 6,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
