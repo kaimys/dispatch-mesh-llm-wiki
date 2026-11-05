@@ -1272,8 +1272,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793872504,
-      "last_edit": 1793872583,
-      "revision": 4,
+      "last_edit": 1793872601,
+      "revision": 5,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1283,10 +1283,30 @@
             "blob": "c90ad487155c590ab6bada1af9b4f710bfb33a66"
           },
           "content": {
-            "blob": "df56085704ff11085841b0062447d8f4a7e02c18"
+            "blob": "f19f2112049511fbc8074649ee4c707332a0edfd"
           },
           "intent": null,
-          "last_edit": 1793872583
+          "last_edit": 1793872601
+        },
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "a2c264a75d3690d9c362d197736018c25cd71b35"
+          },
+          "content": {
+            "blob": "719abc4597bf9d486d35c839371c2fd67c583e14"
+          },
+          "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
+          "last_edit": 1793872601
+        },
+        "02_Product/Dispatch Mesh requirements and architecture.md": {
+          "base": {
+            "blob": "d99b0c171066fff5d7aaef38c9d9560d08e2e54a"
+          },
+          "content": {
+            "blob": "293f82652a9abdad8f756d34615188bc45c3afcd"
+          },
+          "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
+          "last_edit": 1793872601
         },
         "07_Engineering/Decisions/ADR-0001 — Synchronize drafts separately from permanent history.md": {
           "base": null,
