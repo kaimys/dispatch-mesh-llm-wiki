@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings:
+open_findings: 3
 discussion:
 updated: 2026-11-05
 completed:
@@ -281,6 +281,67 @@ The plan was followed in its step order. These are the deviations and things a r
 - **Gates (2026-11-05, Windows 11, Git 2.35.1):** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` green. 63 tests: 5 lib unit, 9 CLI, 26 engine, 15 provider, 8 storage/transport, of which 19 are new. The Ubuntu CI leg has not been run yet; it runs on push.
 - **Manual check with the built binary:** a scratch workspace with a local bare remote showed `synced` → `saved_locally` (uncaptured edit) → `draft_uploaded` (after `sync`) → `synced` with the session `published` (after `session finish` + `sync`). With no provider configured, CLI `sync` summarizes and publishes in one invocation, so `waiting_for_finalization` is not observable there; the engine test `status_follows_a_session_from_local_save_to_publication` asserts it.
 - **Code review:** not yet run. Next step is `/code-review TASK00001` in a fresh session.
+
+### 2026-11-05 — Code-review hand-off blocked at `08c0b02`
+
+Independent review found three blocking findings: **B1**, failed-sync status can be lost during operation-lock contention (criteria 6 and 7); **B2**, an HTTP-date `Retry-After` loses its retry delay (criterion 9 and plan step 5); **B3**, the `discarded` status stage has no automated assertion (criterion 8). The card remains `In progress`, unfrozen. `/test-plan` must wait for repairs and a fresh review. See the review and repair steps below; implementation code was not changed in this session.
+
+## Code review
+
+### 2026-11-05 — branch task00001-stabilization-gaps at 08c0b02
+
+**Scope and independence.** Fresh reviewer session; this session authored none of the implementation. Reviewed the complete `main...HEAD` diff (one ticket-scoped commit; 12 files), the whole ticket including revisions and as-built notes, README, workflow invariants and governing ADR-0001/0005/0007/0009/0010. Working tree was clean. No open PR was found for this branch, so there were no PR reviews to fold in.
+
+**Gates.** Independently ran `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, and `cargo test`: all passed on this Windows host. All 63 tests passed: 5 library, 9 CLI, 26 engine, 15 provider, 8 storage/transport. Engine tests took 173.56 seconds. `git diff --check main...HEAD` also passed. No live GitHub/provider tests or Linux/macOS verification were performed. As already recorded by the author, this host cannot prove behavior against installed German Git translations; the command-environment assertion is deterministic.
+
+**Verdict: changes required.** **3 blocking findings, 1 non-blocking finding.** The ticket cannot leave review as built and cannot proceed to `/test-plan`. Keep `status: In progress`, `frozen:` unset and `open_tests:` unchanged.
+
+#### Findings, in severity order
+
+1. **B1 — [P2, blocking] Persist the sync outcome before releasing its operation lock.** `src/engine.rs:768–774`, especially the conditional reopen at line 771. After `sync()` returns an error, `sync_and_record()` drops the workspace and then tries to reopen it once. If a concurrent capture/finish operation obtains `.mesh/lock` in that interval, `Workspace::open` returns `WorkspaceBusy`, the `if let Ok` silently skips recording, and the original Git error is returned without any durable cause. A loopback connection-refused probe reproduced this: the returned error was `Git fetch: Remote unreachable (exit 128)…`, while the subsequent snapshot was `Synced` with `reason: None`. This violates criteria **6 and 7**, and ADR-0010's last-sync-failure rule. **Fix:** record and save the error on the existing workspace while it still owns the operation lock; if a failure path has already lost that lock, retain the outcome and retry acquisition rather than dropping it. Preserve the `WorkspaceBusy` exclusion. Add a regression that overlaps failure completion with capture contention and verifies the persisted offline/attention reason after reopening, plus clearing on a successful sync.
+
+   **Evidence:** ignored local review harness `target/review-task00001/probe.rs`; retained outputs `target/review-task00001/probe-offline-output.txt` and `target/review-task00001/probe-output.txt`. It uses disposable workspaces and a competing lock holder; it does not modify the code under review. Both connection-refused and unclassified Git failures were observed returning with neither durable failure field set.
+
+2. **B2 — [P2, blocking] Report the retry delay for HTTP-date `Retry-After`.** `src/ai.rs:171–176`. Only unsigned delta-seconds are parsed. A valid header such as `Retry-After: Thu, 05 Nov 2026 13:00:00 GMT` produces only `temporary rate limit; retry later`, discarding the supplied retry time. The as-built note acknowledges this deviation, but criterion **9** requires the retry delay when given and plan step **5** explicitly includes HTTP dates; documenting the deviation does not satisfy that contract. **Fix:** parse both forms, calculate a non-negative delay for a valid HTTP date, and retain a safe generic fallback for malformed dates. Add mock-provider cases for a future date and an elapsed date, without echoing response bodies. No product decision or `/update-ticket` is needed to implement the agreed behavior; weakening it would require a requester decision and an explicit contract update.
+
+3. **B3 — [P2, blocking] Assert the `discarded` session stage in automation.** `tests/engine.rs:635–683` covers the local-save-to-publication progression, but no test anywhere asserts `Stage::Discarded` or a serialized `stage: "discarded"`. The existing same-change regression at `tests/engine.rs:487` checks only the domain `discarded` flag. Returning `published` or `saved_locally` for a discarded session would therefore leave the suite green. Criterion **8** explicitly requires every session stage to be covered. **Fix:** extend a real discard scenario, such as `identical_concurrent_changes_do_not_add_an_empty_session_commit`, to assert the status stage and a `synced` summary, including after reopen. Keep the assertions that original snapshots survive and no empty commit is added. The code's discarded branch appears correct; the blocking failure here is the required regression coverage.
+
+4. **N1 — [P3, non-blocking] Exercise AI-failure persistence through the actual summary path.** `tests/engine.rs:791–799` directly assigns `summary_failure`, so it proves presentation but never executes the new persistence wiring at `src/main.rs:247–252`. Add a CLI/mock-provider regression where a failed summary still publishes the factual fallback, `status` after restart retains the sanitized failure, and a later successful or metadata-only summary clears it. This protects the new seam between summarization, durable state and the status consumer; no current failure of that wiring was demonstrated.
+
+#### Acceptance criteria and plan assessment
+
+| Criterion | Assessment at this commit |
+|---|---|
+| 1 — interrupted publication | Pass: restored pre-publication SQLite state is recognized after reopening; exactly one session trailer and intact content are asserted. The author's mutation check is recorded as author evidence, not rerun here. |
+| 2 — rename plus separate deletion | Pass: two clients converge on the non-ASCII, spaced destination and remote `main` contains only the destination file. |
+| 3 — summary values and precedence | Implementation follows the agreed order; individual summary values are covered. B1 can leave the durable inputs stale after a failed sync. |
+| 4 — session stages | Implementation provides all five stages, including distinct local-only and received-session behavior. |
+| 5 — local-only upload bookkeeping | Pass: exact pushed revisions are captured before network reload and recorded afterward; manifest/unchanged-ref regression passes; defaulted fields preserve old-state deserialization. |
+| 6 — offline vs. attention and recovery | **Fail B1:** a failed sync can leave no recorded cause under contention. Uncontended CLI offline/authentication cases pass. Success clears both fields in code. |
+| 6a — untranslated Git processes | Pass: all production Git construction uses `Git::command`, setting `LC_ALL=C` and removing `LANGUAGE`; environment and locale tests pass, subject to the host limitation above. |
+| 7 — actionable, sanitized reason | **Fail B1:** the reason can be absent after a failed sync. Known Git/provider diagnostics otherwise use fixed text rather than stderr or response bodies. |
+| 8 — automated summary/stage coverage | **Fail B3:** no assertion for the discarded status stage. |
+| 9 — HTTP 429 classification and delay | **Fail B2:** quota/rate/generic branches work, but HTTP-date retry delay is omitted. |
+| 10 — three mock-provider cases, no body leak | Pass for the three existing cases; B2 adds the missing date variant. |
+| 11 — status, storage and recovery documentation | Pass for the specified sections and principal recovery cases; the README's retry-delay claim will become accurate for HTTP dates once B2 is fixed. |
+| 12 — mechanical gates | Pass independently on Windows; 63 tests green. |
+
+The principal implementation deviations are dated in the as-built notes: shared failure-recording helper, wrapper API for AI generation, post-network upload bookkeeping, raw status fields, unchanged existing `synced` CLI assertion and locale limitations. The HTTP-date deviation is recorded but still fails the contract. No unrelated branch changes were found. The proposed scan-free status core requested by US00002 is downstream planning work, not an acceptance criterion of this ticket.
+
+#### What is good and should stay
+
+- **Local-only upload acknowledgments:** recording the revisions actually encoded before the network call avoids crediting concurrent newer edits; keeping them out of manifests prevents acknowledgment-induced push loops. The unchanged-ref regression tests the observable consequence.
+- **Sanitized typed Git failures:** classification stays beside stderr, while callers receive fixed messages and an inspectable error kind. Central locale configuration and removing `LANGUAGE` keep classification independent of the caller's language settings.
+- **Read-only status computation:** typed summary/stage values preserve the prior JSON fields and compute through `inspect` without taking the writer lock. The existing lock-held CLI test continues to pass.
+- **Publication recovery regression:** restoring only disposable state files recreates the important remote-commit/local-record discrepancy without a production fault hook, and checks both commit count and content.
+
+#### Repair plan — before this leaves review
+
+1. In a fresh `/develop TASK00001` session, fix **B1** and add a contention/recovery regression that verifies the durable status after reopening.
+2. Implement HTTP-date retry delays and mock-provider coverage for **B2**; keep diagnostics free of body text.
+3. Extend a genuine discard regression with status assertions for **B3**. Add **N1**'s summary-persistence integration case before merge if practical.
+4. Run all mechanical gates, append dated as-built results, and clear the now-stale `open_findings` count as required by the invariants. Request a fresh `/code-review TASK00001` against the new commit.
+5. Only a clean review may hand off to `/test-plan TASK00001`, which stamps the freeze. The agreed contract can be repaired without `/update-ticket`; ask Kai only if proposing to change the HTTP-date requirement instead.
 
 ## Follow-ups
 
