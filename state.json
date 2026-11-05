@@ -1338,7 +1338,7 @@
       "last_edit": 1793895683,
       "revision": 1,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md": {
