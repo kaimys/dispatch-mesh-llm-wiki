@@ -1,7 +1,7 @@
 ---
 id: TASK00001
 type: task
-status: "Review"
+status: Done
 priority: high
 rank: 1024
 version_target: v0.2.5
@@ -10,10 +10,10 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests: 0
-open_findings:
+open_findings: 0
 discussion:
 updated: 2026-11-05
-completed:
+completed: 2026-11-05
 frozen: 2026-11-05
 ---
 Finish the four 0.2.x engine-stabilization items that are only partly done in 0.2.4, so the milestone's exit criteria hold before the tray work builds on them:
