@@ -754,6 +754,38 @@
       },
       "message_base": "26ffcbc200d8364e4a7c4ef3f72f3cefebc1e978"
     },
+    "39df02d9-6758-4615-8df9-c44281deeaf6": {
+      "id": "39df02d9-6758-4615-8df9-c44281deeaf6",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793893215,
+      "last_edit": 1793893215,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md": {
+          "base": {
+            "blob": "523b7224852f28108ee5375b3ecd1114c943df3e"
+          },
+          "content": {
+            "blob": "d965ea291e4b9347bc514bc420d04d454c6e9d5f"
+          },
+          "intent": null,
+          "last_edit": 1793893215
+        }
+      },
+      "dependencies": [
+        "431fbd06-346a-48ae-ab29-7136ad859a22"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "431fbd06-346a-48ae-ab29-7136ad859a22": {
       "id": "431fbd06-346a-48ae-ab29-7136ad859a22",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
@@ -819,8 +851,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Add v0.2.5 GitHub release notes and refresh wiki workspace",
+        "description": "Add paste-ready GitHub release notes for v0.2.5, link them from the wiki index, and append the release-text update to the wiki log. Refresh the Obsidian workspace layout to focus on the Dispatch board; normalize line endings in the US00002 ticket."
+      },
+      "message_base": "cc001488bbc41a790fa8f87ea997ffa283c49727"
     },
     "4cb3d5ea-2375-42c9-800b-777a7d3e8b10": {
       "id": "4cb3d5ea-2375-42c9-800b-777a7d3e8b10",
