@@ -1,9 +1,9 @@
 ---
 id: US00001
 type: story
-status: Refinement
+status: Backlog
 priority: high
-rank: 2048
+rank: -24
 version_target: v0.3.0
 size:
 assignee:

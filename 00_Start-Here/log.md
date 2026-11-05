@@ -36,3 +36,12 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 - Moved `reports/github-workflow-test-2026-11-04.md` and `reports/github-workflow-findings-2026-11-04.md` from the source repository to `08_Delivery-and-QA/Reports/` as [[github-workflow-test-2026-11-04]] and [[github-workflow-findings-2026-11-04]]. The content is unchanged; only `owner` frontmatter was added.
 - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]] now links to the findings page instead of the old repository path.
 - Listed in [[index]].
+
+## [2026-11-05] ticket | TASK00001 locale-independent Git errors
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: added (Kai's decision) forcing `LC_ALL=C` on every Git invocation so offline/attention classification reads untranslated messages; new acceptance criterion 6a; linked to TASK00002.
+
+## [2026-11-05] ticket | TASK00002 Choose the Git backend before bundling Git
+- Created [[Task - TASK00002 - Choose the Git backend before bundling Git]] (Backlog, v0.4.0) from the question whether `src/git.rs` should use a Git library instead of the CLI; 6 open questions. Listed in [[index]].
+
+## [2026-11-05] plan | TASK00001 implementation plan drafted
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: `## Implementation plan` written (9 ordered steps, review points, cross-ticket effects on US00002/US00001, ADR candidates). Awaiting Kai's sign-off; no ADRs created yet.
