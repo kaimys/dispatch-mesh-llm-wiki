@@ -6,7 +6,7 @@ priority: high
 rank: 1024
 version_target: v0.2.5
 size:
-assignee:
+assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
@@ -159,6 +159,7 @@ Downstream: [[Story - US00001 - Tray icon and status window host|US00001]] deriv
    - `ai::generate` returns `(Message, Option<String>)`, with the failure text instead of an `eprintln`. `summarize_ready` writes `state.summary_failure` and clears it on a successful provider summary. Disabled text sharing is not a failure. This is the persistence half of US00002's criterion 6 (see *Cross-ticket effects*).
 4. **Status model in the library** (new `src/status.rs`; `show_status` in `src/main.rs` delegates)
    - `Workspace::status_snapshot() -> Status` (serde). `status` JSON keeps every existing field and adds `reason` at the top level, plus `stage` per session.
+   - **Must work on a lock-free `Workspace::inspect`**, as CLI `status` uses today (`src/main.rs:146`). [[ADR-0007 — Persist state transactionally with recovery journals]] relies on status reading the committed SQLite snapshot without the writer operation lock. Therefore `status_snapshot()` takes `&self`, never writes state, and calls nothing that acquires `.mesh/lock` or `network.lock`. Its scan of the live folder stays read-only, as in `show_status`. A test runs `status` while another process holds the operation lock (extending `status_remains_readable_while_an_operation_holds_the_workspace_lock`).
    - **Session stage:**
 
      | Session | Own, remote configured | Own, local-only workspace | Received from another device |
@@ -242,10 +243,15 @@ Downstream: [[Story - US00001 - Tray icon and status window host|US00001]] deriv
 
 Roughly 3–5 focused days: steps 1–4 about 60%, tests about 30%, docs 10%. This is an order-of-magnitude estimate, not a commitment.
 
-### ADR candidates (to extract after sign-off)
+### ADRs
 
-- **Status model:** summary precedence, session stages, local-only upload record, `reason`. Durable, and US00001, US00002 and later hosts must obey it.
-- **Git failure classification:** stderr is classified inside `execute` and never echoed, with `LC_ALL=C` on every Git process, and unknown failures go to `needs_attention`. Durable until TASK00002 replaces the CLI backend, which would supersede it.
+- **Status model:** recorded as [[ADR-0010 — Report workspace status and session stages separately]] (proposed). On 2026-11-05 it was amended with this plan's three review-point rules (AI-summary failure, rejected push and unknown Git failure all go to `needs_attention`) and the offline definition. When this ticket reaches `Done`, set it to `accepted`, amending it first if the built model deviates.
+- **Governing ADRs for this plan:**
+  - [[ADR-0001 — Synchronize drafts separately from permanent history]]: recovery from interrupted publication is a stated consequence, which step 6 tests.
+  - [[ADR-0005 — Make AI summaries configurable and opt-in]]: bounded retries, and no alternate provider; step 5 keeps both.
+  - [[ADR-0007 — Persist state transactionally with recovery journals]]: lock-free status (step 4).
+  - [[ADR-0009 — Embed the engine with a runner handle and published status]]: the snapshot consumer.
+- **Still a candidate, not yet extracted — Git failure classification:** stderr is classified inside `execute` and never echoed, with `LC_ALL=C` on every Git process, and unknown failures go to `needs_attention`. Durable until TASK00002 replaces the CLI backend, which would supersede it.
 
 <!-- ═══════════ RECORD ZONE ═══════════
      What actually happened. Always appendable, including after the freeze.
@@ -258,9 +264,29 @@ Roughly 3–5 focused days: steps 1–4 about 60%, tests about 30%, docs 10%. Th
 
 ## As-built notes
 
-<!-- GUIDE: Where the implementation deviated from the plan, and why. Dated entries. -->
+### 2026-11-05 — First development pass (branch `task00001-stabilization-gaps`)
+
+The plan was followed in its step order. These are the deviations and things a reviewer should know:
+
+- **Step 3, failure recording.** Instead of calling `record_sync_failure` from two places, a shared `Workspace::sync_and_record(root)` opens, syncs and, on failure, reopens and records. Both the runner (`src/main.rs`) and CLI `sync` use it, which removed the runner's inline copy. An `offline` result replaces a previous *sync-failure* attention (text prefixed `Synchronization waiting: `) but keeps engine-raised attention (pending capture). A non-offline failure clears `offline`.
+- **Step 3, AI failures.** `ai::generate` keeps its signature as a wrapper. The new `ai::generate_with_failure` returns `(Message, Option<String>)`. This avoided changing the three `tests/provider.rs` call sites. `summarize_ready` saves `summary_failure` only when it changed.
+- **Step 3, upload record.** `push_manifest` captures the own sessions' revisions before encoding and records them only after the push returns. `network_call` reloads state from disk, so recording earlier would be lost. The record keeps only unsettled sessions.
+- **Step 4, status JSON.** As well as `reason` and per-session `stage`, the JSON now carries the raw `offline` and `summary_failure` fields next to `attention`. `Identity` gained `PartialEq, Eq` so `Status` can be compared, which US00002 needs for "publish only when changed".
+- **Step 5, `Retry-After`.** Only the delta-seconds form becomes "retry after N s". An HTTP-date value yields "temporary rate limit; retry later". Parsing HTTP dates would need a new dependency for little gain.
+- **Step 7, `tests/cli.rs:250`.** No change was needed: an empty workspace still reports `synced` under the new model. The existing lock-held status test (`status_remains_readable_while_an_operation_holds_the_workspace_lock`) already covers the lock-free requirement, now exercising `status_snapshot()`.
+- **Step 7, offline and authentication CLI tests.** These use the test-only loopback HTTP remote override that the slow-remote test already uses, because users may only configure HTTPS, SSH or local remotes. Each child gets an isolated Git config (`GIT_CONFIG_NOSYSTEM=1`, empty `GIT_CONFIG_GLOBAL`), so this machine's Git Credential Manager cannot answer the 401.
+- **Step 7, locale test: limited evidence on this host.** Git for Windows 2.35.1 here ships no message catalogs: even `not a git repository` stays English under `LANG=de_DE.UTF-8`. The German-locale CLI test therefore passes trivially on this machine. The guarantee rests on the unit test `every_git_process_runs_with_untranslated_messages`, which asserts `LC_ALL=C` and a removed `LANGUAGE` on every `Git::command()`. The CLI test becomes a real check on a host with German Git translations (e.g. Linux with the `de` catalog and locale installed).
+- **Step 6, interrupted publication.** The test restores a pre-publication copy of `.mesh/state.sqlite*`, as planned; no production fault hook was needed. It was **mutation-checked**: with `reconcile_published()` disabled in `sync()`, the test fails.
+- **Wiki:** [[Dispatch Mesh requirements and architecture]] line 110 annotated with the six-state model.
+- **Gates (2026-11-05, Windows 11, Git 2.35.1):** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` green. 63 tests: 5 lib unit, 9 CLI, 26 engine, 15 provider, 8 storage/transport, of which 19 are new. The Ubuntu CI leg has not been run yet; it runs on push.
+- **Manual check with the built binary:** a scratch workspace with a local bare remote showed `synced` → `saved_locally` (uncaptured edit) → `draft_uploaded` (after `sync`) → `synced` with the session `published` (after `session finish` + `sync`). With no provider configured, CLI `sync` summarizes and publishes in one invocation, so `waiting_for_finalization` is not observable there; the engine test `status_follows_a_session_from_local_save_to_publication` asserts it.
+- **Code review:** not yet run. Next step is `/code-review TASK00001` in a fresh session.
 
 ## Follow-ups
+
+### 2026-11-05 — Status ADR recorded
+
+Kai requested ADR extraction. [[ADR-0010 — Report workspace status and session stages separately]] records the agreed summary precedence, session stages, reason field and local-only upload record. It is `proposed` under the ADR template until built. [[ADR-0009 — Embed the engine with a runner handle and published status]] covers its host interface. The implementation plan, review gates and tests remain outstanding; this entry is not plan sign-off. The Git backend ADR remains separate under TASK00002; the Git error-classification ADR candidate in this plan has not been extracted here.
 
 <!-- GUIDE: Links to the tickets that carry the deferred work. New scope is a new
      ticket, linked both ways — a finished ticket is not superseded, it is finished. -->

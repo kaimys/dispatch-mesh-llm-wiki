@@ -1,10 +1,14 @@
 ---
 copilot_chat: obsidian://copilot-chat?vault=Dispatch-Wiki&id=epoch%3A1793099431555
+owner: "[[Kai]]"
+updated: 2026-11-05
 ---
 
 # Dispatch Mesh requirements and architecture
 
 Status: Product discovery; requirements and implementation recommendation, not an implementation ticket.
+
+Architecture decisions recorded on 2026-11-05: [[ADR-0001 — Synchronize drafts separately from permanent history]], [[ADR-0002 — Group files into sessions with an inactivity boundary]], [[ADR-0003 — Preserve synchronized conflict inputs and traceable resolutions]], [[ADR-0004 — Bind agent intent to attributable changes]], [[ADR-0005 — Make AI summaries configurable and opt-in]], [[ADR-0006 — Let Mesh own Git operations in managed folders]], [[ADR-0007 — Persist state transactionally with recovery journals]], [[ADR-0008 — Store content as blobs referenced by metadata]], [[ADR-0009 — Embed the engine with a runner handle and published status]], and [[ADR-0010 — Report workspace status and session stages separately]]. These govern the corresponding recommendations below. The last two are agreed designs awaiting implementation, not completed preview features.
 
 Based on [[Dispatch Mesh concept]] and the subsequent discussion about desktop operation, autonomous agents, and cloud access through MCP.
 
@@ -76,7 +80,7 @@ Provide guided provider settings and a connection test in the desktop UI. Store 
 
 ### Agent intent capture
 
-Use the Mesh CLI as the local integration point for agents to attach the user's requested purpose to their changes. An agent should register intent before editing and receive a stable intent identifier, then associate the resulting changes with that identifier. Exact commands and argument schemas remain to be designed. Remote agents should use equivalent authenticated MCP operations through the same application layer.
+Use the Mesh CLI as the local integration point for agents to attach the user's requested purpose to their changes. The console preview implements `intent begin --purpose ... --paths ...` and `intent end <id>`; see [[ADR-0004 — Bind agent intent to attributable changes]] and the versioned README for command details. Remote agents should eventually use equivalent authenticated MCP operations through the same application layer.
 
 Intent records should contain the relevant requested purpose, its provenance, the initiating identity, and the agent/task context. Bind them to the snapshots or changes they explain and retain that association through draft synchronization, integration, and finalization. Do not assign one agent's intent to unrelated direct edits or another agent's work merely because they share a file or editing session. The precise mechanism for attributing changes made by concurrent local writers remains a technical design task; a filesystem watcher alone cannot establish attribution.
 
@@ -104,6 +108,8 @@ For Windows, start with a normal application launched at login. A Windows Servic
 For macOS, use a login item or LaunchAgent. Add Linux desktop startup integration separately once its lifecycle requirements are settled.
 
 A small desktop interface should expose saved locally, waiting to sync, synced, and needs attention, plus pause, resume, quit, and recovery actions. Closing a status window should have clearly defined behavior distinct from quitting synchronization.
+
+> Update 2026-11-05: the engine's status model refines these four states into six: `needs_attention` > `offline` > `saved_locally` > `draft_uploaded` > `waiting_for_finalization` > `synced`, with a `reason` and a stage per session ([[ADR-0010 — Report workspace status and session stages separately]], built under [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps|TASK00001]]). "Waiting to sync" splits into `draft_uploaded` and `waiting_for_finalization`, and an unreachable remote is `offline` rather than needing attention. Pause is not yet part of the model.
 
 The tray icon should indicate when conflicts need attention. Clicking it opens the status window, where users can browse unresolved conflicts and inspect the competing versions, authors, and available resolution actions. This is a Mesh interface backed by synchronized conflict records; GitHub does not automatically provide that interface.
 
@@ -225,11 +231,11 @@ These extend the design hypotheses in [[Dispatch Mesh concept]] and still requir
 
 The agreed inactivity boundary is five minutes without local edits across the session. Sessions can span multiple files; changing files does not end a session. Incoming synchronized changes and presence updates do not reset the local editing timer. The 1–2 second write-settling interval remains a hypothesis. A thirty-minute maximum session duration was previously proposed but is not confirmed.
 
-Continuous draft synchronization is the selected product model. Keep draft revisions separate from permanent shared history; do not repeatedly amend and force-push the shared branch. Dedicated per-device draft refs are one implementation option, not a settled transport design.
+Continuous draft synchronization is the selected product model. Keep draft revisions separate from permanent shared history; do not repeatedly amend and force-push the shared branch. The implemented transport uses `mesh/devices/<device-id>` refs and stable session IDs, with native content blobs and reference-based metadata, as recorded in [[ADR-0001 — Synchronize drafts separately from permanent history]] and [[ADR-0008 — Store content as blobs referenced by metadata]].
 
 Keep recurring agent execution separate from synchronization. The autonomous agent performs housekeeping or support work; git-sync captures and integrates resulting repository changes. The agent can explicitly finish a session at the end of a logical task.
 
-Expose the optional finish-session operation through the local CLI and authenticated remote MCP interface as well as the desktop controls. Proposed interfaces are `dispatch-mesh session finish --workspace <id>` and an MCP `finish_session` tool accepting a workspace and optionally a session ID. By default, scope the action to the caller's own session. Return finalization status or an operation ID, since summarization and publication are asynchronous. Agents may rely on the same inactivity timeout instead of explicitly finishing; exact command and tool schemas remain to be specified.
+Expose the optional finish-session operation through the local CLI and future authenticated remote MCP interface as well as desktop controls. The preview implements `dispatch-mesh --workspace <folder> session finish`, scoped to the local device's session; it queues finalization, which `run` or `sync` then processes. An MCP `finish_session` tool with workspace/session scope and asynchronous operation status remains a future design. Agents may rely on the same inactivity timeout instead of explicitly finishing.
 
 ## Conflict handling recommendation
 
@@ -248,7 +254,7 @@ Maintain one durable record per conflict and an index of unresolved records. Eac
 
 Synchronize records and their referenced content in Mesh-managed storage, separate from ordinary documents. They must survive restarts and remain recoverable after resolution; a local SQLite index alone is insufficient. The tray-accessible status window presents the index and details. Text conflicts can show diffs and offer selection or a written resolution; binary conflicts offer selection of one complete competing file. Cloud access should expose the same conflict list and resolution operations through authenticated MCP tools.
 
-Record a resolution as a new traceable change, retaining the competing inputs. Before applying it, check for edits made since the conflict was recorded so newer work is not silently overwritten. Storage representation, retention periods, and concurrent-resolution mechanics remain implementation decisions.
+Record a resolution as a new traceable change, retaining the competing inputs. Before applying it, check for edits made since the conflict was recorded so newer work is not silently overwritten. The preview records contributing input revisions so selections survive publication order changes, using SQLite and reachable Git blobs; see ADR-0003, ADR-0007 and ADR-0008 above. Retention periods and concurrent conflicting resolution policy remain open.
 
 ## Delivery sequence
 
@@ -264,7 +270,7 @@ Design the engine's identity and storage boundaries for cloud use from the start
 
 ## Open decisions
 
-- How should continuous draft revisions, dependencies, and integration be represented and transported?
+- The current draft transport and content representation are settled by ADR-0001 and ADR-0008 above. Future extensions must preserve their invariants; Git CLI versus library backend is a separate open decision in [[Task - TASK00002 - Choose the Git backend before bundling Git]].
 - Are session boundaries beyond five-minute inactivity and explicit finish needed, including a maximum duration?
 - How should text/binary classification, file-size limits, and large-binary storage be configured?
 - Which editor integrations should provide precise editing presence after the initial recent-save feature?

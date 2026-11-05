@@ -100,6 +100,7 @@ As the developer of the Mesh tray host, I want one defined way to observe and co
 ## Acceptance criteria
 
 1. An ADR in `07_Engineering/Decisions/` records the in-process host↔engine model, the `RunnerHandle` API, snapshot publication, failure reporting and refuse-on-lock behavior. It names cross-process control (named pipe or Unix socket) as a deferred extension point.
+   *Update 2026-11-05:* this is [[ADR-0009 — Embed the engine with a runner handle and published status]], recorded as `proposed`. When this ticket reaches `Done`, set ADR-0009 to `status: accepted`, and amend it first if the built API deviates.
 2. The run loop, AI summarization and status-snapshot computation live in the library crate (not `src/main.rs`). The CLI `run` and `status` commands call those library functions, and their observable output is unchanged except for the failure fields in criterion 6.
 3. `Runner::start(root)` returns a `RunnerHandle` without blocking the calling thread. The engine runs on a background thread with its own tokio runtime, so the caller needs no tokio runtime.
 4. `RunnerHandle::stop()` captures saved changes and ends the loop without waiting for an in-flight HTTP or AI request, as Ctrl+C does for `run` today. After `join()`, a reopened workspace contains every change saved before `stop()`.
@@ -110,8 +111,131 @@ As the developer of the Mesh tray host, I want one defined way to observe and co
 
 ## Implementation plan
 
-<!-- GUIDE: Written by /implementation-plan — ordered steps, files, risks, verification,
-     and the reason behind any order that matters. -->
+*Drafted 2026-11-05 against `main` at `3c2d513` (branch `task00001-stabilization-gaps`, with TASK00001 step 1 uncommitted in `src/git.rs`). Awaiting Kai's sign-off.*
+
+### Ground truth that shapes the plan
+
+- **TASK00001 builds half of this ticket.** Its plan, whose review points Kai approved on 2026-11-05, delivers:
+  - `state.summary_failure` (step 2);
+  - `ai::generate` returning the failure instead of printing it (step 3);
+  - a lock-free `Workspace::status_snapshot()` in a new `src/status.rs`, which `show_status` delegates to (step 4).
+
+  None of it is in the tree yet. This plan builds on those pieces and does not build them a second time.
+- **AI failures never reach the runner today.** `ai::generate` (`src/ai.rs:250`) catches the provider error, `eprintln`s it and returns the fallback message. So the `summary_error` that `watch` tracks (`src/main.rs:344`, `:372`) only ever holds workspace I/O failures from `summarize_ready`. Criterion 6 therefore depends on TASK00001 step 3.
+- **`status` scans the live folder.** `show_status` calls `workspace.scan()` (`src/main.rs:221`) to compute `local_changes_waiting` and `capture_error`. Doing that on every tick would rescan the whole tree once a second, the "unbounded polling cost" the scope rules out. The runner already knows the answer from its capture step: `candidate` holds a scan that differs from `observed` and is waiting to stabilize.
+- **Stop is only checked between ticks.** In `tokio::select!`, once the tick branch is chosen its body runs to completion, including the `.await` on the capture `spawn_blocking`. Ctrl+C is only checked between ticks. An in-flight sync (`spawn_blocking`) or summary (`tokio::spawn`) keeps running, and the Ctrl+C path never awaits either. That matches criterion 4.
+- **Shutdown capture can fail on a busy lock.** The Ctrl+C path calls `Workspace::open` once (`src/main.rs:354`). `open` fails at once with `WorkspaceBusy` when the operation lock is held, for example by a background sync's `network_call` while it reacquires the lock (`src/engine.rs:232`) or by a CLI command. Today, `run` then exits with an error and without the final capture. Criterion 4 needs a bounded retry.
+- **Two ways to block on stop.** Dropping a tokio runtime waits for blocking tasks still running, here a sync stuck on Git. The CLI never notices, because the process exits. A `RunnerHandle` has to shut its runtime down with `shutdown_background()`, or `join()` would wait for the network.
+- **The runner lock rejects a second handle in the same process.** `fs2` uses `flock` on Unix, which is per open file description, and `LockFileEx` on Windows, which is per handle. So two `Runner::start` calls within one process conflict exactly like two processes do.
+- **Startup is cheap and synchronous.** Before the loop starts, `watch` only calls `Workspace::inspect`, takes the lock and creates the `notify` watcher (`src/main.rs:318`–`334`). The decided API returns a "distinct error and starts nothing" from `start`, so this part runs on the calling thread.
+
+### Steps, in order
+
+1. **Prerequisite: TASK00001 steps 2–4 are merged.**
+   - *Why first:* criterion 2's "status-snapshot computation in the library" and criterion 6's persisted summary failure are that code. Starting before it lands means either building the status computation twice or rebasing a moved `watch` onto TASK00001's changes to `main.rs:413`.
+   - One adjustment to TASK00001 step 4 is needed (see *Cross-ticket effects*). Split the snapshot into a scan-free core, `Workspace::status_from(&self, local: LocalObservation) -> Status`, where `LocalObservation { changes_waiting: bool, capture_error: Option<String> }`. `status_snapshot()` becomes "scan, then `status_from`". `Status` derives `Clone, PartialEq, Serialize`. If TASK00001 has already landed without this split, this step makes it as a pure refactor.
+2. **Move the loop into the library** (new `src/runner.rs`; `src/lib.rs` adds `pub mod runner;`).
+   - Move `watch`, `summarize_ready` and `report_failure` verbatim, then restructure:
+     - `pub fn acquire(root: &Path) -> Result<RunnerLease>` covers inspect, opening `.mesh/runner.lock`, `try_lock_exclusive` and creating the watcher. When the lock is held, it returns a new typed `AlreadyRunning` error. Its `Display` stays "Mesh is already running for this workspace", so CLI output is unchanged. Callers use `downcast_ref`, as they do for `WorkspaceBusy`. `RunnerLease` owns the locked `File`, the watcher and its receiver, the canonical root and the branch.
+     - `pub async fn run(lease: RunnerLease, shutdown: impl Future<Output = ()>, status: Option<watch::Sender<Option<RunnerSnapshot>>>) -> Result<()>` is the existing loop with `tokio::signal::ctrl_c()` replaced by `shutdown`.
+     - `pub async fn summarize_ready(root)` stays public, because CLI `sync` calls it.
+   - CLI-only text moves out of the library. `main.rs` calls `acquire`, prints the "Mesh is running for … Ctrl+C saves local work" banner, and `run(lease, ctrl_c, None)`. After `Ok`, it prints "Local changes saved. Mesh stopped." The order of lock, banner, loop and message, and the wording, stay as today (criterion 2).
+   - The transition lines ("Synchronization resumed.", "Local capture resumed.", the `report_failure` stderr lines) stay in the loop. In a `windows_subsystem` host they go to a null handle, which Rust's stdio treats as a sink. The same information reaches the snapshot (step 4).
+   - *Deviation from ADR-0009:* the ADR names `run(root, shutdown, status_tx)`. Splitting out `acquire` lets the CLI keep its banner order and lets `Runner::start` return the lock error synchronously. Amend ADR-0009 at `Done`, as criterion 1 already requires.
+   - *Why this order:* a verbatim move with only the `shutdown` substitution keeps the diff reviewable, and the existing `tests/cli.rs` runner tests must pass unchanged at this step. Behavior changes come in steps 3–5.
+3. **Orderly shutdown** (`src/runner.rs`).
+   - The shutdown branch opens the workspace with a bounded retry on `WorkspaceBusy`: up to 10 s at 25 ms, mirroring `network_call`'s reacquire loop (`src/engine.rs:232`). Then it runs `capture_at(now())` and returns.
+   - It never awaits `synchronization` or `summary`. Dropping the `JoinHandle`s detaches them.
+   - *Why 10 s:* the operation lock is only held for local work. `network_call` releases it during Git. So a wait that long means something is wrong, and failing with the error beats hanging the host's Quit. Captured work is still on disk (ADR-0007).
+   - This fixes the busy-lock gap for CLI `run` as well.
+4. **Snapshot publication** (`src/runner.rs`).
+   - `pub struct RunnerSnapshot { pub status: Status, pub capture_error: Option<String>, pub sync_error: Option<String>, pub summary_error: Option<String> }` derives `Clone, PartialEq, Serialize`. The three errors are the loop's current in-memory errors (message only, without the `Instant`).
+   - In the capture `spawn_blocking`, after `close_idle`, the task computes `workspace.status_from(LocalObservation { changes_waiting: next.is_some(), capture_error: None })` from the workspace it already opened. That reuses the state it just loaded from SQLite, which also holds changes from separate CLI processes, so no extra open or scan is needed.
+   - When capture fails (including `WorkspaceBusy`), the loop falls back to `Workspace::inspect(&root)?.status_from(…)` with `capture_error` set (busy is filtered, as in `report_failure`). A CLI command holding the lock therefore cannot delay a snapshot past one tick.
+   - The tick then calls `status.send_if_modified(|current| …)` and replaces the value only when it differs, so subscribers wake only on change (criterion 5).
+   - `presence` depends on the wall clock (300 s window). Its entries changing when a save ages out is a real change and is published. No other snapshot field is time-derived.
+   - *Why `Option`:* the watch channel needs an initial value. A synchronous snapshot in `start` would need a full scan on the caller's thread. The first `interval` tick fires immediately, so `None` lasts milliseconds.
+5. **Handle** (`src/runner.rs`).
+   - `pub struct Runner;` with `pub fn start(root: &Path) -> Result<RunnerHandle>`:
+     1. Call `acquire(root)?` on the calling thread, so criterion 7's error is synchronous and nothing is spawned on failure.
+     2. Create `watch::channel(None)` for the status and `watch::channel(false)` for the stop flag.
+     3. Spawn a `std::thread` named `mesh-runner` that builds a current-thread runtime with `enable_all()` and calls `block_on(run(lease, stop_rx.wait_for(|s| *s), Some(status_tx)))`. It then calls `runtime.shutdown_background()`, so the call does not wait for detached Git or HTTP work, and returns the result.
+   - `RunnerHandle`:
+     - `status(&self) -> watch::Receiver<Option<RunnerSnapshot>>` is a clone of the receiver. Without a runtime, the host uses `has_changed()` and `borrow_and_update()`, which are in-memory and do no I/O. A runtime is only needed for `changed().await`.
+     - `stop(&self)` is idempotent and sends `true`.
+     - `join(self) -> Result<()>` joins the thread. A panic becomes an error.
+     - `Drop` calls `stop()` and then joins, so a host that exits without calling `stop` still gets the final capture.
+   - The lease, and with it `runner.lock`, is dropped when `run` returns. Retry after release therefore works (criterion 7).
+   - A detached sync thread may outlive `join()` for as long as the Git kill timeout (30 s, TASK00001 step 1). `network.lock` and the operation lock serialize it against a restarted runner.
+6. **Tests** (new `tests/runner.rs`, library-level, using the CLI binary via `env!("CARGO_BIN_EXE_dispatch-mesh")` for the separate-process parts):
+   - **Criterion 3:**
+     - `start` returns within 1 s.
+     - The test function is a plain `#[test]` with no tokio runtime, which proves the caller needs none.
+     - A first snapshot arrives within 2 s.
+   - **Criterion 4:**
+     - Write a file, wait for the snapshot to show it captured, then write a second file and `stop()` before it stabilizes. After `join()`, `Workspace::open` shows both files in the active session.
+     - **Stop during in-flight sync:** reuse the stalled loopback remote from `slow_remote_does_not_block_capture_or_overwrite_concurrent_saved_state` (`tests/cli.rs:254`). Once the server sees the request, the stalled request is in flight. `stop()` + `join()` must finish in under 5 s and still contain a file saved during the stall.
+   - **Criterion 5:**
+     - Wait for a snapshot, then let 3 s pass with no edits and assert `has_changed()` is false.
+     - Run CLI `session finish` in a separate process and assert that a snapshot with that session `closed` arrives within 2 s.
+     - Run CLI `intent begin`, then `intent end`, and CLI `status`, and assert each exits 0 while the handle runs (criterion 8).
+   - **Criterion 6:**
+     - Use the `serve_response` mock from `tests/provider.rs` returning 500 with a body containing a marker string and a `--api-key-env` key with a known value.
+     - Finish a session and assert:
+       - the snapshot's `status` carries the summary failure;
+       - CLI `status` shows it;
+       - neither contains the marker or the key.
+     - Switch the mock to a valid response, finish a second session, and assert the failure is cleared.
+     - Snapshot `sync_error` and `capture_error` are asserted with the unreachable-remote setup from TASK00001 step 7 and a held operation lock, where a busy lock must *not* appear as an error.
+   - **Criterion 7:**
+     - Start a handle, then call `Runner::start` on the same root and check `downcast_ref::<AlreadyRunning>()`.
+     - CLI `run` against it exits non-zero with "already running".
+     - After `stop`/`join`, `start` succeeds.
+     - Reversed: a spawned CLI `run` makes `Runner::start` fail with `AlreadyRunning`.
+   - **CLI shutdown busy-lock regression (step 3):** hold `Workspace::open` in the test while signalling the runner to stop, release the lock after 200 ms, and assert the capture happened. This is done through the handle, because Ctrl+C cannot be sent portably to a child process. The handle and the CLI share the code path.
+   - **Existing tests:** `tests/cli.rs` runner tests stay unchanged and must pass. They prove criterion 2's "output unchanged".
+   - **Timing:** tests use 2 s deadlines with 50 ms polling of `has_changed()`, not fixed sleeps, except the deliberate 3 s quiet window. Engine tests are slow on Windows, so the deadlines leave margin for CI.
+7. **Docs.**
+   - `README.md`: one paragraph, under the `status` section, saying that hosts embed the engine through `dispatch_mesh::runner::Runner`, plus the already-running message. The API is not yet a stable public crate surface; say so.
+   - `AGENTS.md:11`: move "watcher, capture loop, and synchronization scheduling" from `src/main.rs` to a new `src/runner.rs` bullet.
+8. **Gates:** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test`.
+
+### External changes and migration
+
+- No change to the remote format.
+- No local state change beyond TASK00001's `summary_failure`.
+- No new dependency: `tokio::sync::watch` and the runtime builder are covered by the existing `rt-multi-thread` feature; `sync` is a default tokio module.
+- CLI output is unchanged. TASK00001's new status values are that ticket's change, not this one's.
+
+### Cross-ticket effects
+
+- **[[Task - TASK00001 - Close remaining 0.2.x stabilization gaps|TASK00001]] step 4:** please build `status_snapshot()` as "scan + `status_from(LocalObservation)`", with `Status: Clone + PartialEq`. That is a small shape change, not new scope. Record it there when its plan is next touched.
+- **[[Story - US00001 - Tray icon and status window host|US00001]]:**
+  - The handle exposes a `watch::Receiver`. The decided API has no wakeup callback, so a tray event loop checks `has_changed()` on its own timer (an in-memory check, not a DB read) or wraps `changed()` in a small runtime. If the toolkit wants an event-loop proxy push, add `RunnerHandle::on_change(callback)` in US00001. It is additive.
+  - The already-running text Kai specified is the host's to show. The library error stays CLI-worded.
+
+### Wiki pages this makes wrong
+
+- [[ADR-0009 — Embed the engine with a runner handle and published status]]: the `acquire`/`run(lease, …)` split, `Option<RunnerSnapshot>` and stop-on-`Drop`. Amend it and set it to `accepted` at `Done` (criterion 1).
+- `AGENTS.md:11` says `src/main.rs` holds the "watcher, capture loop, and synchronization scheduling". Step 7 points that line at `src/runner.rs` in the same change.
+- `README.md`: step 7 adds the host paragraph. Line 69 ("The run loop can capture while a summary request is pending") stays true.
+- [[Dispatch Mesh requirements and architecture]]: it doesn't say where the loop lives, so no change is needed.
+
+### Risks and rollback
+
+- **Timing-sensitive tests on Windows CI.** Mitigations: deadlines instead of sleeps, and a 2 s bound that is twice the tick. If the quiet-window test flakes because of the 30-tick periodic rescan, that rescan does not change state unless files changed, so a flake points at a real spurious publication. Investigate it rather than widening the window.
+- **Detached sync after `join()`.** The host process may keep a Git child for up to 30 s after Quit. That is acceptable for the tray, which exits anyway, and it is serialized by the locks. If it turns out to matter, a cancellable Git child is TASK00002's territory.
+- **Library prints to stdio.** That is harmless in a GUI subsystem. Moving all console text behind a reporter is deferred until a host needs it.
+- **Rollback:** revert the commit. No state or format change belongs to this ticket.
+
+### Size
+
+Roughly 2–3 focused days after TASK00001 steps 2–4 land: the move and handle about 40%, tests about 50% (mostly timing harness), docs 10%. This is an order-of-magnitude estimate, not a commitment.
+
+### ADRs
+
+- **Governing:** [[ADR-0009 — Embed the engine with a runner handle and published status]] (this design; amend at `Done`), [[ADR-0010 — Report workspace status and session stages separately]] (the `Status` carried), [[ADR-0007 — Persist state transactionally with recovery journals]] (lock-free fallback snapshot; captured work survives a failed shutdown), [[ADR-0005 — Make AI summaries configurable and opt-in]] (summary failure never blocks publication).
+- **No new ADR candidates.** The API refinements in step 2, step 4 and step 5 elaborate ADR-0009 and belong in its amendment, not in a new record.
 
 <!-- ═══════════ RECORD ZONE ═══════════
      What actually happened. Always appendable, including after the freeze.
@@ -127,6 +251,10 @@ As the developer of the Mesh tray host, I want one defined way to observe and co
 <!-- GUIDE: Where the implementation deviated from the plan, and why. Dated entries. -->
 
 ## Follow-ups
+
+### 2026-11-05 — Architecture decisions recorded
+
+Kai requested ADR extraction. [[ADR-0009 — Embed the engine with a runner handle and published status]] records the answers in this ticket as an agreed, not-yet-built design (`proposed` under the ADR template). [[ADR-0010 — Report workspace status and session stages separately]] governs the status model the runner transports. Recording these decisions does not complete implementation, review or testing and does not change ticket gates.
 
 <!-- GUIDE: Links to the tickets that carry the deferred work. New scope is a new
      ticket, linked both ways — a finished ticket is not superseded, it is finished. -->

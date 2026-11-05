@@ -1,7 +1,7 @@
 ---
 type: log
 owner: "[[Kai]]"
-updated: 2026-11-04
+updated: 2026-11-05
 ---
 # Log
 
@@ -45,3 +45,22 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-05] plan | TASK00001 implementation plan drafted
 - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: `## Implementation plan` written (9 ordered steps, review points, cross-ticket effects on US00002/US00001, ADR candidates). Awaiting Kai's sign-off; no ADRs created yet.
+
+## [2026-11-05] decision | Record agreed Mesh architecture decisions
+- Created ADR-0001–ADR-0008 as accepted records of the implemented console-preview decisions: separate draft transport and immutable history; multi-file sessions and the five-minute boundary; recoverable conflicts; scoped agent intent; configurable opt-in AI; managed Git ownership; transactional recovery; reference-based blob storage. Each page is listed and linked in [[index]] and owned by [[Kai]]. Original individual decision dates are unavailable and remain unset; the recording date and provenance are explicit.
+- Created ADR-0009 and ADR-0010 as proposed (agreed, not yet built) from Kai's 2026-11-05 answers: the in-process runner interface and workspace/session status model. Added dated record-zone links to [[Story - US00002 - Local engine control interface for the tray host]], [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]] and [[Story - US00001 - Tray icon and status window host]]. Ticket states, counters and implementation-plan approval are unchanged.
+- Reconciled outdated transport, intent-command and finish-command wording in [[Dispatch Mesh requirements and architecture]], added governing ADR links and page ownership, and clarified ADR status vocabulary in [[index]]. TASK00002's Git backend choice is explicitly left open; its ADR will be handled separately. Product-only decisions remain in the requirements and milestone plan.
+
+## [2026-11-05] update | ADR-0001–0010 folded into tickets
+- [[Story - US00001 - Tray icon and status window host]]: control-interface question answered via [[ADR-0009 — Embed the engine with a runner handle and published status]] (open_questions 7 → 6); icon states, attention reason and Quit narrowed by ADR-0009/[[ADR-0010 — Report workspace status and session stages separately]]; context updated.
+- [[Story - US00002 - Local engine control interface for the tray host]]: criterion 1 now names ADR-0009 and requires setting it `accepted` at Done.
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: plan step 4 requires lock-free status per [[ADR-0007 — Persist state transactionally with recovery journals]]; ADR section lists governing ADRs; Git-classification ADR still a candidate.
+- [[Task - TASK00002 - Choose the Git backend before bundling Git]]: constraints from ADR-0003/0006/0008 added; merge-equivalence question sharpened.
+- ADR-0010 amended: offline definition moved into Decision; rejected push, unknown Git failure and AI-summary failure → `needs_attention`; lock-free status read (Kai's approval of the TASK00001 review points).
+
+## [2026-11-05] plan | US00002 implementation plan drafted
+- [[Story - US00002 - Local engine control interface for the tray host]]: `## Implementation plan` written: 8 ordered steps, starting once TASK00001 steps 2–4 land. It also covers the `acquire`/`run`/`Runner::start` split, bounded busy-lock retry on shutdown, a scan-free per-tick snapshot, and tests for criteria 3–7. It asks [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]] step 4 for a scan-free `status_from` core. No new ADRs; [[ADR-0009 — Embed the engine with a runner handle and published status]] is to be amended at Done. Awaiting Kai's sign-off.
+
+## [2026-11-05] develop | TASK00001 code-complete
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: implemented on branch `task00001-stabilization-gaps`, commit `08c0b02`; gates green locally (63 tests, 19 new). As-built notes recorded; assignee set. Awaiting `/code-review TASK00001` in a fresh session.
+- [[Dispatch Mesh requirements and architecture]]: desktop-state sentence annotated with the six-state model (ADR-0010).

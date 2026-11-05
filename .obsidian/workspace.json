@@ -18,17 +18,31 @@
             }
           },
           {
+            "id": "4396432b9e4962fb",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Story - US00002 - Local engine control interface for the tray host"
+            }
+          },
+          {
             "id": "1c1c00966f008fa6",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
-                "mode": "source",
+                "file": "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Story - US00001 - Tray icon and status window host"
+              "title": "Task - TASK00001 - Close remaining 0.2.x stabilization gaps"
             }
           },
           {
@@ -37,29 +51,29 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02_Product/Dispatch Mesh milestone plan.md",
+                "file": "02_Product/Dispatch Mesh concept.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Dispatch Mesh milestone plan"
+              "title": "Dispatch Mesh concept"
             }
           },
           {
-            "id": "b538895ee024e6de",
+            "id": "cbcac4b34f5396d0",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "bases",
               "state": {
-                "file": "08_Delivery-and-QA/Reports/github-workflow-findings-2026-11-04.md",
-                "mode": "source",
-                "source": false
+                "file": "07_Engineering/Decisions.base",
+                "viewName": "Sicht"
               },
-              "icon": "lucide-file",
-              "title": "github-workflow-findings-2026-11-04"
+              "icon": "lucide-table",
+              "title": "Decisions"
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -121,7 +135,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 295.5
+    "width": 328.16668701171875
   },
   "right": {
     "id": "be9201a3d6b37774",
@@ -227,30 +241,40 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "8fc4e83af58370bc",
+  "active": "d347610810d2fba1",
   "lastOpenFiles": [
-    "08_Delivery-and-QA/Reports/github-workflow-test-2026-11-04.md",
-    "08_Delivery-and-QA/Reports/github-workflow-findings-2026-11-04.md",
     "02_Product/Dispatch Mesh milestone plan.md",
-    "05_Requirements/Tickets/sedMvUEw1",
-    "00_Start-Here/sedk5AQtp",
-    "05_Requirements/Tickets/Task - TASK00002 - Choose the Git backend before bundling Git.md",
-    "05_Requirements/Tickets/Task - TASK00002 - Choose the Git backend before bundling Git.md.tmp.13304.99b0a382349d",
-    "02_Product/Dispatch Mesh concept.md",
-    "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
-    "05_Requirements/Tickets/sedqfEOzl",
-    "08_Delivery-and-QA/Reports",
     "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
-    "05_Requirements/Tickets/sedK39aWs",
-    "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md.tmp.13304.a8a43f67635a",
-    "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md.tmp.13304.ef2216d0b882",
-    "01_Sources/Clippings",
-    "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md.tmp.13304.38824ac81016",
+    "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md.tmp.13304.fa953988dbbf",
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
-    "02_Product/Dispatch Mesh naming recommendations.md",
+    "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md.tmp.13304.45daabed78e7",
+    "07_Engineering/Decisions.base",
+    "05_Requirements/Tickets/sed3gV3vF",
+    "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md.tmp.13304.fbf27315e1b3",
+    "05_Requirements/Tickets/Task - TASK00002 - Choose the Git backend before bundling Git.md.tmp.13304.dfc124779640",
+    "05_Requirements/Tickets/Task - TASK00002 - Choose the Git backend before bundling Git.md.tmp.13304.4b89075f5c46",
+    "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md.tmp.13304.3f867401c051",
+    "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md.tmp.13304.516e544aed4d",
+    "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
+    "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md.tmp.13304.74bc1a240f37",
+    "08_Delivery-and-QA/Reports/github-workflow-findings-2026-11-04.md",
+    "00_Start-Here/Team/Kai.md",
     "02_Product/Dispatch Mesh requirements and architecture.md",
-    "00_Start-Here/log.md",
+    "07_Engineering/Decisions/ADR-0001 — Synchronize drafts separately from permanent history.md",
+    "07_Engineering/Decisions/ADR-0002 — Group files into sessions with an inactivity boundary.md",
+    "07_Engineering/Decisions/ADR-0003 — Preserve synchronized conflict inputs and traceable resolutions.md",
+    "07_Engineering/Decisions/ADR-0004 — Bind agent intent to attributable changes.md",
+    "07_Engineering/Decisions/ADR-0005 — Make AI summaries configurable and opt-in.md",
+    "07_Engineering/Decisions/ADR-0006 — Let Mesh own Git operations in managed folders.md",
+    "07_Engineering/Decisions/ADR-0007 — Persist state transactionally with recovery journals.md",
+    "07_Engineering/Decisions/ADR-0008 — Store content as blobs referenced by metadata.md",
+    "07_Engineering/Decisions/ADR-0009 — Embed the engine with a runner handle and published status.md",
+    "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md",
     "00_Start-Here/index.md",
-    "00_Start-Here/Team/Kai.md"
+    "00_Start-Here/log.md",
+    "08_Delivery-and-QA/Reports/github-workflow-test-2026-11-04.md",
+    "05_Requirements/Tickets/Task - TASK00002 - Choose the Git backend before bundling Git.md",
+    "02_Product/Dispatch Mesh concept.md",
+    "02_Product/Dispatch Mesh naming recommendations.md"
   ]
 }

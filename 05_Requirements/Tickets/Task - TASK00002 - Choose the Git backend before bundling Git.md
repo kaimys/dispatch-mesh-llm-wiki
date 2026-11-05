@@ -68,6 +68,10 @@ As the developer of Mesh, I want local Git operations to run in-process through 
 - Move the operation groups the ADR assigns to a library onto it; network operations stay on the CLI unless the ADR decides otherwise.
 - The existing test suites pass unchanged against the new backend. Add tests for any behavior the old CLI path provided implicitly, such as ref-name validation, merge-file output and blob reachability after garbage collection.
 - A measured comparison (before/after) of sync-cycle and status-snapshot cost on a workspace with a long `main` history.
+- **Constraints from accepted ADRs** (added 2026-11-05). The backend ADR must preserve all three, and say how:
+  - [[ADR-0008 — Store content as blobs referenced by metadata]]: native Git blobs stay reachable through the device snapshot tree after garbage collection; referenced objects are validated before use; legacy snapshots stay readable. ADR-0008 explicitly leaves the backend open.
+  - [[ADR-0006 — Let Mesh own Git operations in managed folders]]: when repository state is unexpected, preserve captured work and raise attention. Never reset, rewrite or force-push history, whichever backend performs the operation. ADR-0006 explicitly does not choose the backend.
+  - [[ADR-0003 — Preserve synchronized conflict inputs and traceable resolutions]]: conflict records and selections are bound to exact input revisions. A backend whose clean-merge decisions or merged bytes differ from `git merge-file` changes which inputs become conflicts (see *Merge equivalence*).
 
 ## Out of scope
 
@@ -80,7 +84,7 @@ As the developer of Mesh, I want local Git operations to run in-process through 
 
 - [ ] **Library choice.** `git2` (libgit2) or `gix` (gitoxide) for the local operations? Check current `gix` support for writing trees and commits, merge-file and push, Windows build friction, and license and notice obligations for 0.4's distribution review.
 - [ ] **Network transport.** Should `fetch`/`push` stay on the Git CLI with Git Credential Manager until 0.5, or move to the library now with Mesh-supplied credentials? If they stay, does 0.4 still bundle a Git distribution, only for network and credential helpers?
-- [ ] **Merge equivalence.** Must library three-way merges produce byte-identical results to `git merge-file`, including conflict-marker format? Clients on different versions may be merging the same inputs during the transition.
+- [ ] **Merge equivalence.** Must library three-way merges produce byte-identical results to `git merge-file`, including conflict-marker format? Clients on different versions may be merging the same inputs during the transition. *Added 2026-11-05:* under [[ADR-0003 — Preserve synchronized conflict inputs and traceable resolutions]], a merge that is clean on one client but conflicting on another produces a conflict record on only one side. That raises the bar from "merged text looks right" to "the same inputs give the same clean/conflict outcome on every client version".
 - [ ] **Transition.** Switch backends in one release, or keep the CLI backend selectable (config or feature flag) for a release as a fallback?
 - [ ] **Performance target.** What cost is acceptable per sync cycle and per status snapshot, and on what history size? That target decides whether `reconcile_published` needs its own ticket.
 - [ ] **Timing.** Should this land early in 0.4, before packaging work starts, or be pulled forward into 0.3, given that US00002's per-tick status snapshot multiplies the process-spawn cost?
