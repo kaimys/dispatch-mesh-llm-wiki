@@ -868,8 +868,11 @@
         "e7868d2f-0de7-4e6b-9b84-e600bd1b2b41"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: link Claude Design artifacts and reset workspace view",
+        "description": "Add a results section linking the Dispatch Mesh PDF and HTML design artifacts to the existing briefing. Update the Obsidian workspace state to show the Dispatch board instead of the open stabilization task and make it active."
+      },
+      "message_base": "eca847124f69ead1cac120b4acdee4af6b5176d8"
     },
     "51e94ff4-7021-4346-8663-f3116a595c90": {
       "id": "51e94ff4-7021-4346-8663-f3116a595c90",
@@ -1400,6 +1403,51 @@
         "description": "Replace the Product README tab with the Dispatch Mesh milestone plan, keep the Dispatch board open, and make it the active tab."
       },
       "message_base": "a4c2490ffd8e3aac7f3d6c0428547dde087b9f47"
+    },
+    "91ce8730-0176-4126-9d1f-23a651add63b": {
+      "id": "91ce8730-0176-4126-9d1f-23a651add63b",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793886113,
+      "last_edit": 1793886113,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "ae4c9ef842cb45915041de459280d86105d0e508"
+          },
+          "content": {
+            "blob": "0c7b2d8d05f3c8569ffbc122e05a6cc760525aa2"
+          },
+          "intent": null,
+          "last_edit": 1793886113
+        },
+        "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md": {
+          "base": {
+            "blob": "09a0992acf974628da0a6c580763d49041bb3754"
+          },
+          "content": {
+            "blob": "4b65a327f068734a845aabd5bd5d1076df794a42"
+          },
+          "intent": null,
+          "last_edit": 1793886113
+        }
+      },
+      "dependencies": [
+        "4fb3fc57-85ae-419f-a958-a5b36b5825b7",
+        "ad5fc0e4-f89f-47c4-8b6d-6095b756c216",
+        "c3c781a6-eecd-4291-82d2-3aa62bea045c",
+        "de967730-9a35-4d7b-bbbe-f9b027f7ba39"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
     },
     "93779cdc-1269-40e2-8586-49c044d1d12e": {
       "id": "93779cdc-1269-40e2-8586-49c044d1d12e",
@@ -2024,7 +2072,7 @@
       "created_at": 1793884629,
       "last_edit": 1793885563,
       "revision": 21,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
