@@ -1,0 +1,6 @@
+views:
+  - type: table
+    name: Sicht
+    filters:
+      and:
+        - file.inFolder("07_Engineering/Decisions")
