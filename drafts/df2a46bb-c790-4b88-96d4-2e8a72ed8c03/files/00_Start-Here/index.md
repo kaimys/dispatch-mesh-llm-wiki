@@ -45,16 +45,16 @@ Entry point for people and agents. Read this first, then follow the links. Every
 
 | ADR | Decision | Status |
 |---|---|---|
-| [[ADR-0001 — Synchronize drafts separately from permanent history|ADR-0001]] | Synchronize drafts separately from permanent history | accepted |
-| [[ADR-0002 — Group files into sessions with an inactivity boundary|ADR-0002]] | Group files into sessions with an inactivity boundary | accepted |
-| [[ADR-0003 — Preserve synchronized conflict inputs and traceable resolutions|ADR-0003]] | Preserve synchronized conflict inputs and traceable resolutions | accepted |
-| [[ADR-0004 — Bind agent intent to attributable changes|ADR-0004]] | Bind agent intent to attributable changes | accepted |
-| [[ADR-0005 — Make AI summaries configurable and opt-in|ADR-0005]] | Make AI summaries configurable and opt-in | accepted |
-| [[ADR-0006 — Let Mesh own Git operations in managed folders|ADR-0006]] | Let Mesh own Git operations in managed folders | accepted |
-| [[ADR-0007 — Persist state transactionally with recovery journals|ADR-0007]] | Persist state transactionally with recovery journals | accepted |
-| [[ADR-0008 — Store content as blobs referenced by metadata|ADR-0008]] | Store content as blobs referenced by metadata | accepted |
-| [[ADR-0009 — Embed the engine with a runner handle and published status|ADR-0009]] | Embed the engine with a runner handle and published status | proposed |
-| [[ADR-0010 — Report workspace status and session stages separately|ADR-0010]] | Report workspace status and session stages separately | proposed |
+| [[ADR-0001 — Synchronize drafts separately from permanent history\|ADR-0001]] | Synchronize drafts separately from permanent history | accepted |
+| [[ADR-0002 — Group files into sessions with an inactivity boundary\|ADR-0002]] | Group files into sessions with an inactivity boundary | accepted |
+| [[ADR-0003 — Preserve synchronized conflict inputs and traceable resolutions\|ADR-0003]] | Preserve synchronized conflict inputs and traceable resolutions | accepted |
+| [[ADR-0004 — Bind agent intent to attributable changes\|ADR-0004]] | Bind agent intent to attributable changes | accepted |
+| [[ADR-0005 — Make AI summaries configurable and opt-in\|ADR-0005]] | Make AI summaries configurable and opt-in | accepted |
+| [[ADR-0006 — Let Mesh own Git operations in managed folders\|ADR-0006]] | Let Mesh own Git operations in managed folders | accepted |
+| [[ADR-0007 — Persist state transactionally with recovery journals\|ADR-0007]] | Persist state transactionally with recovery journals | accepted |
+| [[ADR-0008 — Store content as blobs referenced by metadata\|ADR-0008]] | Store content as blobs referenced by metadata | accepted |
+| [[ADR-0009 — Embed the engine with a runner handle and published status\|ADR-0009]] | Embed the engine with a runner handle and published status | proposed |
+| [[ADR-0010 — Report workspace status and session stages separately\|ADR-0010]] | Report workspace status and session stages separately | proposed |
 
 ADR-0001–0008 record implemented console-preview decisions. Their original individual decision dates are unavailable; each records its provenance and documentation date. ADR-0009–0010 record Kai's agreed designs dated 2026-11-05; implementation and verification remain in the linked tickets. TASK00002's Git backend decision remains separate and open.
 

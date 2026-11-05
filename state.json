@@ -1272,8 +1272,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793872504,
-      "last_edit": 1793872620,
-      "revision": 6,
+      "last_edit": 1793872638,
+      "revision": 7,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1293,20 +1293,20 @@
             "blob": "a2c264a75d3690d9c362d197736018c25cd71b35"
           },
           "content": {
-            "blob": "719abc4597bf9d486d35c839371c2fd67c583e14"
+            "blob": "470303b4ffb1c04c74b33d4c7a1addbb14c73483"
           },
           "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
-          "last_edit": 1793872601
+          "last_edit": 1793872638
         },
         "00_Start-Here/log.md": {
           "base": {
             "blob": "e469978d1c338cc2a2b5e11f70a4e5c4cb9b54bc"
           },
           "content": {
-            "blob": "15863cd3a051e16e6446044e328718a2fe41d5c1"
+            "blob": "53867018a3ec978e0dc34db81f23a87e3fe7e71a"
           },
           "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
-          "last_edit": 1793872620
+          "last_edit": 1793872638
         },
         "02_Product/Dispatch Mesh requirements and architecture.md": {
           "base": {
