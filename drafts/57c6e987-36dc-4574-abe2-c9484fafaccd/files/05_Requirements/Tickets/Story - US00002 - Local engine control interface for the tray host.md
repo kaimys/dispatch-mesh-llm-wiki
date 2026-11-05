@@ -1,9 +1,9 @@
 ---
 id: US00002
 type: story
-status: Review
+status: Done
 priority: high
-rank: 2048
+rank: 0
 version_target: v0.2.5
 size:
 assignee: Kai
@@ -13,7 +13,7 @@ open_tests: 0
 open_findings: 0
 discussion:
 updated: 2026-11-05
-completed:
+completed: 2026-11-05
 frozen: 2026-11-05
 ---
 Define, and record as an ADR, how a desktop host drives the Mesh engine for a workspace: how it reads state, triggers actions such as sync and finish session, and is stopped, while CLI intent and finish commands keep working. Then implement the minimum the 0.3 tray needs. This is the 0.2.x milestone item "Define the local engine/control interface that the tray host will use", and it settles open question 2 of [[Story - US00001 - Tray icon and status window host|US00001]].
