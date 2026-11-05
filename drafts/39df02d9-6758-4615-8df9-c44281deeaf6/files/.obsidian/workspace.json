@@ -23,12 +23,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md",
+                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "ADR-0010 — Report workspace status and session stages separately"
+              "title": "Story - US00001 - Tray icon and status window host"
             }
           }
         ],
@@ -110,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md",
+                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -129,7 +129,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md",
+                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -202,6 +202,7 @@
   },
   "active": "1db05cc8cdbfd73f",
   "lastOpenFiles": [
+    "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md",
     "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
     "06_UX/Claude Design briefing — desktop app.md",
     "08_Delivery-and-QA/Releases/v0.2.5.md",
@@ -234,7 +235,6 @@
     "02_Product/Competitors/git-annex assistant.md",
     "02_Product/Competitors/Obsidian Git.md",
     "02_Product/Competitors/SparkleShare.md",
-    "02_Product/Competitors/gitwatch.md",
     "02_Product/Competitors",
     "02_Product/Competititors",
     "05_Requirements/Tickets/sedopX6Kw"
