@@ -633,8 +633,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793876360,
-      "last_edit": 1793876424,
-      "revision": 3,
+      "last_edit": 1793876446,
+      "revision": 5,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -644,10 +644,30 @@
             "blob": "1115dbf277ab860a78c587358c7d2b76075ae10e"
           },
           "content": {
-            "blob": "a9022f2ec4cd1f1a12e0e8b09eb754639357151a"
+            "blob": "8aaca9a3798a0f9188402de1cbaed8b60cec65b9"
           },
           "intent": null,
-          "last_edit": 1793876424
+          "last_edit": 1793876446
+        },
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "470303b4ffb1c04c74b33d4c7a1addbb14c73483"
+          },
+          "content": {
+            "blob": "df69c93ccf642056a76ab187138040c777ac2686"
+          },
+          "intent": null,
+          "last_edit": 1793876441
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "2206bf3aaa809d23933de2aa005d6d809ca117f7"
+          },
+          "content": {
+            "blob": "76db0a3053c5322716a35bf7b485a3440c498bc4"
+          },
+          "intent": null,
+          "last_edit": 1793876441
         },
         "02_Product/Competitors/Agentic Git Sync.md": {
           "base": null,
@@ -656,6 +676,22 @@
           },
           "intent": null,
           "last_edit": 1793876360
+        },
+        "02_Product/Competitors/Competitor overview.md": {
+          "base": null,
+          "content": {
+            "blob": "de3024786e44886e128bd4e0183f57dce3303118"
+          },
+          "intent": null,
+          "last_edit": 1793876441
+        },
+        "02_Product/Competitors/Dispatch Mesh SWOT analysis.md": {
+          "base": null,
+          "content": {
+            "blob": "08f4727b2ce65574a4a0fafaa36b88214846be55"
+          },
+          "intent": null,
+          "last_edit": 1793876441
         },
         "02_Product/Competitors/Jujutsu.md": {
           "base": null,
