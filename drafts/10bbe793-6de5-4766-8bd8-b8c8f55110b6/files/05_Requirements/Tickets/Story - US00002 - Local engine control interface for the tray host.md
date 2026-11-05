@@ -8,7 +8,7 @@ version_target: v0.2.5
 size:
 assignee:
 owner: "[[Kai]]"
-open_questions: 1
+open_questions: 0
 open_tests:
 open_findings:
 discussion:
@@ -99,7 +99,14 @@ As the developer of the Mesh tray host, I want one defined way to observe and co
 
 ## Acceptance criteria
 
-<!-- GUIDE: Testable statements, each checkable by someone without this ticket's history. -->
+1. An ADR in `07_Engineering/Decisions/` records the in-process host↔engine model, the `RunnerHandle` API, snapshot publication, failure reporting and refuse-on-lock behavior. It names cross-process control (named pipe or Unix socket) as a deferred extension point.
+2. The run loop, AI summarization and status-snapshot computation live in the library crate (not `src/main.rs`). The CLI `run` and `status` commands call those library functions, and their observable output is unchanged except for the failure fields in criterion 6.
+3. `Runner::start(root)` returns a `RunnerHandle` without blocking the calling thread. The engine runs on a background thread with its own tokio runtime, so the caller needs no tokio runtime.
+4. `RunnerHandle::stop()` captures saved changes and ends the loop without waiting for an in-flight HTTP or AI request, as Ctrl+C does for `run` today. After `join()`, a reopened workspace contains every change saved before `stop()`.
+5. `RunnerHandle::status()` delivers a new snapshot within about one tick (≤ 2 s) after a change, and none while nothing changed. That includes a change made by a separate CLI process, such as `session finish` or an intent command.
+6. The latest AI-summary failure is persisted in workspace state, cleared on the next successful summary, and shown by CLI `status`. The published snapshot carries the runner's current capture, sync and summary errors. No message contains a credential or a provider response body.
+7. `Runner::start` on a workspace whose `runner.lock` is held (by CLI `run` or another handle) returns a distinct "already running" error and starts nothing. A later call succeeds once the lock is released.
+8. Automated tests cover criteria 3–7, including CLI `status`, `session finish` and an intent command succeeding against a workspace while a `RunnerHandle` runs it. `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` pass.
 
 ## Implementation plan
 
