@@ -792,8 +792,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793875140,
-      "last_edit": 1793875140,
-      "revision": 1,
+      "last_edit": 1793875273,
+      "revision": 3,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -808,15 +808,25 @@
           "intent": null,
           "last_edit": 1793875140
         },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "4ed4ff90cf6909a45be07566fce769a99b20cb10"
+          },
+          "content": {
+            "blob": "c3616624c2a80b8cb7ab0a3f05a7f2aaedb25ef7"
+          },
+          "intent": null,
+          "last_edit": 1793875273
+        },
         "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md": {
           "base": {
             "blob": "4b79a7efc3fec2ff01ecd6b13b2a1dc037a6c24c"
           },
           "content": {
-            "blob": "3bb2b393e2b92fb8049dd97f465888ab2e13bcc4"
+            "blob": "abf08707214d573b8ba1bf9110f49d8a5d385200"
           },
           "intent": null,
-          "last_edit": 1793875140
+          "last_edit": 1793875273
         }
       },
       "dependencies": [

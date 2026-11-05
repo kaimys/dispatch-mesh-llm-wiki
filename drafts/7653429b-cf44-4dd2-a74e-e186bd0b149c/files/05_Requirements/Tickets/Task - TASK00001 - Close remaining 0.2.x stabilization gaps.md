@@ -306,6 +306,8 @@ All four findings of the 2026-11-05 review are addressed. `open_findings` is cle
   This supersedes the earlier as-built note on `Retry-After`.
 - **B3 (`discarded` stage).** `identical_concurrent_changes_do_not_add_an_empty_session_commit` now asserts `Stage::Discarded`, serialized `"stage": "discarded"` and a `synced` summary, before and after reopening. The existing snapshot and no-empty-commit assertions are kept, and `main` is unchanged after the restart.
 - **N1 (AI-failure persistence through the real path).** `a_failed_summary_is_persisted_for_status_and_cleared_by_the_next_success` drives the binary (`session finish`, `sync`, `status`) against a mock provider. On a 401 the session still publishes, and `status` in a new process shows `needs_attention` with a sanitized `AI summary failed: … HTTP 401` reason that contains no response body. A later successful summary returns the workspace to `synced`.
+- **Gates (2026-11-05, Windows 11, Git 2.35.1):** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` green on commit `7ac5316`. 68 tests: 5 lib unit, 9 CLI, 27 engine, 19 provider, 8 storage/transport. The Ubuntu CI leg has not been run (not pushed).
+- **Next:** a fresh `/code-review TASK00001` against `7ac5316`. Only a clean review hands off to `/test-plan`.
 
 ## Code review
 
