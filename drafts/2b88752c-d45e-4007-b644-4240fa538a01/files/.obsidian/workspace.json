@@ -57,7 +57,8 @@
               "title": "Dispatch Mesh milestone plan"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -135,7 +136,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "06_UX/Dispatch Mesh desktop app.pdf",
+                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -154,7 +155,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "06_UX/Dispatch Mesh desktop app.pdf",
+                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -225,8 +226,9 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "8fc4e83af58370bc",
+  "active": "f7b3d9fe981edde0",
   "lastOpenFiles": [
+    "06_UX/Dispatch Mesh desktop app.pdf",
     "05_Requirements/Tickets/sedQRigYa",
     "05_Requirements/Tickets/Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync.md",
     "05_Requirements/Tickets/Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync.md.tmp.13304.2ebf444cd77c",
@@ -235,7 +237,6 @@
     "07_Engineering/Decisions/ADR-0011 — Build the desktop host with Tauri 2.md",
     "02_Product/Dispatch Mesh milestone plan.md",
     "05_Requirements/Tickets/sedL0R3Qg",
-    "06_UX/Dispatch Mesh desktop app.pdf",
     "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md",
     "06_UX/Claude Design briefing — desktop app.md",
     "08_Delivery-and-QA/Releases/v0.2.5.md",
