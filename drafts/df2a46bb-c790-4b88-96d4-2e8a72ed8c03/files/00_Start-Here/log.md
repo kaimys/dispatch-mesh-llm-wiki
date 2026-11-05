@@ -60,3 +60,7 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-05] plan | US00002 implementation plan drafted
 - [[Story - US00002 - Local engine control interface for the tray host]]: `## Implementation plan` written: 8 ordered steps, starting once TASK00001 steps 2–4 land. It also covers the `acquire`/`run`/`Runner::start` split, bounded busy-lock retry on shutdown, a scan-free per-tick snapshot, and tests for criteria 3–7. It asks [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]] step 4 for a scan-free `status_from` core. No new ADRs; [[ADR-0009 — Embed the engine with a runner handle and published status]] is to be amended at Done. Awaiting Kai's sign-off.
+
+## [2026-11-05] develop | TASK00001 code-complete
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: implemented on branch `task00001-stabilization-gaps`, commit `08c0b02`; gates green locally (63 tests, 19 new). As-built notes recorded; assignee set. Awaiting `/code-review TASK00001` in a fresh session.
+- [[Dispatch Mesh requirements and architecture]]: desktop-state sentence annotated with the six-state model (ADR-0010).
