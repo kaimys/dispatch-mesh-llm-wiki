@@ -337,6 +337,8 @@ B2's format support and N2's impossible-date handling are now repaired. Independ
   - **Boundary chosen for leap days:** when now is 29 Feb, the 50th anniversary does not exist, and the cutoff becomes the following instant, 1 Mar 00:00:00. This is covered by a test.
   - **New deterministic cases** (reference values computed independently in Python), with now = 2026-11-05T13:00:00Z: one second before the cutoff, exactly at it, one second after (→ 1976, 0 s; the reviewer's reproduction), and 31-Dec-76 (→ 1976, 0 s), plus the leap-day cutoff pair. The existing early-2076 and 2080 cases are kept.
   - **Checked against `291c263`'s `ai.rs`:** there the test fails at "one second past the cutoff means 1976", the reviewed defect.
+- **Gates (2026-11-05, Windows 11, Git 2.35.1):** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` green on commit `c079e9d`. 69 tests (unchanged count; the boundary cases extend `retry_after_accepts_delta_seconds_and_http_dates`). The Ubuntu CI leg has not been run (not pushed).
+- **Next:** a fresh `/code-review TASK00001` against `c079e9d`.
 
 ## Code review
 

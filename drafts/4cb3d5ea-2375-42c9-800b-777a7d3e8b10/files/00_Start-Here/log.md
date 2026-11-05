@@ -88,3 +88,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 ## [2026-11-05] code-review | TASK00001 re-review at 291c263
 - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: independently passed formatting, Clippy and all 69 tests on Windows. Closed the earlier B2 format-rejection and N2 invalid-date cases; 509 independent calendar comparisons and six original-format reproductions passed.
 - Recorded new blocking B4: RFC 850's 50-year rule compares only years, so a timestamp just beyond the actual cutoff incorrectly reports a roughly 50-year retry delay rather than an expired date. Retained probe evidence and a repair plan; set `open_findings: 1`, kept `In progress` and unfrozen, and left `open_tests` unchanged. Restored the missing review-section heading without altering historical entries. No implementation changes or PR comment.
+
+## [2026-11-05] develop | TASK00001 B4 fix
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: B4 (RFC 850 50-year cutoff on the complete timestamp) from the re-review of `291c263` fixed in `c079e9d`; gates green (69 tests); `open_findings` cleared to empty. Awaiting a fresh `/code-review TASK00001`.

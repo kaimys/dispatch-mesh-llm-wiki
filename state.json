@@ -633,8 +633,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793876360,
-      "last_edit": 1793876678,
-      "revision": 11,
+      "last_edit": 1793876838,
+      "revision": 12,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -664,10 +664,10 @@
             "blob": "2206bf3aaa809d23933de2aa005d6d809ca117f7"
           },
           "content": {
-            "blob": "78c261b27cb094bf44bbc13f43789d315bd0da06"
+            "blob": "b23154d37ac9f3352a64f662cdd9e31db9754112"
           },
           "intent": null,
-          "last_edit": 1793876497
+          "last_edit": 1793876838
         },
         "02_Product/Competitor overview.md": {
           "base": null,
@@ -746,10 +746,10 @@
             "blob": "cd306f234155c21e28b86236661e4deefae3084a"
           },
           "content": {
-            "blob": "269becef66bd3a727a38d7c2b49d538d72cb96eb"
+            "blob": "92be6f06bf66553fe8be414c5bbd7d8f54e3c753"
           },
           "intent": null,
-          "last_edit": 1793876678
+          "last_edit": 1793876838
         }
       },
       "dependencies": [
