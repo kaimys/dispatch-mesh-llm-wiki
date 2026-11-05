@@ -160,3 +160,7 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-05] plan | US00001 implementation plan
 - [[Story - US00001 - Tray icon and status window host]]: folded in code drift (0.2.5 shipped `runner.rs` and `status.rs`), then wrote the implementation plan for review. Spike first as a gate, Cargo workspace with a `dispatch-mesh-tray` package, a Tauri-free presentation model and host core, tray, static status window, docs. No library change planned. ADR-0011 (Tauri 2) and ADR-0012 (separate executable) to be extracted after sign-off. Status stays `Refinement`.
+
+## [2026-11-05] develop | US00001 started; ADR-0011 and ADR-0012
+- [[Story - US00001 - Tray icon and status window host]]: development started (already `In progress`; assignee Kai), branch `us00001-tray-host`. Plan signed off; identifier `de.eightnine.mesh` chosen by Kai.
+- New ADRs (proposed): [[ADR-0011 — Build the desktop host with Tauri 2]], [[ADR-0012 — Ship the desktop host as a separate executable serving several workspaces]]. Listed in [[index]]. [[Dispatch Mesh milestone plan]]: noted which 0.3 decisions are closed.

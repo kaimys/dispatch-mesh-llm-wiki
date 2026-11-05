@@ -1025,8 +1025,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793894555,
-      "last_edit": 1793895006,
-      "revision": 9,
+      "last_edit": 1793895179,
+      "revision": 10,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1036,30 +1036,66 @@
             "blob": "68d64b8877123f507b3dc8da5ffb2fb0ffb4c363"
           },
           "content": {
-            "blob": "ed3a526c4d1b3a873265123b5db1d0ce1f9b948c"
+            "blob": "8d1d4c376b217754269b2ee0bacec155fa77ffe7"
           },
           "intent": null,
-          "last_edit": 1793895006
+          "last_edit": 1793895179
+        },
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "b2b1dee58331e0c41ea803b6bd2eab6f5f4a2014"
+          },
+          "content": {
+            "blob": "e6216979609208eacccd710dc08c7d24a22fb797"
+          },
+          "intent": null,
+          "last_edit": 1793895179
         },
         "00_Start-Here/log.md": {
           "base": {
             "blob": "957ae8de88eddf10ab6215c723646a2ea9176788"
           },
           "content": {
-            "blob": "4bd8a484655edfbba74a55da5967eea943c3980b"
+            "blob": "b4a6e39ffc7adbd0ca27a1b1101309133f827ed4"
           },
           "intent": null,
-          "last_edit": 1793894880
+          "last_edit": 1793895179
+        },
+        "02_Product/Dispatch Mesh milestone plan.md": {
+          "base": {
+            "blob": "aaf2cb0addbe71838b2e28afeb16da4ff0afeaa9"
+          },
+          "content": {
+            "blob": "dcab0790c637f0949883858fd816492077745c7c"
+          },
+          "intent": null,
+          "last_edit": 1793895179
         },
         "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md": {
           "base": {
             "blob": "2d09f411ef90bbf6d56d92b426b22e7f2eb0e79a"
           },
           "content": {
-            "blob": "64e3c225956bdde7314d866865c9761fb599c0a8"
+            "blob": "2263e41405232df0416c63f268f050ebd7dc8bf2"
           },
           "intent": null,
-          "last_edit": 1793895006
+          "last_edit": 1793895179
+        },
+        "07_Engineering/Decisions/ADR-0011 — Build the desktop host with Tauri 2.md": {
+          "base": null,
+          "content": {
+            "blob": "9aa4c868c85c77f5d6fcb84d7c9c439a293f8194"
+          },
+          "intent": null,
+          "last_edit": 1793895179
+        },
+        "07_Engineering/Decisions/ADR-0012 — Ship the desktop host as a separate executable serving several workspaces.md": {
+          "base": null,
+          "content": {
+            "blob": "59a37eae69c4b7a8af9c593f8847b97fcd822eae"
+          },
+          "intent": null,
+          "last_edit": 1793895179
         }
       },
       "dependencies": [

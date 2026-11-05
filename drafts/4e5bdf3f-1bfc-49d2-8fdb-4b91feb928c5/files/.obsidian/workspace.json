@@ -227,6 +227,8 @@
   },
   "active": "8fc4e83af58370bc",
   "lastOpenFiles": [
+    "07_Engineering/Decisions/ADR-0012 — Ship the desktop host as a separate executable serving several workspaces.md",
+    "07_Engineering/Decisions/ADR-0011 — Build the desktop host with Tauri 2.md",
     "02_Product/Dispatch Mesh milestone plan.md",
     "05_Requirements/Tickets/sedL0R3Qg",
     "06_UX/Dispatch Mesh desktop app.pdf",
@@ -259,8 +261,6 @@
     "02_Product/Competitors/Agentic Git Sync.md",
     "02_Product/Competitors/Jujutsu.md",
     "02_Product/Competitors/Syncthing.md",
-    "02_Product/Competitors/git-annex assistant.md",
-    "02_Product/Competitors/Obsidian Git.md",
     "02_Product/Competitors",
     "02_Product/Competititors"
   ]

@@ -6,7 +6,7 @@ priority: high
 rank: 1024
 version_target: v0.3.0
 size:
-assignee:
+assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
@@ -141,7 +141,7 @@ Final as of 2026-11-05 (refinement ended by Kai).
 
 ## Implementation plan
 
-*Drafted 2026-11-05 against `main` at `7e13efd` (0.2.5). Plan only; no code written. Review and iterate here.*
+*Drafted 2026-11-05 against `main` at `7e13efd` (0.2.5). Signed off by Kai on 2026-11-05 by invoking `/develop US00001`; development on branch `us00001-tray-host` off `7e13efd`.*
 
 ### Ground truth that shapes the plan
 
@@ -241,9 +241,9 @@ Final as of 2026-11-05 (refinement ended by Kai).
 
 ### Decisions for review
 
-These are plan choices, not reopened questions. Change them here if you disagree:
+Approved by Kai on 2026-11-05 with `/develop US00001`; the identifier was chosen explicitly.
 
-1. **Tauri identifier**, e.g. `io.github.kaimys.dispatch-mesh`. Durable (it names the app directories and later registrations), and the product name is not final. Pick the value you want to live with.
+1. **Tauri identifier: `de.eightnine.mesh`** (Kai, 2026-11-05). Durable: it names the app directories and later registrations. Chosen short so that it survives a rename of "Dispatch".
 2. **Already-running workspaces don't count** toward the tray icon; if nothing runs at all, the icon shows needs attention.
 3. **Workspaces from `--workspace` arguments only**, nothing persisted until 0.5.
 4. **First-close notice as a single toast**, not an in-window banner.
@@ -255,7 +255,7 @@ Roughly 7–9 focused days: spike 1, workspace and CI 0.5, model 1, host 1.5, tr
 
 ### ADRs
 
-After sign-off this workflow extracts, as `proposed`: **ADR-0011 — Build the desktop host with Tauri 2** (rejected: egui/eframe, Slint, native Win32; static frontend without npm) and **ADR-0012 — Ship the tray as a separate executable in a Cargo workspace** (rejected: one binary with a console-attach workaround; one host serving several workspaces). Applying ADR-0009 and ADR-0010 needs no new ADR.
+Extracted on 2026-11-05 at sign-off, both `proposed`: [[ADR-0011 — Build the desktop host with Tauri 2]] and [[ADR-0012 — Ship the desktop host as a separate executable serving several workspaces]]. Applying ADR-0009 and ADR-0010 needs no new ADR.
 
 <!-- ═══════════ RECORD ZONE ═══════════
      What actually happened. Always appendable, including after the freeze.
@@ -287,6 +287,7 @@ After sign-off this workflow extracts, as `proposed`: **ADR-0011 — Build the d
 - Code: `src/main.rs` (`run`, `.mesh/runner.lock`, `status`), `src/engine.rs`
 - [[Story - US00002 - Local engine control interface for the tray host|US00002]] — decides the host↔engine interface (open question on the local control interface)
 - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps|TASK00001]] — status model the icon states derive from
+- [[ADR-0011 — Build the desktop host with Tauri 2]] and [[ADR-0012 — Ship the desktop host as a separate executable serving several workspaces]] — decisions extracted from this ticket
 - Discussion: no chat integration is configured; refinement questions and answers are recorded in this ticket.
 
 ## Dispatch runs
