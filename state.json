@@ -2628,8 +2628,11 @@
         "6bef1b80-3aed-4cfd-9bda-00a78c9fd325"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Add manual test plan for US00002 runner interface",
+        "description": "Move US00002 to Review, freeze its contract, and add three outstanding manual checks for Ctrl+C shutdown, network-outage recovery, and Linux CI. Record the test-plan update in the log and open the ticket in the Obsidian workspace."
+      },
+      "message_base": "c20f7c9b847d89b73aedbb2b7a9ec15159be0934"
     },
     "f228dc61-aefd-4b3e-b5e7-f19e0abcf865": {
       "id": "f228dc61-aefd-4b3e-b5e7-f19e0abcf865",
