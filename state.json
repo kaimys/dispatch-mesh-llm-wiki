@@ -633,8 +633,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793876360,
-      "last_edit": 1793876446,
-      "revision": 5,
+      "last_edit": 1793876472,
+      "revision": 6,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -644,10 +644,10 @@
             "blob": "1115dbf277ab860a78c587358c7d2b76075ae10e"
           },
           "content": {
-            "blob": "8aaca9a3798a0f9188402de1cbaed8b60cec65b9"
+            "blob": "99bcb6fe00375e8eca47e50f2ce129fe0cb4bbaa"
           },
           "intent": null,
-          "last_edit": 1793876446
+          "last_edit": 1793876472
         },
         "00_Start-Here/index.md": {
           "base": {
@@ -669,6 +669,14 @@
           "intent": null,
           "last_edit": 1793876441
         },
+        "02_Product/Competitor overview.md": {
+          "base": null,
+          "content": {
+            "blob": "de3024786e44886e128bd4e0183f57dce3303118"
+          },
+          "intent": null,
+          "last_edit": 1793876472
+        },
         "02_Product/Competitors/Agentic Git Sync.md": {
           "base": null,
           "content": {
@@ -676,14 +684,6 @@
           },
           "intent": null,
           "last_edit": 1793876360
-        },
-        "02_Product/Competitors/Competitor overview.md": {
-          "base": null,
-          "content": {
-            "blob": "de3024786e44886e128bd4e0183f57dce3303118"
-          },
-          "intent": null,
-          "last_edit": 1793876441
         },
         "02_Product/Competitors/Dispatch Mesh SWOT analysis.md": {
           "base": null,
