@@ -1,0 +1,16 @@
+views:
+  - type: table
+    name: Sicht
+    filters:
+      and:
+        - file.inFolder("07_Engineering/Decisions")
+    order:
+      - file.name
+      - recorded
+      - date
+      - owner
+      - status
+      - superseded_by
+    columnSize:
+      file.name: 470
+      note.status: 89
