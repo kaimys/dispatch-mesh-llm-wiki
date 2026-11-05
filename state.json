@@ -1890,7 +1890,7 @@
       "created_at": 1793898335,
       "last_edit": 1793898335,
       "revision": 1,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -1909,8 +1909,11 @@
         "e26d9c26-80bc-40a6-b93d-fcfa31d8b4a5"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Update Obsidian workspace to focus on desktop app design",
+        "description": "Set the desktop app PDF as the active tab and update the backlinks and outgoing-links panes to reference it. Refresh the recent-file order."
+      },
+      "message_base": "bd266d9599c28f7e35930289f159f2844ce03538"
     },
     "89872dbb-0142-4c5a-b0e2-b5282b327920": {
       "id": "89872dbb-0142-4c5a-b0e2-b5282b327920",
