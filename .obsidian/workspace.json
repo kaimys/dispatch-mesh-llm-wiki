@@ -187,6 +187,7 @@
   },
   "active": "8fc4e83af58370bc",
   "lastOpenFiles": [
+    "file:C:/MeshTask1Net/auth.md",
     "06_UX/Claude Design briefing — desktop app.md",
     "Dispatch.md",
     "06_UX/Dispatch Mesh desktop app.pdf",
@@ -221,7 +222,6 @@
     "07_Engineering/Decisions/ADR-0001 — Synchronize drafts separately from permanent history.md",
     "07_Engineering/Decisions/ADR-0002 — Group files into sessions with an inactivity boundary.md",
     "07_Engineering/Decisions/ADR-0003 — Preserve synchronized conflict inputs and traceable resolutions.md",
-    "07_Engineering/Decisions/ADR-0004 — Bind agent intent to attributable changes.md",
-    "07_Engineering/Decisions/ADR-0005 — Make AI summaries configurable and opt-in.md"
+    "07_Engineering/Decisions/ADR-0004 — Bind agent intent to attributable changes.md"
   ]
 }
