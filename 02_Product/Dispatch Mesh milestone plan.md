@@ -285,6 +285,8 @@ Exit criteria:
 | Cloud hosting, identity provider, workspace sharing, multi-account selection, and first tool schemas | Shipping 2.0 alpha |
 | Retention, capacity, quotas, backup objectives, and the boundary between user-directed and autonomous jobs | Widening cloud access in 2.0 beta |
 
+Closed so far (2026-11-05): the local control interface by [[ADR-0009 — Embed the engine with a runner handle and published status|ADR-0009]], and the tray UI toolkit by [[ADR-0011 — Build the desktop host with Tauri 2|ADR-0011]] (proposed). Pause semantics and notification behavior remain open for their 0.3 tickets.
+
 These decisions do not change the confirmed synchronization and session behavior above.
 
 ## Parallel and later tracks

@@ -63,8 +63,10 @@ Entry point for people and agents. Read this first, then follow the links. Every
 | [[ADR-0008 — Store content as blobs referenced by metadata\|ADR-0008]] | Store content as blobs referenced by metadata | accepted |
 | [[ADR-0009 — Embed the engine with a runner handle and published status\|ADR-0009]] | Embed the engine with a runner handle and published status | accepted |
 | [[ADR-0010 — Report workspace status and session stages separately\|ADR-0010]] | Report workspace status and session stages separately | proposed |
+| [[ADR-0011 — Build the desktop host with Tauri 2\|ADR-0011]] | Build the desktop host with Tauri 2 | proposed |
+| [[ADR-0012 — Ship the desktop host as a separate executable serving several workspaces\|ADR-0012]] | Ship the desktop host as a separate executable serving several workspaces | proposed |
 
-ADR-0001–0008 record implemented console-preview decisions. Their original individual decision dates are unavailable; each records its provenance and documentation date. ADR-0009 and ADR-0010 record Kai's designs dated 2026-11-05. ADR-0009 was accepted on 2026-11-05 after US00002 was built and verified; ADR-0010's implementation and verification remain in its linked ticket. TASK00002's Git backend decision remains separate and open.
+ADR-0001–0008 record implemented console-preview decisions. Their original individual decision dates are unavailable; each records its provenance and documentation date. ADR-0009 and ADR-0010 record Kai's designs dated 2026-11-05. ADR-0009 was accepted on 2026-11-05 after US00002 was built and verified; ADR-0010's implementation and verification remain in its linked ticket. ADR-0011 and ADR-0012 record Kai's US00001 decisions dated 2026-11-05; they are built under that ticket. TASK00002's Git backend decision remains separate and open.
 
 ## Delivery and QA
 
