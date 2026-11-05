@@ -100,6 +100,7 @@ As the developer of the Mesh tray host, I want one defined way to observe and co
 ## Acceptance criteria
 
 1. An ADR in `07_Engineering/Decisions/` records the in-process host↔engine model, the `RunnerHandle` API, snapshot publication, failure reporting and refuse-on-lock behavior. It names cross-process control (named pipe or Unix socket) as a deferred extension point.
+   *Update 2026-11-05:* this is [[ADR-0009 — Embed the engine with a runner handle and published status]], recorded as `proposed`. When this ticket reaches `Done`, set ADR-0009 to `status: accepted`, and amend it first if the built API deviates.
 2. The run loop, AI summarization and status-snapshot computation live in the library crate (not `src/main.rs`). The CLI `run` and `status` commands call those library functions, and their observable output is unchanged except for the failure fields in criterion 6.
 3. `Runner::start(root)` returns a `RunnerHandle` without blocking the calling thread. The engine runs on a background thread with its own tokio runtime, so the caller needs no tokio runtime.
 4. `RunnerHandle::stop()` captures saved changes and ends the loop without waiting for an in-flight HTTP or AI request, as Ctrl+C does for `run` today. After `join()`, a reopened workspace contains every change saved before `stop()`.

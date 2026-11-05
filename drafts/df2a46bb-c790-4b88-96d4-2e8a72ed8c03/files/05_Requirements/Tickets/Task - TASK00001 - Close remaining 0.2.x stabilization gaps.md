@@ -159,6 +159,7 @@ Downstream: [[Story - US00001 - Tray icon and status window host|US00001]] deriv
    - `ai::generate` returns `(Message, Option<String>)`, with the failure text instead of an `eprintln`. `summarize_ready` writes `state.summary_failure` and clears it on a successful provider summary. Disabled text sharing is not a failure. This is the persistence half of US00002's criterion 6 (see *Cross-ticket effects*).
 4. **Status model in the library** (new `src/status.rs`; `show_status` in `src/main.rs` delegates)
    - `Workspace::status_snapshot() -> Status` (serde). `status` JSON keeps every existing field and adds `reason` at the top level, plus `stage` per session.
+   - **Must work on a lock-free `Workspace::inspect`**, as CLI `status` uses today (`src/main.rs:146`). [[ADR-0007 — Persist state transactionally with recovery journals]] relies on status reading the committed SQLite snapshot without the writer operation lock. Therefore `status_snapshot()` takes `&self`, never writes state, and calls nothing that acquires `.mesh/lock` or `network.lock`. Its scan of the live folder stays read-only, as in `show_status`. A test runs `status` while another process holds the operation lock (extending `status_remains_readable_while_an_operation_holds_the_workspace_lock`).
    - **Session stage:**
 
      | Session | Own, remote configured | Own, local-only workspace | Received from another device |
@@ -242,10 +243,15 @@ Downstream: [[Story - US00001 - Tray icon and status window host|US00001]] deriv
 
 Roughly 3–5 focused days: steps 1–4 about 60%, tests about 30%, docs 10%. This is an order-of-magnitude estimate, not a commitment.
 
-### ADR candidates (to extract after sign-off)
+### ADRs
 
-- **Status model:** summary precedence, session stages, local-only upload record, `reason`. Durable, and US00001, US00002 and later hosts must obey it.
-- **Git failure classification:** stderr is classified inside `execute` and never echoed, with `LC_ALL=C` on every Git process, and unknown failures go to `needs_attention`. Durable until TASK00002 replaces the CLI backend, which would supersede it.
+- **Status model:** recorded as [[ADR-0010 — Report workspace status and session stages separately]] (proposed). On 2026-11-05 it was amended with this plan's three review-point rules (AI-summary failure, rejected push and unknown Git failure all go to `needs_attention`) and the offline definition. When this ticket reaches `Done`, set it to `accepted`, amending it first if the built model deviates.
+- **Governing ADRs for this plan:**
+  - [[ADR-0001 — Synchronize drafts separately from permanent history]]: recovery from interrupted publication is a stated consequence, which step 6 tests.
+  - [[ADR-0005 — Make AI summaries configurable and opt-in]]: bounded retries, and no alternate provider; step 5 keeps both.
+  - [[ADR-0007 — Persist state transactionally with recovery journals]]: lock-free status (step 4).
+  - [[ADR-0009 — Embed the engine with a runner handle and published status]]: the snapshot consumer.
+- **Still a candidate, not yet extracted — Git failure classification:** stderr is classified inside `execute` and never echoed, with `LC_ALL=C` on every Git process, and unknown failures go to `needs_attention`. Durable until TASK00002 replaces the CLI backend, which would supersede it.
 
 <!-- ═══════════ RECORD ZONE ═══════════
      What actually happened. Always appendable, including after the freeze.
