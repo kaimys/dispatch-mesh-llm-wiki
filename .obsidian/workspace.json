@@ -18,6 +18,20 @@
             }
           },
           {
+            "id": "f7b3d9fe981edde0",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Story - US00001 - Tray icon and status window host"
+            }
+          },
+          {
             "id": "1db05cc8cdbfd73f",
             "type": "leaf",
             "state": {
@@ -108,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "06_UX/Dispatch Mesh desktop app.pdf",
+                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +141,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "06_UX/Dispatch Mesh desktop app.pdf",
+                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -198,8 +212,9 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "1db05cc8cdbfd73f",
+  "active": "f7b3d9fe981edde0",
   "lastOpenFiles": [
+    "06_UX/Dispatch Mesh desktop app.pdf",
     "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
     "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md",
     "06_UX/Claude Design briefing — desktop app.md",
@@ -217,7 +232,6 @@
     "README.md",
     "file:C:/MeshTask1Net/auth.md",
     "Dispatch.md",
-    "06_UX/Dispatch Mesh desktop app.pdf",
     "file:C:/MeshTask1Net/net.md",
     "06_UX/Dispatch Mesh desktop app.html",
     "05_Requirements/Tickets/sedWaTUlD",
@@ -232,7 +246,6 @@
     "02_Product/Competitors/Syncthing.md",
     "02_Product/Competitors/git-annex assistant.md",
     "02_Product/Competitors/Obsidian Git.md",
-    "02_Product/Competitors/SparkleShare.md",
     "02_Product/Competitors",
     "02_Product/Competititors",
     "05_Requirements/Tickets/sedopX6Kw"

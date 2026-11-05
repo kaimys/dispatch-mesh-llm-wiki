@@ -148,3 +148,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-05] refine | US00001 icon state set answered
 - [[Story - US00001 - Tray icon and status window host]]: closed the *Icon state set* question from the Claude Design result ([[Dispatch Mesh desktop app.pdf]], deliverable 1). Four icons (Up to date, Working shared by the three in-progress states, Offline, Needs attention), the tooltip names the exact state, and Paused stays reserved until the pause ticket extends ADR-0010. Scope note, acceptance criteria and references updated; `open_questions` 6 → 5.
+
+## [2026-11-05] refine | US00001 design answers recorded
+- [[Story - US00001 - Tray icon and status window host]]: closed three more questions from the Claude Design result ([[Dispatch Mesh desktop app.pdf]]). Workspaces per host: several; the tray shows the highest-precedence state; already-running is per workspace. Attention reason: shown in the window header for needs attention and offline; its actions come with later tickets. Quit: never prompts (Variant A). Summary, scope, out of scope and acceptance criteria updated; `open_questions` 5 → 2 (UI toolkit and single or separate binary remain).
