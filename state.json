@@ -701,8 +701,11 @@
         "91ce8730-0176-4126-9d1f-23a651add63b"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Document US00002 review fixes and update the wiki workspace",
+        "description": "Record the US00002 review fixes, added runner error and busy-lock test coverage, and corrected implementation notes; clear the ticket’s open findings. Append the repair summary to the wiki log, add a title to the README, and update Obsidian’s active workspace layout."
+      },
+      "message_base": "96c0c178f515728a45e2a9f1471555a9abf30b6c"
     },
     "35bca660-edcd-43fa-a8be-ef21e46f56bd": {
       "id": "35bca660-edcd-43fa-a8be-ef21e46f56bd",
@@ -2527,8 +2530,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793888143,
-      "last_edit": 1793888143,
-      "revision": 1,
+      "last_edit": 1793888354,
+      "revision": 2,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -2542,6 +2545,26 @@
           },
           "intent": null,
           "last_edit": 1793888143
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "8ccef2b2624f2641bec638da771908d2fc025f46"
+          },
+          "content": {
+            "blob": "2b6316f54f31741db7e09d627d6e0ecf3ea89466"
+          },
+          "intent": null,
+          "last_edit": 1793888354
+        },
+        "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md": {
+          "base": {
+            "blob": "9d353f7ecf07f19f1933d5cc066e53633d3a5797"
+          },
+          "content": {
+            "blob": "c5e90ddef34dea7197e5363eb6b71490785dbd71"
+          },
+          "intent": null,
+          "last_edit": 1793888354
         }
       },
       "dependencies": [
