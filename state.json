@@ -1219,8 +1219,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793891191,
-      "last_edit": 1793891191,
-      "revision": 1,
+      "last_edit": 1793891400,
+      "revision": 2,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1230,10 +1230,10 @@
             "blob": "b62574546b8b589b46ec432ad42feb47319f9c03"
           },
           "content": {
-            "blob": "583ae37418a454a9548c796019caed3eb9287c8a"
+            "blob": "b89582091a18f2b9e58626a931ad7e874d840342"
           },
           "intent": null,
-          "last_edit": 1793891191
+          "last_edit": 1793891400
         },
         "00_Start-Here/index.md": {
           "base": {
@@ -1270,10 +1270,10 @@
             "blob": "0cc3f8ef8c3c8310aa0fed79a81fca805dbb000a"
           },
           "content": {
-            "blob": "a0ecd6f1d649c8bf7a2a7162da8c6e14bacf0141"
+            "blob": "744ab7cde48b2ebea9f0270e0c07103e614c55a7"
           },
           "intent": null,
-          "last_edit": 1793891191
+          "last_edit": 1793891400
         },
         "08_Delivery-and-QA/Releases/v0.2.5.md": {
           "base": null,
