@@ -1,14 +1,14 @@
 ---
 id: US00001
 type: story
-status: "Backlog"
+status: "Refinement"
 priority: high
 rank: 1000
 version_target: v0.3.0
 size:
 assignee:
 owner: "[[Kai]]"
-open_questions: 6
+open_questions: 7
 open_tests:
 open_findings:
 discussion:
@@ -39,6 +39,11 @@ As a Mesh user on Windows, I want Mesh to live in the system tray with an icon t
   - `src/main.rs` implements the `run` command: watcher, capture loop and synchronization scheduling on a tokio runtime. It takes an exclusive `fs2` lock on `.mesh/runner.lock`, which already blocks a second runner per workspace.
   - `status` reads a committed SQLite snapshot without the operation lock, and reports `capture_error`, `local_changes_waiting`, `recovery_pending` and the unresolved conflict IDs. This is the natural data source for icon state.
   - Engine logic lives in `src/engine.rs`, reused by the CLI.
+  - *Verified in refinement, 2026-11-04:* the watch/capture/sync loop (`watch()`) and the status derivation (`show_status()`) live in the **binary** (`src/main.rs`), not in the library (`src/lib.rs` exports `ai`, `codec`, `engine`, `git`, `model`, `storage`, `transport`). Reusing "the same code path as `run`" therefore means moving both into the library first. The loop reports state only through `println!`/`eprintln!`, and its only stop trigger is `tokio::signal::ctrl_c()`; a host needs state as data and a programmatic stop.
+  - `status` already derives an aggregate `status` field with three values: `needs_attention` (attention set, capture error, or an unresolved conflict), `waiting_to_sync` (local changes not yet captured, or an unsettled session from this device), and `synced`. It does not separate the requirements' *saved locally* from *waiting to sync*, and has no *offline* state.
+  - A failed background sync (other than `WorkspaceBusy`) writes `state.attention = "Synchronization waiting: …"`, cleared only by the next successful `sync()`. Under today's mapping, being offline therefore reads as `needs_attention`.
+  - CLI commands already coexist with `run`: they take the short-lived `.mesh/lock` operation lock and `.mesh/network.lock`, and `status` reads a read-only SQLite snapshot (`Workspace::inspect`). No IPC exists today.
+  - The 0.2.x milestone lists "Define the local engine/control interface that the tray host will use" as stabilization work. No such interface exists in code or docs; this ticket has to close it (see Open questions).
 - Invariants that apply (from `AGENTS.md`): never discard uncaptured edits, and keep capture going while network operations or AI requests are pending. Quit must therefore behave like today's Ctrl+C, which captures saved changes and stops without waiting for a last network request.
 
 ## Scope
@@ -73,15 +78,25 @@ The host works on a workspace already created with `dispatch-mesh init`.
 ## Open questions
 
 - [ ] **UI toolkit.** Which Rust toolkit for the tray and status window (e.g. `tray-icon` + `tao`/`winit` with a webview, Tauri, egui/eframe, native Win32)? It must keep 0.7 macOS and 0.8 Linux viable. This is a milestone "decision to close" before implementing 0.3.
-- [ ] **Local control interface.** Should the tray host embed the engine in-process, or supervise a separate `run` process and talk to it over a local IPC channel (named pipe or localhost socket)? Either way the CLI must keep working alongside it.
-- [ ] **Single executable or separate binary.** Should this be a new `dispatch-mesh tray` subcommand in the existing binary, or a separate `dispatch-mesh-tray.exe`?
+- [ ] **Local control interface.** Should the tray host embed the engine in-process, or supervise a separate `run` process and talk to it over a local IPC channel (named pipe or localhost socket)? Either way the CLI must keep working alongside it. Note: the CLI already coexists with a runner through file locks and the read-only snapshot, so in-process embedding needs no new IPC for this ticket; IPC would only be needed if a separate process must be controlled. This also closes the 0.2.x "control interface" item.
+- [ ] **Single executable or separate binary.** Should this be a new `dispatch-mesh tray` subcommand in the existing binary, or a separate `dispatch-mesh-tray.exe`? Windows constraint: a tray app should be built with `windows_subsystem = "windows"` so no console window appears, but that subsystem detaches the CLI from its console. One binary therefore needs a console-attach workaround; two binaries avoid it.
 - [ ] **Workspaces per host.** One host per workspace (`--workspace`, like the CLI), or one host for several workspaces from the start? The milestone says "each workspace's … state", which suggests several. Choosing one now affects the icon-state aggregation and the window layout.
-- [ ] **Icon state set.** What exact states does the icon show, and how do they map to the `status` fields? Is "paused" reserved now, although pause lands in a later ticket?
+- [ ] **Icon state set.** What exact states does the icon show, and how do they map to the `status` fields? Is "paused" reserved now, although pause lands in a later ticket? Two sub-points found in the code: (a) `status` has three values and merges *saved locally* with *waiting to sync*; do the icon states split them? (b) an offline device currently becomes `needs_attention` via the sync-failure attention message; should offline be its own, non-alarming state?
+- [ ] **Attention reason in the shell.** When the icon shows *needs attention*, does the status window shell show the reason (the `attention` message, capture error, or "N unresolved conflicts"), or only the state name until the later detail ticket? Per-stage detail is out of scope, but a bare "needs attention" with no reason is not actionable.
 - [ ] **Quit with pending work.** When Quit is chosen while a session is open or a publication is in flight, should it quit immediately after capture (as Ctrl+C does), or offer to finish or publish first?
 
 ## Acceptance criteria
 
-<!-- GUIDE: Testable statements, each checkable by someone without this ticket's history. -->
+Draft. These are sharpened as the open questions are answered; they are not final.
+
+- With the host running on an initialized workspace, no console window is visible and a Mesh icon is in the notification area.
+- Editing a file changes the icon from *synced* to a working state, and back to *synced* after the change synchronizes. The tooltip names the current state.
+- Creating an unresolved conflict changes the icon to *needs attention*.
+- Left-clicking the icon, or choosing **Open status window**, shows a window with the workspace path and its current state.
+- Closing the status window leaves the icon present; a file edited afterwards is still captured and synchronized.
+- Choosing **Quit** removes the icon and ends the process. An edit saved just before Quit is captured, and the next `run` or host start synchronizes it.
+- Starting the host on a workspace that already has a `dispatch-mesh run` or another host shows a message saying Mesh is already running for that workspace, and starts no second engine.
+- While the host runs, `dispatch-mesh status`, `sync`, `session finish` and `intent begin/end` succeed against the same workspace.
 
 ## Implementation plan
 
@@ -111,6 +126,7 @@ The host works on a workspace already created with `dispatch-mesh init`.
 - [[Dispatch Mesh milestone plan]] — 0.3 tray application; Decisions to close during delivery
 - [[Dispatch Mesh requirements and architecture]] — desktop interface, tray and status window
 - Code: `src/main.rs` (`run`, `.mesh/runner.lock`, `status`), `src/engine.rs`
+- Discussion: no chat integration is configured; refinement questions and answers are recorded in this ticket.
 
 ## Dispatch runs
 
