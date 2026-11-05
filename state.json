@@ -635,7 +635,7 @@
       "created_at": 1793876360,
       "last_edit": 1793877014,
       "revision": 14,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -844,6 +844,58 @@
         "description": "Update the existing Dispatch Mesh milestone plan to include creating documentation in a sub-site of the project’s GitHub Pages site as a 1.0 exit criterion."
       },
       "message_base": "fdf3bfa294f01eddea5495dcc6810c0bf3ad7fd9"
+    },
+    "6ceaf325-23a7-4272-ab72-af4f3c9c5d57": {
+      "id": "6ceaf325-23a7-4272-ab72-af4f3c9c5d57",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793877412,
+      "last_edit": 1793877412,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        ".obsidian/workspace.json": {
+          "base": {
+            "blob": "05e4b7424908243241d8a765aa95a0b7d29cf1fe"
+          },
+          "content": {
+            "blob": "5c88557fc1b7a46a86af4b7ba760339356fbd68b"
+          },
+          "intent": null,
+          "last_edit": 1793877412
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "4d68cb51e2fc6d26dede3490b74eabd7a741c86d"
+          },
+          "content": {
+            "blob": "39dd46672b46c3077b28331789b928e2424e3946"
+          },
+          "intent": null,
+          "last_edit": 1793877412
+        },
+        "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md": {
+          "base": {
+            "blob": "c1083baf247a7ef5cffe5cc5075ca5bcc2cc9890"
+          },
+          "content": {
+            "blob": "555275fec0191ee62dcbdc8a39c86c9d39ebb151"
+          },
+          "intent": null,
+          "last_edit": 1793877412
+        }
+      },
+      "dependencies": [
+        "4cb3d5ea-2375-42c9-800b-777a7d3e8b10"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
     },
     "749543b5-f9c1-456b-8eab-198c13f33f5e": {
       "id": "749543b5-f9c1-456b-8eab-198c13f33f5e",
