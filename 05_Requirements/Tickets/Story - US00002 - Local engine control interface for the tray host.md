@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings:
+open_findings: 0
 discussion:
 updated: 2026-11-05
 completed:
@@ -319,6 +319,26 @@ Findings R1 and R2 below leave criterion 8 incomplete: `cargo test` fails in the
 - Request a fresh `/code-review US00002` against the resulting commit; only that review recounts `open_findings`.
 - No `/update-ticket` contract change or product decision is required for these findings. Preserve the scheduled ADR-0009 amendment/acceptance at `Done`.
 - `/test-plan` remains blocked until `open_findings: 0`; it will stamp the freeze against the reviewed implementation. Leave status, `frozen`, `completed` and `open_tests` unchanged here.
+
+### 2026-11-05 — branch us00002-engine-control-interface at 0e4c9a6
+
+**Verdict: review clear — 0 blocking and 0 non-blocking findings.** R1, R2 and R3 from the review of `f2b3e1c` are resolved. The old review and blocker entry above describe that earlier build; this entry and `open_findings: 0` describe `0e4c9a6`. The review gate for `/test-plan` is clear; this review does not move the card or complete the ticket.
+
+**Scope and independence.** Rechecked the full branch scope `main...0e4c9a6` against the ticket, plan and governing ADRs, with detailed review of the complete fix diff `f2b3e1c..0e4c9a6`. The fix commit changes only `tests/runner.rs` (228 additions, 37 deletions); production code is unchanged from the independently reviewed implementation. This session authored neither implementation nor fixes. No open PR exists on the branch; no PR comment was posted.
+
+**Independent verification.** `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings` and full `cargo test` all passed locally on Windows: 79 tests (5 library, 9 CLI, 27 engine, 20 provider, 10 runner, 8 storage/transport), with doc-tests completing successfully (0 tests). A separate `cargo test --test runner` also passed all 10 tests, so the previously failing scenario passed both separately and in the full run. `git diff --check main...HEAD` passed. These checks used disposable local workspaces, bare remotes and loopback mock services; no live GitHub or AI-provider request or separate-platform verification was performed. The author's repeated-run and mutation-check claims remain author evidence, not checks repeated by this reviewer.
+
+**Resolution of the previous findings.**
+
+1. **R1 resolved.** `mesh_ok` retries only a failed command containing the documented `WorkspaceBusy` message, for a bounded 15 s; other failures still fail immediately. The summary-failure/recovery assertions and separate CLI process are retained. The runner suite and full gate both passed independently, including the formerly timing-sensitive case.
+2. **R2 resolved.** The oversized-file test checks published capture failure, matching workspace attention and subsequent clearing. The missing-remote/recovery test checks published sync failure together with durable attention/offline and their clearing after creating the remote. The held-lock test observes multiple busy ticks without capture/sync errors, then verifies a committed marker reaches the snapshot within 2 s while the lock remains held. Other error fields are checked as clear in the failure/recovery cases. These exercise the exact missing publication and busy-filtering scenarios requested by the prior review.
+3. **R3 resolved.** A dated correction explicitly retracts the original credential-coverage claim and records the remaining deviations. The new sentinel test sets the key only in a CLI runner child's environment, verifies the mock received it, and checks both CLI status and runner stderr for absence of that key. No shared test-process environment is modified. Existing snapshot response-body checks remain intact.
+
+**Acceptance criteria and plan.** Criteria 2–7 retain the previously reviewed implementation and now have the requested additional regression evidence; criterion 8's coverage and mechanical gate are satisfied. Criterion 1 retains its explicitly scheduled ADR-0009 amendment/acceptance at `Done`: record the final async signature, optional initial snapshot, stop-on-Drop and deferred named-pipe/Unix-socket extension there. The runtime-construction location, 10 s capture waits and lack of a separate stalled-AI shutdown test are now recorded deviations; they introduce no new product decision or scope. No contract-zone rewrite or `/update-ticket` is needed. Both commits belong to US00002.
+
+**What should stay.** Keep busy-only bounded retries rather than retrying arbitrary CLI failures. Keep both the error-to-recovery assertions and the held-lock marker test: the former verifies host-visible outcomes, while the latter proves the lock-free fallback actually publishes fresh committed data. Keep credential injection scoped to the child process so the test cannot race with other provider tests.
+
+**Before this leaves review.** `/test-plan US00002` is next and should stamp the freeze against reviewed commit `0e4c9a6`. Retain the ADR-0009 amendment/acceptance at completion. Status remains `In progress`; `open_tests`, `frozen` and `completed` are unchanged. No implementation was edited in this re-review.
 
 ## Follow-ups
 
