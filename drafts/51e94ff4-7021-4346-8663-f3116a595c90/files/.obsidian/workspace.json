@@ -8,6 +8,16 @@
         "type": "tabs",
         "children": [
           {
+            "id": "8fc4e83af58370bc",
+            "type": "leaf",
+            "state": {
+              "type": "dispatch-board",
+              "state": {},
+              "icon": "play",
+              "title": "Dispatch board"
+            }
+          },
+          {
             "id": "d347610810d2fba1",
             "type": "leaf",
             "state": {
@@ -19,16 +29,6 @@
               },
               "icon": "lucide-file",
               "title": "Dispatch Mesh milestone plan"
-            }
-          },
-          {
-            "id": "8fc4e83af58370bc",
-            "type": "leaf",
-            "state": {
-              "type": "dispatch-board",
-              "state": {},
-              "icon": "play",
-              "title": "Dispatch board"
             }
           },
           {
@@ -214,7 +214,7 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "8fc4e83af58370bc",
+  "active": "d347610810d2fba1",
   "lastOpenFiles": [
     "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md.tmp.14144.41e0d521f9d3",
     "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md.tmp.14144.db57bfd3a095",
