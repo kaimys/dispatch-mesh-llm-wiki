@@ -417,6 +417,12 @@ CI run 42018932901 on `af1d3a0` failed again on `ubuntu-latest` (attempt 1: thre
 - **Result:** run 42033691572 on `41a543b` was green on `ubuntu-latest` (locale step passed) and `windows-latest` (step skipped). It also completed all four manual test-plan items: `open_tests: 0`.
 - **Review impact:** `open_findings` stays empty. The pending re-review covers `af1d3a0` (test), `07903c4` (lock retry, `fail-fast: false`) and `41a543b` (locale step).
 
+### 2026-11-05 — No re-review of the post-review commits (Kai's decision)
+
+Kai decided that one code review is enough: the clean review of `c079e9d` stands, and `af1d3a0`, `07903c4` and `41a543b` are not re-reviewed. Recorded so the history is explicit:
+- `07903c4` changes production code (`operation_lock` retries up to 500 ms) after the last review. It is covered by green CI on both platforms in three attempts and by the full local suite, not by an independent review.
+- `open_findings` stays empty, because only `/code-review` may write a count. The gate out of Review is `open_tests: 0`, which is met.
+
 ## Code review
 
 ### 2026-11-05 — branch task00001-stabilization-gaps at 08c0b02
