@@ -8,7 +8,7 @@ version_target: v0.2.5
 size:
 assignee:
 owner: "[[Kai]]"
-open_questions: 6
+open_questions: 0
 open_tests:
 open_findings:
 discussion:
@@ -88,11 +88,35 @@ Downstream: [[Story - US00001 - Tray icon and status window host|US00001]] deriv
   > Constraint found while recording this (2026-11-05): keep the record **local-only**, e.g. `State.uploaded: BTreeMap<session id, revision>`, not a field on `Session`. `push_manifest` serializes own `Session`s into the device-branch manifest. A field set after each push would change that manifest and trigger another push on every cycle, and it would also publish a device-local fact to peers.
 - [x] **Compatibility.** Can existing `status` JSON consumers (scripts, the GitHub harness) tolerate a changed `status` value set, or must the old three values stay as a separate field?
   **Answer (Kai, 2026-11-05):** replace and document. `status` carries the new workspace summary values: `synced` and `needs_attention` keep their names, and `waiting_to_sync` is removed. Update `tests/cli.rs` accordingly and document the value set in the README. There is no legacy field, because no external consumer exists in this 0.x preview.
-- [ ] **Docs location.** Should the documentation go in the README only, or the README plus a recovery page in the wiki?
+- [x] **Docs location.** Should the documentation go in the README only, or the README plus a recovery page in the wiki?
+  **Answer (Kai, 2026-11-05):** README only, next to the existing *Conflicts and recovery* and limits sections, so the documentation versions with the code.
 
 ## Acceptance criteria
 
-<!-- GUIDE: Testable statements, each checkable by someone without this ticket's history. -->
+**Tests**
+1. An automated test interrupts publication after a finalized session's commit has reached `main` on the remote, but before local state marks it published. After reopening and syncing, the session is marked published, `main` contains exactly one commit for it, and no captured content is lost.
+2. An automated two-client test renames a file (path containing spaces and non-ASCII characters) and deletes another file on one client. The other client converges to the same files, with no leftover copy at the old path, and both changes finalize on `main`.
+
+**Status model**
+3. `status` reports a workspace summary `status` with one of `needs_attention`, `offline`, `saved_locally`, `draft_uploaded`, `waiting_for_finalization` or `synced`, chosen by that precedence. `waiting_to_sync` no longer appears.
+4. Each listed session carries a `stage` of `saved_locally`, `draft_uploaded`, `waiting_for_finalization`, `published` or `discarded`.
+5. A session is `draft_uploaded` only after its current revision was successfully pushed to the device branch. That record is local-only: it never appears in the device-branch manifest, and recording it does not trigger an extra push. Older workspaces load with an empty record.
+6. A sync failing with a connection-level error (DNS, connect, timeout, TLS handshake) yields `offline` with a `reason`, and capture continues. Authentication, permission and rejected-push failures yield `needs_attention` with a `reason`. The next successful sync clears either state.
+7. When the summary is `needs_attention` or `offline`, `reason` names the cause, drawn from sync, capture or the persisted AI-summary failure ([[Story - US00002 - Local engine control interface for the tray host|US00002]]), or from unresolved conflicts. It never includes credentials or provider response bodies.
+8. Automated tests cover each summary value and each session stage, including offline vs. authentication failure. `tests/cli.rs` is updated for the new values.
+
+**AI failures**
+9. On HTTP 429, a provider error code/type of quota exhaustion (e.g. `insufficient_quota`) reports "quota or billing exhausted". A rate-limit code, or a `Retry-After` header, reports "temporary rate limit", including the retry delay when given. Without either, it reports the current generic hint.
+10. Mock-provider tests cover all three 429 cases and assert that no response body text appears in the message.
+
+**Documentation**
+11. README.md documents:
+    - the `status` summary values, session stages and their precedence;
+    - storage growth: what accumulates in `.mesh`, on device branches and on `main`, and the current limits;
+    - a recovery procedure for each `needs_attention` cause, for `offline`, for the pending-capture fallback, and for restoring a file from `.mesh/recovery/<id>/`.
+
+**Gates**
+12. `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` pass.
 
 ## Implementation plan
 
