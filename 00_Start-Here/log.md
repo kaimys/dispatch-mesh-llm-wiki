@@ -116,3 +116,10 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-05] merge | TASK00001 into main
 - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: fast-forwarded into `main` at `41a543b`; CI green on both platforms (run 42035665583). Card still in Review until moved to Done.
+
+## [2026-11-05] develop | US00002 implemented
+- [[Story - US00002 - Local engine control interface for the tray host]]: in-process runner built as planned on `us00002-engine-control-interface` (`f2b3e1c`); as-built notes record the deviations (tokio `sync` feature, status split done here, marker-only body check). Gates green. `README.md` and `AGENTS.md` updated in the code change. Status stays `In progress`; `open_findings` empty pending `/code-review US00002`. [[ADR-0009 — Embed the engine with a runner handle and published status]] amendment remains due at Done.
+
+## [2026-11-05] code-review | US00002 changes required at f2b3e1c
+- [[Story - US00002 - Local engine control interface for the tray host]]: independent review of `main...f2b3e1c` recorded with 2 blocking findings and 1 non-blocking finding. Full `cargo test` failed in the new summary-recovery test when CLI `session finish` hit runner lock contention; the runner-suite rerun reproduced it, while the isolated test passed. Formatting and clippy passed; the separate storage/transport suite passed 8/8. Checks were local Windows only, with no live remote/provider requests.
+- Set `open_findings: 2`; kept `In progress`, unfrozen, and left `open_tests` unchanged. Added a dated as-built blocker entry and repair steps for a fresh `/develop US00002`: stabilize the failing test, add missing host-error/busy-filtering assertions and correct the overstated credential-test evidence. `/test-plan` remains blocked. No implementation code changed, no contract rewrite was made and no PR comment was posted.

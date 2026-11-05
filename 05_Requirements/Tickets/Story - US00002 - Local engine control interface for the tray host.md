@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings:
+open_findings: 2
 discussion:
 updated: 2026-11-05
 completed:
@@ -248,7 +248,57 @@ Roughly 2–3 focused days after TASK00001 steps 2–4 land: the move and handle
 
 ## As-built notes
 
-<!-- GUIDE: Where the implementation deviated from the plan, and why. Dated entries. -->
+### 2026-11-05 — Implemented on `us00002-engine-control-interface` (`f2b3e1c`)
+
+Built as planned: `src/runner.rs` (`acquire`, `run`, `summarize_ready`, `Runner`, `RunnerHandle`, `RunnerSnapshot`, `AlreadyRunning`), `Workspace::status_from(LocalObservation)` in `src/status.rs`, and a thin `src/main.rs`. Tests are in `tests/runner.rs` (6 tests). Gates are green: `cargo fmt --check`, clippy `-D warnings`, `cargo test` (75 tests). The existing `tests/cli.rs` runner tests pass unchanged.
+
+Deviations from the plan:
+
+- **Tokio `sync` feature added** to `Cargo.toml`. The plan said `tokio::sync` was available by default, but tokio has no default features. This adds no new crate.
+- **Step 1 was done here.** TASK00001 merged without the scan-free split, so it was applied as a pure refactor: `status_snapshot()` = scan + `status_from`.
+- **The criterion 6 runner test asserts response-body absence with a marker string, not an API-key value.** Setting a process environment variable in parallel tests is unsafe and racy. The CLI-level credential and body checks remain in `tests/provider.rs` (TASK00001).
+- **A mutation check of the shutdown retry was done by hand, not committed.** With `SHUTDOWN_LOCK_WAIT = 0`, `shutdown_capture_rides_out_a_briefly_held_operation_lock` fails with `WorkspaceBusy`; with the 10 s wait, it passes.
+- **Criterion 1 is still open by design.** ADR-0009 is to be amended (the `acquire`/`run(lease, …)` split, `Option<RunnerSnapshot>`, stop-on-`Drop`) and set to `accepted` when this ticket reaches `Done`.
+
+### 2026-11-05 — Code-review hand-off blocked at `f2b3e1c`
+
+Findings R1 and R2 below leave criterion 8 incomplete: `cargo test` fails in the new summary-recovery test under runner lock contention, and the new runner error fields and busy-lock filtering have no automated assertions. Keep this ticket `In progress` and unfrozen; do not run `/test-plan` until a fresh `/develop US00002` session repairs the failing test, adds the missing coverage and a fresh review clears it. `open_tests` is unchanged. No implementation code was changed in this review.
+
+## Code review
+
+### 2026-11-05 — branch us00002-engine-control-interface at f2b3e1c
+
+**Scope and independence.** Reviewed `main...HEAD` (`41a543b...f2b3e1c`): one US00002 commit, eight changed files, including both new files in full. This session authored none of the implementation. Read the complete ticket and ADR-0005, ADR-0007, ADR-0009 and ADR-0010. No open PR exists for this branch; no PR comment was posted.
+
+**Gates.** Independently ran `cargo fmt --check` and `cargo clippy --all-targets -- -D warnings`: both passed. **Full `cargo test` failed**: `summary_failures_reach_the_snapshot_without_the_response_body` panicked at `tests/runner.rs:43` when CLI `session finish` returned `Mesh: Another Mesh operation is using this workspace; retry shortly`. Library (5), CLI (9), engine (27) and provider (20) tests passed; runner tests finished 5 passed / 1 failed. A focused rerun of the failing test passed (1/1), but rerunning the runner suite reproduced the same failure (5/6 passed), establishing timing dependence rather than a consistently green gate. Storage/transport was skipped after the failure; a separate `cargo test --test storage_transport` passed all 8 tests. Doc-tests were not reached by the failed full run. `git diff --check main...HEAD` passed. Verification is local Windows only, using temporary workspaces and local mock services; no live GitHub or AI-provider test was run.
+
+**Verdict: changes required — 2 blocking findings, 1 non-blocking finding.** The ticket cannot leave review or hand off to `/test-plan` as it stands. The blockers are a reproduced mechanical-gate failure and an explicit acceptance-test obligation the suite does not exercise; no additional functional implementation defect was established.
+
+**Acceptance criteria, one by one.**
+
+1. ADR-0009 records the agreed model, handle methods, publication, failure reporting and refusal behavior. Its amendment and acceptance at `Done` remain the expressly scheduled completion action, not an unrecorded pivot. Include the final async signature, optional initial snapshot, stop-on-Drop and named-pipe/Unix-socket extension point in that amendment.
+2. Satisfied: loop and summarization are in `src/runner.rs`, status computation in `src/status.rs`, and CLI commands delegate to them. The old transition messages and startup/shutdown text are preserved; the existing CLI tests are unchanged.
+3. Satisfied by inspection and the plain synchronous runner test: the handle runs the engine on its own thread/runtime and startup is bounded in the test.
+4. Satisfied by inspection and tests for immediate saved edits, a held operation lock and a stalled network request. Shutdown does not join the network or summary jobs; `shutdown_background()` avoids runtime teardown waiting for blocking Git work. A stalled-AI-request shutdown is not separately tested.
+5. Publication uses `send_if_modified` and reloaded durable state, with lock-free fallback. The tests assert an initial snapshot, a quiet interval and a CLI finish update within 2 s. File-capture waits use 10 s rather than the plan's general 2 s test deadline; the CLI-change bound itself is retained.
+6. Summary failure persistence, sanitized response-body handling and subsequent clearing are exercised through a running handle, but the recovery test is timing-sensitive (R1); CLI persistence/recovery is covered separately in `tests/provider.rs:718`. The three runner error fields are wired by inspection but their publication/filtering/recovery is unasserted (R2). Actual injected API-key-value suppression is not covered by the cited provider tests (R3).
+7. Satisfied: typed refusal is tested handle-to-handle, handle-to-CLI and CLI-to-handle, plus restart after release.
+8. Failed: the full test gate is red (R1), and tests omit the explicitly planned snapshot-error assertions under criterion 6 (R2).
+
+**Findings, in severity order.**
+
+1. **R1 — Blocking, P2: make the summary-recovery scenario survive normal runner contention.** Location: `tests/runner.rs:326` (CLI invocation) and `tests/runner.rs:43` (unconditional one-attempt success assertion). After the first failed provider request, the test writes the second file, sees it captured, then issues `session finish` while the runner can be finalizing/synchronizing. The operation lock can remain occupied beyond the engine's 500 ms settle retry, and the CLI returns the documented busy error. This failed both the full suite and a subsequent runner-suite rerun; the isolated test passed. Consequently criterion 8's green mechanical gate is not met. **Fix:** make this test's CLI interaction handle the explicitly retryable busy outcome with a bounded retry (and fail immediately on any other error), or arrange deterministic lock availability without bypassing the separate CLI process. Preserve the assertions that a later successful summary clears the persisted failure. Run the runner suite and full gates after repair; one isolated pass is insufficient evidence. This is an observed test/coordination failure, not evidence of lost edits.
+2. **R2 — Blocking, P2: exercise the host error fields and busy-lock filtering.** Location: `tests/runner.rs:252`–`331`, especially the snapshot assertions at lines 308–315; production wiring is `src/runner.rs:290`–`292`. None of the six runner tests asserts `RunnerSnapshot.capture_error`, `sync_error` or `summary_error`. The stalled-sync test stops before the remote failure is consumed, and the held-lock test checks only final capture. Thus publishing `None` in all three fields, or exposing `WorkspaceBusy` as a capture error, would escape the new suite. Criterion 8 requires coverage of criterion 6, and plan step 6 explicitly promises sync/capture-error and busy-lock assertions. **Fix:** add host-level regression cases that (a) cause a real scan failure, for example exceeding a small configured file-size limit, assert capture error/attention publication, then restore the file and assert clearing; (b) fail a loopback remote, assert `sync_error` and durable offline/attention agree, then restore synchronization and assert clearing; and (c) hold the operation lock across a tick, assert the fallback snapshot remains usable and no busy error is published. Check the other error fields remain appropriately clear in these cases. These are coverage failures, not claims that the current wiring is broken.
+3. **R3 — Non-blocking, P3: correct the claimed credential-test evidence and record remaining plan deviations.** Location: this ticket's implemented as-built entry, the bullet beginning “The criterion 6 runner test”; supporting code is `tests/runner.rs:293` and `tests/provider.rs:740`. Both provider configurations use `api_key_env: None`; the secret-looking strings are response-body markers, not injected credential values. The missing-variable test verifies a variable name, not suppression of an actual key value. The note therefore overstates which part of the original plan is covered. The as-built entry also does not record the omitted error-field assertions, the 10 s file-capture waits, or building the runtime on the caller thread rather than inside the engine thread (`src/runner.rs:327`). **Fix:** append a dated correction distinguishing actual response-body coverage from credential-value coverage, record the remaining deviations and their rationale, and either add the intended credential sentinel test safely (for example, in an isolated child process) or accurately state that it was omitted. No acceptance-contract rewrite is needed to correct the record.
+
+**What should stay.** Keep the single shared run loop and typed synchronous lock refusal: they avoid divergent CLI/host behavior and accidental duplicate engines. Keep the scan-free `status_from` split and lock-free fallback: publication reuses existing capture work and can observe committed state under contention. Keep the bounded shutdown retry and `shutdown_background()` together: each addresses a different way shutdown could miss saved edits or wait for remote work. The stalled-network and cross-process finish tests verify useful observable behavior rather than implementation details.
+
+**Repair plan / before this leaves review.**
+
+- A fresh `/develop US00002` session repairs R1's failing scenario, adds R2's regression coverage, appends R3's as-built correction and reruns the mechanical gates. Do not fix implementation in this review session.
+- Request a fresh `/code-review US00002` against the resulting commit; only that review recounts `open_findings`.
+- No `/update-ticket` contract change or product decision is required for these findings. Preserve the scheduled ADR-0009 amendment/acceptance at `Done`.
+- `/test-plan` remains blocked until `open_findings: 0`; it will stamp the freeze against the reviewed implementation. Leave status, `frozen`, `completed` and `open_tests` unchanged here.
 
 ## Follow-ups
 
