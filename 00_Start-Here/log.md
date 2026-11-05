@@ -133,3 +133,9 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-05] test-plan | US00002 test plan written, frozen, moved to Review
 - [[Story - US00002 - Local engine control interface for the tray host]]: manual plan for reviewed build `0e4c9a6` with 3 items (Ctrl+C in a real terminal, Ctrl+C during a real network outage, Linux CI on the pushed branch); `open_tests: 3`. Gates re-run green (79 tests). Contract zone frozen 2026-11-05; status `In progress` → `Review`. ADR-0009 amendment/acceptance remains due at Done.
+
+## [2026-11-05] test | US00002 manual test plan complete
+- [[Story - US00002 - Local engine control interface for the tray host]]: all 3 manual checks passed and recorded (Ctrl+C in a real terminal; Ctrl+C during a real network outage against `kaimys/mesh-manual-test`; CI run `42047824881` green on ubuntu-latest and windows-latest). `open_tests: 0`. Status stays `Review`; Done still requires the ADR-0009 amendment and acceptance (criterion 1).
+
+## [2026-11-05] decision | ADR-0009 amended and accepted
+- [[ADR-0009 — Embed the engine with a runner handle and published status]]: rewritten to the API as built under [[Story - US00002 - Local engine control interface for the tray host]] (acquire/run(lease) split, optional initial snapshot, stop-on-drop, runtime built on the caller thread, deferred named-pipe/Unix-socket extension, rejected single-entry-point alternative); status `proposed` → `accepted`. [[index]] row updated. US00002 branch fast-forwarded into `main`.

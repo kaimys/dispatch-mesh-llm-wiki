@@ -1,19 +1,19 @@
 ---
 id: US00002
 type: story
-status: Review
+status: Done
 priority: high
-rank: 2048
+rank: 0
 version_target: v0.2.5
 size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests: 3
+open_tests: 0
 open_findings: 0
 discussion:
 updated: 2026-11-05
-completed:
+completed: 2026-11-05
 frozen: 2026-11-05
 ---
 Define, and record as an ADR, how a desktop host drives the Mesh engine for a workspace: how it reads state, triggers actions such as sync and finish session, and is stopped, while CLI intent and finish commands keep working. Then implement the minimum the 0.3 tray needs. This is the 0.2.x milestone item "Define the local engine/control interface that the tray host will use", and it settles open question 2 of [[Story - US00001 - Tray icon and status window host|US00001]].
@@ -252,7 +252,7 @@ Manual checks for the in-process runner and the CLI `run` rewiring on `us00002-e
 
 These checks are not repeated below.
 
-- [ ] **Kai:** *Ctrl+C in a real terminal still saves the last edit.*
+- [x] **Kai:** *Ctrl+C in a real terminal still saves the last edit.*
   1. In PowerShell, create a scratch workspace with `dispatch-mesh.exe --workspace C:\MeshManual init --name Kai --email kai@example.test`, then start `dispatch-mesh.exe --workspace C:\MeshManual run`.
   2. In an editor, create `C:\MeshManual\note.md` containing `hello`, save it, and **within one second** press Ctrl+C in the `run` window.
 
@@ -262,7 +262,9 @@ These checks are not repeated below.
   - `dispatch-mesh.exe --workspace C:\MeshManual status` lists a session whose `files` include `note.md`.
 
   Automation cannot send Ctrl+C to a console process on Windows; the tests drive the same shutdown path through `RunnerHandle::stop()`.
-- [ ] **Kai:** *Ctrl+C during a real network outage does not hang.*
+
+  *Result 2026-11-05 (Kai, Windows, PowerShell): passed.* `run` printed `Local changes saved. Mesh stopped.`, `$LASTEXITCODE` was `0`, and `status` showed `note.md` in the active session with `local_changes_waiting: false`.
+- [x] **Kai:** *Ctrl+C during a real network outage does not hang.*
   1. Use a workspace connected to a real GitHub test repository (`init --remote https://github.com/<you>/<test-repo>.git`), with working credentials.
   2. Start `run`, edit and save a file, and wait until `status` shows that session at `draft_uploaded`.
   3. Disconnect the network (Wi-Fi off or cable out). Edit and save a second file, wait about 5 s, then press Ctrl+C.
@@ -273,13 +275,17 @@ These checks are not repeated below.
   - After reconnecting, `status` lists the second file in a session, and starting `run` again uploads it (the session returns to `draft_uploaded`).
 
   Automation covers this against a loopback mock, not real Git with the Windows credential helper and a real network drop.
-- [ ] **Kai:** *Linux CI is green for this branch.*
+
+  *Result 2026-11-05 (Kai, Windows, private repository `kaimys/mesh-manual-test`): passed.* Ctrl+C while offline stopped `run` in about 2 s with `Local changes saved. Mesh stopped.`, and no credential prompt appeared. After reconnecting, `status` showed `offline` with a sanitized reason ("Git fetch: Remote unreachable (exit 128) …"), with `second.md` already captured. After `run` restarted, the offline state cleared and the session with `first.md` and `second.md` reached `draft_uploaded`. GitHub shows device branch `mesh/devices/6c84e573-…` at `6b29b0c`.
+- [x] **Kai:** *Linux CI is green for this branch.*
   1. Push `us00002-engine-control-interface`.
   2. Open the `ci` workflow run for it on GitHub.
 
   Expected: both the `windows-latest` and `ubuntu-latest` jobs pass, including `tests/runner.rs` (10 tests).
 
   On Linux the runner lock is a `flock` per open file description, so it is the only place where refusing a second same-process `Runner::start` is verified. This machine has neither WSL nor Docker, and the branch has not been pushed yet.
+
+  *Result 2026-11-05: passed.* Pushed at Kai's request. CI run `42047824881` ("Engine checks") on `0e4c9a6` succeeded on `ubuntu-latest` and `windows-latest`. `tests/runner.rs` passed 10/10 on each, in 19.3 s and 23.1 s with `--test-threads=2`.
 
 Deliberately omitted:
 - A GUI-subsystem host (no console for stdio) does not exist until [[Story - US00001 - Tray icon and status window host|US00001]]; its tests cover that.
@@ -378,6 +384,18 @@ Findings R1 and R2 below leave criterion 8 incomplete: `cargo test` fails in the
 **What should stay.** Keep busy-only bounded retries rather than retrying arbitrary CLI failures. Keep both the error-to-recovery assertions and the held-lock marker test: the former verifies host-visible outcomes, while the latter proves the lock-free fallback actually publishes fresh committed data. Keep credential injection scoped to the child process so the test cannot race with other provider tests.
 
 **Before this leaves review.** `/test-plan US00002` is next and should stamp the freeze against reviewed commit `0e4c9a6`. Retain the ADR-0009 amendment/acceptance at completion. Status remains `In progress`; `open_tests`, `frozen` and `completed` are unchanged. No implementation was edited in this re-review.
+
+### 2026-11-05 — ADR-0009 amended and accepted; merged to `main`
+
+At Kai's request, [[ADR-0009 — Embed the engine with a runner handle and published status]] was amended to the API as built and set to `accepted` (criterion 1). The amendment records:
+
+- the `acquire` + `run(lease, shutdown, status)` split;
+- the `Option<RunnerSnapshot>` initial value;
+- stop-on-drop;
+- the runtime built on the calling thread;
+- the deferred named-pipe/Unix-socket extension point.
+
+The branch `us00002-engine-control-interface` (`f2b3e1c`, `0e4c9a6`) was fast-forwarded into `main` and pushed. The status stays `Review`; Kai moves it to `Done`.
 
 ## Follow-ups
 
