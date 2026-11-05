@@ -184,7 +184,7 @@
       {
         "label": "Start development for all tickets",
         "tool": "claude",
-        "repo": "dispatch",
+        "repo": "dispatch-mesh",
         "prompt": "Work through these tickets sequentially with the /develop workflow: {{ids}}. Complete one ticket fully (gates green, moved onward via /test-plan) before starting the next; stop and ask if a precondition fails."
       }
     ]
