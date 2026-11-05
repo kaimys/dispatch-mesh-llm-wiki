@@ -63,14 +63,13 @@
             "id": "cbcac4b34f5396d0",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "bases",
               "state": {
-                "file": "02_Product/Dispatch Mesh requirements and architecture.md",
-                "mode": "source",
-                "source": false
+                "file": "07_Engineering/Decisions.base",
+                "viewName": "Sicht"
               },
-              "icon": "lucide-file",
-              "title": "Dispatch Mesh requirements and architecture"
+              "icon": "lucide-table",
+              "title": "Decisions"
             }
           }
         ],
@@ -244,6 +243,7 @@
   },
   "active": "cbcac4b34f5396d0",
   "lastOpenFiles": [
+    "02_Product/Dispatch Mesh requirements and architecture.md",
     "07_Engineering/Decisions.base",
     "07_Engineering/Decisions/ADR-0001 — Synchronize drafts separately from permanent history.md",
     "07_Engineering/Decisions/ADR-0002 — Group files into sessions with an inactivity boundary.md",
@@ -275,7 +275,6 @@
     "01_Sources/Clippings",
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
     "02_Product/Dispatch Mesh naming recommendations.md",
-    "02_Product/Dispatch Mesh requirements and architecture.md",
     "00_Start-Here/Team/Kai.md"
   ]
 }
