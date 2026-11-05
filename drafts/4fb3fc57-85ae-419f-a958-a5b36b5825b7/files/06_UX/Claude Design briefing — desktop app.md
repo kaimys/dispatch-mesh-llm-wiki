@@ -7,11 +7,11 @@ updated: 2026-11-05
 # Claude Design briefing — Dispatch Mesh desktop app
 
 ## Results of Claude Design
-
+This are the artifacts created by Claude 
 - [[Dispatch Mesh desktop app.pdf]]
 - [[Dispatch Mesh desktop app.html]]
 - [Claude Design](https://claude.ai/artifact/3LASe6Bux1xNLQWmJegLmG#page-dcb81aee8d83)
-
+## Briefing
 A brief for Claude Design. It asks for the visual and interaction design of the Dispatch Mesh desktop app: the tray icon, the tray menu, the status window, and the conflict, presence and session views that follow it. Everything here comes from approved wiki sources. Where a decision is still open, the brief says so and asks the design to explore options instead of assuming one.
 
 Sources, in precedence order: [[ADR-0010 — Report workspace status and session stages separately|ADR-0010]], [[ADR-0009 — Embed the engine with a runner handle and published status|ADR-0009]], [[ADR-0003 — Preserve synchronized conflict inputs and traceable resolutions|ADR-0003]], [[Dispatch Mesh requirements and architecture]], [[Dispatch Mesh milestone plan]], [[Story - US00001 - Tray icon and status window host|US00001]], [[Dispatch Mesh concept]], and the repository `README.md` (status table and recovery procedures).
