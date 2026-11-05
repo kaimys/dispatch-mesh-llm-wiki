@@ -762,8 +762,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793893215,
-      "last_edit": 1793893249,
-      "revision": 2,
+      "last_edit": 1793893461,
+      "revision": 3,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -778,15 +778,25 @@
           "intent": null,
           "last_edit": 1793893249
         },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "9c318ae2e8d29d56fcc5be009a8e09fe8182de38"
+          },
+          "content": {
+            "blob": "e5084093d9c0f3c39fe3b04f2e45b535d5d543af"
+          },
+          "intent": null,
+          "last_edit": 1793893461
+        },
         "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md": {
           "base": {
             "blob": "523b7224852f28108ee5375b3ecd1114c943df3e"
           },
           "content": {
-            "blob": "d965ea291e4b9347bc514bc420d04d454c6e9d5f"
+            "blob": "c521f0848692ec375df0a74bfbbb4a36722857ed"
           },
           "intent": null,
-          "last_edit": 1793893215
+          "last_edit": 1793893461
         }
       },
       "dependencies": [
