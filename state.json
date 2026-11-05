@@ -1372,8 +1372,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793875620,
-      "last_edit": 1793875739,
-      "revision": 4,
+      "last_edit": 1793875901,
+      "revision": 5,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1383,10 +1383,10 @@
             "blob": "1369e7214b322e6684c4fcfafdcae53698bb3df1"
           },
           "content": {
-            "blob": "933dcb743fbaf28741da8b8b4ee6833474063f71"
+            "blob": "ee1c5dc35cac6dc601f0dca46b5366b6034985a3"
           },
           "intent": null,
-          "last_edit": 1793875680
+          "last_edit": 1793875901
         },
         "00_Start-Here/log.md": {
           "base": {
@@ -1403,10 +1403,10 @@
             "blob": "abf08707214d573b8ba1bf9110f49d8a5d385200"
           },
           "content": {
-            "blob": "80dbf3136749ca158bcfde90d9b715308210d680"
+            "blob": "a16ee94d3ccf86efd1f113343a434b5201da4396"
           },
           "intent": null,
-          "last_edit": 1793875739
+          "last_edit": 1793875901
         },
         "07_Engineering/Decisions.base": {
           "base": {

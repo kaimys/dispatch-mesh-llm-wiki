@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings: 1
+open_findings:
 discussion:
 updated: 2026-11-05
 completed:
@@ -313,7 +313,15 @@ All four findings of the 2026-11-05 review are addressed. `open_findings` is cle
 
 The re-review closes B1, B3 and N1 from `08c0b02`. B2 is partially repaired: IMF-fixdate works, but two other valid HTTP-date forms still lose the retry delay, so criterion 9 remains unmet. One new non-blocking issue concerns accepting impossible calendar dates. All 68 tests and the other mechanical gates passed independently on Windows. Keep the card `In progress` and unfrozen; the next `/develop` session repairs the remaining date parsing and tests before another review. See the dated review below.
 
-## Code review
+### 2026-11-05 — Fix round for the re-review of `7ac5316`
+
+`open_findings` is cleared to empty because the code under that count changed; only the next review may write a number.
+
+- **B2 continued (all HTTP-date forms).** `ai::retry_after_seconds` now accepts all three forms RFC 9110 §5.6.7 requires recipients to accept: IMF-fixdate, RFC 850 and asctime. For RFC 850's two-digit year it applies the §5.6.7 rule: a year more than 50 years ahead of the current year means the most recent past year with the same last two digits. The earlier as-built restriction to IMF-fixdate is withdrawn.
+  - The deterministic test now requires the three forms of the RFC example instant to yield the same future (60 s) and elapsed (0 s) delays. It also checks the two-digit-year boundary against an independently computed reference: `-76` stays 2076 and `-80` becomes 1980 when the current year is 2026.
+  - A new mock-provider test sends RFC 850 and asctime headers and asserts the numeric delay, with no body echo.
+- **N2 (impossible calendar dates).** Day-of-month is validated against month length with Gregorian leap-year rules before conversion, so 31 Feb, 30 Feb 2028, 29 Feb 2027, 31 Apr and day 00 all fall back to "retry later" in every form. Valid leap days (IMF-fixdate and asctime) still parse.
+- **Malformed-form coverage tightened:** wrong digit counts per form, an unknown weekday, a non-GMT zone and a trailing zone on asctime are rejected.
 
 ### 2026-11-05 — branch task00001-stabilization-gaps at 08c0b02
 
