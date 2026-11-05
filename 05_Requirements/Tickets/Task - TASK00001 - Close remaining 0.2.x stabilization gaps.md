@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests: 5
-open_findings: 0
+open_findings:
 discussion:
 updated: 2026-11-05
 completed:
@@ -259,7 +259,7 @@ Roughly 3–5 focused days: steps 1–4 about 60%, tests about 30%, docs 10%. Th
 
 ## Test plan
 
-Manual checks for the six-state status, offline/attention classification, the HTTP 429 split and the new README sections. They apply to branch `task00001-stabilization-gaps` at `c079e9d`, which passed a clean code review. The automated suites already assert everything else (see the report below this list). Live checks use a **disposable folder** and the designated test repository `https://github.com/kaimys/dispatch-mesh-test.git` (per `AGENTS.md`), never the wiki remote.
+Manual checks for the six-state status, offline/attention classification, the HTTP 429 split and the new README sections. They apply to branch `task00001-stabilization-gaps` at `c079e9d`, which passed a clean code review. *(2026-11-05: now `af1d3a0`, a test-only CI fix on top; see As-built notes.)* The automated suites already assert everything else (see the report below this list). Live checks use a **disposable folder** and the designated test repository `https://github.com/kaimys/dispatch-mesh-test.git` (per `AGENTS.md`), never the wiki remote.
 
 - [ ] **Kai:** Push the branch to `origin` (`git push -u origin task00001-stabilization-gaps`). In the repository's **Actions** tab, open the *Engine checks* run for `c079e9d`. **Expected:** both the `windows-latest` and `ubuntu-latest` jobs are green. Only Windows has been verified so far; Linux has never run this code.
 - [ ] **Kai:** Real network loss against GitHub.
@@ -376,6 +376,15 @@ B2's format support and N2's impossible-date handling are now repaired. Independ
   - **Checked against `291c263`'s `ai.rs`:** there the test fails at "one second past the cutoff means 1976", the reviewed defect.
 - **Gates (2026-11-05, Windows 11, Git 2.35.1):** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` green on commit `c079e9d`. 69 tests (unchanged count; the boundary cases extend `retry_after_accepts_delta_seconds_and_http_dates`). The Ubuntu CI leg has not been run (not pushed).
 - **Next:** a fresh `/code-review TASK00001` against `c079e9d`.
+
+### 2026-11-05 — CI failure on Linux, fixed in `af1d3a0` (test only)
+
+The first push ran GitHub Actions *Engine checks* (run 42018003838) on `c079e9d`. **`ubuntu-latest` failed** in `a_failed_sync_records_its_cause_even_when_another_operation_holds_the_lock`, with `left: Offline, right: NeedsAttention`. **`windows-latest` did not fail**: it was cancelled by the matrix's default fail-fast when the Ubuntu job failed.
+
+- **Cause: the test, not the product.** The test's fake remote stalled and then closed the connection. Curl reports that as "Empty reply from server" on Windows (unclassified, so `needs_attention`) but as "Connection reset by peer" on Linux, which ADR-0010 correctly classifies as `offline`. The assertion therefore depended on the platform's curl wording.
+- **Fix:** after the stall, the fake remote now answers `HTTP/1.1 500`. Git reports that as an unclassified failure on every platform, so `needs_attention` deterministically. The test's purpose is unchanged: the cause must be durable under lock contention.
+- **Still guards B1:** run against `08c0b02`'s `engine.rs`, it fails. No production code changed.
+- **Because the build under the clean review changed,** `open_findings` is cleared to empty, per the invariants. `af1d3a0` needs a short re-review of this test-only diff before the card can leave Review. The manual test-plan items now apply to `af1d3a0`.
 
 ## Code review
 
