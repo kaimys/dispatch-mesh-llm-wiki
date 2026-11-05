@@ -63,13 +63,14 @@
             "id": "cbcac4b34f5396d0",
             "type": "leaf",
             "state": {
-              "type": "bases",
+              "type": "markdown",
               "state": {
-                "file": "07_Engineering/Decisions.base",
-                "viewName": "Sicht"
+                "file": "02_Product/Dispatch Mesh requirements and architecture.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-table",
-              "title": "Decisions"
+              "icon": "lucide-file",
+              "title": "Dispatch Mesh requirements and architecture"
             }
           }
         ],
@@ -135,7 +136,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 444.16668701171875
+    "width": 328.16668701171875
   },
   "right": {
     "id": "be9201a3d6b37774",
@@ -241,10 +242,10 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "55ceda3168845134",
+  "active": "cbcac4b34f5396d0",
   "lastOpenFiles": [
-    "07_Engineering/Decisions/ADR-0001 — Synchronize drafts separately from permanent history.md",
     "07_Engineering/Decisions.base",
+    "07_Engineering/Decisions/ADR-0001 — Synchronize drafts separately from permanent history.md",
     "07_Engineering/Decisions/ADR-0002 — Group files into sessions with an inactivity boundary.md",
     "07_Engineering/Decisions/ADR-0003 — Preserve synchronized conflict inputs and traceable resolutions.md",
     "07_Engineering/Decisions/ADR-0004 — Bind agent intent to attributable changes.md",
