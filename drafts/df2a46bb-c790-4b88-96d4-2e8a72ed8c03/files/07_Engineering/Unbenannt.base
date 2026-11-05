@@ -10,3 +10,5 @@ views:
       - date
       - status
       - superseded_by
+    columnSize:
+      note.status: 89
