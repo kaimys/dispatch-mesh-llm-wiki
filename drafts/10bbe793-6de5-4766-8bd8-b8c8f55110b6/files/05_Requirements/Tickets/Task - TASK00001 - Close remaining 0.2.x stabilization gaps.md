@@ -45,6 +45,11 @@ Gap analysis of 2026-11-05 against [[Dispatch Mesh milestone plan]] â†’ *0.2.x â
 3. **AI failures.** `http_failure` (`src/ai.rs:138`) gives distinct hints for 400/401/403/404/5xx and for timeouts and connection failures. HTTP 429 covers both a temporary rate limit and exhausted quota, and gets one hint ("check rate limits and available API quota"). The plan asks to distinguish them "where the provider supplies that information". OpenAI-compatible providers send an error `code`/`type` (e.g. `insufficient_quota` vs. `rate_limit_exceeded`) and a `Retry-After` header. Invariant: diagnostics must not echo response bodies or credentials.
 4. **Documentation.** The README documents path/size limits, the ignore policy and the recovery folder. It defers storage growth ("retention, and application-level cleanup remain future work") and gives no step-by-step recovery procedure for sync paused for attention, pending-capture fallback, or restoring from `.mesh/recovery/<id>/`.
 
+Refinement findings (2026-11-05):
+- **Interrupted publication already has a recovery path; it is only untested.** `Workspace::sync` (`src/engine.rs:580`) calls `reconcile_published` before `publish_ready` on every cycle. `reconcile_published` marks a session published when a commit on `main` ends with its `Mesh-Session: <id>` and `Mesh-Snapshot: <hash>` trailers. So a session pushed to `main` but not yet recorded locally should be recognized on the next sync rather than published twice. The test must prove exactly this.
+- **Only one consumer reads the `status` value.** That is `tests/cli.rs:250`, which asserts `"synced"`. The GitHub harness's `status` keys are its own PASS/FAIL results, not Mesh's. No external consumer exists yet; the tray (US00001) will be the first.
+- **Failure persistence is decided upstream.** [[Story - US00002 - Local engine control interface for the tray host|US00002]] decides that AI-summary failures are persisted in state, alongside sync failures, and that the runner's capture, sync and summary errors travel in the published status snapshot. This ticket's status model defines how they are presented.
+
 Downstream: [[Story - US00001 - Tray icon and status window host|US00001]] derives its icon states from item 2, and [[Story - US00002 - Local engine control interface for the tray host|US00002]] transports that status to the host.
 
 ## Scope
