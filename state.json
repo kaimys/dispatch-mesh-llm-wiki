@@ -1155,6 +1155,48 @@
       },
       "message_base": "ad95c3205ee30fecb453e6c7475b880b4d0c6d24"
     },
+    "89872dbb-0142-4c5a-b0e2-b5282b327920": {
+      "id": "89872dbb-0142-4c5a-b0e2-b5282b327920",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793878309,
+      "last_edit": 1793878309,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        ".obsidian/workspace.json": {
+          "base": {
+            "blob": "5c88557fc1b7a46a86af4b7ba760339356fbd68b"
+          },
+          "content": {
+            "blob": "3393abd02b656001a82ab71de4ddfaa5bc6e50d9"
+          },
+          "intent": null,
+          "last_edit": 1793878309
+        },
+        "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md": {
+          "base": {
+            "blob": "3a2477cc61cf4d4379a7b655cb73518b9250c41a"
+          },
+          "content": {
+            "blob": "1ac2c816511d47883e96d4cbbe80803474e68d8a"
+          },
+          "intent": null,
+          "last_edit": 1793878309
+        }
+      },
+      "dependencies": [
+        "9b1a1984-e975-4d0e-90e2-018897c39778"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "8d897d95-6824-4982-a669-de63f56b2cb3": {
       "id": "8d897d95-6824-4982-a669-de63f56b2cb3",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
@@ -1261,7 +1303,7 @@
       "created_at": 1793877998,
       "last_edit": 1793877998,
       "revision": 1,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
