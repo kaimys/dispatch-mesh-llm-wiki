@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings:
+open_findings: 0
 discussion:
 updated: 2026-11-05
 completed:
@@ -325,6 +325,23 @@ The re-review closes B1, B3 and N1 from `08c0b02`. B2 is partially repaired: IMF
 - **Gates (2026-11-05, Windows 11, Git 2.35.1):** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` green on commit `291c263`. 69 tests: 5 lib unit, 9 CLI, 27 engine, 20 provider, 8 storage/transport. The Ubuntu CI leg has not been run (not pushed).
 - **Next:** a fresh `/code-review TASK00001` against `291c263`.
 
+### 2026-11-05 — Re-review hand-off blocked at `291c263`
+
+B2's format support and N2's impossible-date handling are now repaired. Independent review found one new edge case in the added RFC 850 year handling: **B4**, the 50-year cutoff compares only the year, not the complete timestamp. This can report a roughly 50-year retry delay for a timestamp the RFC requires interpreting in the past. Criterion 9 remains unmet for that boundary input. All 69 tests and the other mechanical gates passed independently on Windows. The ticket stays `In progress`, unfrozen, pending the B4 repair and another review.
+
+### 2026-11-05 — Fix round for the re-review of `291c263`
+
+`open_findings` is cleared to empty because the code under that count changed; only the next review may write a number.
+
+- **B4 (RFC 850 cutoff on the complete timestamp).** The two-digit year is now resolved only after month, day and time are parsed. `rfc850_year` compares the complete candidate timestamp in the current century against the instant exactly 50 calendar years after now. Exactly at the cutoff stays in the future; any later instant means the previous century. The final interpreted date is then validated, so impossible dates are still rejected. The year-only `full_year` helper is removed; a small `Year` enum marks the RFC 850 case, and `civil_from_days` (inverse of `days_from_civil`) provides now's calendar date.
+  - **Boundary chosen for leap days:** when now is 29 Feb, the 50th anniversary does not exist, and the cutoff becomes the following instant, 1 Mar 00:00:00. This is covered by a test.
+  - **New deterministic cases** (reference values computed independently in Python), with now = 2026-11-05T13:00:00Z: one second before the cutoff, exactly at it, one second after (→ 1976, 0 s; the reviewer's reproduction), and 31-Dec-76 (→ 1976, 0 s), plus the leap-day cutoff pair. The existing early-2076 and 2080 cases are kept.
+  - **Checked against `291c263`'s `ai.rs`:** there the test fails at "one second past the cutoff means 1976", the reviewed defect.
+- **Gates (2026-11-05, Windows 11, Git 2.35.1):** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` green on commit `c079e9d`. 69 tests (unchanged count; the boundary cases extend `retry_after_accepts_delta_seconds_and_http_dates`). The Ubuntu CI leg has not been run (not pushed).
+- **Next:** a fresh `/code-review TASK00001` against `c079e9d`.
+
+## Code review
+
 ### 2026-11-05 — branch task00001-stabilization-gaps at 08c0b02
 
 **Scope and independence.** Fresh reviewer session; this session authored none of the implementation. Reviewed the complete `main...HEAD` diff (one ticket-scoped commit; 12 files), the whole ticket including revisions and as-built notes, README, workflow invariants and governing ADR-0001/0005/0007/0009/0010. Working tree was clean. No open PR was found for this branch, so there were no PR reviews to fold in.
@@ -425,6 +442,72 @@ The earlier review's assessment of criteria 1–5, 6a, 10 and 11 still holds; th
 1. In a fresh `/develop TASK00001` session, finish **B2** by parsing all HTTP-date forms and correcting the tests that currently require valid formats to be rejected. Address **N2** while repairing the parser.
 2. Run the mechanical gates, record the as-built result and clear the stale `open_findings` count when code changes.
 3. Request another `/code-review TASK00001` against the new commit. A clean review can then hand off to `/test-plan`, which stamps the freeze; this review does not move the card or write a test plan.
+
+### 2026-11-05 — branch task00001-stabilization-gaps at 291c263
+
+**Scope and independence.** The same independent reviewer checked the complete `7ac5316..291c263` diff and surrounding code in `src/ai.rs` and `tests/provider.rs`, together with the new as-built notes and the unchanged ticket contract. Earlier full-branch and repair reviews remain inputs; the cumulative branch has three ticket-scoped commits. This session authored none of that code. Working tree was clean and no open PR was found. Restored the missing `## Code review` heading before the existing review entries; their content and the contract zone are unchanged.
+
+**Gates.** Independently reran `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, and `cargo test`: all passed on Windows. All **69 tests** passed: 5 library, 9 CLI, 27 engine, 20 provider and 8 storage/transport. Engine tests took 171.26 seconds. `git diff --check main...HEAD` passed. No live provider/GitHub checks or Linux/macOS verification were run; the previously recorded locale limitation remains.
+
+**Verdict: changes required — 1 blocking finding, 0 non-blocking findings.** The previous B2 and N2 cases are repaired, but the newly introduced year helper has the boundary defect below. Set `open_findings: 1` for this commit; keep `In progress`, `open_tests` unchanged and the ticket unfrozen. `/test-plan` remains blocked by criterion 9.
+
+#### Earlier findings checked
+
+- **B2, all HTTP-date forms — resolved for the previously reported cases.** The three equivalent RFC example dates now return 60 seconds before the timestamp and 0 after it. The new mock-provider test exercises RFC 850 and asctime without echoing body text. This replaces the earlier deliberate rejection of those formats.
+- **N2, impossible dates — resolved.** Month lengths and Gregorian leap years are validated before conversion; invalid dates in each form take the safe fallback. Independent comparisons include the non-leap century 2100 and leap century 2400.
+- **B1, B3 and N1 remain resolved.** Their implementation and regression tests are unchanged by this commit, and the complete suite passed again.
+
+#### Finding
+
+1. **B4 — [P2, blocking] Apply RFC 850's 50-year cutoff to the complete timestamp.** `src/ai.rs:276–280` in `full_year`, called before parsing the month/day/time at `src/ai.rs:238`. It compares `candidate > current + 50`, so every date in year 2076 remains 2076 when the reference year is 2026, even after the actual 50-year anniversary. With `now_unix = 1793883600` (`2026-11-05T13:00:00Z`), `retry_after_seconds("Friday, 05-Nov-76 13:00:01 GMT", now_unix)` returns **`Some(1577923201)`**. The candidate is one second beyond 50 calendar years in the future, so the required interpretation is **1976**, already elapsed, and the result should be **`Some(0)`**. `Friday, 31-Dec-76 23:59:59 GMT` likewise incorrectly returns `Some(1582801199)`.
+
+   [RFC 9110 §5.6.7](https://www.rfc-editor.org/rfc/rfc9110.html#section-5.6.7) applies this rule to the **timestamp**, rather than just its numeric year. This is a narrow boundary case in the new obsolete-format support; ordinary near-term retry dates pass. It affects the displayed retry delay, not captured data or the existing retry cadence. It nevertheless fails criterion **9**'s supplied-delay requirement.
+
+   **Fix:** parse the candidate month/day/time as well as the year before deciding its century, compare against the complete 50-calendar-year threshold, and apply the past-century interpretation when beyond it. Preserve the distinction between exactly 50 years and more than 50 years. Validate the final interpreted calendar date. Add deterministic cases immediately before, exactly at, and one second after the threshold, plus a later month/day in the boundary year. Keep the existing early-2076 and 2080 tests, which do not expose this error. An established HTTP-date parser is also acceptable if its interpretation is checked against these cases. The contract does not need `/update-ticket` to make this repair.
+
+#### Independent evidence and what should stay
+
+- The reviewer generated **509 independent date/calendar cases** using Python's calendar and datetime calculations and compared them with the compiled Rust helper. All passed. Six checks reproducing the original three-format failure before and after the RFC example timestamp also passed. This confirms the useful format and invalid-date repairs without claiming those cases cover the newly found cutoff.
+- The added month-length validation avoids silently normalizing impossible dates, including invalid leap days. Keep it alongside coverage for valid leap days.
+- Future/elapsed mock-provider cases retain sanitized diagnostics and validate the actual HTTP response path. The direct date tests keep arithmetic reproducible with a fixed clock.
+- All probe source, inputs and output are retained in ignored `target/review-task00001/`: `third-review-cases.py`, `third-review-cases.json`, `third-review-dates.rs`, `third-review-dates-output.txt`, `third-review-year-boundary.rs` and `third-review-year-boundary-output.txt`. No implementation code was modified.
+
+**Acceptance criteria and plan.** All prior passing criteria remain supported by unchanged code and the rerun suite. Criteria 8 and 10 retain the repaired stage/provider coverage; criterion 12 passes with 69 tests. Criterion 9 is the sole failed criterion, for B4. The format-support and invalid-date decisions are documented in the new dated as-built entry. No unrelated branch changes or other undocumented plan departures were found.
+
+#### Repair plan — before this leaves review
+
+1. A fresh `/develop TASK00001` session repairs B4 using a full-timestamp cutoff and adds the boundary cases above.
+2. Rerun the mechanical gates, append the result to the as-built notes and clear the stale findings count when code changes.
+3. Request a fresh `/code-review TASK00001`. A clean result can hand off to `/test-plan`, which stamps the freeze. This review changes no ticket status or manual-test counter.
+
+### 2026-11-05 — branch task00001-stabilization-gaps at c079e9d
+
+**Scope and independence.** Re-reviewed the complete B4 repair in `291c263..c079e9d`: `src/ai.rs`, `tests/provider.rs` and their surrounding code, against the recorded failure, the ticket contract and the latest as-built notes. Earlier full-branch and repair reviews remain inputs. The reviewer authored none of the implementation. Review began while these two files were uncommitted; the author committed them during verification. Their SHA-256 hashes matched before and after that commit, so the code inspected and tested is the code in `c079e9d`. The working tree was clean at the final check. No open PR was found. No source code changed in this review session.
+
+**Gates.** Independently ran `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, and `cargo test`: all passed on Windows. All **69 tests** passed: 5 library, 9 CLI, 27 engine, 20 provider and 8 storage/transport. Engine tests took 182.13 seconds. `git diff --check main...HEAD` passed. These are local automated checks; no live provider/GitHub tests or Linux/macOS verification were performed. The previously recorded limitation concerning installed German Git translations remains.
+
+**Verdict: clean review — 0 blocking findings, 0 non-blocking findings.** B4 is resolved, and no new actionable finding was identified in this repair. Set `open_findings: 0` for `c079e9d`. Leave `status: In progress`, `open_tests` and `frozen` unchanged: `/test-plan` is the next workflow and stamps the freeze against the reviewed commit.
+
+#### Findings checked and acceptance criteria
+
+- **B4 — resolved.** RFC 850 century selection now happens after parsing month/day/time and compares the entire candidate timestamp against the 50-calendar-year cutoff. Exactly at the cutoff stays in the future; a later instant is interpreted in the previous century. Both original reproductions (`Friday, 05-Nov-76 13:00:01 GMT` and `Friday, 31-Dec-76 23:59:59 GMT`, with the recorded reference clock) return `Some(0)`. Final calendar validation remains after century selection.
+- **Independent boundary verification:** 360 Python-derived cases passed across reference dates in 2026–2030, month boundaries, differing times of day, and the instants immediately before, at and after the cutoff. These include leap-day reference dates and the recorded March 1 normalization policy. Both original B4 reproductions and all 509 earlier independent calendar cases passed against the current compiled library.
+- **Earlier B1, B2, B3, N1 and N2 remain resolved.** The full suite passed again, including lock-contention persistence/recovery, all HTTP-date forms, invalid dates, discarded-stage/reopen behavior and the actual CLI AI-failure persistence path. This commit changes only the RFC 850 cutoff implementation and its regression assertions.
+- Criterion **9**, previously blocked by B4, now passes the reviewed cases. All other acceptance criteria retain the passing assessments from the preceding reviews and the rerun suite; criterion **12** is independently green. No contract rewrite is required. The implementation and leap-day choice are recorded in the dated as-built notes. No unrelated changes or undocumented plan departures were found.
+
+#### What is good and should stay
+
+- Deferring two-digit-year interpretation until the complete timestamp is available directly addresses the failure instead of adding a special case for the reported date.
+- Calendar validation runs on the final interpreted year, preserving the earlier invalid-date fix.
+- The regression distinguishes before, exactly at and after the cutoff and preserves the early-2076/2080 cases; it would detect reintroduction of the year-only comparison.
+- The inverse calendar helper uses the same civil-date model as the existing conversion, and independent timestamp comparisons cover the new calculation across month and leap-day boundaries.
+
+**Evidence.** Ignored `target/review-task00001/` retains `fourth-review-boundary-cases.py`, `fourth-review-boundary-cases.json`, `fourth-review-boundary.rs` and `fourth-review-boundary-output.txt`. Earlier evidence is retained separately. Probes use fixed clocks and the compiled library; they contact no live provider and change no user workspace.
+
+#### Before this leaves review
+
+1. Run `/test-plan TASK00001` against `c079e9d`, writing only the required manual checks and stamping the ticket freeze through that workflow.
+2. Keep subsequent review/test records tied to the commit that will ship. Any later implementation change invalidates this findings count and needs the applicable verification again.
 
 ## Follow-ups
 

@@ -78,3 +78,20 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-05] develop | TASK00001 re-review fixes
 - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: B2 (all HTTP-date forms) and N2 (impossible dates rejected) from the re-review of `7ac5316` fixed in `291c263`; gates green (69 tests); `open_findings` cleared to empty. Awaiting a fresh `/code-review TASK00001`.
+
+## [2026-11-05] research | Mesh competitor profiles and SWOT
+- Created [[Competitor overview]] and profiles for [[gitwatch]], [[SparkleShare]], [[Obsidian Git]], [[Agentic Git Sync]], [[git-annex assistant]], [[Syncthing]], and [[Jujutsu]] (architectural reference), from [[Dispatch Mesh concept]]. Each includes description, repository/homepage, dated GitHub metrics, documented features, Mesh differences, adaptation recommendations, and primary-source links.
+- Created [[Dispatch Mesh SWOT analysis]] from the profiles, distinguishing implemented preview behavior from roadmap features and analyst hypotheses from observed facts.
+- Queried live REST stars/forks and GraphQL discussion-thread totals/enabled state. Marked git-annex canonical GitHub metrics N/A and separated unofficial con/git-annex counts; noted SparkleShare's funded reboot and inaccessible homepage.
+- Listed all nine pages in [[index]]. Registered manual refresh before decision reuse in [[Competitor overview]]; no recurring automation created. This was document research, not competitor runtime or Mesh engine verification.
+
+## [2026-11-05] code-review | TASK00001 re-review at 291c263
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: independently passed formatting, Clippy and all 69 tests on Windows. Closed the earlier B2 format-rejection and N2 invalid-date cases; 509 independent calendar comparisons and six original-format reproductions passed.
+- Recorded new blocking B4: RFC 850's 50-year rule compares only years, so a timestamp just beyond the actual cutoff incorrectly reports a roughly 50-year retry delay rather than an expired date. Retained probe evidence and a repair plan; set `open_findings: 1`, kept `In progress` and unfrozen, and left `open_tests` unchanged. Restored the missing review-section heading without altering historical entries. No implementation changes or PR comment.
+
+## [2026-11-05] develop | TASK00001 B4 fix
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: B4 (RFC 850 50-year cutoff on the complete timestamp) from the re-review of `291c263` fixed in `c079e9d`; gates green (69 tests); `open_findings` cleared to empty. Awaiting a fresh `/code-review TASK00001`.
+
+## [2026-11-05] code-review | TASK00001 clean at c079e9d
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: independently verified the B4 fix, with 360 cutoff cases, both original reproductions and 509 earlier calendar comparisons. Formatting, Clippy and all 69 tests passed locally on Windows. Confirmed the files reviewed before the author committed match `c079e9d`; no new findings.
+- Recorded 0 blocking and 0 non-blocking findings; set `open_findings: 0`. Kept `In progress`, unfrozen, and left `open_tests` unchanged. `/test-plan TASK00001` is next against the reviewed commit. No implementation changes or PR comment; no live remote/provider or Linux/macOS checks.
