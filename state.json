@@ -826,8 +826,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793867106,
-      "last_edit": 1793867256,
-      "revision": 2,
+      "last_edit": 1793867281,
+      "revision": 3,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -837,10 +837,66 @@
             "blob": "fb1a894b22949b4664a561a958e6a68f56777d06"
           },
           "content": {
-            "blob": "469226e5beae2eb9166f589141734947f20e4900"
+            "blob": "994ae3fead81d17d868afa82cd40d094efa6b5de"
           },
           "intent": null,
-          "last_edit": 1793867256
+          "last_edit": 1793867281
+        },
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "fcc707b41ae6ab0a59021efafecc23cb3509c9ce"
+          },
+          "content": {
+            "blob": "204aee5938fcf0b02d3c7e833baae801f334fad5"
+          },
+          "intent": null,
+          "last_edit": 1793867281
+        },
+        "02_Product/Dispatch Mesh concept.md": {
+          "base": null,
+          "content": {
+            "blob": "54fcf1f6ffd151e13aa4d97eac88a545f8714d18"
+          },
+          "intent": null,
+          "last_edit": 1793867281
+        },
+        "02_Product/Dispatch Mesh milestone plan.md": {
+          "base": {
+            "blob": "0c549f50b030f2999e8f100df97ed070be492738"
+          },
+          "content": {
+            "blob": "aaf2cb0addbe71838b2e28afeb16da4ff0afeaa9"
+          },
+          "intent": null,
+          "last_edit": 1793867281
+        },
+        "02_Product/Dispatch Mesh naming recommendations.md": {
+          "base": {
+            "blob": "94542d76a9bef1e5360d62a09ef40c96cc3aa1ff"
+          },
+          "content": {
+            "blob": "be69a34c570662c2c175e44a811d77de1edca027"
+          },
+          "intent": null,
+          "last_edit": 1793867281
+        },
+        "02_Product/Dispatch Mesh requirements and architecture.md": {
+          "base": {
+            "blob": "c4c9f72f478e27703ed037c7cfa7d171d9e078ff"
+          },
+          "content": {
+            "blob": "d99b0c171066fff5d7aaef38c9d9560d08e2e54a"
+          },
+          "intent": null,
+          "last_edit": 1793867281
+        },
+        "02_Product/README.md": {
+          "base": {
+            "blob": "54fcf1f6ffd151e13aa4d97eac88a545f8714d18"
+          },
+          "content": null,
+          "intent": null,
+          "last_edit": 1793867281
         }
       },
       "dependencies": [],

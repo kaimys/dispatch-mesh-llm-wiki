@@ -51,12 +51,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02_Product/README.md",
+                "file": "02_Product/Dispatch Mesh concept.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "Dispatch Mesh concept"
             }
           }
         ],
@@ -228,7 +228,7 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "ad3f3a944df9e9aa",
+  "active": "55ceda3168845134",
   "lastOpenFiles": [
     "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
     "01_Sources/Clippings",
@@ -239,7 +239,7 @@
     "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md.tmp.13304.c080e0697426",
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md.tmp.13304.08879b50a313",
-    "02_Product/README.md",
+    "02_Product/Dispatch Mesh concept.md",
     "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md.tmp.14144.41e0d521f9d3",
     "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md.tmp.14144.db57bfd3a095",
     "00_Start-Here/sedW44df6",
