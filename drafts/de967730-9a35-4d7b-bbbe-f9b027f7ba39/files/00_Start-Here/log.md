@@ -113,3 +113,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-05] decision | TASK00001 no re-review
 - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: Kai decided one code review is enough; post-review commits `af1d3a0`..`41a543b` not re-reviewed (recorded in As-built notes). Ready for Done.
+
+## [2026-11-05] merge | TASK00001 into main
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: fast-forwarded into `main` at `41a543b`; CI green on both platforms (run 42035665583). Card still in Review until moved to Done.

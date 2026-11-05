@@ -423,6 +423,10 @@ Kai decided that one code review is enough: the clean review of `c079e9d` stands
 - `07903c4` changes production code (`operation_lock` retries up to 500 ms) after the last review. It is covered by green CI on both platforms in three attempts and by the full local suite, not by an independent review.
 - `open_findings` stays empty, because only `/code-review` may write a count. The gate out of Review is `open_tests: 0`, which is met.
 
+### 2026-11-05 — Merged into `main`
+
+`task00001-stabilization-gaps` was fast-forwarded into `main` (`3c2d513..41a543b`) and pushed on Kai's request. CI run 42035665583 on `main` at `41a543b` was green on `ubuntu-latest` (including the locale step) and on `windows-latest`.
+
 ## Code review
 
 ### 2026-11-05 — branch task00001-stabilization-gaps at 08c0b02
