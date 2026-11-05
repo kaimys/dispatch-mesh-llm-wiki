@@ -73,7 +73,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -241,11 +241,11 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "d347610810d2fba1",
+  "active": "1c1c00966f008fa6",
   "lastOpenFiles": [
+    "02_Product/Dispatch Mesh SWOT analysis.md",
     "02_Product/Competitor overview.md",
     "02_Product/Competitors/Agentic Git Sync.md",
-    "02_Product/Dispatch Mesh SWOT analysis.md",
     "02_Product/Dispatch Mesh concept.md",
     "02_Product/Competitors/Jujutsu.md",
     "02_Product/Competitors/Syncthing.md",
