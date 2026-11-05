@@ -72,7 +72,12 @@ Downstream: [[Story - US00001 - Tray icon and status window host|US00001]] deriv
 
 - [x] **Split or keep together?** Should these four items stay in one ticket, or split into separate tickets? The status-model item blocks US00001 and is much larger than the others.
   **Answer (Kai, 2026-11-05):** keep together in one ticket. The implementation plan orders the status model first, because US00001 depends on it.
-- [ ] **Status shape.** One top-level state with a precedence order (which wins when a workspace is both offline and has a draft waiting?), a set of flags, or per-session states plus a workspace summary?
+- [x] **Status shape.** One top-level state with a precedence order (which wins when a workspace is both offline and has a draft waiting?), a set of flags, or per-session states plus a workspace summary?
+  **Answer (Kai, 2026-11-05):** a workspace summary plus a stage per session.
+  - **Session stage**, one of `saved_locally` → `draft_uploaded` → `waiting_for_finalization` → `published`, or `discarded`.
+  - **Workspace summary**, one state with a fixed precedence: `needs_attention` > `offline` > `saved_locally` > `draft_uploaded` > `waiting_for_finalization` > `synced`. Here `synced` means every own session is published or discarded and nothing is waiting.
+  - **`reason`**, naming the cause whenever the summary is `needs_attention` or `offline`.
+  - The tray icon reads only the summary; detail views read the sessions.
 - [ ] **Offline detection.** What makes Mesh decide it is offline rather than failing? Connection-level transport errors only, or also authentication failures? And after how many consecutive failures?
 - [ ] **"Draft uploaded" bookkeeping.** Should the engine record the last draft revision successfully pushed per session (a new state field and migration), or derive it from the device branch on demand?
 - [ ] **Compatibility.** Can existing `status` JSON consumers (scripts, the GitHub harness) tolerate a changed `status` value set, or must the old three values stay as a separate field?
