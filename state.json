@@ -1272,8 +1272,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793872504,
-      "last_edit": 1793873335,
-      "revision": 36,
+      "last_edit": 1793873350,
+      "revision": 38,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1283,10 +1283,10 @@
             "blob": "c90ad487155c590ab6bada1af9b4f710bfb33a66"
           },
           "content": {
-            "blob": "3fbca69d00b2d0c759fe0e001db87fc08cefcd94"
+            "blob": "a4ba404c628d1ba51f113a0d0b9333ab7a741e6f"
           },
           "intent": null,
-          "last_edit": 1793873335
+          "last_edit": 1793873346
         },
         "00_Start-Here/index.md": {
           "base": {
@@ -1303,10 +1303,10 @@
             "blob": "e469978d1c338cc2a2b5e11f70a4e5c4cb9b54bc"
           },
           "content": {
-            "blob": "53867018a3ec978e0dc34db81f23a87e3fe7e71a"
+            "blob": "52ffc44ac2377e2edea50f9ed84d547d3f115a9b"
           },
-          "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
-          "last_edit": 1793872638
+          "intent": null,
+          "last_edit": 1793873350
         },
         "02_Product/Dispatch Mesh requirements and architecture.md": {
           "base": {
@@ -1441,10 +1441,10 @@
         "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md": {
           "base": null,
           "content": {
-            "blob": "2ac4e525ae6c8460a200ffb9ba4e9d05e53ef0f3"
+            "blob": "b63c7a3ad77fd1490b05cf12006bf78e773ef1f2"
           },
-          "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
-          "last_edit": 1793872580
+          "intent": null,
+          "last_edit": 1793873346
         }
       },
       "dependencies": [],
