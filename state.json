@@ -525,8 +525,11 @@
         "9b1a1984-e975-4d0e-90e2-018897c39778"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: add Dispatch Mesh desktop app design briefing",
+        "description": "Add a UX briefing covering tray states and menu, status and conflict views, notifications, and a guided-setup flow. Link the briefing from the wiki index, record it in the change log, and update the Obsidian workspace state."
+      },
+      "message_base": "8e1fea23873ece76ef747c6fee0098f6f527522e"
     },
     "16bcef2e-800a-47e7-a542-bbf713b2be19": {
       "id": "16bcef2e-800a-47e7-a542-bbf713b2be19",
