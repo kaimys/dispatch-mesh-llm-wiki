@@ -259,7 +259,7 @@ Roughly 3–5 focused days: steps 1–4 about 60%, tests about 30%, docs 10%. Th
 
 ## Test plan
 
-Manual checks for the six-state status, offline/attention classification, the HTTP 429 split and the new README sections. They apply to branch `task00001-stabilization-gaps` at `c079e9d`, which passed a clean code review. *(2026-11-05: now `af1d3a0`, a test-only CI fix on top; see As-built notes.)* The automated suites already assert everything else (see the report below this list). Live checks use a **disposable folder** and the designated test repository `https://github.com/kaimys/dispatch-mesh-test.git` (per `AGENTS.md`), never the wiki remote.
+Manual checks for the six-state status, offline/attention classification, the HTTP 429 split and the new README sections. They apply to branch `task00001-stabilization-gaps` at `c079e9d`, which passed a clean code review. *(2026-11-05: now `07903c4`, after two CI fixes on top; see As-built notes.)* The automated suites already assert everything else (see the report below this list). Live checks use a **disposable folder** and the designated test repository `https://github.com/kaimys/dispatch-mesh-test.git` (per `AGENTS.md`), never the wiki remote.
 
 - [ ] **Kai:** Push the branch to `origin` (`git push -u origin task00001-stabilization-gaps`). In the repository's **Actions** tab, open the *Engine checks* run for `c079e9d`. **Expected:** both the `windows-latest` and `ubuntu-latest` jobs are green. Only Windows has been verified so far; Linux has never run this code.
 - [ ] **Kai:** Real network loss against GitHub.
@@ -385,6 +385,15 @@ The first push ran GitHub Actions *Engine checks* (run 42018003838) on `c079e9d`
 - **Fix:** after the stall, the fake remote now answers `HTTP/1.1 500`. Git reports that as an unclassified failure on every platform, so `needs_attention` deterministically. The test's purpose is unchanged: the cause must be durable under lock contention.
 - **Still guards B1:** run against `08c0b02`'s `engine.rs`, it fails. No production code changed.
 - **Because the build under the clean review changed,** `open_findings` is cleared to empty, per the invariants. `af1d3a0` needs a short re-review of this test-only diff before the card can leave Review. The manual test-plan items now apply to `af1d3a0`.
+
+### 2026-11-05 — Second Linux CI failure: spurious `WorkspaceBusy`, fixed in `07903c4`
+
+CI run 42018932901 on `af1d3a0` failed again on `ubuntu-latest` (attempt 1: three engine tests; a rerun of the same commit: two **different** tests, including `journal_recovers_a_crash_after_displacing_the_old_file` and `offline_sync_keeps_durable_local_capture`, which predate this branch). Every failure was `WorkspaceBusy` ("Another Mesh operation is using this workspace") on a workspace that only that test uses, at a non-retrying lock acquisition: `Workspace::open` right after a drop, or the network lock at the start of `sync`. `main` was green in all six earlier CI runs.
+
+- **Cause (inferred from the evidence, not reproduced locally; no Linux environment is available on this machine):** the workspace locks are `flock` locks, which belong to the open file description. When any thread spawns a child (Git), the child holds a copy of every descriptor until it execs, so a lock just released can stay held for a moment. An immediate re-lock then fails. This branch adds many tests that drop and reopen while other test threads spawn Git, which raises the odds. The product has the same exposure: the runner spawns Git on one thread while capturing on another. Windows does not let child processes inherit these handles, which is why it never appeared locally.
+- **Fix (production code):** `operation_lock` retries for up to 500 ms (`LOCK_SETTLE`) before reporting `WorkspaceBusy`. Real contention from another operation lasts far longer and is still reported; no test depends on an immediate busy. Local gates green on Windows (69 tests).
+- **CI:** `fail-fast: false` in `.github/workflows/ci.yml`. Until now every Ubuntu failure cancelled the Windows job, so CI never reported a Windows result for this branch.
+- **Review impact:** `open_findings` stays empty. The re-review must cover `af1d3a0` (test) and `07903c4` (lock retry and CI config).
 
 ## Code review
 
