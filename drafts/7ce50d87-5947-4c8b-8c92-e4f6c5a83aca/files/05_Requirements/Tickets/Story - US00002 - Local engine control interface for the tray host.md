@@ -1,14 +1,14 @@
 ---
 id: US00002
 type: story
-status: "Backlog"
+status: "Refinement"
 priority: high
 rank: 1000
 version_target: v0.2.5
 size:
 assignee:
 owner: "[[Kai]]"
-open_questions: 6
+open_questions: 7
 open_tests:
 open_findings:
 discussion:
@@ -46,6 +46,11 @@ As the developer of the Mesh tray host, I want one defined way to observe and co
   - **Waking the runner.** For example, to publish right after `session finish` instead of waiting for the next cycle.
   - **Stop and pause.** A way to tell a runner it does not own to stop or pause.
 - The decision interacts with US00001's open questions on in-process embedding vs. a supervised `run` process, and on one binary vs. two (a `windows_subsystem = "windows"` binary has no console for the CLI).
+- **Refinement findings (2026-11-05, from `src/main.rs` `watch`):**
+  - **No wake channel needed.** The runner ticks every second, calls `close_idle` on every tick, and starts a new `sync()` whenever none is running, no capture is pending, and 3 s have passed since the last one. A CLI `session finish` is therefore picked up within seconds without any signal.
+  - **Ctrl+C is the only shutdown path.** `watch` stops only on `tokio::signal::ctrl_c()`, which captures and returns. A host needs a shutdown trigger it can fire. Sending Ctrl+C to another process on Windows is unreliable: `GenerateConsoleCtrlEvent` requires a shared console. That favors an in-process engine or an explicit stop command.
+  - **Runner failures are console-only.** Except for sync failures, they reach only the console. `report_failure` prints capture, sync and summary failures. Only sync failures are also persisted, as `state.attention = "Synchronization waiting: …"`. AI summary failures ("Summary deferred") are never written to state, so a host reading the status snapshot cannot see them. Offline appears as a sync-failure attention.
+  - **The run loop is not in the library.** `watch`, `summarize_ready` and `show_status` live in `src/main.rs`; `src/lib.rs` exports only `ai`, `codec`, `engine`, `git`, `model`, `storage`, `transport`. Sharing them with a host requires moving them into the crate.
 - Invariants that bind the design (`AGENTS.md`):
   - Never discard uncaptured edits.
   - Keep capture going while network or AI requests are pending.
@@ -74,6 +79,7 @@ As the developer of the Mesh tray host, I want one defined way to observe and co
 - [ ] **Waking and stopping a runner from another process.** Is a control channel needed in 0.3 at all (for example, CLI `session finish` waking the tray-owned runner to publish immediately), or is "the next sync cycle picks it up" acceptable?
 - [ ] **Channel, if any.** Named pipe on Windows and a Unix socket elsewhere, or a localhost TCP port? Either way, how is access restricted to the current user?
 - [ ] **Library API shape.** Should the crate expose a blocking API, an async (tokio) API, or both? The current run loop is tokio-based and `main.rs`-internal.
+- [ ] **Failure reporting to hosts.** Should the runner persist capture and AI-summary failures into engine state (as sync failures already are), or emit them as events, so that a host can show the cause of a failed operation? Today they are printed only.
 - [ ] **Lock ownership on handover.** If a host starts while a CLI `run` holds `runner.lock`, does the host attach to that runner as an observer, or refuse to start and offer to take over?
 
 ## Acceptance criteria

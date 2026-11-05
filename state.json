@@ -580,8 +580,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793865793,
-      "last_edit": 1793865933,
-      "revision": 5,
+      "last_edit": 1793865972,
+      "revision": 6,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -591,10 +591,10 @@
             "blob": "7f123b099c34113b2c32e2616282223e04d6e734"
           },
           "content": {
-            "blob": "b84e48f3a2b9028db24069d32b7845a577ca2510"
+            "blob": "65bd8fa7c0fe144e79e42f5444b1240b5d71489e"
           },
           "intent": null,
-          "last_edit": 1793865933
+          "last_edit": 1793865972
         },
         "00_Start-Here/index.md": {
           "base": {
@@ -629,10 +629,10 @@
         "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md": {
           "base": null,
           "content": {
-            "blob": "36bb26c39855e4eb73ca26cc59ec69bbdf585d8a"
+            "blob": "83d5f73b80825b5abc7ce7d877bf8abcf641876d"
           },
           "intent": null,
-          "last_edit": 1793865793
+          "last_edit": 1793865972
         },
         "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md": {
           "base": null,
