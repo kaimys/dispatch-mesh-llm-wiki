@@ -121,7 +121,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 419.5
+    "width": 444.16668701171875
   },
   "right": {
     "id": "be9201a3d6b37774",
@@ -229,6 +229,16 @@
   },
   "active": "55ceda3168845134",
   "lastOpenFiles": [
+    "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md",
+    "07_Engineering/Decisions/ADR-0009 — Embed the engine with a runner handle and published status.md",
+    "07_Engineering/Decisions/ADR-0008 — Store content as blobs referenced by metadata.md",
+    "07_Engineering/Decisions/ADR-0007 — Persist state transactionally with recovery journals.md",
+    "07_Engineering/Decisions/ADR-0006 — Let Mesh own Git operations in managed folders.md",
+    "07_Engineering/Decisions/ADR-0005 — Make AI summaries configurable and opt-in.md",
+    "07_Engineering/Decisions/ADR-0004 — Bind agent intent to attributable changes.md",
+    "07_Engineering/Decisions/ADR-0003 — Preserve synchronized conflict inputs and traceable resolutions.md",
+    "07_Engineering/Decisions/ADR-0002 — Group files into sessions with an inactivity boundary.md",
+    "07_Engineering/Decisions/ADR-0001 — Synchronize drafts separately from permanent history.md",
     "08_Delivery-and-QA/Reports/github-workflow-test-2026-11-04.md",
     "08_Delivery-and-QA/Reports/github-workflow-findings-2026-11-04.md",
     "02_Product/Dispatch Mesh milestone plan.md",

@@ -1272,8 +1272,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793872504,
-      "last_edit": 1793872535,
-      "revision": 2,
+      "last_edit": 1793872583,
+      "revision": 4,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1283,14 +1283,118 @@
             "blob": "c90ad487155c590ab6bada1af9b4f710bfb33a66"
           },
           "content": {
-            "blob": "0999670e135f45fb190c95b7cd32b6d1ff8acf8a"
+            "blob": "df56085704ff11085841b0062447d8f4a7e02c18"
           },
           "intent": null,
-          "last_edit": 1793872535
+          "last_edit": 1793872583
+        },
+        "07_Engineering/Decisions/ADR-0001 — Synchronize drafts separately from permanent history.md": {
+          "base": null,
+          "content": {
+            "blob": "6c7018fe2299ebc350c78014081ed81a8a8e8c00"
+          },
+          "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
+          "last_edit": 1793872580
+        },
+        "07_Engineering/Decisions/ADR-0002 — Group files into sessions with an inactivity boundary.md": {
+          "base": null,
+          "content": {
+            "blob": "30f1258b12ddecbfa67ca4211bdac6cd96f4a414"
+          },
+          "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
+          "last_edit": 1793872580
+        },
+        "07_Engineering/Decisions/ADR-0003 — Preserve synchronized conflict inputs and traceable resolutions.md": {
+          "base": null,
+          "content": {
+            "blob": "3ce07fba0345979dd2f2f10d45d3f590422e67ef"
+          },
+          "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
+          "last_edit": 1793872580
+        },
+        "07_Engineering/Decisions/ADR-0004 — Bind agent intent to attributable changes.md": {
+          "base": null,
+          "content": {
+            "blob": "e91a1de5609d6ef2ea2ebc0159b0ceb2241de368"
+          },
+          "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
+          "last_edit": 1793872580
+        },
+        "07_Engineering/Decisions/ADR-0005 — Make AI summaries configurable and opt-in.md": {
+          "base": null,
+          "content": {
+            "blob": "ab205b4b60370c3d1aa8e27dc335cc846112c328"
+          },
+          "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
+          "last_edit": 1793872580
+        },
+        "07_Engineering/Decisions/ADR-0006 — Let Mesh own Git operations in managed folders.md": {
+          "base": null,
+          "content": {
+            "blob": "b282a895af634ed6d01718a97a7fab451bfe82a2"
+          },
+          "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
+          "last_edit": 1793872580
+        },
+        "07_Engineering/Decisions/ADR-0007 — Persist state transactionally with recovery journals.md": {
+          "base": null,
+          "content": {
+            "blob": "fdd5598127cc99b1401c26271b095f5ad756e644"
+          },
+          "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
+          "last_edit": 1793872580
+        },
+        "07_Engineering/Decisions/ADR-0008 — Store content as blobs referenced by metadata.md": {
+          "base": null,
+          "content": {
+            "blob": "9cf23e38fd7d9b08dd510701cfbca50e858f9af3"
+          },
+          "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
+          "last_edit": 1793872580
+        },
+        "07_Engineering/Decisions/ADR-0009 — Embed the engine with a runner handle and published status.md": {
+          "base": null,
+          "content": {
+            "blob": "d891cc8ce53242d0e7d97fccc776d8d39916ddd6"
+          },
+          "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
+          "last_edit": 1793872580
+        },
+        "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md": {
+          "base": null,
+          "content": {
+            "blob": "2ac4e525ae6c8460a200ffb9ba4e9d05e53ef0f3"
+          },
+          "intent": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
+          "last_edit": 1793872580
         }
       },
       "dependencies": [],
-      "intents": {},
+      "intents": {
+        "bd28f1ac-e9b1-4906-b878-0afcecf11e1d": {
+          "id": "bd28f1ac-e9b1-4906-b878-0afcecf11e1d",
+          "purpose": "Record agreed Mesh architecture decisions and link their product and ticket context; defer the Git backend choice",
+          "paths": [
+            "00_Start-Here/index.md",
+            "00_Start-Here/log.md",
+            "02_Product/Dispatch Mesh requirements and architecture.md",
+            "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
+            "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
+            "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
+            "07_Engineering/Decisions/ADR-0001 — Synchronize drafts separately from permanent history.md",
+            "07_Engineering/Decisions/ADR-0002 — Group files into sessions with an inactivity boundary.md",
+            "07_Engineering/Decisions/ADR-0003 — Preserve synchronized conflict inputs and traceable resolutions.md",
+            "07_Engineering/Decisions/ADR-0004 — Bind agent intent to attributable changes.md",
+            "07_Engineering/Decisions/ADR-0005 — Make AI summaries configurable and opt-in.md",
+            "07_Engineering/Decisions/ADR-0006 — Let Mesh own Git operations in managed folders.md",
+            "07_Engineering/Decisions/ADR-0007 — Persist state transactionally with recovery journals.md",
+            "07_Engineering/Decisions/ADR-0008 — Store content as blobs referenced by metadata.md",
+            "07_Engineering/Decisions/ADR-0009 — Embed the engine with a runner handle and published status.md",
+            "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md"
+          ],
+          "created_at": 1793872565
+        }
+      },
       "message": null,
       "message_base": null
     },
