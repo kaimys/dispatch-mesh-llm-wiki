@@ -72,7 +72,8 @@
               "title": "Decisions"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -240,7 +241,7 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "8fc4e83af58370bc",
+  "active": "73416c6ba718211f",
   "lastOpenFiles": [
     "02_Product/Dispatch Mesh SWOT analysis.md",
     "02_Product/Competitor overview.md",

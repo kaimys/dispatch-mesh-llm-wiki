@@ -101,3 +101,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-05] fix | TASK00001 Linux CI failure
 - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: CI run 42018003838 failed on ubuntu-latest (platform-dependent fake remote in the lock-contention test; Windows job cancelled by fail-fast). Test-only fix `af1d3a0` pushed; `open_findings` cleared pending a re-review of that diff.
+
+## [2026-11-05] fix | TASK00001 Linux lock race and CI fail-fast
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: spurious `WorkspaceBusy` on Linux (flock held briefly by spawned children) fixed by a 500 ms lock retry in `07903c4`; CI matrix no longer fail-fast. Re-review needed for `af1d3a0` + `07903c4`.
