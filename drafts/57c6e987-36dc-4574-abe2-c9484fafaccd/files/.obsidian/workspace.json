@@ -74,7 +74,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -242,11 +242,14 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "c16e9cc6b3c50763",
+  "active": "db81a74e15870060",
   "lastOpenFiles": [
+    "file:C:/MeshNet/second.md",
+    "02_Product/Dispatch Mesh concept.md",
+    "file:C:/MeshNet/first.md",
+    "00_Start-Here/Team/Kai.md",
     "file:C:/MeshManual/note.md",
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
-    "02_Product/Dispatch Mesh concept.md",
     "README.md",
     "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
     "file:C:/MeshTask1Net/auth.md",
@@ -276,9 +279,6 @@
     "02_Product/Dispatch Mesh milestone plan.md",
     "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
     "08_Delivery-and-QA/Reports/github-workflow-findings-2026-11-04.md",
-    "00_Start-Here/Team/Kai.md",
-    "02_Product/Dispatch Mesh requirements and architecture.md",
-    "07_Engineering/Decisions/ADR-0001 — Synchronize drafts separately from permanent history.md",
-    "07_Engineering/Decisions/ADR-0002 — Group files into sessions with an inactivity boundary.md"
+    "02_Product/Dispatch Mesh requirements and architecture.md"
   ]
 }
