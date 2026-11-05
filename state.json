@@ -826,8 +826,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793867106,
-      "last_edit": 1793867281,
-      "revision": 3,
+      "last_edit": 1793867308,
+      "revision": 4,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -855,10 +855,10 @@
         "02_Product/Dispatch Mesh concept.md": {
           "base": null,
           "content": {
-            "blob": "54fcf1f6ffd151e13aa4d97eac88a545f8714d18"
+            "blob": "4f18b3301681e47c372a8bc6724c23282717e3b6"
           },
           "intent": null,
-          "last_edit": 1793867281
+          "last_edit": 1793867308
         },
         "02_Product/Dispatch Mesh milestone plan.md": {
           "base": {
