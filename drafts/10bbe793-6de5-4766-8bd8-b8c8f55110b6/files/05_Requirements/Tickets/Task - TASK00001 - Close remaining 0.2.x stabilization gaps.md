@@ -78,8 +78,14 @@ Downstream: [[Story - US00001 - Tray icon and status window host|US00001]] deriv
   - **Workspace summary**, one state with a fixed precedence: `needs_attention` > `offline` > `saved_locally` > `draft_uploaded` > `waiting_for_finalization` > `synced`. Here `synced` means every own session is published or discarded and nothing is waiting.
   - **`reason`**, naming the cause whenever the summary is `needs_attention` or `offline`.
   - The tray icon reads only the summary; detail views read the sessions.
-- [ ] **Offline detection.** What makes Mesh decide it is offline rather than failing? Connection-level transport errors only, or also authentication failures? And after how many consecutive failures?
-- [ ] **"Draft uploaded" bookkeeping.** Should the engine record the last draft revision successfully pushed per session (a new state field and migration), or derive it from the device branch on demand?
+- [x] **Offline detection.** What makes Mesh decide it is offline rather than failing? Connection-level transport errors only, or also authentication failures? And after how many consecutive failures?
+  **Answer (Kai, 2026-11-05):** connection-level errors only, from the first failure.
+  - **Offline** means the last sync failed with a network-level transport error: DNS resolution, connection refused or unreachable, timeout, TLS handshake. It clears on the next successful sync.
+  - **Needs attention** remains the state for authentication, permission, rejected-push and history failures, because the user has to act.
+  - Local capture continues in both states.
+- [x] **"Draft uploaded" bookkeeping.** Should the engine record the last draft revision successfully pushed per session (a new state field and migration), or derive it from the device branch on demand?
+  **Answer (Kai, 2026-11-05):** store it. After a successful device-branch push, record each own session's pushed revision; a session is `draft_uploaded` when that equals its current `revision`. The record must load as empty from older state, so no migration step is needed.
+  > Constraint found while recording this (2026-11-05): keep the record **local-only**, e.g. `State.uploaded: BTreeMap<session id, revision>`, not a field on `Session`. `push_manifest` serializes own `Session`s into the device-branch manifest. A field set after each push would change that manifest and trigger another push on every cycle, and it would also publish a device-local fact to peers.
 - [ ] **Compatibility.** Can existing `status` JSON consumers (scripts, the GitHub harness) tolerate a changed `status` value set, or must the old three values stay as a separate field?
 - [ ] **Docs location.** Should the documentation go in the README only, or the README plus a recovery page in the wiki?
 
