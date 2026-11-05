@@ -23,12 +23,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "06_UX/Claude Design briefing — desktop app.md",
+                "file": "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Claude Design briefing — desktop app"
+              "title": "Task - TASK00001 - Close remaining 0.2.x stabilization gaps"
             }
           }
         ],
@@ -202,9 +202,9 @@
   },
   "active": "4396432b9e4962fb",
   "lastOpenFiles": [
+    "06_UX/Claude Design briefing — desktop app.md",
     "07_Engineering/Decisions.base",
     "02_Product/Dispatch Mesh SWOT analysis.md",
-    "06_UX/Claude Design briefing — desktop app.md",
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
     "01_Sources/Clippings/BEST free sync solution Github but for normal people.md",
     "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
