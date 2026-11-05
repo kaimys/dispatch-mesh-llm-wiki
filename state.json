@@ -642,6 +642,64 @@
       },
       "message_base": "08b93665bdcc0bf8139b015636086ea1507de7d5"
     },
+    "2b88752c-d45e-4007-b644-4240fa538a01": {
+      "id": "2b88752c-d45e-4007-b644-4240fa538a01",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793899101,
+      "last_edit": 1793899101,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        ".obsidian/workspace.json": {
+          "base": {
+            "blob": "7f6ad8165c076d8fc023d6604a76203237965d59"
+          },
+          "content": {
+            "blob": "73960bf16c8b6319a371915c3af95b4a6599c805"
+          },
+          "intent": null,
+          "last_edit": 1793899101
+        },
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "e6216979609208eacccd710dc08c7d24a22fb797"
+          },
+          "content": {
+            "blob": "7340b624ff4a4fed19a0efa94210e40c59dc25a3"
+          },
+          "intent": null,
+          "last_edit": 1793899101
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "d9ad0774c8326d7770b38f736042d93fd70641dd"
+          },
+          "content": {
+            "blob": "685c4eac94800aae4c008fd43d3ecbb74237821d"
+          },
+          "intent": null,
+          "last_edit": 1793899101
+        },
+        "05_Requirements/Tickets/Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync.md": {
+          "base": null,
+          "content": {
+            "blob": "89d676ed5fbb3044d4226d7bc32134e63895173f"
+          },
+          "intent": null,
+          "last_edit": 1793899101
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "30db13cc-decb-462d-b230-7748df5a0e9b": {
       "id": "30db13cc-decb-462d-b230-7748df5a0e9b",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
