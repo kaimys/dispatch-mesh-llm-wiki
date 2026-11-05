@@ -1,7 +1,7 @@
 ---
 id: TASK00001
 type: task
-status: Done
+status: Released
 priority: high
 rank: 1024
 version_target: v0.2.5
@@ -595,6 +595,10 @@ The earlier review's assessment of criteria 1–5, 6a, 10 and 11 still holds; th
 
 1. Run `/test-plan TASK00001` against `c079e9d`, writing only the required manual checks and stamping the ticket freeze through that workflow.
 2. Keep subsequent review/test records tied to the commit that will ship. Any later implementation change invalidates this findings count and needs the applicable verification again.
+
+### 2026-11-05 — Released in v0.2.5
+
+Shipped in [[v0.2.5]] (tag `v0.2.5` on `85bfac3`). `completed` is unchanged.
 
 ## Follow-ups
 

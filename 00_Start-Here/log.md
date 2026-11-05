@@ -139,3 +139,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-05] decision | ADR-0009 amended and accepted
 - [[ADR-0009 — Embed the engine with a runner handle and published status]]: rewritten to the API as built under [[Story - US00002 - Local engine control interface for the tray host]] (acquire/run(lease) split, optional initial snapshot, stop-on-drop, runtime built on the caller thread, deferred named-pipe/Unix-socket extension, rejected single-entry-point alternative); status `proposed` → `accepted`. [[index]] row updated. US00002 branch fast-forwarded into `main`.
+
+## [2026-11-05] release | v0.2.5
+- Created [[v0.2.5]] (listed in [[index]]). Scope: [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]] and [[Story - US00002 - Local engine control interface for the tray host]], both promoted `Done` → `Released` (`completed` unchanged). Gates green (79 tests); CI run `42049287074` green on main. `Cargo.toml`/`Cargo.lock` bumped to 0.2.5, commit `85bfac3`, annotated tag `v0.2.5`, both pushed at Kai's request; packaged `dist/dispatch-mesh-0.2.5-windows-x64.zip`. No GitHub Release object created. Deferred: US00001 (v0.3.0), TASK00002 (v0.4.0) — unchanged targets.

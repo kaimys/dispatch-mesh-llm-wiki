@@ -1,7 +1,7 @@
 ---
 id: US00002
 type: story
-status: Done
+status: Released
 priority: high
 rank: 0
 version_target: v0.2.5
@@ -396,6 +396,10 @@ At Kai's request, [[ADR-0009 — Embed the engine with a runner handle and publi
 - the deferred named-pipe/Unix-socket extension point.
 
 The branch `us00002-engine-control-interface` (`f2b3e1c`, `0e4c9a6`) was fast-forwarded into `main` and pushed. The status stays `Review`; Kai moves it to `Done`.
+
+### 2026-11-05 — Released in v0.2.5
+
+Shipped in [[v0.2.5]] (tag `v0.2.5` on `85bfac3`). `completed` is unchanged.
 
 ## Follow-ups
 
