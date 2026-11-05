@@ -1372,8 +1372,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793879449,
-      "last_edit": 1793879953,
-      "revision": 7,
+      "last_edit": 1793880006,
+      "revision": 8,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1383,10 +1383,10 @@
             "blob": "aef69d9571d24d64561a9bc4b88394a23bcfd533"
           },
           "content": {
-            "blob": "7a9f853fa1f282d011e8168927f1491b82f57e26"
+            "blob": "71a2a8702ac6557a4521326444539ffb5dfa69af"
           },
           "intent": null,
-          "last_edit": 1793879953
+          "last_edit": 1793880006
         },
         "01_Sources/Clippings/BEST free sync solution Github but for normal people.md": {
           "base": null,
@@ -1411,10 +1411,10 @@
             "blob": "9967c44730f8f69cbe3bedd88d2b9a59e6ba7166"
           },
           "content": {
-            "blob": "b55cae1cf608b14b5b852df4922e6b727633ad55"
+            "blob": "ead103001d0f5dd6415d2b7244ac29d429a3f2f6"
           },
           "intent": null,
-          "last_edit": 1793879922
+          "last_edit": 1793880006
         }
       },
       "dependencies": [

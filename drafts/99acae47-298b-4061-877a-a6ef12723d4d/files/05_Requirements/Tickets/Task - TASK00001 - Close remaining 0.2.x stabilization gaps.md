@@ -9,7 +9,7 @@ size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests: 5
+open_tests: 3
 open_findings:
 discussion:
 updated: 2026-11-05
