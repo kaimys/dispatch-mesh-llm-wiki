@@ -1272,8 +1272,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793872504,
-      "last_edit": 1793872996,
-      "revision": 22,
+      "last_edit": 1793873007,
+      "revision": 23,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1351,10 +1351,10 @@
         "07_Engineering/Decisions.base": {
           "base": null,
           "content": {
-            "blob": "f7c7c1584e3961ff6da14b7fd6e8ecce1ab031b5"
+            "blob": "2c4fda7a6d5279af740a67e22fa5e5f9110ab33c"
           },
           "intent": null,
-          "last_edit": 1793872970
+          "last_edit": 1793873007
         },
         "07_Engineering/Decisions/ADR-0001 — Synchronize drafts separately from permanent history.md": {
           "base": null,
