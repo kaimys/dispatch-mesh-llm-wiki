@@ -1515,8 +1515,11 @@
           "created_at": 1793872565
         }
       },
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Record Mesh architecture decisions and update wiki references",
+        "description": "Add ADR-0001 through ADR-0010, marking the first eight accepted and the runner and status designs proposed pending implementation. Update the product architecture, index, change log, and related tickets to reflect and link the decisions; keep the Git backend choice open. Refresh the Obsidian workspace layout for the current documents.\n\nRecorded user intent (requested purpose):\n\nFiles: 00_Start-Here/index.md, 07_Engineering/Decisions/ADR-0001 — Synchronize drafts separately from permanent history.md, 07_Engineering/Decisions/ADR-0002 — Group files into sessions with an inactivity boundary.md, 07_Engineering/Decisions/ADR-0003 — Preserve synchronized conflict inputs and traceable resolutions.md, 07_Engineering/Decisions/ADR-0004 — Bind agent intent to attributable changes.md, 07_Engineering/Decisions/ADR-0005 — Make AI summaries configurable and opt-in.md, 07_Engineering/Decisions/ADR-0006 — Let Mesh own Git operations in managed folders.md, 07_Engineering/Decisions/ADR-0007 — Persist state transactionally with recovery journals.md, 07_Engineering/Decisions/ADR-0008 — Store content as blobs referenced by metadata.md, 07_Engineering/Decisions/ADR-0009 — Embed the engine with a runner handle and published status.md\nPurpose: Record agreed Mesh architecture decisions and link their product and ticket context; defer the Git backend choice"
+      },
+      "message_base": "a3e96d3818d1d22294abe05f3a4c03ab7bab0316"
     },
     "f228dc61-aefd-4b3e-b5e7-f19e0abcf865": {
       "id": "f228dc61-aefd-4b3e-b5e7-f19e0abcf865",
