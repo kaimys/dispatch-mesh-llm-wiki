@@ -583,7 +583,7 @@
       "last_edit": 1793866368,
       "revision": 10,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         ".obsidian/workspace.json": {
@@ -645,8 +645,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: add 0.2.x stabilization and tray control tickets",
+        "description": "Add US00002 for defining the tray host–engine control interface and TASK00001 for tracking remaining 0.2.x stabilization gaps. Update US00001 with links to both tickets, list them in the wiki index and log, and adjust the Obsidian workspace to open the related tickets and milestone plan."
+      },
+      "message_base": "ad95c3205ee30fecb453e6c7475b880b4d0c6d24"
     },
     "8d897d95-6824-4982-a669-de63f56b2cb3": {
       "id": "8d897d95-6824-4982-a669-de63f56b2cb3",
