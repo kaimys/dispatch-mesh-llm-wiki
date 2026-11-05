@@ -24,7 +24,7 @@
               "type": "markdown",
               "state": {
                 "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
@@ -58,7 +58,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -136,7 +136,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "02_Product/Dispatch Mesh milestone plan.md",
+                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -155,7 +155,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "02_Product/Dispatch Mesh milestone plan.md",
+                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -226,8 +226,9 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "6820be63a2d38253",
+  "active": "f7b3d9fe981edde0",
   "lastOpenFiles": [
+    "02_Product/Dispatch Mesh milestone plan.md",
     "05_Requirements/Tickets/sedL0R3Qg",
     "06_UX/Dispatch Mesh desktop app.pdf",
     "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
@@ -262,7 +263,6 @@
     "02_Product/Competitors/git-annex assistant.md",
     "02_Product/Competitors/Obsidian Git.md",
     "02_Product/Competitors",
-    "02_Product/Competititors",
-    "05_Requirements/Tickets/sedopX6Kw"
+    "02_Product/Competititors"
   ]
 }
