@@ -1227,7 +1227,7 @@
       "last_edit": 1793878606,
       "revision": 2,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         ".obsidian/workspace.json": {
