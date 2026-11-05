@@ -157,7 +157,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "04_Discovery/git-sync/README.md",
+                "file": "08_Delivery-and-QA/Releases/v0.2.5.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -227,7 +227,7 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "55ceda3168845134",
+  "active": "281cf2c9a87613f7",
   "lastOpenFiles": [
     "08_Delivery-and-QA/Releases/GitHub/v0.2.5 GitHub release.md",
     "08_Delivery-and-QA/Releases/v0.2.5.md",
