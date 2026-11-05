@@ -9,7 +9,7 @@ size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests: 2
+open_tests: 1
 open_findings:
 discussion:
 updated: 2026-11-05
@@ -272,12 +272,17 @@ Manual checks for the six-state status, offline/attention classification, the HT
     - **Waiting more than 5 minutes after saving** let the session close itself (`closed: true`, still `saved_locally`, as the model specifies). So on reconnect Mesh uploaded and published straight away: `status: "synced"`, stage `published`, and `offline`/`reason`/`attention` all `null`.
     - **On GitHub:** `main` on `kaimys/dispatch-mesh-test` contains `net.md`, with trailer `Mesh-Session: 7cc213cb-3056-4cf8-a986-51022f94f597`.
     - **Not observed:** the expected `draft_uploaded` only appears when checked within 5 minutes of saving. The plan should have said so. That stage is asserted by `status_follows_a_session_from_local_save_to_publication`.
-- [ ] **Kai:** Real refused login through Git Credential Manager.
+- [x] **Kai:** Real refused login through Git Credential Manager.
   1. Open *Windows Credential Manager → Windows Credentials* and note the `git:https://github.com` entry, which you will need to restore.
   2. Remove that entry.
   3. In the `C:\MeshTask1Net` workspace from the previous item, save another file and run `dispatch-mesh --workspace C:\MeshTask1Net sync`.
 
   **Expected:** the command fails without a sign-in window, because Mesh sets `GCM_INTERACTIVE=never`. `status` then shows `"status": "needs_attention"`, a `reason` starting with `Synchronization waiting: Git fetch: Remote refused access`, and `"offline": null`. Neither field contains a token, a URL with credentials, or Git's raw output. Sign in again (`git ls-remote https://github.com/kaimys/dispatch-mesh-test.git` triggers GCM), then run `sync` again. **Expected:** `attention` and `reason` are `null`.
+  - *Result 2026-11-05 (Kai, build `07903c4`): **passed.***
+    - **Credential removed:** `git:https://github.com` (via `cmdkey /delete`). `sync` failed and **no sign-in window or browser opened** (confirmed by Kai).
+    - **Status:** `status: "needs_attention"`, `reason` "Synchronization waiting: Git push: Remote refused access (exit 128) …", `offline: null`, and no token, URL credentials or raw Git output anywhere. It reads *push*, not fetch, because `kaimys/dispatch-mesh-test` is public, so the fetch needs no credentials.
+    - **Re-sign-in, corrected procedure:** `git ls-remote` on a public repository never prompts. A `git push --dry-run` to the test repository did, and restored the credential without creating a branch (`mesh-login-check` absent on GitHub).
+    - **Recovery:** the next `sync` succeeded with `attention`/`reason`/`offline` all `null`. `main` = `7c032b3`, adding `auth.md` with trailer `Mesh-Session: 07173d39-699b-4993-b648-abe7f5433270`, the session that was active during the refusal.
 - [ ] **Kai:** Locale independence on a host whose Git actually translates. This Windows machine's Git 2.35.1 ships no message catalogs, so the automated locale test cannot fail here. Use a Linux machine or WSL distribution with Git, its German messages (e.g. Debian/Ubuntu `git` plus `locales`, with `de_DE.UTF-8` generated) and Rust.
   1. Confirm the precondition: `LANG=de_DE.UTF-8 LC_ALL=de_DE.UTF-8 git -C /tmp status` prints a **German** message (for example `fatal: Kein Git-Repository …`). If it prints English, this check is not meaningful on that host.
   2. In a checkout of `c079e9d`, run `cargo test --test cli failure_classification_does_not_depend_on_the_user_locale`.
