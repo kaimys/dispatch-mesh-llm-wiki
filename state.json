@@ -1025,8 +1025,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793894555,
-      "last_edit": 1793894709,
-      "revision": 3,
+      "last_edit": 1793894730,
+      "revision": 4,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1036,10 +1036,10 @@
             "blob": "68d64b8877123f507b3dc8da5ffb2fb0ffb4c363"
           },
           "content": {
-            "blob": "9ffea4cfff8d994b1b257b893766484233069921"
+            "blob": "6c4631f459af19bc537bc03f158dc45317593f53"
           },
           "intent": null,
-          "last_edit": 1793894709
+          "last_edit": 1793894730
         },
         "00_Start-Here/log.md": {
           "base": {
