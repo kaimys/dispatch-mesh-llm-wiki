@@ -1,0 +1,81 @@
+{
+  "board": {
+    "sourceFolders": ["05_Requirements/Tickets"],
+    "statusProperty": "status",
+    "orderProperty": "rank",
+    "columns": [
+      { "value": "Backlog", "progress": 0 },
+      { "value": "Refinement", "progress": 25 },
+      { "value": "In progress", "progress": 60, "wip": 2 },
+      { "value": "Review", "progress": 85 },
+      { "value": "Done", "progress": 100 },
+      { "value": "Released", "progress": 100 },
+      { "value": "Rejected", "excluded": true }
+    ],
+    "titleProperty": "id",
+    "assigneeProperty": "assignee",
+    "badgeProperties": ["type", "priority", "version_target"],
+    "questionsProperty": "open_questions",
+    "testsProperty": "open_tests",
+    "findingsProperty": "open_findings",
+    "discussionProperty": "discussion",
+    "requiredProperties": ["id", "status", "updated"],
+    "automations": [
+      { "when": ["Done"], "set": { "completed": "{{date}}" }, "repo": "", "command": "" }
+    ]
+  },
+  "milestones": {
+    "versionProperty": "version_target",
+    "plannedVersions": ["v0.2.5", "v0.3.0", "v0.4.0", "v0.5.0", "v0.6.0", "v0.7.0", "v0.8.0", "v0.9.0", "v1.0.0", "v2.0.0"],
+    "tags": {
+      "0.2": "Engine stabilization",
+      "0.3": "Tray application",
+      "0.4": "Bundled Git & Windows packaging",
+      "0.5": "Guided setup",
+      "0.6": "Windows desktop beta",
+      "0.7": "macOS beta",
+      "0.8": "Linux beta",
+      "0.9": "Cross-platform beta",
+      "1.0": "Stable desktop",
+      "2.0": "Cloud MCP"
+    },
+    "releaseOrderProperty": "",
+    "sizeProperty": "size",
+    "completedProperty": "completed",
+    "velocityWindowDays": 28,
+    "releaseNotesFolder": "08_Delivery-and-QA/Releases"
+  },
+  "meetings": {
+    "folder": "09_Meetings",
+    "dateProperty": "meeting_date",
+    "participantsProperty": "participants",
+    "actionsProperty": "open_actions",
+    "templates": [
+      { "label": "Read transcript & write report", "intent": "meeting-report", "repo": "dispatch-mesh", "prompt": "/meeting report {{date}} {{title}}" }
+    ],
+    "calendarFilter": "",
+    "calendarLookaheadDays": 14,
+    "calendarChips": []
+  },
+  "todos": {
+    "folders": ["09_Meetings"],
+    "sections": ["Action items", "Open action items"],
+    "assignees": ["Kai"],
+    "fallbackAssignee": "Team"
+  },
+  "chips": {
+    "defaultTool": "claude",
+    "templates": [
+      { "label": "Start refinement", "intent": "refine", "repo": "dispatch-mesh", "prompt": "/refine {{id}}" },
+      { "label": "Update ticket", "intent": "update-ticket", "repo": "dispatch-mesh", "prompt": "/update-ticket {{id}}" },
+      { "label": "Write implementation plan", "intent": "implementation-plan", "repo": "dispatch-mesh", "prompt": "/implementation-plan {{id}}" },
+      { "label": "Start development", "intent": "develop", "repo": "dispatch-mesh", "prompt": "/develop {{id}}" },
+      { "label": "Code review", "intent": "code-review", "repo": "dispatch-mesh", "prompt": "/code-review {{id}}" },
+      { "label": "Write test plan", "intent": "test-plan", "repo": "dispatch-mesh", "prompt": "/test-plan {{id}}" }
+    ],
+    "columnTemplates": [
+      { "label": "Refine all tickets", "intent": "refine-all", "repo": "dispatch-mesh", "prompt": "Work through these tickets sequentially, one at a time, each with the full workflow in dispatch/workflow/refine.md: {{ids}}. Pause for my input whenever a ticket needs a decision before moving on." },
+      { "label": "Update all tickets", "intent": "update-all", "repo": "dispatch-mesh", "prompt": "Work through these tickets sequentially, one at a time, each with the full workflow in dispatch/workflow/update-ticket.md: {{ids}}. Finish with a one-line summary per ticket." }
+    ]
+  }
+}
