@@ -309,7 +309,21 @@ All four findings of the 2026-11-05 review are addressed. `open_findings` is cle
 - **Gates (2026-11-05, Windows 11, Git 2.35.1):** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` green on commit `7ac5316`. 68 tests: 5 lib unit, 9 CLI, 27 engine, 19 provider, 8 storage/transport. The Ubuntu CI leg has not been run (not pushed).
 - **Next:** a fresh `/code-review TASK00001` against `7ac5316`. Only a clean review hands off to `/test-plan`.
 
-## Code review
+### 2026-11-05 — Re-review hand-off blocked at `7ac5316`
+
+The re-review closes B1, B3 and N1 from `08c0b02`. B2 is partially repaired: IMF-fixdate works, but two other valid HTTP-date forms still lose the retry delay, so criterion 9 remains unmet. One new non-blocking issue concerns accepting impossible calendar dates. All 68 tests and the other mechanical gates passed independently on Windows. Keep the card `In progress` and unfrozen; the next `/develop` session repairs the remaining date parsing and tests before another review. See the dated review below.
+
+### 2026-11-05 — Fix round for the re-review of `7ac5316`
+
+`open_findings` is cleared to empty because the code under that count changed; only the next review may write a number.
+
+- **B2 continued (all HTTP-date forms).** `ai::retry_after_seconds` now accepts all three forms RFC 9110 §5.6.7 requires recipients to accept: IMF-fixdate, RFC 850 and asctime. For RFC 850's two-digit year it applies the §5.6.7 rule: a year more than 50 years ahead of the current year means the most recent past year with the same last two digits. The earlier as-built restriction to IMF-fixdate is withdrawn.
+  - The deterministic test now requires the three forms of the RFC example instant to yield the same future (60 s) and elapsed (0 s) delays. It also checks the two-digit-year boundary against an independently computed reference: `-76` stays 2076 and `-80` becomes 1980 when the current year is 2026.
+  - A new mock-provider test sends RFC 850 and asctime headers and asserts the numeric delay, with no body echo.
+- **N2 (impossible calendar dates).** Day-of-month is validated against month length with Gregorian leap-year rules before conversion, so 31 Feb, 30 Feb 2028, 29 Feb 2027, 31 Apr and day 00 all fall back to "retry later" in every form. Valid leap days (IMF-fixdate and asctime) still parse.
+- **Malformed-form coverage tightened:** wrong digit counts per form, an unknown weekday, a non-GMT zone and a trailing zone on asctime are rejected.
+- **Gates (2026-11-05, Windows 11, Git 2.35.1):** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` green on commit `291c263`. 69 tests: 5 lib unit, 9 CLI, 27 engine, 20 provider, 8 storage/transport. The Ubuntu CI leg has not been run (not pushed).
+- **Next:** a fresh `/code-review TASK00001` against `291c263`.
 
 ### 2026-11-05 — branch task00001-stabilization-gaps at 08c0b02
 
@@ -365,6 +379,52 @@ The principal implementation deviations are dated in the as-built notes: shared 
 3. Extend a genuine discard regression with status assertions for **B3**. Add **N1**'s summary-persistence integration case before merge if practical.
 4. Run all mechanical gates, append dated as-built results, and clear the now-stale `open_findings` count as required by the invariants. Request a fresh `/code-review TASK00001` against the new commit.
 5. Only a clean review may hand off to `/test-plan TASK00001`, which stamps the freeze. The agreed contract can be repaired without `/update-ticket`; ask Kai only if proposing to change the HTTP-date requirement instead.
+
+### 2026-11-05 — branch task00001-stabilization-gaps at 7ac5316
+
+**Scope and independence.** Re-review by the original reviewer, who authored none of the implementation or repairs. Reviewed all four changed files in `08c0b02..7ac5316` (`src/engine.rs`, `src/ai.rs`, `tests/engine.rs`, `tests/provider.rs`), their surrounding code, and the ticket's new as-built notes against the unchanged contract and the earlier complete `main...HEAD` review. The cumulative branch contains two ticket-scoped commits. Working tree was clean; no open PR was found. This session changes only the review record and ignored probe evidence.
+
+**Gates.** Independently reran `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, and `cargo test`: all passed on Windows. All **68 tests** passed: 5 library, 9 CLI, 27 engine, 19 provider and 8 storage/transport. Engine tests took 171.37 seconds. `git diff --check main...HEAD` passed. No live GitHub/provider tests or Linux/macOS checks were run; the previously recorded locale-catalog limitation remains.
+
+**Verdict: changes still required — 1 blocking finding, 1 non-blocking finding.** `open_findings: 1` describes this commit, replacing the prior build's count. Keep `In progress`, leave `open_tests` unchanged and do not stamp the freeze or run `/test-plan` yet.
+
+#### Earlier findings checked
+
+| Finding | Result at this commit |
+|---|---|
+| B1 — lost sync-failure status under lock contention | **Resolved.** The sync workspace retains its lock while persisting the outcome. When network completion cannot regain the lock, the original Git error survives; persistence waits for the lock and reloads durable state before recording. The new long-held-lock regression passed, including reopening and clearing on a later successful sync. The original review's connection-refused stress probe, recompiled against this commit, observed **5 Git failures and 0 missing durable causes**. |
+| B2 — HTTP-date retry delay omitted | **Partly resolved; remains blocking below.** Delta-seconds and preferred IMF-fixdate dates work, including elapsed dates and leap days. The implementation deliberately rejects the other two HTTP-date formats. |
+| B3 — discarded status stage untested | **Resolved.** A genuine duplicate-change discard now asserts typed and serialized status before and after reopening, while retaining original snapshots and checking that `main` does not advance. |
+| N1 — AI-failure persistence tested only by assigning a field | **Resolved.** The new binary/mock-provider regression exercises the real summary path, fallback publication, sanitized persisted status in a new process and clearing after a later successful summary. It passed. |
+
+#### Findings, in severity order
+
+1. **B2 continued — [P2, blocking] Accept all HTTP-date forms when reading `Retry-After`.** `src/ai.rs:194–201`; the corresponding tests at `tests/provider.rs:559–560` incorrectly group the RFC 850 and asctime forms with malformed input. With a fixed reference time of `784111717`, the preferred `Sun, 06 Nov 1994 08:49:37 GMT` returns `Some(60)`, but the equivalent `Sunday, 06-Nov-94 08:49:37 GMT` and `Sun Nov  6 08:49:37 1994` return `None`. The actual diagnostic for those elapsed dates is consequently `temporary rate limit; retry later` rather than `retry after 0 s`; a future value likewise loses its supplied delay.
+
+   This is the remaining part of criterion **9** and plan step **5**, rather than a request for a new feature. [RFC 9110 §5.6.7](https://www.rfc-editor.org/rfc/rfc9110.html#section-5.6.7) defines HTTP-date to include the obsolete forms and requires recipients to accept all three. Its requirement for senders to generate IMF-fixdate does not waive the recipient requirement. [§10.2.3](https://www.rfc-editor.org/rfc/rfc9110.html#section-10.2.3) uses that HTTP-date definition for `Retry-After`. The as-built note documents the restriction, but no agreed contract change narrows date handling to IMF-fixdate.
+
+   **Fix:** use a complete HTTP-date parser, or implement the remaining forms and their date/year rules. Change those two tests to assert the same delay as the preferred form, including future and elapsed values; keep genuine malformed values on the safe fallback and add a mock-provider assertion for an obsolete date. No contract update is needed to implement the existing requirement. A narrower supported date set would need a requester decision recorded through `/update-ticket` first.
+
+2. **N2 — [P3, non-blocking] Reject impossible calendar dates instead of normalizing them.** `src/ai.rs:227–238` validates only `1..=31` before converting to Unix time. The probe `retry_after_seconds("Thu, 31 Feb 2028 00:00:00 GMT", 0)` returned `Some(1835568000)`, silently treating the nonexistent date as March 2. A malformed provider header can therefore produce a made-up numeric wait, contrary to the helper's documented malformed-input fallback. **Fix:** validate day-of-month with leap-year rules before conversion, or use the complete date parser from B2. Add February 30/31 and April 31 rejection cases alongside the valid leap-day test. This is invalid-header robustness; no additional acceptance criterion is marked failed for it.
+
+**Evidence.** Retained locally in ignored `target/review-task00001/`: `fix-review-probe.rs`, `fix-review-probe-output.txt`, `fix-review-dates.rs` and `fix-review-dates-output.txt`. The probes link the current compiled library, use disposable workspaces for contention, and make no live provider calls. Original review evidence is retained separately.
+
+#### Acceptance criteria and plan assessment
+
+The earlier review's assessment of criteria 1–5, 6a, 10 and 11 still holds; their implementations are unchanged by the repair commit. Criteria **6 and 7** now pass the reviewed contention/recovery paths; criterion **8** now includes the previously missing discarded-stage assertion. Criterion **9** remains failed only for B2's valid date variants. Criterion **12** passes independently with 68 tests. The new AI persistence test closes the earlier optional seam gap. Both repair commits remain within this ticket, and their implementation decisions are recorded in dated as-built notes. No other new defect or undocumented plan departure was found.
+
+#### What is good and should stay
+
+- Recording against the existing locked workspace removes the original race. Reloading durable state before recording also avoids saving a failed sync's partially updated in-memory view over concurrent capture.
+- Preserving the actual network failure through a lock timeout gives callers an actionable cause; the regression deliberately exceeds the earlier five-second window and then verifies recovery.
+- The discard and AI-persistence tests exercise real domain/CLI transitions and reopening, so they protect behavior rather than merely assigning status fields.
+- Deterministic reference timestamps and mock-provider tests usefully separate date arithmetic from HTTP-response handling; retain those cases while correcting the rejected formats.
+
+#### Repair plan — before this leaves review
+
+1. In a fresh `/develop TASK00001` session, finish **B2** by parsing all HTTP-date forms and correcting the tests that currently require valid formats to be rejected. Address **N2** while repairing the parser.
+2. Run the mechanical gates, record the as-built result and clear the stale `open_findings` count when code changes.
+3. Request another `/code-review TASK00001` against the new commit. A clean review can then hand off to `/test-plan`, which stamps the freeze; this review does not move the card or write a test plan.
 
 ## Follow-ups
 

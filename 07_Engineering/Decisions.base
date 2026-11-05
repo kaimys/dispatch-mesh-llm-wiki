@@ -12,4 +12,5 @@ views:
       - status
       - superseded_by
     columnSize:
+      file.name: 470
       note.status: 89
