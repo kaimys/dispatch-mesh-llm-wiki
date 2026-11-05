@@ -232,8 +232,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793870175,
-      "last_edit": 1793870451,
-      "revision": 4,
+      "last_edit": 1793870482,
+      "revision": 6,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -243,20 +243,48 @@
             "blob": "c1d601f2076541edcfb31bbba99c9783efdde5d5"
           },
           "content": {
-            "blob": "8c91fd6513c54ce08bbce15975230bfc49015025"
+            "blob": "770c51a808151ed1950671044b8c9574118fc813"
           },
           "intent": null,
-          "last_edit": 1793870175
+          "last_edit": 1793870480
+        },
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "62a6a751906a1f07c65d5cf6638a5c26ea319636"
+          },
+          "content": {
+            "blob": "a2c264a75d3690d9c362d197736018c25cd71b35"
+          },
+          "intent": null,
+          "last_edit": 1793870482
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "cb992eb3c8b46e0c4aad61887aeb84d70efdd590"
+          },
+          "content": {
+            "blob": "f825d953f375cf2c65bd1e974b1f88950018c310"
+          },
+          "intent": null,
+          "last_edit": 1793870482
         },
         "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md": {
           "base": {
             "blob": "7a66f4de71ac257dddff96d51c07ded6d5afb59d"
           },
           "content": {
-            "blob": "a91dd5a0c25a4a034baf7e7600aaf93e8c996aca"
+            "blob": "9fd0d27e61fafa291f7dbbef9a86bccb9975be98"
           },
           "intent": null,
-          "last_edit": 1793870451
+          "last_edit": 1793870482
+        },
+        "05_Requirements/Tickets/Task - TASK00002 - Choose the Git backend before bundling Git.md": {
+          "base": null,
+          "content": {
+            "blob": "1aa9bcc211dcf15442ac2d49abf9648faaf060e2"
+          },
+          "intent": null,
+          "last_edit": 1793870480
         }
       },
       "dependencies": [],

@@ -148,6 +148,7 @@ Downstream: [[Story - US00001 - Tray icon and status window host|US00001]] deriv
 - [[Dispatch Mesh milestone plan]] — 0.2.x engine stabilization (work items and exit criteria)
 - [[github-workflow-findings-2026-11-04]] — live verification of 0.2.4
 - [[Story - US00001 - Tray icon and status window host|US00001]], [[Story - US00002 - Local engine control interface for the tray host|US00002]]
+- [[Task - TASK00002 - Choose the Git backend before bundling Git|TASK00002]] — longer-term Git library backend; this ticket carries the interim `LC_ALL=C` fix
 - Code: `src/main.rs` (`show_status`), `src/engine.rs` (`reconcile_published`), `src/ai.rs` (`http_failure`), `README.md` (*Conflicts and recovery*, limits)
 
 ## Dispatch runs

@@ -1,0 +1,59 @@
+---
+type: index
+owner: "[[Kai]]"
+updated: 2026-11-04
+---
+# Dispatch Mesh wiki — index
+
+Entry point for people and agents. Read this first, then follow the links. Every page is listed here; every change gets an entry in [[log]].
+
+## Conventions
+
+- A page is authoritative only with `status: approved` and `source_of_truth: true`. Everything else is working material.
+- Precedence when documents conflict: approved ADRs and proposed ADRs (both bind; only superseded ones may be ignored) → [[Dispatch Mesh requirements and architecture]] → [[Dispatch Mesh milestone plan]] → tickets → discovery notes.
+- The wiki is the source of truth for ticket status. There is no external tracker.
+- `01_Sources/` is immutable: add raw artifacts as `YYYY-MM-DD - <origin> - <title>`, never edit or delete them; write new wiki pages from them and log the ingest.
+- Every page carries `owner:` — a person in `00_Start-Here/Team/`, never a team.
+- Workflow logic lives in the code repository under `dispatch/workflow/`, not here. Shared rules: `dispatch/invariants.md` in the repo.
+
+## Start here
+
+- [[log]] — append-only change ledger
+- [[Kai]] — team
+
+## Product
+
+- [[Dispatch Mesh requirements and architecture]] — current requirements, session model, editing presence
+- [[Dispatch Mesh milestone plan]] — 0.2.x → 2.0 roadmap and release gates
+- [[Dispatch Mesh naming recommendations]]
+
+## Discovery
+
+- [[Dispatch Mesh concept|git-sync discovery]] — concept updates and the original discovery discussion
+
+## Requirements
+
+- `05_Requirements/Tickets/` — tickets (the Dispatch board)
+  - [[Story - US00001 - Tray icon and status window host|US00001]] — tray icon and status window host (v0.3.0)
+  - [[Story - US00002 - Local engine control interface for the tray host|US00002]] — local engine/control interface for the tray host (v0.2.5)
+  - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps|TASK00001]] — close remaining 0.2.x stabilization gaps (v0.2.5)
+  - [[Task - TASK00002 - Choose the Git backend before bundling Git|TASK00002]] — choose the Git backend before bundling Git (v0.4.0)
+
+## Engineering
+
+- `07_Engineering/Decisions/` — ADRs
+
+## Delivery and QA
+
+- `08_Delivery-and-QA/Releases/` — release notes (`version` + `date`, feeds the Release Plan)
+- `08_Delivery-and-QA/Reports/` — verification reports
+  - [[github-workflow-test-2026-11-04]] — live GitHub workflow test of 0.2.4, per-case results
+  - [[github-workflow-findings-2026-11-04]] — findings and known limitations from that run
+
+## Meetings
+
+- `09_Meetings/` — meeting notes (feeds the Meetings tab)
+
+## Templates
+
+- `00_Start-Here/Templates/` — ticket-story, ticket-bug, adr, release-note, meeting. Parsed by the board; do not improvise notes without them.
