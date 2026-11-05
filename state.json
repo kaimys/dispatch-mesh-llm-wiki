@@ -625,6 +625,94 @@
       },
       "message_base": "26ffcbc200d8364e4a7c4ef3f72f3cefebc1e978"
     },
+    "4cb3d5ea-2375-42c9-800b-777a7d3e8b10": {
+      "id": "4cb3d5ea-2375-42c9-800b-777a7d3e8b10",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793876360,
+      "last_edit": 1793876360,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        ".obsidian/workspace.json": {
+          "base": {
+            "blob": "1115dbf277ab860a78c587358c7d2b76075ae10e"
+          },
+          "content": {
+            "blob": "90304b8ef05a872196041df56a2177b499aa6f13"
+          },
+          "intent": null,
+          "last_edit": 1793876360
+        },
+        "02_Product/Competitors/Agentic Git Sync.md": {
+          "base": null,
+          "content": {
+            "blob": "27b8da7a3e2f2cea9368aae4f25aee8c39aef320"
+          },
+          "intent": null,
+          "last_edit": 1793876360
+        },
+        "02_Product/Competitors/Jujutsu.md": {
+          "base": null,
+          "content": {
+            "blob": "93a74043e8456a46d9f58b212a2a678e1fb103a9"
+          },
+          "intent": null,
+          "last_edit": 1793876360
+        },
+        "02_Product/Competitors/Obsidian Git.md": {
+          "base": null,
+          "content": {
+            "blob": "19f358b2ce680e09dbfa47e57bd4b177efc15273"
+          },
+          "intent": null,
+          "last_edit": 1793876360
+        },
+        "02_Product/Competitors/SparkleShare.md": {
+          "base": null,
+          "content": {
+            "blob": "5fdbf5a1a3807159fe01ccb53e4156ab4f5c2b30"
+          },
+          "intent": null,
+          "last_edit": 1793876360
+        },
+        "02_Product/Competitors/Syncthing.md": {
+          "base": null,
+          "content": {
+            "blob": "6c6ae4b9cf394c2b275133a462a65382976b562f"
+          },
+          "intent": null,
+          "last_edit": 1793876360
+        },
+        "02_Product/Competitors/git-annex assistant.md": {
+          "base": null,
+          "content": {
+            "blob": "6b368fe7d3320ac195a5e8ebaa9a555885f97b36"
+          },
+          "intent": null,
+          "last_edit": 1793876360
+        },
+        "02_Product/Competitors/gitwatch.md": {
+          "base": null,
+          "content": {
+            "blob": "ea2bab857ee0a3fcf9d8370411c6457e6cb5eb78"
+          },
+          "intent": null,
+          "last_edit": 1793876360
+        }
+      },
+      "dependencies": [
+        "ca6102a4-9425-4626-b7e3-70a2f268d64c"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "51e94ff4-7021-4346-8663-f3116a595c90": {
       "id": "51e94ff4-7021-4346-8663-f3116a595c90",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
@@ -1375,7 +1463,7 @@
       "last_edit": 1793876034,
       "revision": 9,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         ".obsidian/workspace.json": {
@@ -1423,8 +1511,11 @@
         "7653429b-cf44-4dd2-a74e-e186bd0b149c"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Document TASK00001 review fixes and refresh workspace metadata",
+        "description": "- Record TASK00001’s re-review findings and follow-up fixes for Retry-After date parsing, including RFC date formats and invalid dates; note the 69-test gate results.\n- Append the review-fix update to the existing activity log.\n- Widen the decision table’s file-name column and refresh Obsidian’s recent-file list."
+      },
+      "message_base": "5d7c7ed3fee86ece6d25da6a76e389fcc235cfc1"
     },
     "df2a46bb-c790-4b88-96d4-2e8a72ed8c03": {
       "id": "df2a46bb-c790-4b88-96d4-2e8a72ed8c03",
