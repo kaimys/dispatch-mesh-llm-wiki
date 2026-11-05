@@ -1017,6 +1017,48 @@
       },
       "message_base": "157de6f96a419e0d8aa281789a3f59cc3e84f455"
     },
+    "4e5bdf3f-1bfc-49d2-8fdb-4b91feb928c5": {
+      "id": "4e5bdf3f-1bfc-49d2-8fdb-4b91feb928c5",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793894555,
+      "last_edit": 1793894555,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "957ae8de88eddf10ab6215c723646a2ea9176788"
+          },
+          "content": {
+            "blob": "554a471bafc1377004f80be5e9d1e9bd5eea9cd0"
+          },
+          "intent": null,
+          "last_edit": 1793894555
+        },
+        "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md": {
+          "base": {
+            "blob": "2d09f411ef90bbf6d56d92b426b22e7f2eb0e79a"
+          },
+          "content": {
+            "blob": "c1c40770172f200ea24457ba911d75c62389019f"
+          },
+          "intent": null,
+          "last_edit": 1793894555
+        }
+      },
+      "dependencies": [
+        "89c2d8bb-3eb7-4a40-8592-eebd988322c4"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "4fb3fc57-85ae-419f-a958-a5b36b5825b7": {
       "id": "4fb3fc57-85ae-419f-a958-a5b36b5825b7",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
@@ -1823,8 +1865,11 @@
         "39df02d9-6758-4615-8df9-c44281deeaf6"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "refine US00001 multi-workspace tray behavior",
+        "description": "Record design answers in the existing US00001 story: one host can serve multiple workspaces, the tray reflects the highest-precedence workspace state, the status window shows attention/offline reasons, and Quit never prompts. Expand scope and acceptance criteria accordingly; open questions drop from 5 to 2. Update the Obsidian workspace to focus the story and its references."
+      },
+      "message_base": "fb72aa9d4351c9e264a766ba48b0f8353403f732"
     },
     "8d897d95-6824-4982-a669-de63f56b2cb3": {
       "id": "8d897d95-6824-4982-a669-de63f56b2cb3",
