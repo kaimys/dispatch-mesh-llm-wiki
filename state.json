@@ -1196,7 +1196,7 @@
       "last_edit": 1793882168,
       "revision": 3,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         ".obsidian/workspace.json": {
@@ -1226,8 +1226,11 @@
         "e7868d2f-0de7-4e6b-9b84-e600bd1b2b41"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Record successful offline test for stabilization task",
+        "description": "Mark the real network-loss manual test as passed and reduce TASK00001's open test count from 3 to 2. Update the Obsidian workspace to focus on the stabilization ticket."
+      },
+      "message_base": "3dff1498896b57e4b88bbd04e3973aa86b7fce07"
     },
     "7ce50d87-5947-4c8b-8c92-e4f6c5a83aca": {
       "id": "7ce50d87-5947-4c8b-8c92-e4f6c5a83aca",
@@ -2019,8 +2022,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793884629,
-      "last_edit": 1793884716,
-      "revision": 6,
+      "last_edit": 1793884749,
+      "revision": 8,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -2035,13 +2038,33 @@
           "intent": null,
           "last_edit": 1793884629
         },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "616bfe900f55cf38a419c39cca5d364c9d70c52c"
+          },
+          "content": {
+            "blob": "2a7489bc42e42ccf8f0dcdff32915b438b491165"
+          },
+          "intent": null,
+          "last_edit": 1793884749
+        },
+        "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md": {
+          "base": {
+            "blob": "61203f8ec56338a157a403d6b323b1aadfd4163c"
+          },
+          "content": {
+            "blob": "426ae9c1213079187d950a25dcc7660f4a24531f"
+          },
+          "intent": null,
+          "last_edit": 1793884749
+        },
         "README.md": {
           "base": null,
           "content": {
-            "blob": "19168b169c4de017f5abf7a3a35cc4c44e4e3398"
+            "blob": "2e80d97bee71f7104970f93160e87d9ca307f1f9"
           },
           "intent": null,
-          "last_edit": 1793884716
+          "last_edit": 1793884749
         }
       },
       "dependencies": [
