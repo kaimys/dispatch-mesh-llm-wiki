@@ -1,7 +1,7 @@
 ---
 id: TASK00001
 type: task
-status: Refinement
+status: In progress
 priority: high
 rank: 1024
 version_target: v0.2.5
