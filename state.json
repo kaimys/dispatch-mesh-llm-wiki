@@ -1292,6 +1292,38 @@
       },
       "message_base": "9692a575d4b503139ee1d36905cf0bce7ed41ae4"
     },
+    "66b5ef56-abe2-4e77-b736-3582d1a7e245": {
+      "id": "66b5ef56-abe2-4e77-b736-3582d1a7e245",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793895683,
+      "last_edit": 1793895683,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md": {
+          "base": {
+            "blob": "2263e41405232df0416c63f268f050ebd7dc8bf2"
+          },
+          "content": {
+            "blob": "bf12d1b8a224019da0db2a5a9b604b8324c0b894"
+          },
+          "intent": null,
+          "last_edit": 1793895683
+        }
+      },
+      "dependencies": [
+        "4e5bdf3f-1bfc-49d2-8fdb-4b91feb928c5"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "67fe2012-1bd5-4c63-9842-1cac0e70a22f": {
       "id": "67fe2012-1bd5-4c63-9842-1cac0e70a22f",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
