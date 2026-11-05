@@ -9,7 +9,7 @@ size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests: 1
+open_tests: 0
 open_findings: 0
 discussion:
 updated: 2026-11-05
@@ -277,13 +277,15 @@ These checks are not repeated below.
   Automation covers this against a loopback mock, not real Git with the Windows credential helper and a real network drop.
 
   *Result 2026-11-05 (Kai, Windows, private repository `kaimys/mesh-manual-test`): passed.* Ctrl+C while offline stopped `run` in about 2 s with `Local changes saved. Mesh stopped.`, and no credential prompt appeared. After reconnecting, `status` showed `offline` with a sanitized reason ("Git fetch: Remote unreachable (exit 128) …"), with `second.md` already captured. After `run` restarted, the offline state cleared and the session with `first.md` and `second.md` reached `draft_uploaded`. GitHub shows device branch `mesh/devices/6c84e573-…` at `6b29b0c`.
-- [ ] **Kai:** *Linux CI is green for this branch.*
+- [x] **Kai:** *Linux CI is green for this branch.*
   1. Push `us00002-engine-control-interface`.
   2. Open the `ci` workflow run for it on GitHub.
 
   Expected: both the `windows-latest` and `ubuntu-latest` jobs pass, including `tests/runner.rs` (10 tests).
 
   On Linux the runner lock is a `flock` per open file description, so it is the only place where refusing a second same-process `Runner::start` is verified. This machine has neither WSL nor Docker, and the branch has not been pushed yet.
+
+  *Result 2026-11-05: passed.* Pushed at Kai's request. CI run `42047824881` ("Engine checks") on `0e4c9a6` succeeded on `ubuntu-latest` and `windows-latest`. `tests/runner.rs` passed 10/10 on each, in 19.3 s and 23.1 s with `--test-threads=2`.
 
 Deliberately omitted:
 - A GUI-subsystem host (no console for stdio) does not exist until [[Story - US00001 - Tray icon and status window host|US00001]]; its tests cover that.

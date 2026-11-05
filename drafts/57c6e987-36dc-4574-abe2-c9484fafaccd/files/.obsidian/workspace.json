@@ -45,8 +45,7 @@
               "title": "Story - US00002 - Local engine control interface for the tray host"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -214,7 +213,7 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "103183a0d6effc5b",
+  "active": "8fc4e83af58370bc",
   "lastOpenFiles": [
     "00_Start-Here/Team/Kai.md",
     "02_Product/Dispatch Mesh concept.md",
