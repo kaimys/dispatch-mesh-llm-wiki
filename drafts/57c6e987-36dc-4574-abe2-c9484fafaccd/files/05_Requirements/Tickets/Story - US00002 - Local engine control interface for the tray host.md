@@ -9,7 +9,7 @@ size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests: 2
+open_tests: 1
 open_findings: 0
 discussion:
 updated: 2026-11-05
@@ -264,7 +264,7 @@ These checks are not repeated below.
   Automation cannot send Ctrl+C to a console process on Windows; the tests drive the same shutdown path through `RunnerHandle::stop()`.
 
   *Result 2026-11-05 (Kai, Windows, PowerShell): passed.* `run` printed `Local changes saved. Mesh stopped.`, `$LASTEXITCODE` was `0`, and `status` showed `note.md` in the active session with `local_changes_waiting: false`.
-- [ ] **Kai:** *Ctrl+C during a real network outage does not hang.*
+- [x] **Kai:** *Ctrl+C during a real network outage does not hang.*
   1. Use a workspace connected to a real GitHub test repository (`init --remote https://github.com/<you>/<test-repo>.git`), with working credentials.
   2. Start `run`, edit and save a file, and wait until `status` shows that session at `draft_uploaded`.
   3. Disconnect the network (Wi-Fi off or cable out). Edit and save a second file, wait about 5 s, then press Ctrl+C.
@@ -275,6 +275,8 @@ These checks are not repeated below.
   - After reconnecting, `status` lists the second file in a session, and starting `run` again uploads it (the session returns to `draft_uploaded`).
 
   Automation covers this against a loopback mock, not real Git with the Windows credential helper and a real network drop.
+
+  *Result 2026-11-05 (Kai, Windows, private repository `kaimys/mesh-manual-test`): passed.* Ctrl+C while offline stopped `run` in about 2 s with `Local changes saved. Mesh stopped.`, and no credential prompt appeared. After reconnecting, `status` showed `offline` with a sanitized reason ("Git fetch: Remote unreachable (exit 128) …"), with `second.md` already captured. After `run` restarted, the offline state cleared and the session with `first.md` and `second.md` reached `draft_uploaded`. GitHub shows device branch `mesh/devices/6c84e573-…` at `6b29b0c`.
 - [ ] **Kai:** *Linux CI is green for this branch.*
   1. Push `us00002-engine-control-interface`.
   2. Open the `ci` workflow run for it on GitHub.
