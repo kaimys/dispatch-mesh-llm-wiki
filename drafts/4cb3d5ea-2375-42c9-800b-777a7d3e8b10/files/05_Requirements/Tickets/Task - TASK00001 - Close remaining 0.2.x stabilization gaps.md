@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings:
+open_findings: 0
 discussion:
 updated: 2026-11-05
 completed:
@@ -479,6 +479,35 @@ The earlier review's assessment of criteria 1–5, 6a, 10 and 11 still holds; th
 1. A fresh `/develop TASK00001` session repairs B4 using a full-timestamp cutoff and adds the boundary cases above.
 2. Rerun the mechanical gates, append the result to the as-built notes and clear the stale findings count when code changes.
 3. Request a fresh `/code-review TASK00001`. A clean result can hand off to `/test-plan`, which stamps the freeze. This review changes no ticket status or manual-test counter.
+
+### 2026-11-05 — branch task00001-stabilization-gaps at c079e9d
+
+**Scope and independence.** Re-reviewed the complete B4 repair in `291c263..c079e9d`: `src/ai.rs`, `tests/provider.rs` and their surrounding code, against the recorded failure, the ticket contract and the latest as-built notes. Earlier full-branch and repair reviews remain inputs. The reviewer authored none of the implementation. Review began while these two files were uncommitted; the author committed them during verification. Their SHA-256 hashes matched before and after that commit, so the code inspected and tested is the code in `c079e9d`. The working tree was clean at the final check. No open PR was found. No source code changed in this review session.
+
+**Gates.** Independently ran `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, and `cargo test`: all passed on Windows. All **69 tests** passed: 5 library, 9 CLI, 27 engine, 20 provider and 8 storage/transport. Engine tests took 182.13 seconds. `git diff --check main...HEAD` passed. These are local automated checks; no live provider/GitHub tests or Linux/macOS verification were performed. The previously recorded limitation concerning installed German Git translations remains.
+
+**Verdict: clean review — 0 blocking findings, 0 non-blocking findings.** B4 is resolved, and no new actionable finding was identified in this repair. Set `open_findings: 0` for `c079e9d`. Leave `status: In progress`, `open_tests` and `frozen` unchanged: `/test-plan` is the next workflow and stamps the freeze against the reviewed commit.
+
+#### Findings checked and acceptance criteria
+
+- **B4 — resolved.** RFC 850 century selection now happens after parsing month/day/time and compares the entire candidate timestamp against the 50-calendar-year cutoff. Exactly at the cutoff stays in the future; a later instant is interpreted in the previous century. Both original reproductions (`Friday, 05-Nov-76 13:00:01 GMT` and `Friday, 31-Dec-76 23:59:59 GMT`, with the recorded reference clock) return `Some(0)`. Final calendar validation remains after century selection.
+- **Independent boundary verification:** 360 Python-derived cases passed across reference dates in 2026–2030, month boundaries, differing times of day, and the instants immediately before, at and after the cutoff. These include leap-day reference dates and the recorded March 1 normalization policy. Both original B4 reproductions and all 509 earlier independent calendar cases passed against the current compiled library.
+- **Earlier B1, B2, B3, N1 and N2 remain resolved.** The full suite passed again, including lock-contention persistence/recovery, all HTTP-date forms, invalid dates, discarded-stage/reopen behavior and the actual CLI AI-failure persistence path. This commit changes only the RFC 850 cutoff implementation and its regression assertions.
+- Criterion **9**, previously blocked by B4, now passes the reviewed cases. All other acceptance criteria retain the passing assessments from the preceding reviews and the rerun suite; criterion **12** is independently green. No contract rewrite is required. The implementation and leap-day choice are recorded in the dated as-built notes. No unrelated changes or undocumented plan departures were found.
+
+#### What is good and should stay
+
+- Deferring two-digit-year interpretation until the complete timestamp is available directly addresses the failure instead of adding a special case for the reported date.
+- Calendar validation runs on the final interpreted year, preserving the earlier invalid-date fix.
+- The regression distinguishes before, exactly at and after the cutoff and preserves the early-2076/2080 cases; it would detect reintroduction of the year-only comparison.
+- The inverse calendar helper uses the same civil-date model as the existing conversion, and independent timestamp comparisons cover the new calculation across month and leap-day boundaries.
+
+**Evidence.** Ignored `target/review-task00001/` retains `fourth-review-boundary-cases.py`, `fourth-review-boundary-cases.json`, `fourth-review-boundary.rs` and `fourth-review-boundary-output.txt`. Earlier evidence is retained separately. Probes use fixed clocks and the compiled library; they contact no live provider and change no user workspace.
+
+#### Before this leaves review
+
+1. Run `/test-plan TASK00001` against `c079e9d`, writing only the required manual checks and stamping the ticket freeze through that workflow.
+2. Keep subsequent review/test records tied to the commit that will ship. Any later implementation change invalidates this findings count and needs the applicable verification again.
 
 ## Follow-ups
 
