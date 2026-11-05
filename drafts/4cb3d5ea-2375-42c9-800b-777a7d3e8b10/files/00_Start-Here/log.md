@@ -84,3 +84,7 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 - Created [[Dispatch Mesh SWOT analysis]] from the profiles, distinguishing implemented preview behavior from roadmap features and analyst hypotheses from observed facts.
 - Queried live REST stars/forks and GraphQL discussion-thread totals/enabled state. Marked git-annex canonical GitHub metrics N/A and separated unofficial con/git-annex counts; noted SparkleShare's funded reboot and inaccessible homepage.
 - Listed all nine pages in [[index]]. Registered manual refresh before decision reuse in [[Competitor overview]]; no recurring automation created. This was document research, not competitor runtime or Mesh engine verification.
+
+## [2026-11-05] code-review | TASK00001 re-review at 291c263
+- [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]: independently passed formatting, Clippy and all 69 tests on Windows. Closed the earlier B2 format-rejection and N2 invalid-date cases; 509 independent calendar comparisons and six original-format reproductions passed.
+- Recorded new blocking B4: RFC 850's 50-year rule compares only years, so a timestamp just beyond the actual cutoff incorrectly reports a roughly 50-year retry delay rather than an expired date. Retained probe evidence and a repair plan; set `open_findings: 1`, kept `In progress` and unfrozen, and left `open_tests` unchanged. Restored the missing review-section heading without altering historical entries. No implementation changes or PR comment.
