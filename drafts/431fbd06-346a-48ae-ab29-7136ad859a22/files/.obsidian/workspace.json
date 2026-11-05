@@ -16,37 +16,8 @@
               "icon": "play",
               "title": "Dispatch board"
             }
-          },
-          {
-            "id": "103183a0d6effc5b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Story - US00002 - Local engine control interface for the tray host"
-            }
-          },
-          {
-            "id": "c8481b76b229688c",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Story - US00002 - Local engine control interface for the tray host"
-            }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -124,7 +95,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -143,7 +113,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -214,15 +183,15 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "c8481b76b229688c",
+  "active": "8fc4e83af58370bc",
   "lastOpenFiles": [
+    "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
     "08_Delivery-and-QA/Releases/v0.2.5.md",
     "08_Delivery-and-QA/Releases/GitHub/v0.2.5 GitHub release.md",
     "file:C:/Users/kai/AppData/Local/Temp/claude/4b8f75bbeb1eb607/6998f873-9e5b-4e46-a36d-d0b0ef1ab545/scratchpad/github-release-v0.2.5.md",
     "08_Delivery-and-QA/Releases/GitHub",
     "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
     "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
-    "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
     "00_Start-Here/Team/Kai.md",
     "02_Product/Dispatch Mesh concept.md",
     "file:C:/MeshNet/second.md",

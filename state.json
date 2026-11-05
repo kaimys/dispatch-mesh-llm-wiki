@@ -762,8 +762,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793892163,
-      "last_edit": 1793892756,
-      "revision": 10,
+      "last_edit": 1793892773,
+      "revision": 11,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -773,10 +773,10 @@
             "blob": "d4b74467621ca9340ae0f5212240a5ee59d0f150"
           },
           "content": {
-            "blob": "cc0a6677635becc6f1cd5afe81ab6ce96c9bf1aa"
+            "blob": "ad4bd1ff28fe0572dd949cfed78bca063d0c9c20"
           },
           "intent": null,
-          "last_edit": 1793892756
+          "last_edit": 1793892773
         },
         "00_Start-Here/index.md": {
           "base": {
@@ -797,6 +797,16 @@
           },
           "intent": null,
           "last_edit": 1793892229
+        },
+        "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md": {
+          "base": {
+            "blob": "cde6d582d5f32910af854a5bc0d9c2ef9c9c9569"
+          },
+          "content": {
+            "blob": "19ad3316267812a3344970bd360d87f0aaa33398"
+          },
+          "intent": null,
+          "last_edit": 1793892773
         },
         "08_Delivery-and-QA/Releases/GitHub/v0.2.5 GitHub release.md": {
           "base": null,
