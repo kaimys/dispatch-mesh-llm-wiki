@@ -572,6 +572,44 @@
       },
       "message_base": "8666e2d536dd1a1d9880e938b6f51c51346282e6"
     },
+    "7ce50d87-5947-4c8b-8c92-e4f6c5a83aca": {
+      "id": "7ce50d87-5947-4c8b-8c92-e4f6c5a83aca",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793865793,
+      "last_edit": 1793865793,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        ".obsidian/workspace.json": {
+          "base": {
+            "blob": "7f123b099c34113b2c32e2616282223e04d6e734"
+          },
+          "content": {
+            "blob": "1f72e75905fde4a32d1ea564b6b047b24a82ce18"
+          },
+          "intent": null,
+          "last_edit": 1793865793
+        },
+        "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md": {
+          "base": null,
+          "content": {
+            "blob": "36bb26c39855e4eb73ca26cc59ec69bbdf585d8a"
+          },
+          "intent": null,
+          "last_edit": 1793865793
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "8d897d95-6824-4982-a669-de63f56b2cb3": {
       "id": "8d897d95-6824-4982-a669-de63f56b2cb3",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
