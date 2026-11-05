@@ -897,8 +897,11 @@
         "4cb3d5ea-2375-42c9-800b-777a7d3e8b10"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: move TASK00001 into review and record manual test plan",
+        "description": "- Add five manual verification checks for TASK00001, set it to Review, and freeze the ticket.\n- Update the Obsidian workspace to open the stabilization task in source mode and make the Dispatch board active."
+      },
+      "message_base": "89c208f3bd405f7c32d8bd73939be2873eceddfc"
     },
     "749543b5-f9c1-456b-8eab-198c13f33f5e": {
       "id": "749543b5-f9c1-456b-8eab-198c13f33f5e",
