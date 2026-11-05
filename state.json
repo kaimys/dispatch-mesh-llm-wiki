@@ -1324,8 +1324,11 @@
         "66b5ef56-abe2-4e77-b736-3582d1a7e245"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Update workspace to focus on tray host story",
+        "description": "Set the tray icon and status window host story as the active tab in the Obsidian workspace."
+      },
+      "message_base": "011b83cff97e4fd2bb1a91ca9c8fe10fd3da3b37"
     },
     "66b5ef56-abe2-4e77-b736-3582d1a7e245": {
       "id": "66b5ef56-abe2-4e77-b736-3582d1a7e245",
