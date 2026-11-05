@@ -65,12 +65,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md",
+                "file": "00_Start-Here/log.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "ADR-0010 — Report workspace status and session stages separately"
+              "title": "log"
             }
           }
         ],
@@ -244,6 +244,8 @@
   },
   "active": "cbcac4b34f5396d0",
   "lastOpenFiles": [
+    "00_Start-Here/index.md",
+    "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md",
     "07_Engineering/Decisions/ADR-0009 — Embed the engine with a runner handle and published status.md",
     "07_Engineering/Decisions/ADR-0008 — Store content as blobs referenced by metadata.md",
     "07_Engineering/Decisions/ADR-0007 — Persist state transactionally with recovery journals.md",
@@ -254,7 +256,6 @@
     "07_Engineering/Decisions/ADR-0002 — Group files into sessions with an inactivity boundary.md",
     "07_Engineering/Decisions/ADR-0001 — Synchronize drafts separately from permanent history.md",
     "08_Delivery-and-QA/Reports/github-workflow-findings-2026-11-04.md",
-    "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md",
     "08_Delivery-and-QA/Reports/github-workflow-test-2026-11-04.md",
     "02_Product/Dispatch Mesh milestone plan.md",
     "05_Requirements/Tickets/sedMvUEw1",
@@ -275,7 +276,6 @@
     "02_Product/Dispatch Mesh naming recommendations.md",
     "02_Product/Dispatch Mesh requirements and architecture.md",
     "00_Start-Here/log.md",
-    "00_Start-Here/index.md",
     "00_Start-Here/Team/Kai.md"
   ]
 }
