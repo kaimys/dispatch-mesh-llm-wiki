@@ -57,7 +57,8 @@
               "title": "Dispatch Mesh milestone plan"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -225,7 +226,7 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "8fc4e83af58370bc",
+  "active": "f7b3d9fe981edde0",
   "lastOpenFiles": [
     "07_Engineering/Decisions/ADR-0012 — Ship the desktop host as a separate executable serving several workspaces.md",
     "07_Engineering/Decisions/ADR-0011 — Build the desktop host with Tauri 2.md",
