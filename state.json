@@ -475,8 +475,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793879053,
-      "last_edit": 1793879053,
-      "revision": 1,
+      "last_edit": 1793879148,
+      "revision": 3,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -486,10 +486,38 @@
             "blob": "3393abd02b656001a82ab71de4ddfaa5bc6e50d9"
           },
           "content": {
-            "blob": "ed02965c7b0fd2f37fc330a3222c75e321ec14f2"
+            "blob": "aef69d9571d24d64561a9bc4b88394a23bcfd533"
           },
           "intent": null,
-          "last_edit": 1793879053
+          "last_edit": 1793879144
+        },
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "df69c93ccf642056a76ab187138040c777ac2686"
+          },
+          "content": {
+            "blob": "35ccc88365ea3e7b2cd6e65abf49aa108533930c"
+          },
+          "intent": null,
+          "last_edit": 1793879148
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "8f165e630c90db350aed3bb39b2c564c844ecd89"
+          },
+          "content": {
+            "blob": "616bfe900f55cf38a419c39cca5d364c9d70c52c"
+          },
+          "intent": null,
+          "last_edit": 1793879148
+        },
+        "06_UX/Claude Design briefing — desktop app.md": {
+          "base": null,
+          "content": {
+            "blob": "3d973027e46e05984b17e23e51d6e66fae8830a2"
+          },
+          "intent": null,
+          "last_edit": 1793879144
         }
       },
       "dependencies": [
