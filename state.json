@@ -3026,7 +3026,7 @@
       "last_edit": 1793897611,
       "revision": 1,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "00_Start-Here/log.md": {
