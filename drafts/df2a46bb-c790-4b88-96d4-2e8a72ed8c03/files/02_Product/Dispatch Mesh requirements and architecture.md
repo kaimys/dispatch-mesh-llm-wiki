@@ -109,6 +109,8 @@ For macOS, use a login item or LaunchAgent. Add Linux desktop startup integratio
 
 A small desktop interface should expose saved locally, waiting to sync, synced, and needs attention, plus pause, resume, quit, and recovery actions. Closing a status window should have clearly defined behavior distinct from quitting synchronization.
 
+> Update 2026-11-05: the engine's status model refines these four states into six: `needs_attention` > `offline` > `saved_locally` > `draft_uploaded` > `waiting_for_finalization` > `synced`, with a `reason` and a stage per session ([[ADR-0010 — Report workspace status and session stages separately]], built under [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps|TASK00001]]). "Waiting to sync" splits into `draft_uploaded` and `waiting_for_finalization`, and an unreachable remote is `offline` rather than needing attention. Pause is not yet part of the model.
+
 The tray icon should indicate when conflicts need attention. Clicking it opens the status window, where users can browse unresolved conflicts and inspect the competing versions, authors, and available resolution actions. This is a Mesh interface backed by synchronized conflict records; GitHub does not automatically provide that interface.
 
 Offer an optional "Finish session" action in the tray menu and status window. Users do not need to invoke it: five-minute inactivity closes sessions automatically. Finishing freezes the current session for finalization; further edits enter a new session without waiting for AI summarization or publication.
