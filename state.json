@@ -2908,8 +2908,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793977336,
-      "last_edit": 1793977862,
-      "revision": 5,
+      "last_edit": 1793977887,
+      "revision": 6,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -2919,10 +2919,10 @@
             "blob": "49db5b87ce99ba9628732f6adcac5c3de5e09b25"
           },
           "content": {
-            "blob": "e2917ca7e289b546538c514039f0facd3a0402ab"
+            "blob": "5f7784ec795673a12f9d12e1a4ecb4d195f0cbe1"
           },
           "intent": null,
-          "last_edit": 1793977862
+          "last_edit": 1793977887
         },
         "00_Start-Here/Templates/ticket-story.md": {
           "base": {
@@ -3065,10 +3065,10 @@
         "05_Requirements/Tickets/Story - US00006 - Conflict list and resolution in the status window.md": {
           "base": null,
           "content": {
-            "blob": "ed262d311de6a7601530fbf67eb1794e0a082c12"
+            "blob": "4e2335c9e6d566040a107e8c6ecfa35adaa977f0"
           },
           "intent": null,
-          "last_edit": 1793977855
+          "last_edit": 1793977887
         },
         "05_Requirements/Tickets/Story - US00007 - Recent-save presence in the status window.md": {
           "base": null,
