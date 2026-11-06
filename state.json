@@ -1129,7 +1129,7 @@
       "created_at": 1793984227,
       "last_edit": 1793984303,
       "revision": 2,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -1156,8 +1156,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Document US00005 implementation and normalize US00006 formatting",
+        "description": "Append US00005 as-built notes and verification results, including implementation details and untested areas. Normalize line endings in the existing US00006 ticket."
+      },
+      "message_base": "78a2b349905ca7ee6b774b3abfccecda5b586711"
     },
     "3ecefc5d-c9b9-433e-bdf0-8e21947a2a05": {
       "id": "3ecefc5d-c9b9-433e-bdf0-8e21947a2a05",
@@ -2120,6 +2123,66 @@
         "description": "- Add five manual verification checks for TASK00001, set it to Review, and freeze the ticket.\n- Update the Obsidian workspace to open the stabilization task in source mode and make the Dispatch board active."
       },
       "message_base": "89c208f3bd405f7c32d8bd73939be2873eceddfc"
+    },
+    "71416bb6-b91e-45af-8d38-87fe825df31d": {
+      "id": "71416bb6-b91e-45af-8d38-87fe825df31d",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793984755,
+      "last_edit": 1793984797,
+      "revision": 2,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "7ca75b3f5e055cecbc46e81edc2edc5a1dbeb363"
+          },
+          "content": {
+            "blob": "a054c747703498b4b46ca270577c8bacde65d6da"
+          },
+          "intent": null,
+          "last_edit": 1793984755
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "7490e456e402a4cf4f4e0dc3774269587b1bed29"
+          },
+          "content": {
+            "blob": "891b31f95a94852ebfa716b6d75d47f1fb5c1a02"
+          },
+          "intent": null,
+          "last_edit": 1793984797
+        },
+        "05_Requirements/Tickets/Story - US00005 - Workspace detail with Finish session and recovery information.md": {
+          "base": {
+            "blob": "96353005f54105a4241a8eb3ab4fb8ec560bcd50"
+          },
+          "content": {
+            "blob": "aabfc810a9ef36c3dc4fc6b20db7ac3009706728"
+          },
+          "intent": null,
+          "last_edit": 1793984797
+        },
+        "05_Requirements/Tickets/Story - US00011 - Limit saved copies in the recovery folder.md": {
+          "base": null,
+          "content": {
+            "blob": "82a013dffee801314071dd2431b82be651d30c9c"
+          },
+          "intent": null,
+          "last_edit": 1793984755
+        }
+      },
+      "dependencies": [
+        "3cc5f4ce-648d-458c-983a-0c1fa414f0d5"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
     },
     "74689f7a-cc1a-4a88-b738-f5dd99e4e7b9": {
       "id": "74689f7a-cc1a-4a88-b738-f5dd99e4e7b9",
