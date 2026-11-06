@@ -1039,8 +1039,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: document desktop design frames and complete US00005",
+        "description": "Record US00005's review fixes, manual test results, and merge in its ticket and the wiki log. Add US00012 for aligning the status window with the design frames, and document the design in a readable spec with frame images, source markup, and canvas data. Update the index with the new ticket and design spec."
+      },
+      "message_base": "e1e1a17e370a6c0e9e79ea6b9a488441abb57b4d"
     },
     "1f8fbadd-90c0-4b9e-91f9-121a9f7112c9": {
       "id": "1f8fbadd-90c0-4b9e-91f9-121a9f7112c9",
