@@ -326,3 +326,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-06] ticket | US00012 Status window layout follows the design frames
 - Created [[Story - US00012 - Status window layout follows the design frames]] (Backlog, v0.3.0) from a comparison of the built US00005 window with design frames pp. 3, 4 and 13; 4 open questions. Noted that the PDF and HTML in `06_UX/` have no readable text. Linked from US00005's Follow-ups and listed in [[index]].
+
+## [2026-11-06] merge | US00005 merged to main
+- Rebased the five US00005 commits onto `51cf60e` and fast-forwarded `origin/main` to `676092d`. The local `main` branch is checked out in the worktree `dispatch-mesh-wiki-lf` and was left untouched (behind by 5). Recorded in [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]].

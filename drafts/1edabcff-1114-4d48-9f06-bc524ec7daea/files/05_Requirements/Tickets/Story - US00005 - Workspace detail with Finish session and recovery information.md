@@ -240,6 +240,10 @@ Independent code review found two blockers: F1 (AC 11: interrupted displacement 
 - **Unchanged, noted:** while such edits are pending, `RunnerHandle::join` after a stop still returns that error from the final capture. The bytes stay in pending capture. Pre-existing behavior; the tray ignores the result on Quit.
 - **Verified live on the fixed debug build (Windows):** the card shows the engine's reason and a primary **Finish session**, and the activity section's button is hidden. Clicking it cleared the attention, and the dependent edit entered a new session that was shared as draft. With the bare remote renamed away, the card showed "Synchronization waiting: Git fetch …" then "Mesh retries automatically.", no Retry button, and the header kept "Last synced 1 min ago". Restoring the remote cleared it. After restarting the tray, the header showed the stored sync time, not "Not synced yet". **Show in folder** opened Explorer in `.mesh/recovery/<id>` with `content` selected (read back through the Shell API).
 
+### 2026-11-06 — merged
+
+Rebased onto `51cf60e` (docs-only) and fast-forwarded `origin/main` to `676092d` (`eda8c04`, `579f0df`, `8560753`, `6f28cfe`, `676092d`). Code identical to the tested `819d9b0`; fmt and clippy rerun on the rebased tree.
+
 ## Code review
 
 ### 2026-11-06 — branch US00005-workspace-detail at 4133e9c
