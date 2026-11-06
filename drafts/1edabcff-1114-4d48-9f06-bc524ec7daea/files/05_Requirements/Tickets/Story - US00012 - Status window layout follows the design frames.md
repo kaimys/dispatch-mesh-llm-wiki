@@ -8,7 +8,7 @@ version_target: v0.3.0
 size:
 assignee:
 owner: "[[Kai]]"
-open_questions: 4
+open_questions: 3
 open_tests:
 open_findings:
 discussion:
@@ -33,13 +33,13 @@ As a person working in a Mesh workspace, I want the status window to show my rec
 ## Context
 
 - Follow-up of [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]] (Done, frozen). Its contract cited "frames in [[Dispatch Mesh desktop app.pdf]]" but no acceptance criterion checked the layout, and plan step 6 described the window in prose only. The built window (screenshot, 2026-11-06, build after `819d9b0`) differs from the frames as listed under *Gaps* below.
-- **The design files are not readable as text.** `06_UX/Dispatch Mesh desktop app.pdf` is 13 pages of images with no text layer; `06_UX/Dispatch Mesh desktop app.html` is a compressed, self-unpacking bundle with no readable markup. An agent that greps or extracts text from them finds nothing. This ticket therefore spells the design out below; the frames remain the visual reference and must be **viewed as images** (render the page, then open the image).
+- **The design files are not readable as text.** `06_UX/Dispatch Mesh desktop app.pdf` is 13 pages of images with no text layer; `06_UX/Dispatch Mesh desktop app.html` is a compressed, self-unpacking bundle with no readable markup. An agent that greps or extracts text from them finds nothing. Since 2026-11-06 the readable versions are [[Dispatch Mesh desktop app — design spec]] (tokens, glyph paths, components, per-view rules), one PNG per frame in `06_UX/frames/`, and the frame markup in `06_UX/frames/source/`. This ticket also spells out the parts it needs below.
 - Frames, by PDF page (page = canvas artboard):
-  - **p. 3 — 3a Status window (component)**: 440 × 640 overview, the layout this ticket implements.
-  - **p. 4 — 3b One frame per summary state**: the same window in all six summary states.
-  - **p. 5 — 3c Activity + presence**: session detail (out of scope here, see Open questions).
-  - **p. 13 — 6 Tokens + components**: colors, type scale, spacing, status glyphs, stage track.
-- **Newer than the PDF (canvas, 2026-11-06):** the last stage is labelled "Added to shared history" everywhere, and a workspace without a remote shows a three-segment track (no "Shared as draft"). The PDF export predates both; re-export it (see Open questions, Q4).
+  - **p. 3 — 3a Status window (component)**, `06_UX/frames/03a-status-window.png`: 440 × 640 overview, the layout this ticket implements.
+  - **p. 4 — 3b One frame per summary state**, `06_UX/frames/03b-summary-states.png`: the same window in all six summary states.
+  - **p. 5 — 3c Activity + presence**, `06_UX/frames/03c-activity-presence.png`: session detail (out of scope here, see Open questions).
+  - **p. 13 — 6 Tokens + components**, `06_UX/frames/06-tokens-components.png`: colors, type scale, spacing, status glyphs, stage track.
+- **Newer than the PDF (canvas, 2026-11-06):** the last stage is labelled "Added to shared history" everywhere, and a workspace without a remote shows a three-segment track (no "Shared as draft"). The PDF export and the PNGs predate both; the design spec lists them under *Changes since the PDF export*.
 - Touches only `tray/ui/app.js`, `tray/ui/app.css` (and `tray/ui/index.html` if the structure needs it). `tray/src/model.rs` keeps all wording; if a label the design needs is missing from the view model, it is added there, unit-tested.
 - Vocabulary and principles: [[Claude Design briefing — desktop app]] §3 (quiet by default), §5 (words).
 
@@ -82,7 +82,8 @@ As a person working in a Mesh workspace, I want the status window to show my rec
 - [ ] **Q1 — Window chrome.** Keep the native Windows title bar ("Dispatch Mesh", minimise/maximise/close) above the design's header, or draw the design's own top row (app mark, workspace name as switcher, hide button) with Tauri `decorations: false`? The second matches p. 3 but needs a drag region and native-feeling hide/move.
 - [ ] **Q2 — Conflicts tab.** Show the Activity / Conflicts section nav now (Conflicts empty or disabled until US00006), or introduce the nav together with US00006?
 - [ ] **Q3 — Font.** Bundle IBM Plex Sans + Mono with the app, or use the system fallback (Segoe UI, Consolas) and keep the design's sizes and weights?
-- [ ] **Q4 — Readable design source.** Before development, add the design to the wiki in a form an agent can read: one PNG per frame (from the PDF, or exported from the canvas) under `06_UX/frames/`, plus a re-exported PDF that includes the 2026-11-06 changes. Who exports, and are PNGs enough or should the frame source (`.dc.html`) be added too?
+- [x] **Q4 — Readable design source.** Before development, add the design to the wiki in a form an agent can read.
+  **Answer (Kai, 2026-11-06):** done. `06_UX/frames/*.png` (one per frame, from the PDF), `06_UX/frames/source/*.dc.html` (frame markup from the canvas, including the 2026-11-06 changes) and [[Dispatch Mesh desktop app — design spec]]. Where the spec and a PNG disagree, the spec wins.
 
 ## Acceptance criteria
 
@@ -99,7 +100,7 @@ As a person working in a Mesh workspace, I want the status window to show my rec
 
 <!-- GUIDE: Written by /implementation-plan. -->
 
-**Note for the planner and developer:** open frames p. 3, p. 4 and p. 13 as images before writing the plan (render with `pdftoppm -f 3 -l 4 -png -r 96 "06_UX/Dispatch Mesh desktop app.pdf" frame`, then view the PNGs), and compare a screenshot of the running window against them before handing to review. Text extraction from the PDF or HTML returns nothing.
+**Note for the planner and developer:** read [[Dispatch Mesh desktop app — design spec]] (*Status window*, *Tokens*, *Glyphs*) and open `06_UX/frames/03a-status-window.png`, `03b-summary-states.png` and `06-tokens-components.png` as images before writing the plan. Before handing to review, compare a screenshot of the running window against them, as in the spec's *How to check a build*. Text extraction from the PDF or HTML returns nothing.
 
 <!-- ═══════════ RECORD ZONE ═══════════
      What actually happened. Always appendable, including after the freeze.
@@ -114,7 +115,7 @@ As a person working in a Mesh workspace, I want the status window to show my rec
 ## References
 
 - [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]]
-- [[Claude Design briefing — desktop app]], [[Dispatch Mesh desktop app.pdf]] (pp. 3, 4, 13)
+- [[Claude Design briefing — desktop app]], [[Dispatch Mesh desktop app — design spec]], [[Dispatch Mesh desktop app.pdf]] (pp. 3, 4, 13), `06_UX/frames/`
 - Screenshot of the US00005 window, 2026-11-06 (Kai)
 
 ## Dispatch runs

@@ -329,3 +329,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-06] merge | US00005 merged to main
 - Rebased the five US00005 commits onto `51cf60e` and fast-forwarded `origin/main` to `676092d`. The local `main` branch is checked out in the worktree `dispatch-mesh-wiki-lf` and was left untouched (behind by 5). Recorded in [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]].
+
+## [2026-11-06] design | Readable design source in 06_UX
+- Added [[Dispatch Mesh desktop app — design spec]], one PNG per frame in `06_UX/frames/` (from the PDF export) and the frame markup in `06_UX/frames/source/` (canvas state of 2026-11-06). The PDF and bundled HTML have no extractable text. Answered Q4 of [[Story - US00012 - Status window layout follows the design frames|US00012]] (`open_questions` 4 → 3) and pointed it at the new files. Listed in [[index]].

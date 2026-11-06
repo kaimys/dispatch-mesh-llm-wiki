@@ -59,6 +59,7 @@ Entry point for people and agents. Read this first, then follow the links. Every
 
 - `06_UX/`
   - [[Claude Design briefing — desktop app]] — design brief for the tray icon, status window, conflicts, presence and guided setup
+  - [[Dispatch Mesh desktop app — design spec]] — the design frames as text: tokens, glyph paths, components and per-view rules; frame PNGs in `06_UX/frames/`, frame markup in `06_UX/frames/source/`
 
 ## Engineering
 

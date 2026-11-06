@@ -768,8 +768,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793991270,
-      "last_edit": 1793991631,
-      "revision": 6,
+      "last_edit": 1793991663,
+      "revision": 7,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -779,20 +779,20 @@
             "blob": "a054c747703498b4b46ca270577c8bacde65d6da"
           },
           "content": {
-            "blob": "3ff708e38253f5c19345f61d00aedb06a7b3d9aa"
+            "blob": "16a801a07fcdb1d4a79aba805669b86467854d87"
           },
           "intent": null,
-          "last_edit": 1793991270
+          "last_edit": 1793991663
         },
         "00_Start-Here/log.md": {
           "base": {
             "blob": "0ed6a7e3953d02bab0dbd3d2ab9bc60a7a159d70"
           },
           "content": {
-            "blob": "013b5c1572c0b23f4a9063aa572b8522d9e13975"
+            "blob": "81898cc4557bd6e26a496a0fb802d3beacf62a55"
           },
           "intent": null,
-          "last_edit": 1793991371
+          "last_edit": 1793991663
         },
         "05_Requirements/Tickets/Story - US00005 - Workspace detail with Finish session and recovery information.md": {
           "base": {
@@ -807,10 +807,10 @@
         "05_Requirements/Tickets/Story - US00012 - Status window layout follows the design frames.md": {
           "base": null,
           "content": {
-            "blob": "c5093da7e79efe8851bdcad446ec44240c10e4a7"
+            "blob": "cc6885d1e6b53273186f5785b970c3636fdf341c"
           },
           "intent": null,
-          "last_edit": 1793991338
+          "last_edit": 1793991663
         },
         "06_UX/Dispatch Mesh desktop app — design spec.md": {
           "base": null,
