@@ -57,8 +57,7 @@
               "title": "ADR-0010 — Report workspace status and session stages separately"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -226,7 +225,7 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "82a35f036be2897c",
+  "active": "8fc4e83af58370bc",
   "lastOpenFiles": [
     "05_Requirements/Tickets/Story - US00010 - Resolve a conflict after the file was edited again.md",
     "05_Requirements/Tickets/Story - US00010 - Resolve a conflict after the file was edited again.md.tmp.19972.7e92ee14afcb",

@@ -3192,8 +3192,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793978786,
-      "last_edit": 1793978895,
-      "revision": 2,
+      "last_edit": 1793978961,
+      "revision": 3,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -3203,10 +3203,10 @@
             "blob": "89c57684cdf3c9427a02e9e4da3104f9ac38970d"
           },
           "content": {
-            "blob": "ce1da9081e070e77e13a0b503dcffa2dba24e7a5"
+            "blob": "849394219844336cd7c64e66e00220a953a3b89a"
           },
           "intent": null,
-          "last_edit": 1793978895
+          "last_edit": 1793978961
         },
         "00_Start-Here/index.md": {
           "base": {
@@ -3241,10 +3241,10 @@
         "05_Requirements/Tickets/Story - US00010 - Resolve a conflict after the file was edited again.md": {
           "base": null,
           "content": {
-            "blob": "7a02bfcdd5a0d3c22515d0632cc5eaec520b5dfa"
+            "blob": "6673a1b46fbd3dd60604da0d18aa5f3f68578a1b"
           },
           "intent": null,
-          "last_edit": 1793978895
+          "last_edit": 1793978961
         }
       },
       "dependencies": [
