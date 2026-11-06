@@ -760,6 +760,64 @@
       },
       "message_base": "265caca04817db46d8e65f115372ac9ee6604ba3"
     },
+    "1edabcff-1114-4d48-9f06-bc524ec7daea": {
+      "id": "1edabcff-1114-4d48-9f06-bc524ec7daea",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793991270,
+      "last_edit": 1793991270,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "a054c747703498b4b46ca270577c8bacde65d6da"
+          },
+          "content": {
+            "blob": "3ff708e38253f5c19345f61d00aedb06a7b3d9aa"
+          },
+          "intent": null,
+          "last_edit": 1793991270
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "0ed6a7e3953d02bab0dbd3d2ab9bc60a7a159d70"
+          },
+          "content": {
+            "blob": "9c7cf8c9214bc8779a2920a23110fcd43aff08fa"
+          },
+          "intent": null,
+          "last_edit": 1793991270
+        },
+        "05_Requirements/Tickets/Story - US00005 - Workspace detail with Finish session and recovery information.md": {
+          "base": {
+            "blob": "a88ce35b964551a0b17c9d599e23db375ae2ba9d"
+          },
+          "content": {
+            "blob": "3c1ab34ae08cacd712826d1e52f0165248906d20"
+          },
+          "intent": null,
+          "last_edit": 1793991270
+        },
+        "05_Requirements/Tickets/Story - US00012 - Status window layout follows the design frames.md": {
+          "base": null,
+          "content": {
+            "blob": "6c3809bdbcd1bab81df4fbe718cec4dcf500140f"
+          },
+          "intent": null,
+          "last_edit": 1793991270
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "1f8fbadd-90c0-4b9e-91f9-121a9f7112c9": {
       "id": "1f8fbadd-90c0-4b9e-91f9-121a9f7112c9",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
