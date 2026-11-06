@@ -73,8 +73,8 @@ This tree shows tracked entries at a remote branch tip, as seen in a repository 
 git-annex                          # a separate metadata branch
 ├── uuid.log                       # repository identity descriptions
 ├── trust.log                      # trust metadata, when present
-├── remote.log                        # remote configuration, when present
-└── <hash-directory>/<key>.log        # content location/presence records
+├── remote.log                     # remote configuration, when present
+└── <hash-directory>/<key>.log     # content location/presence records
 ```
 
 These are two branch trees, not nested folders. Metadata entries depend on recorded state; the list is illustrative, not exhaustive. Annex payloads are transferred/stored separately, so `.git/annex/objects/` is not checked into either branch. [Source: metadata log paths](https://github.com/con/git-annex/blob/de5ced7ec6db8f4316a0090f37f006ac179f2c07/Logs.hs), plus the pointer and metadata-branch implementations linked above.

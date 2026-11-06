@@ -65,10 +65,10 @@ This tree shows tracked entries at a remote branch tip, as seen in a repository 
 ```text
 <configured vault branch>
 ├── notes/
-│   └── example.md                    # ordinary committed user file
-├── .github-sync.json                 # portable config, when written and committed
-├── .gitmodules                       # when submodules are configured/committed
-└── <submodule-path>                  # gitlink: commit ID in another repository
+│   └── example.md                  # ordinary committed user file
+├── .github-sync.json               # portable config, when written and committed
+├── .gitmodules                     # when submodules are configured/committed
+└── <submodule-path>                 # gitlink: commit ID in another repository
 ```
 
 A submodule entry records a commit reference; it does not embed that submodule's file tree in the parent branch. Its files belong to the submodule repository. Plugin `data.json` and event logs can also appear if tracked, but are not a required branch schema. External secret files and Git metadata are not part of this tree.
