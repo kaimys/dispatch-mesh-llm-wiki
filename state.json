@@ -40,8 +40,11 @@
         "b394dfd5-0f07-4d3e-9e1a-e1e9ccfada50"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "test-plan: move US00003 to Review with three manual checks",
+        "description": "Added a manual test plan for US00003 against reviewed build 9b98471, covering Obsidian navigation, GitHub publication, and two-vault behavior. Recorded three open tests, froze the contract zone, and moved the ticket to Review; logged the update."
+      },
+      "message_base": "97ee5c8341559259846bd7d6509a464518fef03a"
     },
     "05767776-8724-48b7-94ee-7eadb839c9ff": {
       "id": "05767776-8724-48b7-94ee-7eadb839c9ff",
@@ -1761,8 +1764,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793980050,
-      "last_edit": 1793980137,
-      "revision": 3,
+      "last_edit": 1793980219,
+      "revision": 4,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1776,6 +1779,14 @@
           },
           "intent": null,
           "last_edit": 1793980137
+        },
+        "Unbenannt.canvas": {
+          "base": null,
+          "content": {
+            "blob": "9e26dfeeb6e641a33dae4961196235bdb965b21b"
+          },
+          "intent": null,
+          "last_edit": 1793980219
         }
       },
       "dependencies": [
