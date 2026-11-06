@@ -177,7 +177,7 @@ Order of magnitude: about three to four focused days, half engine and tests, hal
 
 Manual checks for the workspace detail, Finish session and saved copies, on branch `US00005-workspace-detail` at `819d9b0` (Windows). Only what the suites and the pre-plan run (as-built notes, 2026-11-06) do not already cover: the tray menu, keyboard and the dark theme.
 
-**Setup (once, PowerShell, repository root):** build with `cargo build`, then create two disposable workspaces on a local remote. `A` ends up with a published session, a received draft from Bob and one saved copy:
+**Setup (once, PowerShell, repository root):** build with `cargo build`, then create two disposable workspaces on a local remote. `A` ends up with two published sessions (Alice's and Bob's) and one saved copy, and neither workspace has an open session:
 
 ```powershell
 $t = "$env:TEMP\mesh-us5"; $m = ".\target\debug\dispatch-mesh.exe"
@@ -185,12 +185,14 @@ New-Item -ItemType Directory "$t\A", "$t\B" | Out-Null; git init -q --bare "$t\r
 & $m --workspace "$t\A" init --name Alice --email alice@example.test --remote "$t\remote.git"
 & $m --workspace "$t\B" init --name Bob --email bob@example.test --remote "$t\remote.git"
 Set-Content "$t\A\note.md" "hello"; & $m --workspace "$t\A" session finish; & $m --workspace "$t\A" sync; & $m --workspace "$t\A" sync
-& $m --workspace "$t\B" sync; Set-Content "$t\B\note.md" "changed by Bob"; & $m --workspace "$t\B" sync; & $m --workspace "$t\A" sync
+& $m --workspace "$t\B" sync; Set-Content "$t\B\note.md" "changed by Bob"; & $m --workspace "$t\B" session finish; & $m --workspace "$t\B" sync; & $m --workspace "$t\B" sync; & $m --workspace "$t\A" sync
 .\target\debug\dispatch-mesh-tray.exe --workspace "$t\A" --workspace "$t\B"
 ```
 
 **Cleanup:** Quit the tray from its menu, then `Remove-Item $t -Recurse -Force`.
 
+> 2026-11-06: Setup corrected before testing. Bob's change is now finished and published; the original recipe left B with an open session, which contradicted check 1's starting state.
+>
 > 2026-11-06: The Narrator check was removed at Kai's request before testing began (`open_tests` 4 → 3). The screen-reader part of AC 13 therefore has no manual verification. It rests on the code: every new control has an `aria-label` or visible text, and the stage-track steps carry hidden state text.
 
 - [ ] **Kai:** *Tray menu (AC 8).* With no edits, right-click the tray icon: no "Finish session" item, and **Quit Dispatch Mesh** has no hint line beneath it. Save any change to `A\note.md`; within about 5 s the menu shows one plain **Finish session** item above Quit, and the greyed hint "Your edits stay saved. The session continues next start." Save a change in `B` too; the menu now shows **Finish session — A** and **Finish session — B** instead. Choose **Finish session — B**: in the window, B's session moves on to Finishing up and then Added to shared history, and A's session is still open (A still offers **Finish session**). Choosing **Quit Dispatch Mesh** while A's session is open closes the tray at once, with no prompt.
