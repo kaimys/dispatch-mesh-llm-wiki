@@ -1810,7 +1810,7 @@
       "last_edit": 1793982855,
       "revision": 2,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "05_Requirements/Tickets/Story - US00005 - Workspace detail with Finish session and recovery information.md": {
