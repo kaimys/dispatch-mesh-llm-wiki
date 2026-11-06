@@ -313,3 +313,10 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 ## [2026-11-06] code-review | US00005 fix re-check at 47f810e
 - Independently re-checked F1/F2 in [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]] against `47f810e`. Repeated the original CLI reproduction successfully and retained evidence at `target/us00005-recheck-evidence.json`; verified the amended activity contract against the implementation and new regression. Formatting, Clippy and diff whitespace checks passed on Windows; final full-suite result and counter follow when complete. No source or contract changes; status and `open_tests` unchanged.
 - Final re-check verdict: clear at `47f810e`; both original blockers resolved, no additional findings. Independently passed all mechanical gates on Windows, including all 138 tests (zero failures). Set `open_findings: 0`; `/test-plan US00005` is next. Status remains `In progress`, `open_tests` and freeze unchanged.
+
+## [2026-11-06] test-plan | US00005 manual test plan and freeze
+- Before writing the plan, verified AC 9, AC 10, AC 6 (restart) and AC 11 (Explorer selection) in the running tray. Found and fixed an AC 9 defect: the dependent-edits reason was masked as a capture fault or sync failure, so Finish session was never offered (`819d9b0`, two regression tests; as-built notes). Gates green after the fix.
+- Wrote the manual test plan in [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]] (4 checks: tray menu, keyboard, Narrator, dark theme), set `open_tests: 4`, stamped `frozen: 2026-11-06`, moved the ticket to Review.
+
+## [2026-11-06] test-plan | US00005 Narrator check removed
+- At Kai's request, removed the Narrator check from the [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]] test plan before testing (`open_tests` 4 → 3); noted in the plan that AC 13's screen-reader names are verified by code only.

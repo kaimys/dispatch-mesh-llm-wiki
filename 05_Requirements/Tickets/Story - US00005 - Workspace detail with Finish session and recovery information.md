@@ -1,7 +1,7 @@
 ---
 id: US00005
 type: story
-status: "In progress"
+status: "Review"
 priority: high
 rank: 4000
 version_target: v0.3.0
@@ -9,12 +9,12 @@ size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests:
+open_tests: 3
 open_findings: 0
 discussion:
 updated: 2026-11-06
 completed:
-frozen:
+frozen: 2026-11-06
 ---
 Fill the status window's workspace view with what the engine already reports, and let the user finish a session there. Each recent session shows its stage track (saved on this device → shared as draft → finishing up → added to shared history), the files it touched, its author and any requested purpose; the header adds the last successful sync. **Finish session** becomes an action in the window and the tray menu, using the same engine operation as `dispatch-mesh session finish`. Recovery information shows what Mesh kept aside (saved copies, pending capture) and where. First of the remaining [[Dispatch Mesh milestone plan#0.3 — tray application|0.3 — tray application]] tickets after [[Story - US00001 - Tray icon and status window host|US00001]].
 
@@ -175,8 +175,29 @@ Order of magnitude: about three to four focused days, half engine and tests, hal
 
 ## Test plan
 
-<!-- GUIDE: Written by /test-plan — `- [ ]` manual checks only, excluding what the
-     automated suites already assert. Keep `open_tests:` in sync as items are ticked. -->
+Manual checks for the workspace detail, Finish session and saved copies, on branch `US00005-workspace-detail` at `819d9b0` (Windows). Only what the suites and the pre-plan run (as-built notes, 2026-11-06) do not already cover: the tray menu, keyboard and the dark theme.
+
+**Setup (once, PowerShell, repository root):** build with `cargo build`, then create two disposable workspaces on a local remote. `A` ends up with two published sessions (Alice's and Bob's) and one saved copy, and neither workspace has an open session:
+
+```powershell
+$t = "$env:TEMP\mesh-us5"; $m = ".\target\debug\dispatch-mesh.exe"
+New-Item -ItemType Directory "$t\A", "$t\B" | Out-Null; git init -q --bare "$t\remote.git"
+& $m --workspace "$t\A" init --name Alice --email alice@example.test --remote "$t\remote.git"
+& $m --workspace "$t\B" init --name Bob --email bob@example.test --remote "$t\remote.git"
+Set-Content "$t\A\note.md" "hello"; & $m --workspace "$t\A" session finish; & $m --workspace "$t\A" sync; & $m --workspace "$t\A" sync
+& $m --workspace "$t\B" sync; Set-Content "$t\B\note.md" "changed by Bob"; & $m --workspace "$t\B" session finish; & $m --workspace "$t\B" sync; & $m --workspace "$t\B" sync; & $m --workspace "$t\A" sync
+.\target\debug\dispatch-mesh-tray.exe --workspace "$t\A" --workspace "$t\B"
+```
+
+**Cleanup:** Quit the tray from its menu, then `Remove-Item $t -Recurse -Force`.
+
+> 2026-11-06: Setup corrected before testing. Bob's change is now finished and published; the original recipe left B with an open session, which contradicted check 1's starting state.
+>
+> 2026-11-06: The Narrator check was removed at Kai's request before testing began (`open_tests` 4 → 3). The screen-reader part of AC 13 therefore has no manual verification. It rests on the code: every new control has an `aria-label` or visible text, and the stage-track steps carry hidden state text.
+
+- [ ] **Kai:** *Tray menu (AC 8).* With no edits, right-click the tray icon: no "Finish session" item, and **Quit Dispatch Mesh** has no hint line beneath it. Save any change to `A\note.md`; within about 5 s the menu shows one plain **Finish session** item above Quit, and the greyed hint "Your edits stay saved. The session continues next start." Save a change in `B` too; the menu now shows **Finish session — A** and **Finish session — B** instead. Choose **Finish session — B**: in the window, B's session moves on to Finishing up and then Added to shared history, and A's session is still open (A still offers **Finish session**). Choosing **Quit Dispatch Mesh** while A's session is open closes the tray at once, with no prompt.
+- [ ] **Kai:** *Keyboard (AC 13).* Open the window and select workspace A (save a change in A first, so it has an open session). Using only Tab, Shift+Tab, Enter and Space: **‹ All workspaces**, **Finish session**, the **Saved copies · 1** disclosure and **Show in folder** are each reachable in visual order, each with a visible focus outline. Space on the disclosure opens and closes it. Enter on **Finish session** finishes the session. Wait 30 s with focus on a control: focus stays on that control when the window refreshes its relative times.
+- [ ] **Kai:** *Dark theme and layout.* Switch Windows to dark mode (Settings → Personalization → Colors → Dark) and reopen the window on A. The header's "Last synced …", the activity cards, the stage-track marks (✓ ● ○), an attention card if one shows, and the saved-copies list are all legible with no element lost against its background. At the window's default size there is no horizontal scrollbar, and the long folder path in the header wraps instead of overflowing. Switch back afterwards.
 
 ## As-built notes
 
