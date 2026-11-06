@@ -803,8 +803,11 @@
         "e4c6bad0-3f70-4694-a7bc-e49bbb05a22d"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Move US00005 to Review with a three-check manual test plan",
+        "description": "Recorded the clear review re-check and test-plan updates in the log. Updated the US00005 ticket from In progress to Review, froze its contract, and set open_tests to 3. The manual plan covers tray-menu behavior, keyboard navigation, and dark-theme layout; the Narrator check was removed at Kai’s request, with screen-reader verification noted as code-only."
+      },
+      "message_base": "7c6500422665c3131ba17d4237bc4df3bd8e4787"
     },
     "24733d17-5530-4475-a59d-47804472bc0a": {
       "id": "24733d17-5530-4475-a59d-47804472bc0a",
