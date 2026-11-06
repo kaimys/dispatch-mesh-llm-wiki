@@ -987,8 +987,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: distinguish competitor branch trees from local storage",
+        "description": "Add remote branch tree layouts to all seven competitor profiles and clarify that local metadata directories are not tracked branch contents, including Syncthing’s lack of Git branches and git-annex’s separate metadata branch. Update the storage comparison to explain the distinction and append the research correction to the wiki log. Change the Obsidian workspace’s active tab to Jujutsu."
+      },
+      "message_base": "a970bf78ea1298b336bc2254e1f06644b47dcdd9"
     },
     "431fbd06-346a-48ae-ab29-7136ad859a22": {
       "id": "431fbd06-346a-48ae-ab29-7136ad859a22",
