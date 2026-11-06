@@ -1809,7 +1809,7 @@
       "created_at": 1793982587,
       "last_edit": 1793982855,
       "revision": 2,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
