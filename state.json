@@ -4900,6 +4900,36 @@
       },
       "message_base": "a3e96d3818d1d22294abe05f3a4c03ab7bab0316"
     },
+    "e0411b8f-575d-481f-b375-f154563de5af": {
+      "id": "e0411b8f-575d-481f-b375-f154563de5af",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793995301,
+      "last_edit": 1793995301,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "05_Requirements/Tickets/Bug - BUG00001 - AI summaries of large sessions never finish.md": {
+          "base": {
+            "blob": "8e09a017872fb665909c6ca9b978cbe905dc8327"
+          },
+          "content": {
+            "blob": "e20de426aa9313e85731805e25a66866d9ce9d6b"
+          },
+          "intent": null,
+          "last_edit": 1793995301
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "e26d9c26-80bc-40a6-b93d-fcfa31d8b4a5": {
       "id": "e26d9c26-80bc-40a6-b93d-fcfa31d8b4a5",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
