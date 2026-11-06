@@ -41,3 +41,18 @@ Syncthing transfers files without a Git-hosted shared history, session summaries
 ## What Dispatch could adapt
 
 Recommendations: benchmark watcher recovery, interrupted transfer handling, large-folder resource use, and clear device/folder status. Mesh already combines watching and scans; the opportunity is verification and polish. Define retention and restore behavior explicitly before adding cleanup. See [[Dispatch Mesh SWOT analysis]].
+
+## Storage architecture — source review (2026-11-06)
+
+Inspected revision: [`b34734376128`](https://github.com/syncthing/syncthing/commit/b34734376128492fa4e1b01412193de033e20613). Static source inspection; no competitor was built or run. Existing feature claims and activity counts above retain their original research date.
+
+**Repository and local layout.** Syncthing does not use Git for synchronized user data. At this revision it keeps synchronization metadata in SQLite: the schema has per-device file records, separately interned names and versions, serialized FileInfo records, deduplicated block lists, and local block lookup rows. The block rows contain hashes/offsets/sizes, not an archive of every file's payload. Working files, temporary transfers and optional archived versions live on the filesystem. This describes current source, not older database implementations. [Sources: file schema](https://github.com/syncthing/syncthing/blob/b34734376128492fa4e1b01412193de033e20613/internal/db/sqlite/sql/schema/folder/20-files.sql), [block schema](https://github.com/syncthing/syncthing/blob/b34734376128492fa4e1b01412193de033e20613/internal/db/sqlite/sql/schema/folder/50-blocks.sql), [database setup](https://github.com/syncthing/syncthing/blob/b34734376128492fa4e1b01412193de033e20613/internal/db/sqlite/db_folderdb.go).
+
+**Transfer and recovery.** The receive path reconstructs files through temporary paths, reuses available blocks, verifies incoming block hashes, and installs completed files. Conflicts can become timestamp/device-tagged `.sync-conflict-...` files. An enabled versioner archives replaced/deleted files in the receive path. The staggered implementation thins retained versions over increasing age intervals and exposes restore operations. [Sources: receive pipeline](https://github.com/syncthing/syncthing/blob/b34734376128492fa4e1b01412193de033e20613/lib/model/folder_sendrecv.go), [staggered retention](https://github.com/syncthing/syncthing/blob/b34734376128492fa4e1b01412193de033e20613/lib/versioner/staggered.go), [version storage helpers](https://github.com/syncthing/syncthing/blob/b34734376128492fa4e1b01412193de033e20613/lib/versioner/util.go).
+
+**Pros (assessment).** Indexed metadata and block reuse support incremental work without serializing a growing full application state for each change. Explicit versioning/restore policies make the storage tradeoff visible.
+
+**Cons (assessment).** It supplies no immutable Git session history or author-intent record. Optional receive-side versioning is not an all-local-save backup. Conflict copies do not express a durable semantic selection. Adopting its retention schedule alone would be unsafe for Mesh, whose blobs can remain essential to unresolved sessions and conflict recovery.
+
+Comparison and selected Mesh adaptations: [[Competitor storage approaches]].
+
