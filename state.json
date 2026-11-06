@@ -775,7 +775,7 @@
       "last_edit": 1793986620,
       "revision": 2,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "00_Start-Here/log.md": {
