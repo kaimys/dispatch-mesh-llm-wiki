@@ -586,7 +586,7 @@
       "created_at": 1793989710,
       "last_edit": 1793989710,
       "revision": 1,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -613,8 +613,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Record US00005 manual test completion",
+        "description": "Updated the existing US00005 ticket with Kai’s passing results for the tray menu, keyboard navigation, and dark-theme checks; set open_tests to 0. Appended the completion entry to the project log. Ticket remains in Review."
+      },
+      "message_base": "5e2e80314df6edfbf25c0c9a3bc9ddbf6fa69975"
     },
     "16bcef2e-800a-47e7-a542-bbf713b2be19": {
       "id": "16bcef2e-800a-47e7-a542-bbf713b2be19",
