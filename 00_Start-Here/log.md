@@ -1,7 +1,7 @@
 ---
 type: log
 owner: "[[Kai]]"
-updated: 2026-11-05
+updated: 2026-11-06
 ---
 # Log
 
@@ -172,3 +172,39 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 ## [2026-11-05] ticket | US00003 Exclude device-local files such as the Obsidian workspace from sync
 - Created [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync]] (Backlog, no version target) from Kai's request to exclude files such as `.obsidian/workspace.json`; 7 open questions. Evidence: 31 of 472 commits in this wiki's history touch that file, and an ignore rule for an already-synchronized path currently pauses capture.
 - Listed in [[index]].
+
+## [2026-11-05] code-review | US00001 shutdown race blocks hand-off
+- Reviewed [[Story - US00001 - Tray icon and status window host]] on `us00001-tray-host` at `091180e`: 1 blocking finding (Quit does not await in-flight workspace startup/final capture) and 1 non-blocking finding (planned offline tooltip reason omitted). Recorded reproduction, AC assessment and fix steps in the ticket; `open_findings: 1`, status remains `In progress`, no freeze or test-plan changes.
+- Reviewer reran fmt, Clippy and all 96 tests successfully on Windows. Linux CI and human taskbar/toast/Narrator checks remain outstanding. No implementation fixes made.
+
+## [2026-11-05] develop | US00001 review fixes
+- [[Story - US00001 - Tray icon and status window host]]: fixed both review findings (`794e6c0` Quit waits for starts in flight, with regression test; `da2d5ee` offline reason in tooltips). `open_findings` cleared to empty pending re-review. Next: `/code-review US00001` in a fresh session.
+
+## [2026-11-05] code-review | US00001 review fixes verified
+- Re-reviewed [[Story - US00001 - Tray icon and status window host]] at `da2d5ee`: both earlier findings resolved; 0 blocking and 0 non-blocking findings. Recorded the independent re-review and set `open_findings: 0`; status remains In progress, contract and test-plan counters unchanged.
+- Independently reran fmt, Clippy and all 97 tests on Windows successfully. Next: `/test-plan US00001` against the reviewed commit; Linux CI and human taskbar/menu/toast/Narrator validation remain pending.
+
+## [2026-11-05] test-plan | US00001 Tray icon and status window host
+- [[Story - US00001 - Tray icon and status window host]]: manual test plan for `da2d5ee` (11 checks: notification area, light/dark/grayscale, scaling, click and first-close toast, menu and Quit hint, state transition, Quit with an open session, Narrator, Linux CI). Agent verified the CLI-side and window checks itself. `open_tests: 11`, contract zone frozen 2026-11-05, status In progress → Review.
+
+## [2026-11-06] test | US00001 manual tests and Linux build fix
+- [[Story - US00001 - Tray icon and status window host]]: Kai ran the manual plan for `da2d5ee`. Checks 1–10 passed (2 with a corrected tooltip expectation, "Not syncing"; 9 on a redo after the wrong tray was quit; 10 accepted by Kai without hearing the state-change announcement). Check 11 failed: Linux CI could not compile the tray (missing `tray/icons/icon.png`).
+- Fixed in `296a09d` (PNG app icon from `icon.ico`, listed in `bundle.icon`). `open_tests` and `open_findings` cleared, status Review → In progress. Next: `/code-review US00001`, then `/test-plan US00001`.
+## [2026-11-06] documentation | Device branch format
+- Added [[Device branch format]] in `07_Engineering/`: corrected the branch name to `mesh/devices/<device-id>` and explained device identity versus user identity, the tree layout, all version-two manifest fields and values, session creation and indefinite retention, and the before/after roles of `base/` and `files/`.
+- Checked against source revision `296a09d`, README, and existing storage/transport test assertions. Included deletion versus empty-file semantics, conflict and resolution records, legacy compatibility, and preview limits. Documentation-only; no runtime or remote tests run.
+- Listed in [[index]] and registered Kai's refresh responsibility on format, lifecycle, or retention changes and before reuse with a newer release. No recurring automation configured.
+- CI on `296a09d` (run 42183263365) green on `ubuntu-latest` and `windows-latest`.
+
+## [2026-11-06] update | Inline competitor research refresh prompt
+- Added a Dispatch inline prompt to [[Competitor overview]] to refresh all linked profiles, the overview, and [[Dispatch Mesh SWOT analysis]] using current primary sources and dated GitHub metrics. Uses the dispatch-mesh repository alias and the configured default agent. Preserves metric definitions, implemented-versus-planned distinctions, source attribution, and wiki logging. The refresh itself was not run.
+- Correction (Kai): a fix found in testing does not reset the review or test counters. Restored `open_findings: 0`, set `open_tests: 0` (check 11 passed on `296a09d`), status back to Review.
+## [2026-11-06] documentation | SQLite database format
+- Added [[SQLite database format]] in `07_Engineering/`: exact three-table DDL, every column, a logical ER diagram distinguishing JSON references from SQL foreign keys, the format-two state wrapper, all local state properties, and content-reference locations.
+- Explained local SHA-256 blobs versus remote Git blobs, transactional saves, WAL versus the filesystem apply journal, legacy backup/migration, indefinite retention, and data outside SQLite. Listed the page and its refresh responsibility in [[index]].
+- Checked against source revision `29d3d58` and existing storage/transport test assertions. Documentation-only; no runtime or remote tests run.
+
+## [2026-11-06] research | Competitor source-level storage approaches
+- Added dated, revision-pinned storage architecture sections to [[gitwatch]], [[SparkleShare]], [[Obsidian Git]], [[Agentic Git Sync]], [[git-annex assistant]], [[Syncthing]], and [[Jujutsu]]: Git/peer representation, local stores, recovery/retention, and assessed pros and cons, with source-file links.
+- Created [[Competitor storage approaches]] in `07_Engineering/` and listed it in [[index]]. Selected three proposals: inspectable local operation history, retention based on reachability/recovery guarantees, and explicit shared-policy/device-configuration boundaries. Recorded fit, costs, validation needs, and Mesh invariants; no implementation or ticket changes.
+- Static review of pinned source snapshots only; no competitor builds or runtime benchmarks. Retained source evidence in ignored `target/competitor-source-review/`. Used the explicitly unofficial git-annex upstream mirror after the canonical browser failed; read relevant Git objects directly after long documentation paths prevented a complete Windows checkout. Existing activity metrics were not refreshed. Registered manual refresh before design adoption.

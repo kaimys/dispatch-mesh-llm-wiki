@@ -1,7 +1,7 @@
 ---
 id: US00001
 type: story
-status: In progress
+status: Done
 priority: high
 rank: 1024
 version_target: v0.3.0
@@ -9,12 +9,12 @@ size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests:
-open_findings:
+open_tests: 0
+open_findings: 0
 discussion:
-updated: 2026-11-05
-completed:
-frozen:
+updated: 2026-11-06
+completed: 2026-11-06
+frozen: 2026-11-05
 ---
 Give Dispatch Mesh its first Windows desktop shell. A tray-resident host runs the existing engine for one or more workspaces, shows a tray icon whose state changes meaningfully, and opens a status window. Closing that window leaves Mesh running; only **Quit** stops the host. This is step 1 of [[Dispatch Mesh milestone plan#0.3 — tray application|0.3 — tray application]]. It is the frame that the later 0.3 steps (workspace state detail, pause/resume and Finish session, conflicts, presence, notifications) fill in.
 
@@ -264,8 +264,68 @@ Extracted on 2026-11-05 at sign-off, both `proposed`: [[ADR-0011 — Build the d
 
 ## Test plan
 
-<!-- GUIDE: Written by /test-plan — `- [ ]` manual checks only, excluding what the
-     automated suites already assert. Keep `open_tests:` in sync as items are ticked. -->
+Manual checks for the tray host on branch `us00001-tray-host` at `da2d5ee` (release build, Windows 11). Only what the automated suites and the agent's own checks below can't cover: the real notification area, toasts, the tray menu, display settings and Narrator.
+
+**Setup** (PowerShell, repository root, on the branch). It starts four tray processes, one per workspace, so all four icon states show at once:
+
+```powershell
+cargo build --release
+$t = "$env:TEMP\mesh-test"; Remove-Item $t -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item "$env:APPDATA\de.eightnine.mesh\tray-settings.json" -ErrorAction SilentlyContinue
+$cli = (Resolve-Path .\target\release\dispatch-mesh.exe).Path
+$tray = (Resolve-Path .\target\release\dispatch-mesh-tray.exe).Path
+& $cli --workspace "$t\UpToDate" init --name Tester --email tester@example.invalid
+& $cli --workspace "$t\Working" init --name Tester --email tester@example.invalid
+& $cli --workspace "$t\Offline" init --name Tester --email tester@example.invalid --remote https://127.0.0.1:9/none.git
+New-Item -ItemType Directory "$t\NotAWorkspace" | Out-Null
+foreach ($w in "UpToDate", "Working", "Offline", "NotAWorkspace") { Start-Process $tray -ArgumentList "--workspace", "$t\$w" }
+Set-Content "$t\Working\draft.md" "hello"; Set-Content "$t\Offline\note.md" "hi"
+```
+
+Expected states: **UpToDate** up to date; **Working** saved on this device for about five minutes (local-only session, then it publishes and becomes up to date; edit `draft.md` again to keep it working); **Offline** offline after the first sync attempt (about 10 s); **NotAWorkspace** needs attention. If an icon is hidden, open the **^** overflow in the notification area, or drag the icons onto the taskbar.
+
+- [x] **Kai:** Run the setup. No console window opens for any of the four trays, four Dispatch Mesh icons appear in the notification area, and each tray also opens its status window once.
+- [x] **Kai:** Light taskbar: *Settings → Personalization → Colors → Choose your mode: Custom, Windows mode: Light*. Hover each icon. Tooltips read "Dispatch Mesh — Up to date"; "Dispatch Mesh — Saved on this device"; "Dispatch Mesh — Offline, changes saved on this device: Git fetch: Remote unreachable …"; "Dispatch Mesh — Needs attention: This folder is not a Mesh workspace yet. …". Badges: none (plain mark), circular arrow (blue), slash on a dimmed mark (grey), exclamation (orange).
+  > ⚠️ Correction 2026-11-06: the expected NotAWorkspace tooltip is wrong. A folder that is not a workspace never starts an engine, so it is `Stopped` and reads "Dispatch Mesh — Not syncing: This folder is not a Mesh workspace yet. …", with the orange exclamation (attention) icon. That matches the implementation plan (`Stopped` counts as needs attention for the icon) and the as-built notes ("*Not syncing* with Retry"); the plan confused icon and label.
+- [x] **Kai:** Without color: turn on *Settings → Accessibility → Color filters → Grayscale*. The four icons can still be told apart by badge shape alone. Turn the filter off.
+- [x] **Kai:** Dark taskbar: switch *Windows mode* to Dark. Within about 5 s every icon changes to the light-mark variant and stays readable. Switch back.
+- [x] **Kai:** Scaling: *Settings → System → Display → Scale* 150 % (and back to your usual value). Within about 5 s the icons are re-rendered sharp, not blurred or tiny.
+- [x] **Kai:** Click and window: left-click the **UpToDate** icon. Its window comes to the front showing "UpToDate", the folder path and "Up to date". Close it with **X**. The window disappears and the icon stays. Because setup removed `tray-settings.json`, the **first** close shows a Windows notification "Dispatch Mesh is still running — Closing this window doesn't stop Mesh. It keeps syncing from the tray." Closing again, in any tray, shows no notification. (If no notification appears at all, record it as a finding: it may be the unpackaged build.)
+- [x] **Kai:** Right-click menu: on **UpToDate**, the menu is **Open status window**, a separator, **Quit Dispatch Mesh**, and nothing else. On **Working** (open session), a greyed, non-clickable line "Your edits stay saved. The session continues next start." appears under Quit. **Open status window** opens and focuses the window.
+- [x] **Kai:** Working → up to date: on **UpToDate**, save a new file `a.md` in its folder. Within about 2 s the tooltip reads "Dispatch Mesh — Saved on this device" and the icon shows the circular-arrow badge. Run `& $cli --workspace "$t\UpToDate" session finish`. Within about 10 s the tooltip is back to "Dispatch Mesh — Up to date" with the plain mark.
+- [x] **Kai:** Quit with a session open: in `$t\Working`, save `last.md` with any text, then immediately choose **Quit Dispatch Mesh** in the **Working** tray. No prompt appears, the icon disappears within about 1 s, and `dispatch-mesh-tray` for that workspace is gone from Task Manager. `& $cli --workspace "$t\Working" status` lists `last.md` in a session's `files`.
+- [x] **Kai:** Narrator: start Narrator (**Ctrl+Win+Enter**), press **Win+B** and arrow to a Mesh icon. Narrator reads the tooltip text, e.g. "Dispatch Mesh — Offline, changes saved on this device: …". Open the **Offline** window and press **Tab**. Narrator reads the workspace name, the state and the reason. Edit `note.md` in `$t\UpToDate` while its window has focus: Narrator announces the new state ("UpToDate: Saved on this device"). Stop Narrator.
+- [x] **Kai:** Linux build: push `us00001-tray-host` and confirm the *Engine checks* workflow is green on both `windows-latest` and `ubuntu-latest`. This is the first CI run that builds the tray with WebKitGTK; until now only Windows has built it.
+
+Cleanup: Quit each remaining tray from its menu, then `Remove-Item $t -Recurse -Force`.
+
+**Deliberately not in this list:**
+
+- **Covered by automated tests** (97 tests, all green at `da2d5ee`):
+  - icon and label mapping for all six states, multi-workspace precedence for every pair, tooltip wording and the 127-character limit, list order and the view model (`tray/src/model.rs`);
+  - several workspaces side by side, refusal per workspace and Retry, a second host, Quit capturing an edit, Quit during a start, not-a-workspace (`tray/tests/host.rs`);
+  - CLI coexistence, final capture on stop, offline classification, snapshot publication (`tests/runner.rs`, `tests/cli.rs`, `tests/engine.rs`).
+- **Verified by the agent on this build** (2026-11-05):
+  - the release `dispatch-mesh-tray.exe` is a GUI-subsystem binary (no console);
+  - with the tray owning a workspace, `dispatch-mesh status` printed JSON that parsed through a pipe; a second `run` was refused with "Mesh is already running for this workspace"; `intent begin/end`, `session finish` and `sync` succeeded;
+  - closing the window hid it while the process kept running, and an edit made while hidden was captured;
+  - a second tray on the same workspace showed the already-running view with Retry, and after the first tray stopped, Retry brought it to "Up to date";
+  - with a refused remote (`https://127.0.0.1:9`), the window showed "Offline — changes saved on this device", the engine's reason and "Keep working — your changes upload when the connection returns.", while CLI `status` showed `offline` and the edit captured.
+  - The earlier app run (as-built notes) covered list order with three workspaces, the attention card and the accessibility tree.
+- **Not tested by hand:** a real conflict. The conflict → needs-attention mapping is unit-tested and the engine's conflict status is integration-tested; the needs-attention icon itself is checked above with **NotAWorkspace**.
+
+### 2026-11-06 — Results at `da2d5ee` (Kai, guided by the agent)
+
+Checks 1–10 passed on Windows 11. Check 11 failed on `da2d5ee` and passed after the fix in `296a09d` (see as-built notes, 2026-11-06). All 11 checks done: `open_tests: 0`.
+
+- **1, 3, 4, 6, 7, 8:** passed as written. The first-close notification appeared on the unpackaged build, and the second close showed none.
+- **2:** passed. The NotAWorkspace tooltip reads "Not syncing: …", not "Needs attention: …"; the expectation was wrong (correction above). Badges matched.
+- **5:** passed. The display was already at 150 %, so it was tested 150 % → 100 % → 150 %; the icons re-rendered sharp both ways.
+- **9:** passed on the second attempt. The first attempt quit the **UpToDate** tray by mistake: the agent's keep-alive edits to `draft.md` had let Working's sessions publish, so both icons showed the plain mark, and a single-workspace tooltip does not name its workspace. The agent then verified the wrong way round (the still-running Working tray had captured `last.md` itself). Redo: Working confirmed by its circular-arrow tooltip, `last2.md` saved, Quit chosen at once; no prompt, the icon went away, only the Working process exited, and with no runner left `status` listed `last2.md` in the open session with no changes waiting. Test-setup pitfall, not a finding: real use has one tray.
+- **10:** passed **on Kai's decision**. Narrator read the tray icon's tooltip and the windows. The state-change announcement ("UpToDate: Saved on this device") was **not heard** in three tries: the first two ran while no UpToDate tray was running (see 9), the third (`note5.md` at 23:21, captured by the restarted tray) was drowned in Narrator's other speech. The window has a polite live region (`tray/ui/index.html`). Kai stopped there; not re-tested.
+- **11: failed.** Pushed `us00001-tray-host`; *Engine checks* run 42121488936: `windows-latest` green, `ubuntu-latest` failed at clippy, `tauri::generate_context!()` panicking with "failed to open icon …/tray/icons/icon.png: No such file or directory". Tests did not run on Linux.
+
+Cleanup done: all test trays stopped, `%TEMP%\mesh-test` removed.
 
 ## As-built notes
 
@@ -303,6 +363,102 @@ Commits on `us00001-tray-host`: `bf7a68f` (tray package, workspace, CI), `091180
 - a plain folder shows the attention card with its reason and Retry.
 
 **Still to check by a person** (the agent can't see the notification area or toasts): the icon and tooltip on light and dark taskbars, left and right click, the Quit hint with an open session, Quit from the menu, whether the first-close toast is displayed for an unpackaged build, and Narrator itself. These belong in `/test-plan`.
+
+### 2026-11-05 — Review blocks hand-off
+
+Review of `091180e` found that Quit can return before an in-flight workspace start has finished and captured saved edits (finding 1 below; acceptance criterion 13). US00001 stays **In progress**. Do not run `/test-plan` until the shutdown coordination is fixed and independently re-reviewed. The contract does not need changing for that fix.
+
+### 2026-11-05 — Review fixes
+
+Both findings of the review at `091180e` addressed; awaiting an independent re-review, so `open_findings` is cleared to empty.
+
+- **Finding 1 (blocking), `794e6c0`:** the host now counts starts in flight. Quit marks the host as quitting under the same lock, so no new start begins, stops the running engines in parallel as before, then waits until every start in flight has finished; a start that completes after Quit began stops its late engine and waits for its final capture before it counts as finished. Listeners still run without any host lock held. Regression `quit_waits_for_a_start_in_flight_and_its_final_capture` (`tray/tests/host.rs`) holds a start inside the listener, checks that Quit does not return within 500 ms, then releases it and checks that Quit returns, the edit saved before Quit is captured and the runner lock is free, and that no engine starts after Quit. It fails on `091180e` with "Quit returned while a workspace was still starting".
+- **Finding 2 (non-blocking), `da2d5ee`:** tooltips now add the reason for offline as well as attention, as the plan says: "Dispatch Mesh — Offline, changes saved on this device: <reason>". With several workspaces, the deciding offline workspace is named with its reason and the rest sum up ("1 more offline", "1 other up to date"). This replaces the design's "(2 workspaces)" form for all-offline, which had no room for a reason; the count form stays for all up to date. README updated. Model tests cover single, mixed and truncated offline tooltips.
+- **Gates:** `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, `cargo test` green on Windows (97 tests: 79 CLI/engine, 11 tray model, 7 tray host). Linux CI still not run (branch not pushed).
+
+### 2026-11-06 — Linux build fixed after manual testing
+
+Test-plan check 11 failed: the first Linux CI run did not compile the tray, because `tauri::generate_context!()` needs a PNG window icon on Linux and `tray/tauri.conf.json` listed only `icons/icon.ico`. Fixed in `296a09d`: `tray/icons/icon.png` is the 256×256 frame of `icon.ico` (byte-identical PNG), listed in `bundle.icon` ahead of the `.ico`. No code change. Local gates green on Windows (`cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, `cargo test`: 97 tests).
+
+Because code changed after the clean review of `da2d5ee`, `open_findings` and `open_tests` are cleared to empty and the ticket is back in **In progress**. Next: `/code-review US00001` in a fresh session, then `/test-plan US00001`. Checks 1–10 passed on `da2d5ee` (results above); a Linux-only icon file does not change Windows behaviour, so the new plan may carry them forward and keep only the CI check.
+
+CI on `296a09d`: *Engine checks* run 42183263365 green on both `ubuntu-latest` (5m38s, first Linux build and test run of the tray) and `windows-latest` (9m0s).
+
+**Correction (Kai), same day:** clearing the counters and moving the ticket back was wrong. A story gets one code review and one pass through its test plan; a small fix found during testing does not reset either. The review of `da2d5ee` stands (`open_findings: 0`), all 11 checks are done (`open_tests: 0`), and the ticket stays in **Review**.
+
+## Code review
+
+### 2026-11-05 — branch us00001-tray-host at 091180e
+
+**Verdict: changes required. 1 blocking finding, 1 non-blocking finding.** The ticket cannot leave review or proceed to `/test-plan` as it stands.
+
+**Scope and gates.** Independent review in a fresh session; this session authored none of the implementation under review. Reviewed `main` (`7e13efd`) to `HEAD` (`091180e`): the two US00001 commits, all new source/configuration/tests/assets and existing-file changes, including the workspace/lockfile and CI changes. No unrelated commits and no open PR on this branch (`gh pr list --head us00001-tray-host`). Read the full ticket, plan annotations and as-built notes, invariants, README, and ADR-0007/0009/0010/0011/0012.
+
+Ran `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, and `cargo test` locally on Windows: **all passed**, 96 tests (79 CLI/engine/provider/storage, 11 tray model, 6 tray host). `git diff --check main...HEAD` passed. No live remote or AI provider was used. Linux CI and the human taskbar/toast/Narrator checks remain unverified; the earlier agent app run is prior evidence, not a new manual pass by this reviewer.
+
+**Acceptance criteria, in ticket order.** “Supported” means the inspected code and relevant local tests support the criterion; it does not replace the remaining manual checks.
+
+| # | Criterion | Assessment |
+|---|---|---|
+| 1 | No console; notification-area icon | Release GUI subsystem and tray construction supported; visual confirmation pending. Debug-console variance is already recorded. |
+| 2 | CLI terminal output and piping | CLI executable remains separate and unchanged; CLI tests pass. Human piping check remains. |
+| 3 | Edit → working → synced; exact-state tooltip | Shared runner snapshots and model mapping supported; engine lifecycle tests pass. Taskbar transitions remain manual. |
+| 4 | Conflict → attention with reason | Attention mapping and conflict tooltip asserted; taskbar check pending. |
+| 5 | Unreachable remote → offline; saved edits captured | Engine offline/capture tests and offline model assertions pass. Unplugged-network taskbar check pending. Finding 2 concerns the additional planned tooltip reason. |
+| 6 | Three working states share icon, retain labels | Model tests pass for all six summaries. |
+| 7 | Shapes distinguish states on light/dark taskbars | Four badge geometries and theme selection present; human checks at the planned scales pending. |
+| 8 | Narrator reads icon name and workspace/state/reason | Tooltip supplied and live-region text includes name/state/reason. Actual Narrator pass pending. |
+| 9 | Open window shows workspace/path/state/reason | Click/menu handlers and detail rendering supported; reason included for attention/offline. Human click checks pending. |
+| 10 | Conflict workspace wins aggregation/list order; single opens directly | Pairwise precedence, ordering tests and frontend branching support this. |
+| 11 | Close hides; sync continues; first-close notice | Close prevention/hide and persisted notice present; prior agent run records hidden capture. Actual toast visibility remains manual. |
+| 12 | Open/Quit menu and open-session hint | Menu construction and session-hint model tests support it; menu check pending. |
+| 13 | Quit exits after capturing saved edits | **Fails when Quit overlaps startup/retry: finding 1.** Existing test covers only an already-published runner. |
+| 14 | Refuse duplicate runner, Retry, other workspaces continue | Real-workspace host tests pass, including second-host refusal and subsequent retry. |
+| 15 | CLI commands coexist with host | Existing runner/CLI tests pass; prior as-built app run records commands against the tray. No new live tray check claimed. |
+
+**Findings (severity order).**
+
+1. **[P1, blocking] Wait for in-flight starts before allowing the process to exit.** `tray/src/host.rs:225–239` collects only handles already installed in `entries`; `start()` calls `Runner::start` outside that lock (`:137–153`). If the user chooses Quit during startup or Retry, `quit()` can find no handle and return while startup is still in progress. `tray/src/main.rs:64–68` then calls `app.exit(0)`. The late-handle branch (`host.rs:150,162–163`) joins on the startup thread, but nothing makes the exit thread wait for that join. Saved edits can therefore miss the promised final capture. This fails AC 13 and the planned Quit lifecycle.
+
+   **Reproduced:** isolated real workspace, edit saved before Quit, host listener paused at the Starting notification to hold startup in flight, then `host.quit()`. Observed `quit returned: startup_finished=false, edit_captured=false, state=Starting`. Releasing and joining startup afterward safely cleaned up the reproduction. The ignored scratch harness is `target/review-us00001/src/main.rs`; run with `cargo run --offline --manifest-path target/review-us00001/Cargo.toml --target-dir target`. The listener delay models a slow UI callback; the same gap also spans runner acquisition itself. No real workspace was touched.
+
+   **Fix:** coordinate shutdown with all in-flight start/retry operations, prevent unregistered new starts during shutdown, and wait for every late handle's stop/join before returning from `Host::quit` and calling `app.exit`. Add a deterministic host regression that holds startup in flight, requests Quit, and verifies final capture and completion of startup before shutdown returns. Keep callbacks outside locks they can re-enter.
+
+2. **[P2, non-blocking] Restore the planned reason in offline tooltips.** `tray/src/model.rs:214–231` appends `reason` only for Attention; the all-offline branch also substitutes a workspace count. With a single offline workspace whose reason is “Could not reach the remote (connection timed out)”, the tooltip is only “Dispatch Mesh — Offline, changes saved on this device”. With mixed workspaces it names the offline folder but still omits its reason. The scope/icon-state answer and plan step 3 explicitly promise the reason for offline as well as attention, and no dated variance records dropping it. AC 5's narrower saved-on-device wording is satisfied, so this does not increment the blocking count.
+
+   **Fix:** include the sanitized offline reason while retaining the offline reassurance/state and UTF-16 length limit; update single/multiple-workspace and truncation tests. The current single-workspace test explicitly expects the omission. If the intended product choice is to omit it, record that decision through `/update-ticket` before changing the contract; this reviewer has not changed it.
+
+**What should stay.** The Tauri-free presentation model makes precedence and wording independently testable, and the frontend inserts workspace content as text. Real-workspace host tests prove refusal/retry and isolation without GUI mocks. The host signals all installed runners to stop before joining any, preserving parallel shutdown. Reusing `RunnerHandle` keeps CLI coexistence, capture, and durable state in the existing engine rather than creating another synchronization implementation.
+
+**Plan versus built.** The startup-visible window, debug console, duplicate-folder deduplication, font/icon rendering changes and substitution of startup-error coverage for a fatal-loop test are dated in the existing as-built notes. They are not undisclosed pivots. Offline tooltip reason omission is the unrecorded divergence (finding 2). The pending Linux and human spike checks remain evidence gaps; they are not treated as passed or as proven toolkit failures.
+
+**Before this leaves review — fix plan for the next session:**
+
+1. `/develop US00001`: fix finding 1's startup/shutdown coordination and add the deterministic regression; address finding 2's tooltip behavior/tests, or obtain and record the intended wording decision with `/update-ticket`.
+2. Rerun the mechanical gates and request `/code-review US00001` in a different fresh session. A passing fix review must replace this build's `open_findings: 1`; do not pre-clear it to zero.
+3. Retain the outstanding Linux CI and human icon/menu/toast/Narrator checks. After a clean review, `/test-plan` is next and stamps the freeze against the reviewed build. This review changes no test-plan items or `open_tests` count.
+
+### 2026-11-05 — branch us00001-tray-host at da2d5ee
+
+**Verdict: clean re-review. 0 blocking findings, 0 non-blocking findings.** Both findings at `091180e` are resolved. The code-review gate is clear; `/test-plan US00001` is next. This supersedes the earlier build's blocking verdict, without rewriting that historical review.
+
+**Scope and gates.** Reviewed the complete follow-up diff `091180e..da2d5ee` (commits `794e6c0` and `da2d5ee`) in the context of the previously reviewed `main` (`7e13efd`) to HEAD branch. Read the current ticket, acceptance criteria, full plan and annotations, dated review-fix notes, host, model, regression test, README change and the calling Tauri shutdown path. The original review's unchanged branch assessment carries forward. This reviewer authored none of the implementation or fixes under review. No open PR on the branch; working tree clean. No unrelated changes in the fix commits.
+
+Independently reran on Windows: `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, and `cargo test`: **all passed, 97 tests** (79 CLI/engine/provider/storage, 11 model, 7 host). `git diff --check main...HEAD` passed. No live remote or provider calls, Linux run, or new GUI/manual validation was performed.
+
+**Earlier findings rechecked.**
+
+1. **Previous blocking finding 1: resolved.** Start registration and shutdown exclusion share the `starts` mutex. A registered start remains counted through its callbacks and the late handle's stop/join; Quit waits on the condition variable until those operations finish. If a handle is installed before shutdown takes it, Quit stops and joins it normally; if it finishes starting after shutdown begins, its own start path stops and joins it before releasing its guard. Thus the unchanged `app.exit(0)` caller cannot run ahead of that final capture. Callbacks remain outside host mutexes, and already-installed runners are still signalled before any join.
+
+   The new real-workspace test `quit_waits_for_a_start_in_flight_and_its_final_capture` passed. It holds startup at the Starting callback, checks that Quit waits, releases startup, then asserts that the edit was captured, the runner lock was released and a later start is refused. This covers the scenario missed by the old already-running Quit test.
+
+2. **Previous non-blocking finding 2: resolved.** Single and multiple-workspace offline tooltips now include the sanitized reason. All-offline tooltips name the deciding workspace rather than discarding its reason for a count-only form. Tests assert single, mixed, all-offline and long/truncated cases; the fixed state/reassurance prefix and the 127 UTF-16-unit limit remain intact. README agrees with the behavior. The all-offline wording change is explicitly recorded in the dated as-built notes.
+
+**Acceptance criteria and plan.** Rechecked all 15 criteria against the earlier assessment: AC 13's identified startup/Quit failure is closed by the new coordination and passing regression; AC 5 and the additional planned offline-reason wording are supported by the updated tests. The fixes leave AC 1-4, 6-12 and 14-15's code paths and earlier automated support intact. The existing manual qualifications still apply: this is code-review clearance, not proof that the outstanding taskbar, clicks/menu, toast or Narrator checks pass. No new contract drift or unrecorded implementation pivot found. No `/update-ticket` change is needed before the test plan.
+
+**What should stay.** The guard and condition-variable approach makes shutdown wait for the precise work that owns final capture while keeping UI callbacks outside locks. The deterministic regression checks saved bytes and runner ownership, not just a timing delay. The tooltip fix continues to use the shared presentation model and existing length limiter, keeping window and tray wording centralized.
+
+**Before this leaves review.** Run `/test-plan US00001` against `da2d5ee`, stamping the contract freeze and recording the remaining human Windows checks. Retain the pending Linux CI requirement. Complete those checks before leaving Review; this review changes no `open_tests` value or test-plan items. Status remains In progress until the next workflow moves it.
 
 ## Follow-ups
 

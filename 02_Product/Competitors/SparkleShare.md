@@ -7,6 +7,8 @@ derived_from:
   - https://github.com/hbons/SparkleShare
   - https://github.com/hbons/SparkleShare/issues/2006
 researched: 2026-11-05
+storage_reviewed: 2026-11-06
+storage_source_revision: 9b10379c7537967fc50b590a1ba30db5170b64ea
 refresh: Before reuse in a product decision
 ---
 # SparkleShare
@@ -42,3 +44,20 @@ Platform readiness needs care: the maintainer's 2024 retirement/build concerns w
 ## What Dispatch could adapt
 
 Recommendations: use familiar project/folder concepts, clear status, and guided host connection. Evaluate an explicit large-file backend later. Treat platform packaging and long-term maintenance as core product work. Monitor the funded reboot as both a learning source and a renewed competitor. See [[Dispatch Mesh SWOT analysis]].
+
+## Storage architecture — source review (2026-11-06)
+
+Inspected revision: [`9b10379c7537`](https://github.com/hbons/SparkleShare/commit/9b10379c7537967fc50b590a1ba30db5170b64ea). Static source inspection; no competitor was built or run. Existing feature claims and activity counts above retain their original research date.
+
+**Scope.** This revision contains the established C# implementation. It does not establish the storage design or readiness of the announced rewrite.
+
+**Repository and local layout.** Each shared folder is a Git working copy. The backend stages/commits local changes, fetches, and merges `FETCH_HEAD`. It persists local bookkeeping in the Git directory, including `.git/has_unsynced_changes`, `.git/info/size`, `.git/info/history_size`, and an LFS-behind marker. These local files are not shared branch content. [Source: Git repository backend](https://github.com/hbons/SparkleShare/blob/9b10379c7537967fc50b590a1ba30db5170b64ea/Sparkles/Git/Git.Repository.cs).
+
+**Payloads and conflicts.** Ordinary mode stores file bytes in Git. The LFS setup path installs clean/smudge filters and local attributes (`.git/info/attributes`); LFS mode stores pointers in Git and transfers payloads through LFS. The fetcher recognizes its LFS convention and configures it explicitly. Conflict handling can materialize both sides as renamed files with identifying clues, stage them, and finish the merge; special metadata files have separate handling. [Source: fetcher/filter setup](https://github.com/hbons/SparkleShare/blob/9b10379c7537967fc50b590a1ba30db5170b64ea/Sparkles/Git/Git.Fetcher.cs), [conflict implementation](https://github.com/hbons/SparkleShare/blob/9b10379c7537967fc50b590a1ba30db5170b64ea/Sparkles/Git/Git.Repository.cs).
+
+**Pros (assessment).** Normal Git repositories support familiar hosting and history. LFS provides a distinct payload path. Renamed conflict files can remain visible and recoverable while synchronization continues.
+
+**Cons (assessment).** Git and LFS availability must both be considered; a Git clone alone does not prove every payload is locally available. Conflict copies alter the user's file namespace and do not encode Mesh-style retained input selections. The reviewed paths expose local flags and Git history, rather than a single transactional session/apply database. No equivalent application retention policy was established from these paths.
+
+Comparison and selected Mesh adaptations: [[Competitor storage approaches]].
+

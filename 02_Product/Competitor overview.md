@@ -16,6 +16,22 @@ refresh: Before reuse in a product decision
 ---
 # Competitor overview
 
+```dispatch
+label: Update competitors and SWOT
+intent: refresh-competitor-research
+repo: dispatch-mesh
+prompt: |-
+  Refresh the competitor research in dispatch/wiki/{{file}} and the SWOT analysis in dispatch/wiki/02_Product/Dispatch Mesh SWOT analysis.md.
+
+  Read AGENTS.md, dispatch/invariants.md, README.md, the Mesh concept, current requirements, milestone plan, and relevant ADRs. Read this overview, all linked competitor profiles in dispatch/wiki/02_Product/Competitors, and the existing SWOT before editing.
+
+  Research every named competitor and architectural reference using current primary sources: official repositories, documentation, releases, and maintainer statements. Refresh each profile's brief description, GitHub repository, homepage, exact GitHub stars and forks, top-level GitHub Discussion thread count and enabled state, feature list, differences from Mesh, and concrete ideas Dispatch could adapt. Use live GitHub REST metadata and GraphQL discussions.totalCount; exclude replies, issues, and pull requests. Distinguish disabled Discussions, unavailable data, and true zero counts. Label unofficial mirrors and keep their metrics separate from canonical project metrics. Never invent unavailable figures or treat an unsuccessful lookup as zero.
+
+  Update the overview's comparison table, Mesh baseline, qualifications, and source links from those profiles. Reassess the SWOT and recommended actions from the refreshed evidence. Distinguish implemented Mesh behavior, work in progress, and roadmap features; distinguish documented competitor claims from independently verified behavior and analyst inferences. Do not infer active usage or reliability from stars, forks, or discussion counts. Preserve useful context and this inline prompt.
+
+  Stamp actual research dates, retain source links near factual claims, and record retrieval failures or unresolved uncertainties. Maintain owner, maintained_by, derived_from, and refresh metadata. Update the wiki index if the research set changes and append a dated entry to dispatch/wiki/00_Start-Here/log.md. Verify profile completeness, table/count consistency, and internal links. Finish with a concise summary of material changes and remaining evidence gaps. This is a documentation refresh; do not change engine code, create recurring automation, or publish anything.
+```
+
 Research snapshot: **2026-11-05**. Scope: the six open-source competitors/references in [[Dispatch Mesh concept]], plus Jujutsu, which the concept explicitly calls an architectural reference. Google Drive is a positioning analogy in the concept, not one of its named open-source references; it is outside this research set.
 
 ## Profiles and activity

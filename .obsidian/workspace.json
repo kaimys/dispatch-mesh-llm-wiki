@@ -18,6 +18,20 @@
             }
           },
           {
+            "id": "785127cb467d2939",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Story - US00001 - Tray icon and status window host"
+            }
+          },
+          {
             "id": "f7b3d9fe981edde0",
             "type": "leaf",
             "state": {
@@ -56,9 +70,23 @@
               "icon": "lucide-file",
               "title": "Dispatch Mesh milestone plan"
             }
+          },
+          {
+            "id": "447fe21e65fb8118",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "07_Engineering/Competitor storage approaches.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Competitor storage approaches"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -136,7 +164,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
+                "file": "07_Engineering/Competitor storage approaches.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -155,7 +183,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
+                "file": "07_Engineering/Competitor storage approaches.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -226,13 +254,28 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "f7b3d9fe981edde0",
+  "active": "447fe21e65fb8118",
   "lastOpenFiles": [
+    "02_Product/Competitors/SparkleShare.md",
+    "07_Engineering/Competitor storage approaches.md",
+    "02_Product/Competitors/Syncthing.md",
+    "02_Product/Competitors/Agentic Git Sync.md",
+    "07_Engineering/Device branch format.md",
+    "02_Product/Competitors/git-annex assistant.md",
+    "02_Product/Competitors/gitwatch.md",
+    "02_Product/Competitors/Jujutsu.md",
+    "02_Product/Competitors/Obsidian Git.md",
+    "07_Engineering/SQLite database format.md",
+    "02_Product/Competitor overview.md",
+    "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
+    "02_Product/Dispatch Mesh SWOT analysis.md",
+    "02_Product/Dispatch Mesh concept.md",
+    "07_Engineering/Unbenannt",
     "06_UX/Dispatch Mesh desktop app.pdf",
+    "file:C:/Users/kai/AppData/Local/Temp/mesh-test/UpToDate/a.md",
     "05_Requirements/Tickets/sedQRigYa",
     "05_Requirements/Tickets/Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync.md",
     "05_Requirements/Tickets/Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync.md.tmp.13304.2ebf444cd77c",
-    "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
     "07_Engineering/Decisions/ADR-0012 — Ship the desktop host as a separate executable serving several workspaces.md",
     "07_Engineering/Decisions/ADR-0011 — Build the desktop host with Tauri 2.md",
     "02_Product/Dispatch Mesh milestone plan.md",
@@ -245,24 +288,9 @@
     "file:C:/Users/kai/AppData/Local/Temp/claude/4b8f75bbeb1eb607/6998f873-9e5b-4e46-a36d-d0b0ef1ab545/scratchpad/github-release-v0.2.5.md",
     "08_Delivery-and-QA/Releases/GitHub",
     "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
-    "00_Start-Here/Team/Kai.md",
-    "02_Product/Dispatch Mesh concept.md",
-    "file:C:/MeshNet/second.md",
-    "file:C:/MeshNet/first.md",
-    "file:C:/MeshManual/note.md",
-    "README.md",
-    "file:C:/MeshTask1Net/auth.md",
-    "Dispatch.md",
-    "file:C:/MeshTask1Net/net.md",
     "06_UX/Dispatch Mesh desktop app.html",
     "05_Requirements/Tickets/sedWaTUlD",
     "07_Engineering/Decisions.base",
-    "02_Product/Dispatch Mesh SWOT analysis.md",
-    "01_Sources/Clippings/BEST free sync solution Github but for normal people.md",
-    "06_UX/Claude Design briefing — desktop app.md.tmp.16224.5695b7178c9f",
-    "06_UX",
-    "02_Product/Competitor overview.md",
-    "02_Product/Competitors/Agentic Git Sync.md",
-    "02_Product/Competitors"
+    "06_UX/Claude Design briefing — desktop app.md.tmp.16224.5695b7178c9f"
   ]
 }

@@ -6,6 +6,8 @@ derived_from:
   - "[[Dispatch Mesh concept]]"
   - https://github.com/gitwatch/gitwatch
 researched: 2026-11-05
+storage_reviewed: 2026-11-06
+storage_source_revision: 04735cfa8973a5ba425ec4befb25ecb04074465c
 refresh: Before reuse in a product decision
 ---
 # gitwatch
@@ -40,3 +42,18 @@ Its documented model creates ordinary commits after brief event batching. Mesh s
 ## What Dispatch could adapt
 
 Recommendations: keep the unattended runner easy to deploy; provide straightforward startup and exclusion settings. Preserve the distinction between settling writes and ending an editing session rather than copying its short commit cadence. See [[Dispatch Mesh SWOT analysis]].
+
+## Storage architecture — source review (2026-11-06)
+
+Inspected revision: [`04735cfa8973`](https://github.com/gitwatch/gitwatch/commit/04735cfa8973a5ba425ec4befb25ecb04074465c). Static source inspection; no competitor was built or run. Existing feature claims and activity counts above retain their original research date.
+
+**Repository and local layout.** The watched folder is a normal Git working tree. `perform_commit` stages changes and creates a normal commit; configured pull/rebase and push commands exchange that history. Files are ordinary Git blobs, trees and commits in the repository's Git directory. The reviewed script adds no separate draft branch, content store, session database or durable application journal. Watcher events and a settling timer batch writes; uncommitted saves remain in the working tree until capture. [Source: commit/watch loop](https://github.com/gitwatch/gitwatch/blob/04735cfa8973a5ba425ec4befb25ecb04074465c/gitwatch.sh).
+
+**Recovery and retention.** Merge-state checks can defer automatic commits; optional pull uses rebase. Recovery and historical content therefore depend on ordinary Git commits and repository state. The script does not implement a policy for expiring captured file versions or a synchronized conflict-input registry.
+
+**Pros (assessment).** Very small storage model, directly inspectable history, ordinary Git hosting, and few application-specific formats to migrate.
+
+**Cons (assessment).** Event batches become permanent commits, so frequent saves can create noisy history. Uncaptured changes have no independent application checkpoint. Optional rebase and unresolved Git states need a recovery workflow; there is no equivalent of Mesh's continuously shared open session. This conclusion applies to the inspected script, not every possible wrapper or deployment.
+
+Comparison and selected Mesh adaptations: [[Competitor storage approaches]].
+
