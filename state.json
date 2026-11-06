@@ -2731,8 +2731,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793954998,
-      "last_edit": 1793954998,
-      "revision": 1,
+      "last_edit": 1793955206,
+      "revision": 3,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -2776,6 +2776,76 @@
           },
           "intent": null,
           "last_edit": 1793954998
+        },
+        "02_Product/Competitors/Agentic Git Sync.md": {
+          "base": {
+            "blob": "27b8da7a3e2f2cea9368aae4f25aee8c39aef320"
+          },
+          "content": {
+            "blob": "5f19e97717b8ac4bdfbd5739fd1f3a758b21edac"
+          },
+          "intent": null,
+          "last_edit": 1793955199
+        },
+        "02_Product/Competitors/Jujutsu.md": {
+          "base": {
+            "blob": "93a74043e8456a46d9f58b212a2a678e1fb103a9"
+          },
+          "content": {
+            "blob": "b912dc01e2ec7857a36dfed54c41ddc091271eae"
+          },
+          "intent": null,
+          "last_edit": 1793955199
+        },
+        "02_Product/Competitors/Obsidian Git.md": {
+          "base": {
+            "blob": "19f358b2ce680e09dbfa47e57bd4b177efc15273"
+          },
+          "content": {
+            "blob": "eafc1f9fd399c49b6ab6f0d26871c9bb4f46d604"
+          },
+          "intent": null,
+          "last_edit": 1793955206
+        },
+        "02_Product/Competitors/SparkleShare.md": {
+          "base": {
+            "blob": "5fdbf5a1a3807159fe01ccb53e4156ab4f5c2b30"
+          },
+          "content": {
+            "blob": "3a24f700a42f5a6dcba15fa74fb86c066327cd89"
+          },
+          "intent": null,
+          "last_edit": 1793955206
+        },
+        "02_Product/Competitors/Syncthing.md": {
+          "base": {
+            "blob": "6c6ae4b9cf394c2b275133a462a65382976b562f"
+          },
+          "content": {
+            "blob": "7ebea66cdf9725603e3ee423c0a6fc1d24e17608"
+          },
+          "intent": null,
+          "last_edit": 1793955199
+        },
+        "02_Product/Competitors/git-annex assistant.md": {
+          "base": {
+            "blob": "6b368fe7d3320ac195a5e8ebaa9a555885f97b36"
+          },
+          "content": {
+            "blob": "a5474deb5610746b90c6a5869822729833dfe475"
+          },
+          "intent": null,
+          "last_edit": 1793955199
+        },
+        "02_Product/Competitors/gitwatch.md": {
+          "base": {
+            "blob": "ea2bab857ee0a3fcf9d8370411c6457e6cb5eb78"
+          },
+          "content": {
+            "blob": "96d74d2f0f36cda6c8d9ff576818a93d2e8d6ee5"
+          },
+          "intent": null,
+          "last_edit": 1793955206
         },
         "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md": {
           "base": {
