@@ -41,7 +41,7 @@ Mesh already uses native Git blobs and ordinary commits internally. The proposed
 Illustrative current device branch:
 
 ```text
-mesh/devices/<device-id>              # branch label, not a directory
+mesh/devices/<device-id>             # branch label, not a directory
 ├── state.json                       # sessions and conflict metadata
 ├── drafts/<session-id>/
 │   ├── base/<workspace-path>        # before versions
@@ -53,12 +53,12 @@ mesh/devices/<device-id>              # branch label, not a directory
 Candidate ordinary-tree device branch:
 
 ```text
-<device draft branch>                # exact namespace to be decided
+<device draft branch>               # exact namespace to be decided
 ├── notes/
 │   └── onboarding.md               # current draft bytes at the normal path
 ├── assets/
 │   └── logo.png
-└── .meshignore                      # only when tracked
+└── .meshignore                     # only when tracked
 ```
 
 Shared finalized branch:
