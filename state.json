@@ -2733,7 +2733,7 @@
       "created_at": 1793954998,
       "last_edit": 1793955474,
       "revision": 7,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
