@@ -1836,8 +1836,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: refine workspace detail ticket and amend status ADR",
+        "description": "Advance US00005 from Refinement to In progress, assign it to Kai, and document its workspace activity, finish-session, and saved-copy requirements and implementation plan. Amend ADR-0010 to specify the additive status fields, last-sync persistence, and saved-copy reporting."
+      },
+      "message_base": "a2c659882c72f9a86c21aafd662e76d6ea5821f3"
     },
     "5e30790c-15f9-42ef-ba85-bafb038f4e42": {
       "id": "5e30790c-15f9-42ef-ba85-bafb038f4e42",
