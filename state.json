@@ -3270,7 +3270,7 @@
       "last_edit": 1793979189,
       "revision": 5,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         ".meshignore": {
