@@ -1,9 +1,9 @@
 ---
 id: US00003
 type: story
-status: Review
+status: Done
 priority: medium
-rank: 2000
+rank: 0
 version_target: v0.3.0
 size:
 assignee: Kai
@@ -13,7 +13,7 @@ open_tests: 0
 open_findings: 0
 discussion:
 updated: 2026-11-06
-completed:
+completed: 2026-11-06
 frozen: 2026-11-06
 ---
 **Let a user stop synchronizing files that belong to one device, above all Obsidian's `.obsidian/workspace.json`, even after Mesh has already synchronized them.** Today `.meshignore` and `.gitignore` are honored only for files that were never synchronized. Adding a rule for a synchronized file stops capture with "A previously synchronized path is now ignored or unsupported … Restore the ignore policy before syncing". So the one file that most needs excluding can't be excluded once it's been shared. Meanwhile it changes whenever the user opens a note or moves a pane, and it fills the history with layout commits.
