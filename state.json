@@ -878,8 +878,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793957054,
-      "last_edit": 1793957465,
-      "revision": 9,
+      "last_edit": 1793957485,
+      "revision": 10,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -949,10 +949,10 @@
             "blob": "4b591170f40b574496c41c896ff1521795652d61"
           },
           "content": {
-            "blob": "ac0c75eeaabb8b30e7e6f59482726f11d02c9f94"
+            "blob": "2f14607ec4f0c22ee253b1b51f18af4c37046dfb"
           },
           "intent": null,
-          "last_edit": 1793957465
+          "last_edit": 1793957485
         },
         "02_Product/Competitors/git-annex assistant.md": {
           "base": {

@@ -68,11 +68,11 @@ synchronized-folder/
 
 <local database directory>/
 ├── main.db                          # folder registry / database metadata
-├── folder.<hex-index>-<slug>.db         # per-folder device/file/block metadata
-└── <SQLite support files>              # e.g. WAL/SHM when present
+├── folder.<hex-index>-<slug>.db     # per-folder device/file/block metadata
+└── <SQLite support files>           # e.g. WAL/SHM when present
 
 authorized peers
-└── file indexes + requested blocks     # network exchange; no shared Git branch
+└── file indexes + requested blocks  # network exchange; no shared Git branch
 ```
 
 `.stversions/` is conditional and configurable. SQLite block records index hashes and offsets rather than holding a complete historical payload archive. Sources: [main database naming](https://github.com/syncthing/syncthing/blob/b34734376128492fa4e1b01412193de033e20613/internal/db/sqlite/db_open.go), [folder database naming](https://github.com/syncthing/syncthing/blob/b34734376128492fa4e1b01412193de033e20613/internal/db/sqlite/db_folderdb.go), and the version-storage helpers/receive pipeline linked above.
