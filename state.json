@@ -1786,8 +1786,11 @@
         "b394dfd5-0f07-4d3e-9e1a-e1e9ccfada50"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Reorganize concept page in wiki index",
+        "description": "Move the Dispatch Mesh concept link from Discovery to Product and update its label to describe concept updates and the original discovery discussion."
+      },
+      "message_base": "741018ca6cedb1d8ba7c0e2d828dd04f8d6a34d6"
     },
     "667fae1f-b58b-4481-968c-f334ddc466e5": {
       "id": "667fae1f-b58b-4481-968c-f334ddc466e5",
