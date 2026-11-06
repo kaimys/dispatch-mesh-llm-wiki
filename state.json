@@ -2908,8 +2908,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793977336,
-      "last_edit": 1793977574,
-      "revision": 2,
+      "last_edit": 1793977680,
+      "revision": 3,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -2949,10 +2949,10 @@
             "blob": "62bcffe8b990555a55778e4a809ea402ee6adfce"
           },
           "content": {
-            "blob": "4a01142fbe2f4b2936cc25d4bf5dafc702cb3d60"
+            "blob": "e611bf64d6c74ab7597931fd2d5b58e5886fc342"
           },
           "intent": null,
-          "last_edit": 1793977574
+          "last_edit": 1793977680
         },
         "02_Product/Competitors/Agentic Git Sync.md": {
           "base": {
@@ -3039,10 +3039,10 @@
             "blob": "89d676ed5fbb3044d4226d7bc32134e63895173f"
           },
           "content": {
-            "blob": "9865a6074b939b7d5986a4134735e5e2e5b5093d"
+            "blob": "20a6fb6de5f5f92ed5d22f8ce6200d5d7c0a98db"
           },
           "intent": null,
-          "last_edit": 1793977574
+          "last_edit": 1793977680
         },
         "05_Requirements/Tickets/Story - US00004 - AI-proposed text conflict merges with human approval.md": {
           "base": {

@@ -8,7 +8,7 @@ updated: 2026-11-06
 Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed by the pages touched.
 
 ## [2026-11-06] code-review | US00003 blocked at 2ae22f6
-- Recorded the independent review in [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]]: two blocking findings (init writes through a `.meshignore` symlink before rejection; ignored rule files split walker/tree policy) and one non-blocking mock-provider coverage gap. Set `open_findings: 2`; kept `In progress` and left `open_tests` and the contract zone unchanged. Retained disposable CLI reproduction evidence under `target/us00003-review-evidence.json`. A separate development session fixes the findings; the policy-file contract decision precedes F2's fix, and `/test-plan` remains blocked.
+- Recorded the independent review in [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]]: two blocking findings (init writes through a `.meshignore` symlink before rejection; ignored rule files split walker/tree policy) and one non-blocking mock-provider coverage gap. Set `open_findings: 2`; kept `In progress` and left `open_tests` and the contract zone unchanged. Retained disposable CLI reproduction evidence under `target/us00003-review-evidence.json`. Independently reran all mechanical gates on Windows: formatting, Clippy and all 110 tests pass. A separate development session fixes the findings; the policy-file contract decision precedes F2's fix, and `/test-plan` remains blocked.
 
 ## [2026-11-04] setup | Dispatch board and wiki structure
 - Turned `dispatch/wiki` into an Obsidian vault with the Dispatch board.
