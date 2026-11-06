@@ -615,8 +615,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793985558,
-      "last_edit": 1793985763,
-      "revision": 2,
+      "last_edit": 1793985820,
+      "revision": 3,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -626,20 +626,20 @@
             "blob": "f640d8a14676ab8013f4228e1a960a22a222574a"
           },
           "content": {
-            "blob": "97f53bdb798baeaed1c95688623e7d3914ad7989"
+            "blob": "60e2eb3dd381f45be4155b7ebaa2a99d8415127c"
           },
           "intent": null,
-          "last_edit": 1793985558
+          "last_edit": 1793985820
         },
         "05_Requirements/Tickets/Story - US00005 - Workspace detail with Finish session and recovery information.md": {
           "base": {
             "blob": "18d3ce965b0d7cae1fd7f5966e51352865b851a4"
           },
           "content": {
-            "blob": "23fc898981210da3f8d48f70aaaa8dbfd5cfc4bf"
+            "blob": "36f991c226d0d6669450e730906db7a2bb85d721"
           },
           "intent": null,
-          "last_edit": 1793985763
+          "last_edit": 1793985820
         },
         "05_Requirements/Tickets/Story - US00006 - Conflict list and resolution in the status window.md": {
           "base": {

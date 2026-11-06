@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings: 2
+open_findings:
 discussion:
 updated: 2026-11-06
 completed:
@@ -200,6 +200,12 @@ Built as planned in three commits (engine `Status`, tray host and model, window 
 ### 2026-11-06 — review blocked at 4133e9c
 
 Independent code review found two blockers: F1 (AC 11: interrupted displacement can list nonexistent saved-copy content) and F2 (AC 5: acceptance wording disagrees with the planned/built activity selection and ordering). Keep `In progress`; do not run `/test-plan` until both are resolved. The fix-round plan is recorded in Code review below. No implementation or contract text changed in this session.
+
+### 2026-11-06 — code-review fix round (F1, F2)
+
+- **F1 (phantom saved copy) fixed.** Every replay of the apply journal now first drops displacement bookkeeping whose content was never moved, from both `apply_backups` and `saved_copies`, whichever path the replay then takes (newer user save, file already written, re-displacement). This replaces the special case that only the re-displacement branch handled. The one-time backfill skips recovery folders without `content`. No recovery file is deleted: the empty folder and its `record.json` stay on disk. Regression tests in `tests/engine.rs`: crash before the move then a newer save, crash before the move with the file already written, crash before the move then a replay, crash after the move (real copy kept), and a legacy record without content. Run against the reviewed engine (`4133e9c`), the newer-save, already-written and legacy cases fail; all pass on the fix.
+- **F2 (AC 5 vs. plan) resolved by contract.** Kai chose the planned policy (2026-11-06): unsettled sessions first, then the 10 settled ones with the latest last save, each group newest first. AC 5, the Scope line and README now say this; no code change. Added `activity_keeps_open_sessions_first_and_ranks_settled_ones_by_last_save` for the interleaved open/published and settled-late cases.
+- `open_findings` cleared to empty for the review's re-check.
 
 ## Code review
 
