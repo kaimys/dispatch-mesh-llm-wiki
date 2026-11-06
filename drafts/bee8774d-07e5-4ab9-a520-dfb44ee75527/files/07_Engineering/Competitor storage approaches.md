@@ -36,15 +36,16 @@ The profiles' **Remote branch tree layout** sections show tracked branch content
 
 Source evidence for each row is in its linked profile; exact revisions are registered below. Pros and cons are architectural assessments inferred from those implementations.
 
-## Conflict resolution
+## Conflict resolution approaches
 
-|Approach|What happens to a conflict|
-|---|---|
-|**SparkleShare, git-annex, Syncthing**|Preserve competing versions as separately named files in the synchronized folder. This lets synchronization proceed, but a person may still need to reconcile their meaning. Syncthing has no Git branch.|
-|**Obsidian Git, Agentic Git Sync**|Handle conflicts through the local Git merge workflow, with user or AI assistance. The resulting committed files are then shared.|
-|**gitwatch**|Primarily delegates to Git; it does not supply a comparable conflict-resolution system.|
-|**Jujutsu**|Can represent an unresolved conflict structurally using its contributing trees, rather than requiring an immediately resolved file.|
-|**Mesh**|Preserves base, accepted and incoming inputs in synchronized conflict records, then records the selected result separately.|
+| Approach                               | What happens to a conflict                                                                                                                                                                                |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **SparkleShare, git-annex, Syncthing** | Preserve competing versions as separately named files in the synchronized folder. This lets synchronization proceed, but a person may still need to reconcile their meaning. Syncthing has no Git branch. |
+| **Obsidian Git, Agentic Git Sync**     | Handle conflicts through the local Git merge workflow, with user or AI assistance. The resulting committed files are then shared.                                                                         |
+| **gitwatch**                           | Primarily delegates to Git; it does not supply a comparable conflict-resolution system.                                                                                                                   |
+| **Jujutsu**                            | Can represent an unresolved conflict structurally using its contributing trees, rather than requiring an immediately resolved file.                                                                       |
+| **Mesh**                               | Preserves base, accepted and incoming inputs in synchronized conflict records, then records the selected result separately.                                                                               |
+|                                        |                                                                                                                                                                                                           |
 
 ## What the approaches teach us
 
