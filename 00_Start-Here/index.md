@@ -32,12 +32,13 @@ Entry point for people and agents. Read this first, then follow the links. Every
 
 ## Discovery
 
-- [[AI-managed synchronization and human decisions]] — proposal for AI-managed Git operations and content-level human decisions; eight scenarios, six prompt templates, synthetic Chat Completions exchange and evaluation plan. Owner: [[Kai]]; review before refinement.
+- [[AI-managed synchronization and human decisions]] — AI proposes meaning-preserving text for technical conflicts; humans approve the exact result. Includes scenarios, prompts and a synthetic Chat Completions exchange; general consistency review is deferred. Owner: [[Kai]]; review before refinement.
 - [[Dispatch Mesh concept|git-sync discovery]] — concept updates and the original discovery discussion
 
 ## Requirements
 
 - `05_Requirements/Tickets/` — tickets (the Dispatch board)
+  - [[Story - US00004 - AI-proposed text conflict merges with human approval|US00004]] — combine compatible text edits with an AI proposal and human approval of the exact result (unscheduled)
   - [[Story - US00001 - Tray icon and status window host|US00001]] — tray icon and status window host (v0.3.0)
   - [[Story - US00002 - Local engine control interface for the tray host|US00002]] — local engine/control interface for the tray host (v0.2.5)
   - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps|TASK00001]] — close remaining 0.2.x stabilization gaps (v0.2.5)
