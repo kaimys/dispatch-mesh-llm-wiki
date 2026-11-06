@@ -3493,7 +3493,7 @@
       "created_at": 1793996803,
       "last_edit": 1793997088,
       "revision": 2,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -3522,8 +3522,11 @@
         "34d24af1-c115-4eca-a955-d097bb560326"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: record BUG00001 completion and merge",
+        "description": "Update the append-only log and bug ticket to record BUG00001 as Done, frozen, and merged to main at 403b165. Document the bounded lock-wait fix, regression coverage, passing gates, and live verification with the real provider."
+      },
+      "message_base": "3cd06922bdb39ce3656761a52e6f91aab9575b40"
     },
     "986376a9-94ab-4201-951a-004087b28b5a": {
       "id": "986376a9-94ab-4201-951a-004087b28b5a",
