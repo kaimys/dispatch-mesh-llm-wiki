@@ -2900,6 +2900,232 @@
       },
       "message_base": "d71ed0bb0833b498bfd7de9c3875d8e77b360e77"
     },
+    "b282f2a6-96ee-4ea4-8705-5c2b555e522e": {
+      "id": "b282f2a6-96ee-4ea4-8705-5c2b555e522e",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793977336,
+      "last_edit": 1793977336,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        ".obsidian/workspace.json": {
+          "base": {
+            "blob": "49db5b87ce99ba9628732f6adcac5c3de5e09b25"
+          },
+          "content": {
+            "blob": "77fc79f5f6d89666edc8a8cf1a076c2ce73587c7"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "00_Start-Here/Templates/ticket-story.md": {
+          "base": {
+            "blob": "d2a2f2f74f52ee297657c9c10860c6b0ea8487c2"
+          },
+          "content": {
+            "blob": "71c56fb738f272f346c6cf2a55ccb2e6ceb9bec4"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "41ca218da4399ca53c9985f3f9358de60f44eaef"
+          },
+          "content": {
+            "blob": "899c860a40f400b53e37c597d19c6a4d07610336"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "62bcffe8b990555a55778e4a809ea402ee6adfce"
+          },
+          "content": {
+            "blob": "b710ce8295c56167509fd0c0c62f4f2e79e4f3b8"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "02_Product/Competitors/Agentic Git Sync.md": {
+          "base": {
+            "blob": "79c1766b06b8747520878436494beef853beda91"
+          },
+          "content": {
+            "blob": "017f92fe8a484bc191783da1ce6407857364ab25"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "02_Product/Competitors/Jujutsu.md": {
+          "base": {
+            "blob": "037edb1a97d3ab2c860b85c923b290910be7db9c"
+          },
+          "content": {
+            "blob": "a3661ebac1b5932b2b2ae2795b86e1e33ff4551c"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "02_Product/Competitors/Obsidian Git.md": {
+          "base": {
+            "blob": "c4be81f79fbb7caabd70e50b57757b12c8beea3a"
+          },
+          "content": {
+            "blob": "59c6aceb55f6e82c60a4ed0f47d0571b8da84e57"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "02_Product/Competitors/SparkleShare.md": {
+          "base": {
+            "blob": "a7d3f99da17a1e5e9a7993bea669df3779b94507"
+          },
+          "content": {
+            "blob": "b41061af9dbd6cc14ad914515d58342b0b1ba0d0"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "02_Product/Competitors/Syncthing.md": {
+          "base": {
+            "blob": "0354a36969e1306d83c2f4d381b213383fd945b1"
+          },
+          "content": {
+            "blob": "e93785ea264c42d54c5f03805e8874f9c3c1c5e4"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "02_Product/Competitors/git-annex assistant.md": {
+          "base": {
+            "blob": "095a06c22c4a5062af4e904c6cf160f68c3e040e"
+          },
+          "content": {
+            "blob": "563882f87a9d16cb12ec9cad9f143184d37d731d"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "02_Product/Competitors/gitwatch.md": {
+          "base": {
+            "blob": "6d819490f9ef125a0ec615c29bf1adbe4b37d21e"
+          },
+          "content": {
+            "blob": "b6c88bee7987640e00bbb781ae7cfb79b58fc8fe"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "02_Product/Dispatch Mesh milestone plan.md": {
+          "base": {
+            "blob": "dcab0790c637f0949883858fd816492077745c7c"
+          },
+          "content": {
+            "blob": "469b549081521cea4fb0d23617e481f23007583b"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "05_Requirements/Tickets/Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync.md": {
+          "base": {
+            "blob": "89d676ed5fbb3044d4226d7bc32134e63895173f"
+          },
+          "content": {
+            "blob": "4b8cf6b24c2211c5ca849726199f2cf8c2f2b1ac"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "05_Requirements/Tickets/Story - US00004 - AI-proposed text conflict merges with human approval.md": {
+          "base": {
+            "blob": "66b49377f57ad7635d9d7d28cf23ef4e741c6aa6"
+          },
+          "content": {
+            "blob": "1fb5c4cba20b32e7c61ac7d7245236ad3fac34b5"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "05_Requirements/Tickets/Story - US00005 - Workspace detail with Finish session and recovery information.md": {
+          "base": null,
+          "content": {
+            "blob": "5bf70fc432d1f12434f42df2ccd56c028be94657"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "05_Requirements/Tickets/Story - US00006 - Conflict list and resolution in the status window.md": {
+          "base": null,
+          "content": {
+            "blob": "0aa259b2804c3edd3b3b409a78b8b593c5ab0a17"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "05_Requirements/Tickets/Story - US00007 - Recent-save presence in the status window.md": {
+          "base": null,
+          "content": {
+            "blob": "dc91d0ddd163d40e88fcc466649e762f05670a5b"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "05_Requirements/Tickets/Story - US00008 - Desktop notifications for conflicts and attention.md": {
+          "base": null,
+          "content": {
+            "blob": "ab05e77a51b337cf93a3113e47c498aac6fc62e1"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "05_Requirements/Tickets/Story - US00009 - Pause and resume synchronization.md": {
+          "base": null,
+          "content": {
+            "blob": "0f7d51d0a927a5c9eee6df600d041ce47b83fd8d"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "05_Requirements/Tickets/Task - TASK00003 - Two-device tests for the 0.3 exit criteria.md": {
+          "base": null,
+          "content": {
+            "blob": "63206eaef1cc215970c0bd9ecb354b55bdfc3280"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "07_Engineering/Decisions/ADR-0011 — Build the desktop host with Tauri 2.md": {
+          "base": {
+            "blob": "9aa4c868c85c77f5d6fcb84d7c9c439a293f8194"
+          },
+          "content": {
+            "blob": "7ba61d352e4118bfebc714841099f320a4dfe203"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        },
+        "07_Engineering/Decisions/ADR-0013 — Derive exclusion from each tree's own ignore policy.md": {
+          "base": null,
+          "content": {
+            "blob": "810cb9e69c9089bd41f1234657f3a2d72dd01a6a"
+          },
+          "intent": null,
+          "last_edit": 1793977336
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "ba227071-16b8-48ff-ba3c-28bb2bd3682e": {
       "id": "ba227071-16b8-48ff-ba3c-28bb2bd3682e",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
