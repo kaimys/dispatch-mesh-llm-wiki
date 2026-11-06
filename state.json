@@ -438,8 +438,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Document regression coverage for summary lock-wait fix",
+        "description": "Replace the test-plan placeholder with automated coverage for both workspace-lock scenarios and verification on the live tray."
+      },
+      "message_base": "4e9e54a16ce3122f0b97f1917a5d2aa696caa896"
     },
     "10bbe793-6de5-4766-8bd8-b8c8f55110b6": {
       "id": "10bbe793-6de5-4766-8bd8-b8c8f55110b6",
@@ -1509,6 +1512,38 @@
         "description": "Update the US00005 ticket from Review to Done. Record the Windows tray-menu, keyboard, and dark-theme checks as passed, document the AC 9 attention-action fix and verification, and add the completed review and test-plan notes."
       },
       "message_base": "1b7f280c20b3eb2710e797a614fd5196014fff3b"
+    },
+    "34d24af1-c115-4eca-a955-d097bb560326": {
+      "id": "34d24af1-c115-4eca-a955-d097bb560326",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793996439,
+      "last_edit": 1793996439,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "05_Requirements/Tickets/Bug - BUG00001 - AI summaries of large sessions never finish.md": {
+          "base": {
+            "blob": "e344f45e30c09b1709146efdab7b4af46d0d4504"
+          },
+          "content": {
+            "blob": "1c280e14500e9b48946bf9124c41e1998d710a6a"
+          },
+          "intent": null,
+          "last_edit": 1793996439
+        }
+      },
+      "dependencies": [
+        "0ea31b4d-3198-428b-b480-98abe7b3c8a5"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
     },
     "35bca660-edcd-43fa-a8be-ef21e46f56bd": {
       "id": "35bca660-edcd-43fa-a8be-ef21e46f56bd",
