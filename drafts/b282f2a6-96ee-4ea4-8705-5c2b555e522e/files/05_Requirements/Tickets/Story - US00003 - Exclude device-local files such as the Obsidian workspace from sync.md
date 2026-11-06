@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings:
+open_findings: 2
 discussion:
 updated: 2026-11-06
 completed:
@@ -229,6 +229,34 @@ Deviations from the plan:
 - **No text of an excluded file is sent to an AI provider.** Its operation is reported as `excluded` with `content_available: false`, since its old text says nothing about the session.
 - **Mutation check of the new tests.** Removing the apply-side filter fails the second-device and crash-recovery tests. Removing the render/publish skip at first did *not* fail the peer-edit tests: the conflict it creates was settled at once. Those tests now assert that no conflict record exists for the path, and they fail without the skip.
 - **`AGENTS.md`** gained a behavioral-invariant bullet pointing to ADR-0013, because the agent guide must stay consistent with the ADRs.
+
+### 2026-11-06 — code review blocks the hand-off
+
+Review of `2ae22f6` found F1 (initialization writes through an unsupported symlink before rejecting it; AC 12 / safety guard) and F2 (an ignored rule file makes the AC 1 exclusion fail; shared-policy contract needs a decision). Keep `In progress`; do not run `/test-plan`. The remediation steps are recorded below. No implementation was changed in this review.
+
+## Code review
+
+### 2026-11-06 — branch us00003-exclude-device-local-files at 2ae22f6
+
+**Verdict: blocked.** Two blocking findings and one non-blocking test gap. This ticket cannot proceed to `/test-plan` or leave Review as built.
+
+**Scope and gates.** Independent review in a session that authored none of the implementation. Reviewed the complete ticket, linked ADR-0002/0003/0007/0013, both commits in `origin/main` (`29d3d58`) to `HEAD`, all changed source and tests, and surrounding capture/render/publication/recovery code. No open PR was found for this branch. `cargo fmt --check` and `cargo clippy --all-targets -- -D warnings` pass. Full `cargo test` is running; its final result will be recorded before this review is delivered. Additional CLI reproductions used disposable local folders, no live remote or AI provider. Evidence: `target/us00003-review-evidence.json`; synthetic workspaces retained at `C:/Users/kai/AppData/Local/Temp/mesh-us00003-review-b0go7qud`.
+
+1. **F1 — [P1, blocking] Reject an unsupported `.meshignore` link before writing its target.** `src/engine.rs:1441` reads through the link and `src/engine.rs:1460` writes through it. Reproduction: create `.obsidian/`, an external text file containing `original\n`, and a `.meshignore` symlink to that external file; invoke `init`. The command fails with “Symbolic links are unsupported”, but the external file already contains both appended Obsidian rules. The scan guard runs after `write_obsidian_excludes`, so it cannot protect the write. This breaks the unchanged unsupported-path safety guard (AC 12) and modifies user data outside the workspace on failed initialization. **Fix:** validate `.meshignore` with symlink/reparse-aware metadata before any read or mutation, reject unsupported targets, and install updates without following a substituted link. Add an initialization regression asserting failure leaves the external target byte-for-byte unchanged; cover Windows reparse points as applicable. The current size-limit/ancestor-rule test does not cover the symlink case promised in the plan.
+
+2. **F2 — [P2, blocking contract mismatch] An excluded rule file splits walker policy from tree policy.** `src/engine.rs:348–352` builds policy only from files the walker returned, while the walker also applies ignored rule files left on disk. Reproduction matching AC 1: synchronize `.obsidian/workspace.json` and a `.gitignore` containing `.meshignore`; then create `.meshignore` containing `.obsidian/workspace.json` and invoke `sync`. It fails with “A previously synchronized path is now unsupported: .obsidian/workspace.json”, instead of successfully recording the exclusion. A `.gitignore` that ignores itself and `note.md` reproduces the same mismatch. File bytes are preserved, but the promised workflow pauses. The policy/walker fixture does not test rule files excluded by other rules or by themselves. **Decision required before fixing:** the ticket promises exclusion without this exception, while the shared-policy design requires the rule to synchronize. Either make policy files participate in the shared policy consistently even when ordinary rules match them, or explicitly declare this configuration unsupported and define the actionable diagnosis/recovery. Record that decision through `/update-ticket` (and ADR-0013 if its rule changes), then align scan, tree policy and tests. Merely reading the hidden rules from disk into the tree matcher would introduce device-local policy and would not satisfy ADR-0013.
+
+3. **F3 — [P3, non-blocking] Pin the excluded-file provider payload.** `src/ai.rs:364–375` adds the useful guarantee that excluded text is omitted even with `send_text`, but `tests/provider.rs` has no exclusion-specific assertion. Add a mock-provider case with excluded text and a normal text edit: assert `operation: excluded`, `content_available: false`, absent before/after text for the excluded path, and normal text sharing for the other path. No live provider is needed. This is regression coverage for the recorded privacy-related deviation, not a demonstrated disclosure in this build.
+
+**Acceptance criteria and plan.** The new tests substantiate the ordinary AC 1–11 flows, both late-edit publication orders, identical/differing re-inclusion, and journal replay. AC 13 is reflected in the README. AC 1 has the uncovered F2 configuration; AC 12 fails F1, and AC 14's coverage claim misses that symlink case even if the mechanical suite passes. The deviations concerning `.ignore`, ancestor rules, render-only conflict settlement, removal of `ignored()`, and omission of excluded text from provider input are dated in the as-built notes. No unrelated commits were found.
+
+**What should stay.** Deriving apply policy from the journal protects the receiving device and crash replay from disk-policy timing differences. Keeping `excluded` out of serialized changes preserves existing snapshot hashes. The two-publication-order tests assert absence of conflict records, which is stronger than checking only the final tree; the recorded mutation checks explain why that assertion matters. Original conflict inputs remain retained when exclusion records an automatic resolution.
+
+**Before this leaves review — remediation plan for a separate session:**
+
+- Resolve F2's policy-file contract decision with the requester and record it through `/update-ticket` before changing that behavior.
+- In a separate `/develop US00003` session, fix F1 and implement the agreed F2 behavior, with the reproductions above as regressions. Add F3's mock-provider assertion if practical.
+- Run the mechanical gates, document fixes and actual results, and clear `open_findings` to empty for the re-check of these blocking findings. Re-check is part of this same review; `/test-plan` waits for `open_findings: 0`.
 
 ## Follow-ups
 
