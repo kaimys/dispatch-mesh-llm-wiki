@@ -41,6 +41,7 @@ Entry point for people and agents. Read this first, then follow the links. Every
   - [[Story - US00002 - Local engine control interface for the tray host|US00002]] — local engine/control interface for the tray host (v0.2.5)
   - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps|TASK00001]] — close remaining 0.2.x stabilization gaps (v0.2.5)
   - [[Task - TASK00002 - Choose the Git backend before bundling Git|TASK00002]] — choose the Git backend before bundling Git (v0.4.0)
+  - [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]] — exclude device-local files such as `.obsidian/workspace.json` from sync, including already-synchronized ones
 
 ## UX
 

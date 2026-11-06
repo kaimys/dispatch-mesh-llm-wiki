@@ -168,3 +168,7 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 ## [2026-11-05] develop | US00001 code complete
 - [[Story - US00001 - Tray icon and status window host]]: tray host built on `us00001-tray-host` (`bf7a68f`, `091180e`); as-built notes and the agent's app run recorded; gates green on Windows, Linux CI pending a push. `open_findings` left empty. Next: `/code-review US00001` in a fresh session.
 - [[Claude Design briefing — desktop app]]: dated note that the toolkit is decided (ADR-0011).
+
+## [2026-11-05] ticket | US00003 Exclude device-local files such as the Obsidian workspace from sync
+- Created [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync]] (Backlog, no version target) from Kai's request to exclude files such as `.obsidian/workspace.json`; 7 open questions. Evidence: 31 of 472 commits in this wiki's history touch that file, and an ignore rule for an already-synchronized path currently pauses capture.
+- Listed in [[index]].
