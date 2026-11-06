@@ -1127,8 +1127,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793984227,
-      "last_edit": 1793984227,
-      "revision": 1,
+      "last_edit": 1793984303,
+      "revision": 2,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1142,6 +1142,16 @@
           },
           "intent": null,
           "last_edit": 1793984227
+        },
+        "05_Requirements/Tickets/Story - US00006 - Conflict list and resolution in the status window.md": {
+          "base": {
+            "blob": "b4dcb2e2077c3369c8fd10b6ec73feebe30c668f"
+          },
+          "content": {
+            "blob": "0ac1433a932a5b18f6ec15635fbc16053f700612"
+          },
+          "intent": null,
+          "last_edit": 1793984303
         }
       },
       "dependencies": [],
