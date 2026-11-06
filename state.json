@@ -3913,7 +3913,7 @@
       "created_at": 1793983625,
       "last_edit": 1793983625,
       "revision": 1,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -3940,8 +3940,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Implement US00005 workspace detail and session finishing",
+        "description": "Document the US00005 implementation and verification: expanded workspace status and activity details, added Finish session and saved-copy access, and amended ADR-0010. Recorded implementation deviations and validation in the ticket and project log."
+      },
+      "message_base": "a2985903fc592458626430d51328f16afb064cb9"
     },
     "de967730-9a35-4d7b-bbbe-f9b027f7ba39": {
       "id": "de967730-9a35-4d7b-bbbe-f9b027f7ba39",
