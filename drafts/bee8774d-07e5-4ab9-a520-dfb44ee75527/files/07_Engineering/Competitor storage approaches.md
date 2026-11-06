@@ -45,7 +45,6 @@ Source evidence for each row is in its linked profile; exact revisions are regis
 | **gitwatch**                           | Primarily delegates to Git; it does not supply a comparable conflict-resolution system.                                                                                                                   |
 | **Jujutsu**                            | Can represent an unresolved conflict structurally using its contributing trees, rather than requiring an immediately resolved file.                                                                       |
 | **Mesh**                               | Preserves base, accepted and incoming inputs in synchronized conflict records, then records the selected result separately.                                                                               |
-|                                        |                                                                                                                                                                                                           |
 
 ## What the approaches teach us
 
