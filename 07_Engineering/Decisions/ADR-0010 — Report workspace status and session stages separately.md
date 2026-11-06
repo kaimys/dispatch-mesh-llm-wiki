@@ -28,6 +28,13 @@ Expose a workspace summary with precedence `needs_attention` > `offline` > `save
 - **An AI-summary failure** is persisted and is `needs_attention`, although publication continues with the factual local message ([[ADR-0005 — Make AI summaries configurable and opt-in]]). Disabled text sharing is not a failure.
 - **Status is read without the writer lock**, from the committed snapshot ([[ADR-0007 — Persist state transactionally with recovery journals]]). Computing it never writes state.
 
+**Workspace detail** (amended 2026-11-06 with Kai's answers in [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]]): `Status` is the only way hosts read workspace detail, so CLI `status` and the tray report the same state. All fields are additive; existing fields keep their names and meanings.
+
+- Each session adds `started_at` and `last_saved` (Unix seconds), `title` (the summary title once published, otherwise `null`) and `purposes` (requested purposes of its recorded intents, in recorded order, without repeats). Authors stay an identity; nothing marks an agent.
+- `has_remote` says whether the workspace synchronizes with a remote at all.
+- `last_sync` is the time the last sync with the remote succeeded, kept in local state. A success rewrites it only when the stored time is at least 60 s old, so an idle workspace does not write its state every 3 s cycle; hosts show it to the minute. A workspace without a remote never sets it, and a failed sync leaves it unchanged.
+- `saved_copies` lists the files Mesh moved to `.mesh/recovery/<id>/` before writing incoming changes (`id`, original `path`, `created_at`), recorded in local state when the file is displaced. A state that never recorded them is filled once from the recovery folder on the next open. `Status` carries no file-system location: hosts resolve `<root>/.mesh/recovery/<id>/content` from an id they received.
+
 ## Consequences
 
 **Positive**
@@ -44,5 +51,5 @@ Treating every sync failure as offline: rejected, because it hides failures that
 
 ## Related
 
-[[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]; [[Story - US00002 - Local engine control interface for the tray host]]; [[Story - US00001 - Tray icon and status window host]]; [[ADR-0009 — Embed the engine with a runner handle and published status]].
+[[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]; [[Story - US00002 - Local engine control interface for the tray host]]; [[Story - US00001 - Tray icon and status window host]]; [[ADR-0009 — Embed the engine with a runner handle and published status]]; [[Story - US00005 - Workspace detail with Finish session and recovery information]].
 
