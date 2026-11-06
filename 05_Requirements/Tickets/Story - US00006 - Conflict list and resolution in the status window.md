@@ -8,7 +8,7 @@ version_target: v0.3.0
 size:
 assignee:
 owner: "[[Kai]]"
-open_questions: 8
+open_questions: 0
 open_tests:
 open_findings:
 discussion:
@@ -64,18 +64,41 @@ Recorded here: no tracker or chat is configured. Refinement started 2026-11-06; 
 - No diff library is in the dependency tree; text merging is done by Git.
 - Precedent from [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]]: the host calls `Workspace::finish()` in-process next to the runner (no `RunnerHandle` change), and workspace detail is read through `Status` (ADR-0010 amendment).
 
-- [ ] **Q1 Layout.** The design's detail frames are ~1040 px wide, side by side with changed lines marked; the window is 420–480 px. Does the same window widen for detail, does detail open in its own window, or is the comparison inline/stacked in the compact window? Are changed lines highlighted (needs a line diff), or are the two versions shown plain?
-- [ ] **Q2 Engine access.** How does the host get list metadata (authors, devices, times per side) and on-demand detail (bytes, base, purposes)? Proposal: extend `ConflictStatus` in `Status` with list metadata (amends ADR-0010), add an engine function for one conflict's detail read on demand, and resolve via `Workspace::resolve` in-process like US00005's finish — no ADR-0009 change.
-- [ ] **Q3 Current-version attribution.** The record does not store who made the current version or when. Derive it from `accepted_sessions` (author, device, last save, purpose of those sessions) and, when it came from shared history, show "Shared history" with the commit's author/time — or store it in the conflict record going forward (a format change)?
-- [ ] **Q4 Edits made since the conflict.** The engine refuses to resolve once the file changed after the conflict; the design promises those edits are protected and reconciled separately. Which is the contract for 0.3: (a) keep the refusal and the window explains how to get back to a resolvable state, or (b) change the engine so resolving keeps the later edit as a new change reconciled on top of the choice (engine work, touches ADR-0003)?
-- [ ] **Q5 Binary previews.** Which types get a preview (images only — which formats?), with what size cap, and how do bytes reach the webview without it reading arbitrary paths (e.g. a Tauri command returning the bytes for one conflict side)?
-- [ ] **Q6 Text limits.** Very large text files and non-UTF-8 text not flagged binary: truncated comparison, or metadata-only like binaries? Where is the threshold?
-- [ ] **Q7 Deleted sides.** When one side is a deletion, what does that pane show, and how are the buttons worded ("Keep deleted" / "Restore other version")?
-- [ ] **Q8 After resolving.** What does the window show afterwards (back to the list, a confirmation, the resolution "shared on next sync"), and how does it say both versions are kept?
+- [x] **Q1 Layout.** The design's detail frames are ~1040 px wide, side by side with changed lines marked; the window is 420–480 px. Does the same window widen for detail, does detail open in its own window, or is the comparison inline/stacked in the compact window? Are changed lines highlighted (needs a line diff), or are the two versions shown plain?
+  **Answer (Kai, 2026-11-06):** the same status window widens to about 1040 px while conflict detail is open and returns to its compact width on Back. Versions side by side, changed lines marked; the line diff is computed in Rust (a small diff crate such as `similar`, chosen in the plan).
+- [x] **Q2 Engine access.** How does the host get list metadata (authors, devices, times per side) and on-demand detail (bytes, base, purposes)? Proposal: extend `ConflictStatus` in `Status` with list metadata (amends ADR-0010), add an engine function for one conflict's detail read on demand, and resolve via `Workspace::resolve` in-process like US00005's finish — no ADR-0009 change.
+  **Answer (Kai, 2026-11-06):** as proposed. `ConflictStatus` in `Status` gains list metadata (per side: author, device, time, size, deletion; amends [[ADR-0010 — Report workspace status and session stages separately|ADR-0010]], CLI `status` shows it too). One engine function returns a single conflict's detail on demand. The host resolves through `Workspace::resolve` in-process, like US00005's finish. No `RunnerHandle` or ADR-0009 change.
+- [x] **Q3 Current-version attribution.** The record does not store who made the current version or when. Derive it from `accepted_sessions` (author, device, last save, purpose of those sessions) and, when it came from shared history, show "Shared history" with the commit's author/time — or store it in the conflict record going forward (a format change)?
+  **Answer (Kai, 2026-11-06):** derive, no format change. Current version: the author, device, last save and requested purpose of the sessions in `accepted_sessions` (several contributors are all listed). When it is empty, the current version comes from shared history: show "Shared history" with the author and time of the last commit on `main` that touched the path. The base is labelled "Before both changes" with the same lookup.
+- [x] **Q4 Edits made since the conflict.** The engine refuses to resolve once the file changed after the conflict; the design promises those edits are protected and reconciled separately. Which is the contract for 0.3: (a) keep the refusal and the window explains how to get back to a resolvable state, or (b) change the engine so resolving keeps the later edit as a new change reconciled on top of the choice (engine work, touches ADR-0003)?
+  **Answer (Kai, 2026-11-06):** the engine reconciles: resolving is allowed, and a later edit is treated as a change on top of the current version and three-way merged onto the chosen version (clean → applied; overlapping → a new conflict). This is built as a **separate engine story that US00006 depends on** ([[Story - US00010 - Resolve a conflict after the file was edited again|US00010]]); US00006 stays UI plus the read API. Until it lands, the window shows the engine's refusal (Q8).
+- [x] **Q5 Binary previews.** Which types get a preview (images only — which formats?), with what size cap, and how do bytes reach the webview without it reading arbitrary paths (e.g. a Tauri command returning the bytes for one conflict side)?
+  **Answer (Kai, 2026-11-06):** PNG, JPEG, GIF and WebP get a preview, up to 10 MB per side; SVG is excluded (it can carry script). Other types and larger files show metadata only. The host returns one side's bytes for one conflict id through a Tauri command; the webview gets no file-system access.
+- [x] **Q6 Text limits.** Very large text files and non-UTF-8 text not flagged binary: truncated comparison, or metadata-only like binaries? Where is the threshold?
+  **Answer (Kai, 2026-11-06):** compare only when every present side is valid UTF-8 and at most 1 MB. Otherwise show the binary-style metadata view with the reason ("Too large to compare here" / "Not readable as text"); Keep / Use still work as whole-file choices.
+- [x] **Q7 Deleted sides.** When one side is a deletion, what does that pane show, and how are the buttons worded ("Keep deleted" / "Restore other version")?
+  **Answer (Kai, 2026-11-06):** the deleted side shows a placeholder ("Deleted by Bob · 10:50") instead of content, with no diff. Buttons keep the standard labels with a suffix: "Keep current version · deleted" or "Use other version · deleted" for the side that is a deletion.
+- [x] **Q8 After resolving.** What does the window show afterwards (back to the list, a confirmation, the resolution "shared on next sync"), and how does it say both versions are kept?
+  **Answer (Kai, 2026-11-06):** the window moves to the next unresolved conflict, or back to the list at compact width when none remain, with a dismissible line: "<path>: kept the current version / used the other version. Both versions stay kept; your choice is shared with collaborators on the next sync." The count and tray state follow the next snapshot. A failed resolve (e.g. the engine's refusal) shows the engine's reason in the detail view and changes nothing.
 
 ## Acceptance criteria
 
-<!-- GUIDE: Testable statements, each checkable by someone without this ticket's history. -->
+Status window and engine (Windows tray host; the same model code runs on Linux CI):
+
+1. A workspace with unresolved conflicts shows a **Conflicts** tab with their count; the attention card's **Open conflicts** opens it. With none, the tab shows no count and an empty state.
+2. Each list entry shows the path, text or binary (binary marked "whole-file choice"), when the conflict was recorded, and per side: author, device, save time, and which version is in the folder ("Current version · shown") and which is kept ("Other version · kept"). The current version's author comes from its contributing sessions, or "Shared history" with the last `main` commit's author and time when there are none.
+3. CLI `status` includes the same per-conflict list fields, so CLI and window read one model.
+4. **Review and choose** on a text conflict widens the window to the detail layout: current and other version side by side with line numbers, changed lines marked, and per side author, device, time and requested purpose (or "none recorded"). **Show common base** reveals the base. **Back** returns to the list at compact width.
+5. A text conflict where any present side is over 1 MB or is not valid UTF-8 shows the metadata view with "Too large to compare here" or "Not readable as text"; both choices remain available.
+6. A binary conflict shows per side the size, type, author, time and purpose. PNG, JPEG, GIF and WebP sides up to 10 MB show an image preview; SVG and all other types show metadata only. The webview receives preview bytes only through a host command keyed by conflict id and side, never a file path.
+7. A side that is a deletion shows "Deleted by <author> · <time>" instead of content, and its button reads "… · deleted".
+8. **Keep current version** and **Use other version** record the same resolution as `dispatch-mesh conflicts resolve <id> --choose accepted|incoming` (same engine call, same resulting record and folder content), while the tray's runner keeps running. The detail view says both versions stay kept.
+9. After a successful choice the window opens the next unresolved conflict, or the list at compact width when none remain, with the confirmation line from Q8. With the next snapshot the count, attention card and tray state update; with no conflicts left the workspace leaves Needs attention for its next applicable state.
+10. If the engine refuses (for example, the file has edits made after the conflict), the detail view shows the engine's reason, nothing is recorded, and both choices stay available.
+11. No wording in the window uses "ours", "theirs", "accepted", "incoming" or "HEAD".
+12. Host tests with real workspaces cover: list metadata for a text and a binary conflict (including one whose current version came from shared history), resolving each way from the host, the refusal path, a deletion side, and the 1 MB / non-UTF-8 fallback. Gates green.
+
+The engine story for edits made after a conflict (Q4, Follow-ups) turns criterion 10's refusal into a reconciliation; US00006 is complete without it.
 
 ## Implementation plan
 
@@ -99,6 +122,8 @@ Recorded here: no tracker or chat is configured. Refinement started 2026-11-06; 
 
 <!-- GUIDE: Links to the tickets that carry the deferred work. New scope is a new
      ticket, linked both ways — a finished ticket is not superseded, it is finished. -->
+
+- 2026-11-06 (refinement, Q4): a new engine story is needed — resolving a conflict after the file was edited again reconciles that edit onto the chosen version instead of refusing (applies to CLI `conflicts resolve` as well). Created as [[Story - US00010 - Resolve a conflict after the file was edited again|US00010]] (Backlog, v0.3.0).
 
 ## References
 

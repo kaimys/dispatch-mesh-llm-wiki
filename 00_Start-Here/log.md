@@ -274,3 +274,12 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-06] develop | US00003 code review fixes
 - Kai decided F2: ignore-rule files always synchronize (recorded in [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]] as an answered question and AC 15, and in [[ADR-0013 — Derive exclusion from each tree's own ignore policy|ADR-0013]]). Fixed F1 and F2 and added F3's provider test in `9b98471`; gates green. `open_findings` cleared to empty for the review's re-check.
+
+## [2026-11-06] refine | US00006 Conflict list and resolution in the status window
+- [[Story - US00006 - Conflict list and resolution in the status window|US00006]] moved Backlog → Refinement. Verified against the engine: `Status` carries only id/path/binary per conflict; the record attributes only the other version; `Workspace::resolve` refuses after later edits, contradicting the design frame's "reconciled separately". 8 questions recorded and answered by Kai: widen the same window, extend `Status` + on-demand detail (amends ADR-0010), derive current-version attribution, later-edit reconciliation as a separate engine story, image previews (PNG/JPEG/GIF/WebP up to 10 MB, no SVG) via a host command, 1 MB / UTF-8 compare limit, deletion placeholder, next conflict after resolving. 12 acceptance criteria drafted; `open_questions: 0`.
+
+## [2026-11-06] ticket | US00010 Resolve a conflict after the file was edited again
+- Created [[Story - US00010 - Resolve a conflict after the file was edited again|US00010]] (Backlog, v0.3.0, high) from [[Story - US00006 - Conflict list and resolution in the status window|US00006]] Q4: the engine reconciles a later local edit onto the chosen version instead of refusing with "File has newer edits". Engine facts verified against `src/engine.rs`; 6 open questions. Linked from US00006 (Q4 answer, Follow-ups) and listed in [[index]].
+
+## [2026-11-06] code-review | US00003 fixes approved at 9b98471
+- Re-checked the original review's fixes in [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]]. F1/F2 and F3's coverage gap are closed; `open_findings: 0`. Independently repeated the original CLI failures successfully and reran formatting, Clippy and all 115 tests on Windows. No source changes or status transition; `/test-plan US00003` is next.

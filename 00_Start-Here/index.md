@@ -50,6 +50,7 @@ Entry point for people and agents. Read this first, then follow the links. Every
   - [[Story - US00007 - Recent-save presence in the status window|US00007]] — recent-save presence per file in the status window (v0.3.0)
   - [[Story - US00008 - Desktop notifications for conflicts and attention|US00008]] — notifications for new conflicts and attention starting or clearing (v0.3.0)
   - [[Story - US00009 - Pause and resume synchronization|US00009]] — pause and resume, after deciding what pause suspends (v0.3.0)
+  - [[Story - US00010 - Resolve a conflict after the file was edited again|US00010]] — resolving a conflict after the file was edited again reconciles that edit onto the chosen version (v0.3.0)
   - [[Task - TASK00003 - Two-device tests for the 0.3 exit criteria|TASK00003]] — two-device tests for the 0.3 exit criteria (v0.3.0)
 
 ## UX

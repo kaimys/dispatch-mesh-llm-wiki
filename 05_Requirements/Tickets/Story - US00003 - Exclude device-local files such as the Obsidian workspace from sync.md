@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings:
+open_findings: 0
 discussion:
 updated: 2026-11-06
 completed:
@@ -270,6 +270,20 @@ Commit `9b98471` on `us00003-exclude-device-local-files`. Gates green: `cargo fm
 - Resolve F2's policy-file contract decision with the requester and record it through `/update-ticket` before changing that behavior.
 - In a separate `/develop US00003` session, fix F1 and implement the agreed F2 behavior, with the reproductions above as regressions. Add F3's mock-provider assertion if practical.
 - Run the mechanical gates, document fixes and actual results, and clear `open_findings` to empty for the re-check of these blocking findings. Re-check is part of this same review; `/test-plan` waits for `open_findings: 0`.
+
+### 2026-11-06 — branch us00003-exclude-device-local-files at 9b98471
+
+**Verdict: approved — re-check of the same review.** F1 and F2 are resolved; F3's non-blocking coverage gap is also closed. Zero blocking and zero remaining non-blocking findings. No implementation changes were made in this reviewer session.
+
+**Scope and gates.** Reviewed the complete fix commit `9b98471` against `2ae22f6`, its surrounding scan/policy/init code, all added tests, the updated ticket decision and AC 15, ADR-0013 and README. No open PR was found. Independently ran `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings` and full `cargo test`: all pass, exit code 0, 115 tests across both packages (43 engine, 21 provider). This is local Windows verification; no live GitHub remote, live AI provider or other platform was tested.
+
+1. **F1 closed.** Initialization checks the existing `.meshignore` with symlink/reparse-aware metadata before reading, then writes through a temporary file and rename rather than through the destination. The new symlink regression passes. Independently repeated the original CLI reproduction with a real symlink: `init` rejects it and the external target remains exactly `original\n`. Symlink creation succeeded here, so this verification did not rely on the test's privilege-related early return.
+2. **F2 closed.** Kai's decision is recorded in the ticket and ADR-0013: matched rule files synchronize, while an excluded parent folder still excludes them. Scan now collects skipped rule files in visited folders, and the tree policy makes the same exception. Independently repeated both original CLI cases (a `.meshignore` matched by `.gitignore`, and a self-ignored `.gitignore`): both finish `synced`, their rule file reaches `main`, the layout leaves `main`, and the on-disk layout remains unchanged. The new two-device regression, excluded-folder regression and extended policy fixture all pass.
+3. **F3 closed.** The mock-provider regression passes with text sharing enabled: excluded text is absent, its operation is `excluded`, content is unavailable, and the ordinary added file still supplies its text.
+
+**What should stay.** The rule-file exception is consistent between capture and tree projection, retains the excluded-parent-folder boundary, and is documented as an explicit product decision. The initialization update uses replacement by rename to protect an external symlink target. Regression coverage now exercises the precise failed states from the original review, alongside both peer publication orders and journal replay.
+
+**Evidence and next step.** Disposable CLI results are retained in `target/us00003-recheck-evidence.json`; workspaces are under `C:/Users/kai/AppData/Local/Temp/mesh-us00003-recheck-u012fq1f`. Set `open_findings: 0`; leave status, `open_tests` and the contract zone unchanged. `/test-plan US00003` is next, stamping the freeze against the reviewed commit that ships.
 
 ## Follow-ups
 
