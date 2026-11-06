@@ -77,12 +77,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02_Product/Competitors/Syncthing.md",
-                "mode": "source",
+                "file": "02_Product/Competitors/SparkleShare.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Syncthing"
+              "title": "SparkleShare"
             }
           }
         ],
@@ -164,7 +164,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "02_Product/Competitors/Syncthing.md",
+                "file": "02_Product/Competitors/SparkleShare.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -183,7 +183,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "02_Product/Competitors/Syncthing.md",
+                "file": "02_Product/Competitors/SparkleShare.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -256,11 +256,11 @@
   },
   "active": "447fe21e65fb8118",
   "lastOpenFiles": [
+    "02_Product/Competitors/Syncthing.md",
     "02_Product/Competitors/Agentic Git Sync.md",
     "08_Delivery-and-QA/Reports/github-workflow-test-2026-11-04.md",
     "08_Delivery-and-QA/Reports/github-workflow-findings-2026-11-04.md",
     "07_Engineering/Device branch format.md",
-    "02_Product/Competitors/Syncthing.md",
     "07_Engineering/Competitor storage approaches.md",
     "02_Product/Competitors/SparkleShare.md",
     "02_Product/Competitors/git-annex assistant.md",
