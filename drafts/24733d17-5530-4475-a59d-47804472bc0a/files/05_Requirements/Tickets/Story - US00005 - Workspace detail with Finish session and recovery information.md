@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings:
+open_findings: 0
 discussion:
 updated: 2026-11-06
 completed:
@@ -236,15 +236,17 @@ Independent code review found two blockers: F1 (AC 11: interrupted displacement 
 
 ### 2026-11-06 — branch US00005-workspace-detail at 47f810e
 
-**Fix re-check of the same review (4133e9c), independently performed.** Scope: the complete four-file fix commit `47f810e`, its tests, the amended AC 5/Scope, README, and the dated fix-round notes. No implementation was authored in this review session. No open PR found for this branch; source working tree clean.
+**Verdict: clear — F1 and F2 resolved; zero blocking and zero non-blocking findings remain.** This completes the fix re-check of the same review begun at `4133e9c`, independently performed. Scope: the complete four-file fix commit `47f810e`, its tests, the amended AC 5/Scope, README, and the dated fix-round notes. No implementation was authored in this review session. No open PR found for this branch; source working tree clean.
 
 **F1 resolved:** `recover_apply` now reconciles missing displacement content before any replay branch can skip the file, removes the abandoned id from both bookkeeping collections, and persists that correction while retaining the recovery folder. Existing content remains listed. Legacy backfill requires a content file. All five new recovery tests passed in this run: newer user save, already-written desired file, repeat displacement, actual moved content retained, and legacy empty record skipped. Independently repeated the original CLI crash-journal reproduction in a new disposable workspace: `saved_copies` is now empty after replay, the newer user edit survives, `recovery_pending` clears, and the empty recovery record is retained. Evidence: `target/us00005-recheck-evidence.json`. The real-copy tests verify exact retained bytes, so the fix does not achieve a clean list by dropping real copies.
 
 **F2 resolved:** AC 5 explicitly records Kai's 2026-11-06 decision: every unsettled session first, followed by the ten settled sessions with the latest last save, each group newest by last save. Scope, README and the implementation now agree. The new activity regression covers an older open session ahead of a newer published session and a late-settling session excluded by its old last save. No settlement timestamp or different ordering was introduced.
 
-**Gates:** `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, and `git diff --check 4133e9c..HEAD` passed independently on Windows. Full `cargo test` pending completion; the verdict and counter will be finalized after it finishes. No live remote, AI-provider, separate-host, UI or Narrator verification performed in this re-check.
+**Gates:** `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, and `git diff --check 4133e9c..HEAD` passed independently on Windows. Full `cargo test` passed: 138 tests, zero failures; both packages and doc-test targets completed successfully (engine suite 357.27 s). No live remote, AI-provider, separate-host, UI or Narrator verification performed in this re-check.
 
 **What should stay:** cleanup is confined to abandoned bookkeeping and preserves files; the tests check both phantom removal and real-content retention. The existing shared Status, engine Finish operation, id-only reveal and text-based stage rendering remain intact.
+
+**Next:** `/test-plan US00005` against `47f810e`, covering the outstanding desktop/menu/reveal/keyboard/Narrator checks and stamping the freeze. `open_findings: 0`; status stays `In progress`, and `open_tests` remains unset because it belongs to the test plan. No implementation or contract changes made by this re-check.
 
 ## Follow-ups
 
