@@ -23,6 +23,7 @@ Entry point for people and agents. Read this first, then follow the links. Every
 
 ## Product
 
+- [[Dispatch Mesh concept]] — concept updates and the original discovery discussion
 - [[Dispatch Mesh requirements and architecture]] — current requirements, session model, editing presence
 - [[Dispatch Mesh milestone plan]] — 0.2.x → 2.0 roadmap and release gates
 - [[Dispatch Mesh naming recommendations]]
@@ -34,7 +35,6 @@ Entry point for people and agents. Read this first, then follow the links. Every
 
 - [[Classical Git workflow for Mesh]] — ordinary remote file trees and Git workflow alternatives; benefits, drawbacks, mitigations, residual tradeoffs and prototype decision criteria. Owner: [[Kai]]; review before an architecture decision.
 - [[AI-managed synchronization and human decisions]] — AI proposes meaning-preserving text for technical conflicts; humans approve the exact result. Includes scenarios, prompts and a synthetic Chat Completions exchange; general consistency review is deferred. Owner: [[Kai]]; review before refinement.
-- [[Dispatch Mesh concept|git-sync discovery]] — concept updates and the original discovery discussion
 
 ## Requirements
 
