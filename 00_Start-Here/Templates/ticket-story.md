@@ -31,7 +31,8 @@ frozen:
   open_tests      unticked items in ## Test plan. The `✓ N` badge — 0 is the gate out of review.
                   Empty until the test plan is written: empty is no statement, 0 claims every item is ticked.
   open_findings   blocking findings in the latest ## Code review. The `⚠ N` badge — 0 is the gate into review.
-                  Empty until a review has counted; a fix clears it back to empty, never to 0.
+                  Empty until a review has counted. Fixing blocking findings clears it to empty until
+                  the re-check writes 0; once 0, later fixes do not reset it (one code review per story).
   discussion      permalink of the thread where the team discussed this; rendered as a chat icon.
   updated         bump on every meaningful edit.
   completed  stamped on completion by a board drag automation or explicitly by the writing workflow; feeds the forecast.

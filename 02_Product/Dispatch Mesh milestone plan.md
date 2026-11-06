@@ -82,6 +82,18 @@ Exit criteria:
 - Two-device tests cover presence, conflict notification, resolution propagation, and recovery after restarting the tray host.
 - New edits remain safe while a prior session is being summarized or published.
 
+Tickets, in the suggested order (2026-11-06):
+
+1. [[Story - US00001 - Tray icon and status window host|US00001]] — tray icon, status window, close vs. Quit, no duplicate engines (done).
+2. [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]] — session stages, **Finish session**, recovery information. The shortest path to the first exit criterion, building directly on the status window.
+3. [[Story - US00006 - Conflict list and resolution in the status window|US00006]] — conflict list, comparison and resolution. The largest piece.
+4. [[Story - US00007 - Recent-save presence in the status window|US00007]] — recent-save presence.
+5. [[Story - US00008 - Desktop notifications for conflicts and attention|US00008]] — notifications; closes the notification-behavior decision.
+6. [[Story - US00009 - Pause and resume synchronization|US00009]] — pause/resume, once its semantics are decided; closes the pause decision.
+7. [[Task - TASK00003 - Two-device tests for the 0.3 exit criteria|TASK00003]] — two-device tests for the exit criteria, closing the release.
+
+[[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]] also targets v0.3.0 and is independent of the tray work.
+
 ## 0.4 — bundled Git and Windows packaging
 
 Remove the prerequisite to install or configure a separate Git executable.
@@ -285,7 +297,7 @@ Exit criteria:
 | Cloud hosting, identity provider, workspace sharing, multi-account selection, and first tool schemas | Shipping 2.0 alpha |
 | Retention, capacity, quotas, backup objectives, and the boundary between user-directed and autonomous jobs | Widening cloud access in 2.0 beta |
 
-Closed so far (2026-11-05): the local control interface by [[ADR-0009 — Embed the engine with a runner handle and published status|ADR-0009]], and the tray UI toolkit by [[ADR-0011 — Build the desktop host with Tauri 2|ADR-0011]] (proposed). Pause semantics and notification behavior remain open for their 0.3 tickets.
+Closed so far (2026-11-05): the local control interface by [[ADR-0009 — Embed the engine with a runner handle and published status|ADR-0009]], and the tray UI toolkit by [[ADR-0011 — Build the desktop host with Tauri 2|ADR-0011]] (accepted 2026-11-06). Pause semantics and notification behavior remain open for their 0.3 tickets.
 
 These decisions do not change the confirmed synchronization and session behavior above.
 

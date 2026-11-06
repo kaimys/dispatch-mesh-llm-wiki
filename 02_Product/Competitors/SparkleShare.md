@@ -63,14 +63,15 @@ Inspected revision: [`9b10379c7537`](https://github.com/hbons/SparkleShare/commi
 
 This tree shows tracked entries at a remote branch tip, as seen in a repository file browser. The branch label is not a directory. Example user paths illustrate the layout; optional files appear only if committed. `.git/` is never a tracked subtree.
 
-```text
-<shared remote branch>
-├── notes/
-│   └── example.md           # ordinary bytes, or an LFS pointer in LFS mode
-├── .sparkleshare            # project identifier when created/tracked
-├── <empty-directory>/
-│   └── .empty               # placeholder preserving an otherwise empty folder
-└── <renamed conflict files> # competing versions when committed by resolution
+```mermaid
+treeView-beta
+	<shared remote branch>
+		notes/
+			example.md ## ordinary bytes, or an LFS pointer in LFS mode
+		.sparkleshare ## project identifier when created/tracked
+		<empty-directory>/
+			.empty ## placeholder preserving an otherwise empty folder
+		<renamed conflict files> ## competing versions when committed by resolution
 ```
 
 LFS payload bytes are fetched separately; the tracked file at its original path contains the pointer in that mode. Local attributes, hooks, size caches and unsynced flags do not appear in this branch tree. Identifier/placeholder creation is in the fetcher and repository backend linked above.
@@ -79,26 +80,26 @@ LFS payload bytes are fetched separately; the tracked file at its original path 
 
 Representative shared folder in the inspected C# implementation. LFS entries are conditional; normal mode keeps payloads in Git objects. Ref names below are logical, not a promise of loose files.
 
-```text
-shared-folder/
-├── notes/example.md          # working bytes; Git blob or LFS-backed content
-├── <renamed conflict copies> # materialized competing versions, when needed
-└── .git/
-    ├── objects/              # ordinary Git history; LFS pointers in LFS mode
-    ├── refs/                 # local and remote-tracking refs
-    ├── index
-    ├── config
-    ├── has_unsynced_changes  # local backend flag
-    ├── info/
-    │   ├── size              # cached working-content size
-    │   ├── history_size      # cached Git-directory size
-    │   └── attributes        # local filter rules, including LFS when enabled
-    ├── hooks/pre-push        # LFS hook when configured
-    └── lfs/                  # conditional LFS local storage/state
-        └── is_behind         # backend's pending-LFS-download marker
-
-Git remote → branch history  # files or LFS pointers
-LFS endpoint → payloads      # separate content path in LFS mode
+```mermaid
+treeView-beta
+	shared-folder/
+		notes/example.md ## working bytes; Git blob or LFS-backed content
+		<renamed conflict copies> ## materialized competing versions, when needed
+		.git/
+			objects/ ## ordinary Git history; LFS pointers in LFS mode
+			refs/ ## local and remote-tracking refs
+			index
+			config
+			has_unsynced_changes ## local backend flag
+			info/
+				size ## cached working-content size
+				history_size ## cached Git-directory size
+				attributes ## local filter rules, including LFS when enabled
+			hooks/pre-push ## LFS hook when configured
+			lfs/ ## conditional LFS local storage/state
+				is_behind ## backend's pending-LFS-download marker
+	Git remote → branch history ## files or LFS pointers
+	LFS endpoint → payloads ## separate content path in LFS mode
 ```
 
 Local flags and `.git/info/` files are not shared tracked files. Filter setup and these paths are defined in the repository backend/fetcher linked above; this tree does not describe the announced rewrite.

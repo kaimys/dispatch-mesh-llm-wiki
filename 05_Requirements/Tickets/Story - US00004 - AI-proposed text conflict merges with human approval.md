@@ -1,10 +1,10 @@
 ---
 id: US00004
 type: story
-status: "Backlog"
+status: Backlog
 priority: medium
 rank: 3000
-version_target:
+version_target: v0.4.0
 size:
 assignee:
 owner: "[[Kai]]"

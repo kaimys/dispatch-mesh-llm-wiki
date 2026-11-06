@@ -45,6 +45,12 @@ Entry point for people and agents. Read this first, then follow the links. Every
   - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps|TASK00001]] — close remaining 0.2.x stabilization gaps (v0.2.5)
   - [[Task - TASK00002 - Choose the Git backend before bundling Git|TASK00002]] — choose the Git backend before bundling Git (v0.4.0)
   - [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]] — exclude device-local files such as `.obsidian/workspace.json` from sync, including already-synchronized ones
+  - [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]] — workspace detail: session stages, Finish session, recovery information (v0.3.0)
+  - [[Story - US00006 - Conflict list and resolution in the status window|US00006]] — conflict list, comparison and resolution in the status window (v0.3.0)
+  - [[Story - US00007 - Recent-save presence in the status window|US00007]] — recent-save presence per file in the status window (v0.3.0)
+  - [[Story - US00008 - Desktop notifications for conflicts and attention|US00008]] — notifications for new conflicts and attention starting or clearing (v0.3.0)
+  - [[Story - US00009 - Pause and resume synchronization|US00009]] — pause and resume, after deciding what pause suspends (v0.3.0)
+  - [[Task - TASK00003 - Two-device tests for the 0.3 exit criteria|TASK00003]] — two-device tests for the 0.3 exit criteria (v0.3.0)
 
 ## UX
 
@@ -70,10 +76,11 @@ Entry point for people and agents. Read this first, then follow the links. Every
 | [[ADR-0008 — Store content as blobs referenced by metadata\|ADR-0008]] | Store content as blobs referenced by metadata | accepted |
 | [[ADR-0009 — Embed the engine with a runner handle and published status\|ADR-0009]] | Embed the engine with a runner handle and published status | accepted |
 | [[ADR-0010 — Report workspace status and session stages separately\|ADR-0010]] | Report workspace status and session stages separately | proposed |
-| [[ADR-0011 — Build the desktop host with Tauri 2\|ADR-0011]] | Build the desktop host with Tauri 2 | proposed |
+| [[ADR-0011 — Build the desktop host with Tauri 2\|ADR-0011]] | Build the desktop host with Tauri 2 | accepted |
 | [[ADR-0012 — Ship the desktop host as a separate executable serving several workspaces\|ADR-0012]] | Ship the desktop host as a separate executable serving several workspaces | proposed |
+| [[ADR-0013 — Derive exclusion from each tree's own ignore policy\|ADR-0013]] | Derive exclusion from each tree's own ignore policy | proposed |
 
-ADR-0001–0008 record implemented console-preview decisions. Their original individual decision dates are unavailable; each records its provenance and documentation date. ADR-0009 and ADR-0010 record Kai's designs dated 2026-11-05. ADR-0009 was accepted on 2026-11-05 after US00002 was built and verified; ADR-0010's implementation and verification remain in its linked ticket. ADR-0011 and ADR-0012 record Kai's US00001 decisions dated 2026-11-05; they are built under that ticket. TASK00002's Git backend decision remains separate and open.
+ADR-0001–0008 record implemented console-preview decisions. Their original individual decision dates are unavailable; each records its provenance and documentation date. ADR-0009 and ADR-0010 record Kai's designs dated 2026-11-05. ADR-0009 was accepted on 2026-11-05 after US00002 was built and verified; ADR-0010's implementation and verification remain in its linked ticket. ADR-0011 and ADR-0012 record Kai's US00001 decisions dated 2026-11-05; they are built under that ticket. ADR-0011 was accepted on 2026-11-06 after US00001 was built and verified. ADR-0013 records Kai's US00003 decision of 2026-11-06 and is built under that ticket. TASK00002's Git backend decision remains separate and open.
 
 ## Delivery and QA
 

@@ -7,6 +7,9 @@ updated: 2026-11-06
 
 Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed by the pages touched.
 
+## [2026-11-06] code-review | US00003 blocked at 2ae22f6
+- Recorded the independent review in [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]]: two blocking findings (init writes through a `.meshignore` symlink before rejection; ignored rule files split walker/tree policy) and one non-blocking mock-provider coverage gap. Set `open_findings: 2`; kept `In progress` and left `open_tests` and the contract zone unchanged. Retained disposable CLI reproduction evidence under `target/us00003-review-evidence.json`. Independently reran all mechanical gates on Windows: formatting, Clippy and all 110 tests pass. A separate development session fixes the findings; the policy-file contract decision precedes F2's fix, and `/test-plan` remains blocked.
+
 ## [2026-11-04] setup | Dispatch board and wiki structure
 - Turned `dispatch/wiki` into an Obsidian vault with the Dispatch board.
 - Moved the concept docs: `README.md` → `04_Discovery/git-sync/README.md` (restores the `[[04_Discovery/git-sync/README]]` links); requirements, milestone plan and naming → `02_Product/`.
@@ -237,3 +240,34 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 - Created [[Classical Git workflow for Mesh]] in `04_Discovery/`, comparing ordinary shared commits, device branches with normal merges, and ordinary device trees with session-level publication. Listed in [[index]].
 - Discussed benefits, nine disadvantages with concrete mitigations and remaining tradeoffs, remote branch trees, a collaboration scenario, AI/human/engine responsibilities, compatibility/migration questions and prototype criteria.
 - Preserved human approval of AI-written resolutions and excluded general consistency review. Kept the architecture exploration independent of US00004 and current binding ADRs. Checked official Git documentation; no implementation, live test, migration or new ticket.
+
+## [2026-11-06] refine | US00003 Exclude device-local files from sync
+- Started refinement of [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]] and moved it to `Refinement`. Checked the context against `src/engine.rs` (`scan`, `install`, `ignored`) and `README.md`; the claims match.
+- Added an eighth open question: unpublished drafts and open conflicts on a newly excluded path. No chat integration, so the questions are recorded in the ticket.
+
+## [2026-11-06] create-ticket | Remaining 0.3 tray work
+- Created [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]] (5 open questions), [[Story - US00006 - Conflict list and resolution in the status window|US00006]] (5), [[Story - US00007 - Recent-save presence in the status window|US00007]] (4), [[Story - US00008 - Desktop notifications for conflicts and attention|US00008]] (5), [[Story - US00009 - Pause and resume synchronization|US00009]] (6) and [[Task - TASK00003 - Two-device tests for the 0.3 exit criteria|TASK00003]] (3), all Backlog, v0.3.0, ranks 4000–9000 in the suggested order. Listed in `index.md`.
+- [[Dispatch Mesh milestone plan]]: 0.3 now lists its tickets in the suggested order.
+
+## [2026-11-06] decision | ADR-0011 accepted
+- [[ADR-0011 — Build the desktop host with Tauri 2]] accepted by Kai after US00001 was built and verified (CI green on Windows and Linux). Updated `index.md` and the milestone plan's decision table note.
+- Ticket template: the `open_findings` guide now follows the one-review-per-story rule.
+- Kai answered all eight questions: shared `.meshignore` only; `main` records an attributed removal while devices keep their files; incoming changes to excluded paths are dropped silently; `init` writes the Obsidian rules visibly; no CLI command; re-including uses the ordinary change path; the removal settles open conflicts; target v0.3.0. Rewrote the scope, wrote 14 acceptance criteria, set `open_questions: 0`. Refinement stays open until Kai ends it.
+
+## [2026-11-06] plan | US00003 implementation plan
+- Wrote the implementation plan in [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]]. The core rule: a computed tree never holds a path its own ignore policy excludes, and on disk an excluded path is left untouched. Nine steps, test matrix, risks, about 3–4 days. ADR extraction waits for sign-off.
+
+## [2026-11-06] update | Mermaid tree layouts in competitor profiles
+- Converted the remote-branch and local-filesystem ASCII trees in all seven competitor profiles to Mermaid treeView-beta, following [[Agentic Git Sync]]. Preserved hierarchy, paths, annotations, surrounding source citations, and research dates; removed the duplicate ASCII version of the existing reference diagram. Verified that surrounding prose is unchanged and no ASCII tree blocks remain in the profiles.
+
+## [2026-11-06] decision | ADR-0013 Derive exclusion from each tree's own ignore policy
+- Kai signed off the US00003 plan by invoking development. Created [[ADR-0013 — Derive exclusion from each tree's own ignore policy]] (`proposed`) and listed it in [[index]]. Moved US00003 to `In progress`.
+
+## [2026-11-06] refine | US00005 Workspace detail with Finish session and recovery information
+- [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]] moved to Refinement. Checked the engine (Status fields, saved copies, finish, sync retry) and recorded the facts. Kai answered all 5 questions: extend `Status` (amends ADR-0010), activity = unsettled + last 10 settled, saved copies with Show in folder, one Finish-session item per open session and no Quit prompt, no Retry now. 13 acceptance criteria drafted; `open_questions: 0`.
+
+## [2026-11-06] develop | US00003 Exclude device-local files from sync
+- Implemented on branch `us00003-exclude-device-local-files` (`25ca6c5`, `2ae22f6`): tree ignore policy (`src/policy.rs`), exclusion in scan/capture/render/publish/apply, Obsidian default in `init`, "Stopped synchronizing" wording, README and AGENTS.md. Gates green; CLI demonstration on two devices recorded. As-built notes in [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]]. Next: `/code-review US00003` in a fresh session.
+
+## [2026-11-06] implementation-plan | US00005 Workspace detail with Finish session and recovery information
+- Wrote the implementation plan in [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]]: additive `Status` fields (session times, title, purposes, `last_sync`, `saved_copies`) with an ADR-0010 amendment, tray model rules, host `finish`/saved-copy resolution, Tauri wiring with `tauri-plugin-opener`, window. Five decisions listed for review. Awaiting sign-off; ADR extraction follows it.

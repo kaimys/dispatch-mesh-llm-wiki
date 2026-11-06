@@ -62,14 +62,15 @@ Inspected revision: [`8d1144aef2d4`](https://github.com/Vinzent03/obsidian-git/c
 
 This tree shows tracked entries at a remote branch tip, as seen in a repository file browser. The branch label is not a directory. Example user paths illustrate the layout; optional files appear only if committed. `.git/` is never a tracked subtree.
 
-```text
-<configured remote branch>
-├── notes/
-│   └── example.md                    # ordinary committed vault file
-├── .gitignore                        # optional tracked ignore rules
-└── <config-dir>/                     # only the editor files actually tracked
-    └── plugins/obsidian-git/
-        └── data.json                 # only if included in Git
+```mermaid
+treeView-beta
+	<configured remote branch>
+		notes/
+			example.md ## ordinary committed vault file
+		.gitignore ## optional tracked ignore rules
+		<config-dir>/ ## only the editor files actually tracked
+			plugins/obsidian-git/
+				data.json ## only if included in Git
 ```
 
 The plugin adds no separate remote session/draft layout in the reviewed backends. Editor configuration is ordinary optional tracked content, not a mandatory transport format. Git index/merge state and Obsidian device-local storage are absent from the branch tree.
@@ -78,23 +79,22 @@ The plugin adds no separate remote session/draft layout in the reviewed backends
 
 Typical vault-root repository; the plugin also supports repository/Git-directory configuration, so this is not the only placement. `<config-dir>` is usually `.obsidian`.
 
-```text
-vault/
-├── notes/example.md                 # ordinary tracked content
-├── .gitignore                       # optional tracked ignore policy
-├── .git/                            # normal Git repository metadata
-│   ├── objects/
-│   ├── refs/                        # refs may instead be packed
-│   ├── index
-│   ├── config
-│   └── <merge-state files>          # e.g. MERGE_HEAD, MERGE_MSG when pending
-└── <config-dir>/plugins/obsidian-git/
-    └── data.json                    # plugin settings via Obsidian API
-
-Obsidian device-local storage        # API-managed; not a vault subdirectory
-└── obsidian-git:<setting>            # hostname, Git path, last operation times…
-
-Git remote → configured branch       # ordinary committed vault content
+```mermaid
+treeView-beta
+	vault/
+		notes/example.md ## ordinary tracked content
+		.gitignore ## optional tracked ignore policy
+		.git/ ## normal Git repository metadata
+			objects/
+			refs/ ## refs may instead be packed
+			index
+			config
+			<merge-state files> ## e.g. MERGE_HEAD, MERGE_MSG when pending
+		<config-dir>/plugins/obsidian-git/
+			data.json ## plugin settings via Obsidian API
+	Obsidian device-local storage ## API-managed; not a vault subdirectory
+		obsidian-git:<setting> ## hostname, Git path, last operation times…
+	Git remote → configured branch ## ordinary committed vault content
 ```
 
 Plugin data is inside the vault and can be tracked unless excluded; device-local storage is a separate API-backed store. Desktop and JavaScript backends use the Git model shown here, with different filesystem/operation implementations. Sources are the backend, local-settings and plugin-lifecycle files linked above.

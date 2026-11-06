@@ -1,6 +1,6 @@
 ---
 id: ADR-0011
-status: proposed
+status: accepted
 date: 2026-11-05
 superseded_by:
 owner: "[[Kai]]"
@@ -14,6 +14,8 @@ recorded: 2026-11-05
 0.3 needs a tray icon, a compact status window, toasts and screen-reader labels on Windows, and the same surfaces must port to the macOS menu bar (0.7) and Linux trays (0.8). Planned later work also needs an installer (0.4), login startup (0.6) and updates. The milestone plan lists "Tray UI toolkit" among the decisions to close before implementing 0.3. The engine runs in-process through `RunnerHandle` (ADR-0009). The visual design was delivered by Claude Design as HTML with a token sheet ([[Dispatch Mesh desktop app.pdf]]).
 
 Decision provenance: Kai's answer in [[Story - US00001 - Tray icon and status window host|US00001]] refinement, 2026-11-05, with a Windows spike as a condition before the plan relies on it.
+
+**Accepted 2026-11-06 by Kai:** the decision below is built and verified under US00001 (Windows spike passed; reviewed clear; all 11 manual checks passed; CI green on `windows-latest` and `ubuntu-latest`, the first Linux build of the tray, after adding a PNG app icon in `296a09d`). Merged to `main` at `29d3d58`.
 
 ## Decision
 

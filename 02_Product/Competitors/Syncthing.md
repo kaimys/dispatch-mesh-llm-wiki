@@ -58,11 +58,12 @@ Inspected revision: [`b34734376128`](https://github.com/syncthing/syncthing/comm
 
 **There is no remote Git branch tree.** Syncthing exchanges indexes and file blocks between devices. The comparable view is the synchronized user-file namespace on a receiving peer:
 
-```text
-<peer's synchronized folder>          # filesystem view, not a Git branch
-├── notes/
-│   └── example.md                    # synchronized user bytes
-└── <conflict-copy-name>              # when generated and synchronized
+```mermaid
+treeView-beta
+	<peer's synchronized folder> ## filesystem view, not a Git branch
+		notes/
+			example.md ## synchronized user bytes
+		<conflict-copy-name> ## when generated and synchronized
 ```
 
 SQLite databases, receive temporaries and the optional local version archive are not a shared Git transport tree. The local-storage diagram below is useful for disk layout only; there is no Syncthing counterpart to browsing `mesh/devices/<id>` on a Git host.
@@ -71,21 +72,20 @@ SQLite databases, receive temporaries and the optional local version archive are
 
 Representative folder and local database layout at the reviewed revision. The database directory is configured/platform-dependent and is separate from synchronized user content; this is not a Git repository layout.
 
-```text
-synchronized-folder/
-├── notes/example.md               # current user file bytes
-├── <temporary receive file>       # platform-dependent temporary name
-├── <name>.sync-conflict-<time>-<device>.<ext> # when a conflict copy is needed
-└── .stversions/                   # default archive path, if versioning enabled
-    └── <archived versions>        # can be configured at another location
-
-<local database directory>/
-├── main.db                        # folder registry / database metadata
-├── folder.<hex-index>-<slug>.db   # per-folder device/file/block metadata
-└── <SQLite support files>         # e.g. WAL/SHM when present
-
-authorized peers
-└── file indexes + requested blocks  # network exchange; no shared Git branch
+```mermaid
+treeView-beta
+	synchronized-folder/
+		notes/example.md ## current user file bytes
+		<temporary receive file> ## platform-dependent temporary name
+		<name>.sync-conflict-<time>-<device>.<ext> ## when a conflict copy is needed
+		.stversions/ ## default archive path, if versioning enabled
+			<archived versions> ## can be configured at another location
+	<local database directory>/
+		main.db ## folder registry / database metadata
+		folder.<hex-index>-<slug>.db ## per-folder device/file/block metadata
+		<SQLite support files> ## e.g. WAL/SHM when present
+	authorized peers
+		file indexes + requested blocks ## network exchange; no shared Git branch
 ```
 
 `.stversions/` is conditional and configurable. SQLite block records index hashes and offsets rather than holding a complete historical payload archive. Sources: [main database naming](https://github.com/syncthing/syncthing/blob/b34734376128492fa4e1b01412193de033e20613/internal/db/sqlite/db_open.go), [folder database naming](https://github.com/syncthing/syncthing/blob/b34734376128492fa4e1b01412193de033e20613/internal/db/sqlite/db_folderdb.go), and the version-storage helpers/receive pipeline linked above.
