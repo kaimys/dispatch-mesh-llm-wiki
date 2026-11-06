@@ -2138,6 +2138,54 @@
       },
       "message_base": "eca847124f69ead1cac120b4acdee4af6b5176d8"
     },
+    "5005bd2d-a6e9-4693-9b18-7eb8097aaf22": {
+      "id": "5005bd2d-a6e9-4693-9b18-7eb8097aaf22",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793994585,
+      "last_edit": 1793994585,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "16a801a07fcdb1d4a79aba805669b86467854d87"
+          },
+          "content": {
+            "blob": "42753ce5d04eb2ab6879fa7a5671d584a4f678fc"
+          },
+          "intent": null,
+          "last_edit": 1793994585
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "81898cc4557bd6e26a496a0fb802d3beacf62a55"
+          },
+          "content": {
+            "blob": "a5b9c78f2b42537f63401705661b36b7e8062576"
+          },
+          "intent": null,
+          "last_edit": 1793994585
+        },
+        "05_Requirements/Tickets/Bug - BUG00001 - AI summaries of large sessions never finish.md": {
+          "base": null,
+          "content": {
+            "blob": "8a0fc45d7a5d0363af453dc4024eb56c618922a7"
+          },
+          "intent": null,
+          "last_edit": 1793994585
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "51e94ff4-7021-4346-8663-f3116a595c90": {
       "id": "51e94ff4-7021-4346-8663-f3116a595c90",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
