@@ -83,7 +83,12 @@ Small-bug shortcut, no separate plan. Approach: in `src/runner.rs`, add an async
 
 ## As-built notes
 
-<!-- GUIDE: Where the implementation deviated from the plan, and why. Dated entries. -->
+### 2026-11-06 — fix (branch `BUG00001-summary-lock-wait`, commit `403b165`)
+
+- **Explicit small-bug shortcut** (`/fix-bug`, requested by Kai). Independent code review omitted; `open_findings` left empty.
+- `src/runner.rs`: new `open_when_free`, which retries `Workspace::open` on `WorkspaceBusy` with a 50 ms `tokio::time::sleep` between attempts for up to `SUMMARY_LOCK_WAIT` (30 s), then returns the busy error as before. Used for both opens in `summarize_ready`. No other behavior changed.
+- `tests/provider.rs`: `a_summary_waits_for_a_workspace_busy_when_it_starts` and `an_answer_that_arrives_while_the_workspace_is_busy_is_kept` (one AI request only), plus a `serve_delayed` mock variant and an optional delay in `respond`. Both tests failed before the fix with "Another Mesh operation is using this workspace; retry shortly" and pass with it.
+- Gates on `403b165` (Windows): `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings` and `cargo test` all pass (engine suite 54 tests, provider 23, runner 11, tray host 10, tray model 20, CLI 11, storage/transport 8).
 
 ## Follow-ups
 
