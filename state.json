@@ -768,8 +768,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: add classical Git workflow discovery",
+        "description": "Add a discovery note comparing shared-branch, device-branch, and session-level publication approaches, including tradeoffs, mitigations, and prototype criteria. Link it from the wiki index, record it in the change log, and update the Obsidian workspace to open the new note."
+      },
+      "message_base": "101cb1361f14b0793a16b2b6b89826c61a8cd852"
     },
     "30875338-d152-4c24-8220-af51d0aae3a7": {
       "id": "30875338-d152-4c24-8220-af51d0aae3a7",
