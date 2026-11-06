@@ -3192,8 +3192,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793978786,
-      "last_edit": 1793979127,
-      "revision": 4,
+      "last_edit": 1793979189,
+      "revision": 5,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -3229,10 +3229,20 @@
             "blob": "517d9c22c92fafebb54186a5d6f16c13a760a6f3"
           },
           "content": {
-            "blob": "710b69479c1d61f45bbb9cedfdfc69c6540ed81d"
+            "blob": "52139e3c7f795c11722e962f45d133e5c6a81af1"
           },
           "intent": null,
-          "last_edit": 1793978895
+          "last_edit": 1793979189
+        },
+        "05_Requirements/Tickets/Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync.md": {
+          "base": {
+            "blob": "fa774f8e08677b13a3a5f9749fe78095fe50b163"
+          },
+          "content": {
+            "blob": "cb2e1dd1e427372d5a8f6e09504a93d8a0052c06"
+          },
+          "intent": null,
+          "last_edit": 1793979189
         },
         "05_Requirements/Tickets/Story - US00006 - Conflict list and resolution in the status window.md": {
           "base": {

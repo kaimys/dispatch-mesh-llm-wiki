@@ -280,3 +280,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-06] ticket | US00010 Resolve a conflict after the file was edited again
 - Created [[Story - US00010 - Resolve a conflict after the file was edited again|US00010]] (Backlog, v0.3.0, high) from [[Story - US00006 - Conflict list and resolution in the status window|US00006]] Q4: the engine reconciles a later local edit onto the chosen version instead of refusing with "File has newer edits". Engine facts verified against `src/engine.rs`; 6 open questions. Linked from US00006 (Q4 answer, Follow-ups) and listed in [[index]].
+
+## [2026-11-06] code-review | US00003 fixes approved at 9b98471
+- Re-checked the original review's fixes in [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]]. F1/F2 and F3's coverage gap are closed; `open_findings: 0`. Independently repeated the original CLI failures successfully and reran formatting, Clippy and all 115 tests on Windows. No source changes or status transition; `/test-plan US00003` is next.
