@@ -1438,7 +1438,7 @@
       "created_at": 1793965384,
       "last_edit": 1793965810,
       "revision": 7,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -1493,8 +1493,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: define human-approved AI conflict proposals and add US00004",
+        "description": "Clarify discovery scope: AI may propose meaning-preserving text merges, but a human must approve the exact result; clean merges get no general AI review, and consistency checking is deferred. Add the US00004 backlog story with refinement questions, update the index and change log, and adjust the Obsidian workspace state."
+      },
+      "message_base": "dd3068220fdf263227afdf91b2cd79c17f55a688"
     },
     "57c6e987-36dc-4574-abe2-c9484fafaccd": {
       "id": "57c6e987-36dc-4574-abe2-c9484fafaccd",
