@@ -77,12 +77,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "07_Engineering/Competitor storage approaches.md",
+                "file": "02_Product/Competitors/gitwatch.md",
                 "mode": "preview",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "Competitor storage approaches"
+              "title": "gitwatch"
             }
           }
         ],
@@ -164,7 +164,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "07_Engineering/Competitor storage approaches.md",
+                "file": "02_Product/Competitors/gitwatch.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -183,7 +183,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "07_Engineering/Competitor storage approaches.md",
+                "file": "02_Product/Competitors/gitwatch.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -256,6 +256,7 @@
   },
   "active": "447fe21e65fb8118",
   "lastOpenFiles": [
+    "07_Engineering/Competitor storage approaches.md",
     "02_Product/Competitors/Jujutsu.md",
     "02_Product/Competitors/gitwatch.md",
     "02_Product/Competitors/git-annex assistant.md",
@@ -266,7 +267,6 @@
     "08_Delivery-and-QA/Reports/github-workflow-test-2026-11-04.md",
     "08_Delivery-and-QA/Reports/github-workflow-findings-2026-11-04.md",
     "07_Engineering/Device branch format.md",
-    "07_Engineering/Competitor storage approaches.md",
     "07_Engineering/SQLite database format.md",
     "02_Product/Competitor overview.md",
     "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
