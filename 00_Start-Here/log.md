@@ -296,3 +296,10 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 ## [2026-11-06] develop | US00005 Workspace detail with Finish session and recovery information
 - [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]] → In progress (assignee Kai) and implemented on branch `US00005-workspace-detail`: new `Status` fields, tray activity list, Finish session in the window and the tray menu, saved copies with Show in folder. As-built notes record the deviations (`has_remote` added, author name instead of "You").
 - Amended [[ADR-0010 — Report workspace status and session stages separately]] with the workspace-detail fields, the coalescing of `last_sync` and saved-copy recording.
+
+## [2026-11-06] ticket | US00011 Limit saved copies in the recovery folder
+- Created [[Story - US00011 - Limit saved copies in the recovery folder]] (Backlog, no version target) from the saved-copy growth observed in [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]]; 5 open questions. Linked from US00005's Follow-ups and listed in [[index]].
+
+## [2026-11-06] code-review | US00005 blocked at 4133e9c
+- Recorded the independent review in [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]]: two blocking findings (phantom saved copies after interrupted displacement; AC 5 disagrees with planned/built activity ordering), no additional non-blocking findings. Set `open_findings: 2`, retained `In progress`, and left `open_tests` and the contract zone unchanged. Added a record-zone fix-round plan and retained disposable reproduction evidence in `target/us00005-review-evidence.json`. Formatting and Clippy passed independently on Windows; the full test result is recorded in the ticket when complete. No source changes or new wiki pages.
+- Final gate result for this review: full `cargo test` passed on Windows, 132 tests and zero failures, including both workspace packages and doc-test targets. Updated the review entry with this result; the two blockers remain.

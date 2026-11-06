@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings:
+open_findings: 2
 discussion:
 updated: 2026-11-06
 completed:
@@ -197,10 +197,40 @@ Built as planned in three commits (engine `Status`, tray host and model, window 
 
 **Verification (Windows, 2026-11-06):** `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings` and `cargo test` are green. The debug tray ran against two disposable workspaces with a local bare remote. The window showed the last sync, a received draft under its author (Alice), an own session with its requested purpose, a published session with its title, and a saved copy. **Finish session** in the window moved the open session to "Added to shared history" and removed the button. **Show in folder** opened Explorer in the copy's recovery folder. Not exercised live: the tray-menu items, the attention card's action, Narrator.
 
+### 2026-11-06 — review blocked at 4133e9c
+
+Independent code review found two blockers: F1 (AC 11: interrupted displacement can list nonexistent saved-copy content) and F2 (AC 5: acceptance wording disagrees with the planned/built activity selection and ordering). Keep `In progress`; do not run `/test-plan` until both are resolved. The fix-round plan is recorded in Code review below. No implementation or contract text changed in this session.
+
+## Code review
+
+### 2026-11-06 — branch US00005-workspace-detail at 4133e9c
+
+**Verdict: blocked.** Two blocking findings, no additional non-blocking findings. Keep `In progress`; this build cannot proceed to `/test-plan` or leave Review as it stands. This is an independent review: this session authored none of the implementation. Scope: all three commits in `main...4133e9c` (`c9a894c`, `fb38b8c`, `4133e9c`), all 17 changed files, the complete ticket and its linked ADR-0009/ADR-0010, plus the recovery and tray-host decisions. No open pull request was found for this branch. No unrelated commits found.
+
+**Gates:** independently passed `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, and `git diff --check main...HEAD` on Windows. Full `cargo test` passed: 132 tests, zero failures (engine suite 383.50 s); both packages and doc-test targets completed successfully. No live remote, AI-provider, separate-host or UI/Narrator validation was performed in this review. Disposable crash-state CLI evidence is retained at `target/us00005-review-evidence.json` (not in source commits).
+
+**Findings, in severity order**
+
+1. **[P2, blocking — AC 11] An interrupted displacement can permanently list a saved copy that never existed.** `src/engine.rs:1241–1257` removes an abandoned entry only inside the branch that moves the file again; replay's earlier exits at `src/engine.rs:1208–1224` bypass that cleanup. Trigger: state and `record.json` have been saved before `fs::rename`, the process stops, and the user saves a different edit before restart. Replay correctly preserves that newer edit, but subsequently clears `apply_backups`, leaving the nonexistent copy in `saved_copies` indefinitely. Reproduced with an isolated initialized workspace and an injected durable crash journal, followed by ordinary CLI `session finish` and `status`: `recovery_pending` becomes false, the newer user edit survives, and `saved_copies` still contains an id with no `.mesh/recovery/<id>/content`. The window consequently advertises a version it cannot reveal or restore. The one-time backfill at `src/engine.rs:98–107` also accepts a readable record without checking that its content exists, so older interrupted applies can import the same phantom. **Fix:** reconcile unfinished displacement bookkeeping on every replay path, retaining entries for actual displaced content and removing only bookkeeping for copies never moved; require actual content in the legacy backfill. Preserve all existing recovery files and newer local edits. **Regression cases:** crash before rename followed by a newer user save, crash before rename followed by a file already equal to the desired result, crash after rename (real copy retained), and legacy recovery folders with records but no content. Existing tests cover normal displacement and the old after-rename journal, not this branch's new bookkeeping across these boundaries.
+
+2. **[P2, blocking — AC 5 / contract disagreement] Activity selection and ordering do not meet the acceptance criterion literally.** `tray/src/model.rs:395–406` selects settled sessions by `last_saved` and concatenates every unsettled session ahead of them. AC 5 promises “the 10 most recently settled ones … newest first.” For example, an old session that finally publishes after a conflict or dependency clears is omitted if ten already-published sessions have newer saves; an old open session is displayed before a newer published session. The implementation follows plan step 3 and its explicit order-proxy decision, but the acceptance criterion was never aligned with that plan. The current model test at `tray/src/model.rs:847–890` encodes the grouping rather than resolving the disagreement. **Resolution required:** either Kai confirms the planned policy and `/update-ticket` makes AC 5 and the README describe “all unsettled first, then ten settled by last save; each group newest first,” or retain AC 5 and implement a durable settlement timestamp plus the agreed overall ordering. Neither interpretation is silently chosen in this review. Add the delayed-settlement and interleaved open/published cases against the chosen contract.
+
+**Acceptance-criteria check:** AC 1–4: session detail, live snapshots, local-only track, titles, purposes and original authors are implemented with engine/model coverage. AC 5: blocked by F2. AC 6: persisted/coalesced successful remote sync and never-synced/local-only wording covered. AC 7–8: host uses the CLI's engine operation, ownership refusal is tested, menu cardinality is unit-tested and Quit behavior remains intact; desktop invocation is still manual test-plan work. AC 9–10: primary action and retry-note routing covered in the pure model; desktop presentation remains manual. AC 11: normal copies and id-only reveal implemented, but interrupted-copy correctness fails F1. AC 12: additive CLI JSON and old-key coverage passed in this run. AC 13: native buttons/disclosure, accessible names, keyed focus restoration, textual stages and non-color markers are present; actual keyboard/Narrator verification remains manual, not claimed as exercised here.
+
+**Plan versus built:** the recorded deviations (author name rather than “You,” additive `has_remote`, same-second purpose tie-break, worker-side finish retry, and direct Rust opener call) are documented in the dated development entry. The activity proxy is in the plan, so F2 is an unresolved contract inconsistency rather than an undocumented implementation pivot. The ADR-0010 amendment and source documentation were delivered. The recovery replay implementation does not fully deliver its recorded promise that only copies holding a file count (F1).
+
+**What should stay:** one additive engine `Status` feeds CLI and tray, avoiding a second interpretation of workspace detail; Finish calls `Workspace::finish()` off the UI thread and refuses workspaces this host does not own; Show in folder accepts only a listed UUID and resolves its path in Rust; incoming session authors are preserved; stage tracks use text and distinct marks; no file contents enter the webview as markup. These choices maintain the engine/host boundary and make the behavior directly testable.
+
+**Before this leaves review — fix-round plan:**
+
+1. In a separate `/develop US00005` session, repair F1 with the replay and migration regression cases above; do not delete recovery data.
+2. Resolve F2's policy with Kai and use `/update-ticket US00005` to align the contract before implementing any policy change. This review changes no contract text.
+3. Run the mechanical gates on the fixed build, record the fix and results in As-built notes, and clear `open_findings` to empty for the re-check of this same review. The independent re-check writes `0` only when its blocking findings are resolved.
+4. Only then hand off to `/test-plan US00005`, which owns manual checks, `open_tests` and the freeze.
+
 ## Follow-ups
 
-<!-- GUIDE: Links to the tickets that carry the deferred work. New scope is a new
-     ticket, linked both ways — a finished ticket is not superseded, it is finished. -->
+- 2026-11-06: [[Story - US00011 - Limit saved copies in the recovery folder|US00011]] — saved copies grow with every received edit and are never cleaned up (see the observation in the as-built notes).
 
 ## References
 
