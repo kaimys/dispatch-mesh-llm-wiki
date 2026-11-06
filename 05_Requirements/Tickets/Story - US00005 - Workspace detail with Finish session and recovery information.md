@@ -1,9 +1,9 @@
 ---
 id: US00005
 type: story
-status: "Review"
+status: Done
 priority: high
-rank: 4000
+rank: -1024
 version_target: v0.3.0
 size:
 assignee: Kai
@@ -13,7 +13,7 @@ open_tests: 0
 open_findings: 0
 discussion:
 updated: 2026-11-06
-completed:
+completed: 2026-11-06
 frozen: 2026-11-06
 ---
 Fill the status window's workspace view with what the engine already reports, and let the user finish a session there. Each recent session shows its stage track (saved on this device → shared as draft → finishing up → added to shared history), the files it touched, its author and any requested purpose; the header adds the last successful sync. **Finish session** becomes an action in the window and the tray menu, using the same engine operation as `dispatch-mesh session finish`. Recovery information shows what Mesh kept aside (saved copies, pending capture) and where. First of the remaining [[Dispatch Mesh milestone plan#0.3 — tray application|0.3 — tray application]] tickets after [[Story - US00001 - Tray icon and status window host|US00001]].
@@ -25,7 +25,6 @@ Fill the status window's workspace view with what the engine already reports, an
      (`> ⚠️ Correction <date>: …`) — never a rewrite. The wrong sentence stays
      visible, because that is what the code was built on.
      ═══════════════════════════════════════ -->
-
 ## User story
 
 As a person working in a Mesh workspace, I want to see where each of my recent changes is on its way to shared history and finish my session from the tray, so that I know when my work is visible to others without using the CLI.
