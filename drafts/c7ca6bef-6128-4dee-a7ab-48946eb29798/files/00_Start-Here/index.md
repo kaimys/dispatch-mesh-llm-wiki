@@ -50,6 +50,7 @@ Entry point for people and agents. Read this first, then follow the links. Every
 
 ## Engineering
 
+- [[Competitor storage approaches]] — source-backed comparison of all seven competitor storage models and three proposed Mesh adaptations; refresh with linked profiles before design adoption (owner: [[Kai]]).
 - [[SQLite database format]] — tables and columns, JSON state properties, logical ER diagram, blob references, transactions, recovery, migration, and retention. Maintenance: [[Kai]] reviews on schema, serialization, migration, or recovery changes and before reuse with a newer release.
 - [[Device branch format]] — version-two device branch tree, complete `state.json` field reference, session lifecycle, `base/` versus `files/`, and indefinite preview retention. Maintenance: [[Kai]] reviews on transport/schema, session lifecycle, or retention changes and before reuse with a newer release; source revision recorded on the page.
 - `07_Engineering/Decisions/` — ADRs

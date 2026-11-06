@@ -2731,8 +2731,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793954998,
-      "last_edit": 1793955309,
-      "revision": 6,
+      "last_edit": 1793955474,
+      "revision": 7,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -2742,30 +2742,30 @@
             "blob": "14965f3dd591035e66f2ebf0aae20bcfeca10e16"
           },
           "content": {
-            "blob": "13943025c807337df8ed428349e8ba34c9e87f78"
+            "blob": "ca1dcce2a26f7f60a0f5e8cadbc05e80c5914c5c"
           },
           "intent": null,
-          "last_edit": 1793955309
+          "last_edit": 1793955474
         },
         "00_Start-Here/index.md": {
           "base": {
             "blob": "7340b624ff4a4fed19a0efa94210e40c59dc25a3"
           },
           "content": {
-            "blob": "4c296fd18ebe052d13f33eff5b2e3a9f805478ad"
+            "blob": "7468ab4254c6d5b97194c9fdb57017331df13604"
           },
           "intent": null,
-          "last_edit": 1793954998
+          "last_edit": 1793955474
         },
         "00_Start-Here/log.md": {
           "base": {
             "blob": "685c4eac94800aae4c008fd43d3ecbb74237821d"
           },
           "content": {
-            "blob": "713c1df02dcab84aee991082da46366eceaf00d5"
+            "blob": "6d0298b1d9f92b589f3dadf7fea7a1947c9a8805"
           },
           "intent": null,
-          "last_edit": 1793954998
+          "last_edit": 1793955474
         },
         "02_Product/Competitor overview.md": {
           "base": {
@@ -2856,6 +2856,14 @@
           },
           "intent": null,
           "last_edit": 1793954998
+        },
+        "07_Engineering/Competitor storage approaches.md": {
+          "base": null,
+          "content": {
+            "blob": "2425de635d290f13c7ea5bdf2428333bf3617f58"
+          },
+          "intent": null,
+          "last_edit": 1793955474
         },
         "07_Engineering/Device branch format.md": {
           "base": null,
