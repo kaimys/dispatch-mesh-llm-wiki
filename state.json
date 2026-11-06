@@ -1799,6 +1799,36 @@
       },
       "message_base": "9692a575d4b503139ee1d36905cf0bce7ed41ae4"
     },
+    "5c5195fe-0ec7-4641-a2c4-149ea1243daf": {
+      "id": "5c5195fe-0ec7-4641-a2c4-149ea1243daf",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793982587,
+      "last_edit": 1793982587,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "05_Requirements/Tickets/Story - US00005 - Workspace detail with Finish session and recovery information.md": {
+          "base": {
+            "blob": "5bf70fc432d1f12434f42df2ccd56c028be94657"
+          },
+          "content": {
+            "blob": "4eebdb2ce10b49bd91df7c350511347232bcdb3e"
+          },
+          "intent": null,
+          "last_edit": 1793982587
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "5e30790c-15f9-42ef-ba85-bafb038f4e42": {
       "id": "5e30790c-15f9-42ef-ba85-bafb038f4e42",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
