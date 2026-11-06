@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tray menu and Quit variants</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#2457C5}a:hover{color:#1A408F}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 1040px; height: 620px; box-sizing: border-box; padding: 48px; background: #F7F7F5; color: #1C1D1F; font-family: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column; gap: 28px">
+  <div style="display: flex; flex-direction: column; gap: 6px">
+    <div style="font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #55575C">Deliverable 2 · 0.3</div>
+    <h1 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.01em">Tray menu</h1>
+    <p style="margin: 0; font-size: 14px; color: #55575C">Left-click the icon opens the status window. Right-click opens this menu. Shown with an open session in Team Wiki.</p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; flex: 1">
+
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; align-items: center; gap: 8px">
+        <span style="font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: #1C1D1F; color: #FFFFFF">Variant A · recommended</span>
+        <span style="font-size: 13px; color: #55575C">Quit never prompts</span>
+      </div>
+      <div style="width: 300px; background: #FFFFFF; border: 1px solid #D6D5D0; border-radius: 8px; box-shadow: 0 8px 24px rgba(20,20,20,0.12); padding: 4px; display: flex; flex-direction: column" role="menu" aria-label="Dispatch Mesh">
+        <div style="display: flex; gap: 10px; align-items: center; padding: 10px 12px 12px; border-bottom: 1px solid #ECEBE7; margin-bottom: 4px">
+          <span style="width: 10px; height: 10px; border-radius: 50%; border: 2px solid #2457C5; border-right-color: transparent; box-sizing: border-box"></span>
+          <div style="display: flex; flex-direction: column; gap: 1px">
+            <span style="font-size: 13px; font-weight: 600">Team Wiki</span>
+            <span style="font-size: 12px; color: #55575C">Shared as draft · 3 files in your session</span>
+          </div>
+        </div>
+        <button role="menuitem" style="text-align: left; border: 0; background: #EEF1F8; border-radius: 4px; padding: 9px 12px; font-size: 13px; font-weight: 600; color: #1C1D1F">Open status window</button>
+        <button role="menuitem" style="text-align: left; border: 0; background: transparent; border-radius: 4px; padding: 9px 12px; font-size: 13px; color: #1C1D1F; display: flex; flex-direction: column; gap: 2px">
+          <span>Finish session</span>
+          <span style="font-size: 12px; color: #55575C">Add your 3 files to shared history now</span>
+        </button>
+        <button role="menuitem" disabled="" style="text-align: left; border: 0; background: transparent; border-radius: 4px; padding: 9px 12px; font-size: 13px; color: #8A8C91; display: flex; justify-content: space-between">
+          <span>Pause sync</span>
+          <span style="font-size: 11px; border: 1px dashed #A9ABB0; border-radius: 3px; padding: 0 5px; color: #6B6E74">later in 0.3</span>
+        </button>
+        <div style="height: 1px; background: #ECEBE7; margin: 4px 0"></div>
+        <button role="menuitem" style="text-align: left; border: 0; background: transparent; border-radius: 4px; padding: 9px 12px; font-size: 13px; color: #1C1D1F; display: flex; flex-direction: column; gap: 2px">
+          <span>Quit Dispatch Mesh</span>
+          <span style="font-size: 12px; color: #55575C">Your edits stay saved. The session continues next start.</span>
+        </button>
+      </div>
+      <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #55575C; max-width: 400px">Finish session sits right above Quit, so the choice is visible without a dialog. The hint under Quit answers "will I lose anything?" before it's asked.</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; align-items: center; gap: 8px">
+        <span style="font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 999px; border: 1px solid #1C1D1F; color: #1C1D1F">Variant B</span>
+        <span style="font-size: 13px; color: #55575C">Quit offers Finish session when one is open</span>
+      </div>
+      <div style="display: flex; gap: 16px; align-items: flex-start">
+        <div style="width: 180px; background: #FFFFFF; border: 1px solid #D6D5D0; border-radius: 8px; box-shadow: 0 8px 24px rgba(20,20,20,0.12); padding: 4px; display: flex; flex-direction: column; opacity: 0.6" aria-hidden="true">
+          <div style="padding: 9px 12px; font-size: 13px; font-weight: 600">Open status window</div>
+          <div style="padding: 9px 12px; font-size: 13px">Finish session</div>
+          <div style="padding: 9px 12px; font-size: 13px; color: #8A8C91">Pause sync</div>
+          <div style="height: 1px; background: #ECEBE7; margin: 4px 0"></div>
+          <div style="padding: 9px 12px; font-size: 13px; background: #EEF1F8; border-radius: 4px">Quit</div>
+        </div>
+        <div role="dialog" aria-labelledby="qd-title" style="width: 300px; background: #FFFFFF; border: 1px solid #D6D5D0; border-radius: 8px; box-shadow: 0 16px 40px rgba(20,20,20,0.18); display: flex; flex-direction: column">
+          <div style="padding: 20px 20px 16px; display: flex; flex-direction: column; gap: 8px">
+            <h2 id="qd-title" style="margin: 0; font-size: 16px; font-weight: 600">Quit with a session open?</h2>
+            <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #3D3F44">Your 3 changed files in Team Wiki are saved on this device either way.</p>
+            <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #3D3F44">Finish now to add them to shared history as soon as Mesh can. Or quit and the session continues next time Mesh starts.</p>
+          </div>
+          <div style="display: flex; gap: 8px; justify-content: flex-end; padding: 14px 20px; background: #F7F7F5; border-top: 1px solid #ECEBE7; border-radius: 0 0 8px 8px">
+            <button style="border: 1px solid #C9C8C3; background: #FFFFFF; color: #1C1D1F; border-radius: 4px; padding: 7px 12px; font-size: 13px">Cancel</button>
+            <button style="border: 1px solid #C9C8C3; background: #FFFFFF; color: #1C1D1F; border-radius: 4px; padding: 7px 12px; font-size: 13px">Quit</button>
+            <button style="border: 1px solid #2457C5; background: #2457C5; color: #FFFFFF; border-radius: 4px; padding: 7px 12px; font-size: 13px; font-weight: 500">Finish and quit</button>
+          </div>
+        </div>
+      </div>
+      <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #55575C; max-width: 440px">Only appears when a session is open; otherwise Quit is immediate. Trade-off: a third button on every quit with unfinished work.</p>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1040,"height":620}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

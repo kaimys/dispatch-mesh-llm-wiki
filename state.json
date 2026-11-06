@@ -768,8 +768,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793991270,
-      "last_edit": 1793991437,
-      "revision": 4,
+      "last_edit": 1793991561,
+      "revision": 5,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -915,6 +915,118 @@
           },
           "intent": null,
           "last_edit": 1793991437
+        },
+        "06_UX/frames/source/01-tray-icons.dc.html": {
+          "base": null,
+          "content": {
+            "blob": "f1b72474407786449d9082371e7e43eec70c097a"
+          },
+          "intent": null,
+          "last_edit": 1793991561
+        },
+        "06_UX/frames/source/02-tray-menu.dc.html": {
+          "base": null,
+          "content": {
+            "blob": "3270ab5a6a84aa05cb695f5c1d6381b184eeef45"
+          },
+          "intent": null,
+          "last_edit": 1793991561
+        },
+        "06_UX/frames/source/03a-status-window.dc.html": {
+          "base": null,
+          "content": {
+            "blob": "3e248fd94cabec7bcae1078c4be852ed44e5f420"
+          },
+          "intent": null,
+          "last_edit": 1793991561
+        },
+        "06_UX/frames/source/03b-summary-states.dc.html": {
+          "base": null,
+          "content": {
+            "blob": "01eb0e90b411f0e3685c3667364d7dad6aaa0ea0"
+          },
+          "intent": null,
+          "last_edit": 1793991561
+        },
+        "06_UX/frames/source/03c-activity-presence.dc.html": {
+          "base": null,
+          "content": {
+            "blob": "baaf865980e3ca3828ac1d56608b26203083e815"
+          },
+          "intent": null,
+          "last_edit": 1793991561
+        },
+        "06_UX/frames/source/03d-conflicts-list.dc.html": {
+          "base": null,
+          "content": {
+            "blob": "e6fa8a8cba00f589445a6851ee8240c7e2a7fc7d"
+          },
+          "intent": null,
+          "last_edit": 1793991561
+        },
+        "06_UX/frames/source/03e-text-conflict.dc.html": {
+          "base": null,
+          "content": {
+            "blob": "62a842ba2d1d7057bc32e559496a76c8a03da178"
+          },
+          "intent": null,
+          "last_edit": 1793991561
+        },
+        "06_UX/frames/source/03f-binary-conflict.dc.html": {
+          "base": null,
+          "content": {
+            "blob": "b08f4f6b8044ee94fb2b8aecbd0b7bb820f3c089"
+          },
+          "intent": null,
+          "last_edit": 1793991561
+        },
+        "06_UX/frames/source/03g-already-running-first-run.dc.html": {
+          "base": null,
+          "content": {
+            "blob": "3bba85259e240a72cfcc48270adcc449a765c35c"
+          },
+          "intent": null,
+          "last_edit": 1793991561
+        },
+        "06_UX/frames/source/03h-several-workspaces.dc.html": {
+          "base": null,
+          "content": {
+            "blob": "a2a1eba2cfae203b3252ded7e9f98683805c977b"
+          },
+          "intent": null,
+          "last_edit": 1793991561
+        },
+        "06_UX/frames/source/04-notifications.dc.html": {
+          "base": null,
+          "content": {
+            "blob": "9f64e9aac44bcaa56dbb2b78d1437668a39dc2b6"
+          },
+          "intent": null,
+          "last_edit": 1793991561
+        },
+        "06_UX/frames/source/05-guided-setup.dc.html": {
+          "base": null,
+          "content": {
+            "blob": "cd28bdde70333d2ecaea146369b71dd1b0535167"
+          },
+          "intent": null,
+          "last_edit": 1793991561
+        },
+        "06_UX/frames/source/06-tokens-components.dc.html": {
+          "base": null,
+          "content": {
+            "blob": "d6937c775d68b9efe466cfdf0a0aa59580883327"
+          },
+          "intent": null,
+          "last_edit": 1793991561
+        },
+        "06_UX/frames/source/canvas.json": {
+          "base": null,
+          "content": {
+            "blob": "b2718aabdcd1af62e6d1411ffe87c77e3ea8f604"
+          },
+          "intent": null,
+          "last_edit": 1793991561
         }
       },
       "dependencies": [],
