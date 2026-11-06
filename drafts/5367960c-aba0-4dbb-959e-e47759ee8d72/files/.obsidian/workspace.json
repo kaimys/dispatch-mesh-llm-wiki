@@ -37,12 +37,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "07_Engineering/Competitor storage approaches.md",
+                "file": "04_Discovery/AI-managed synchronization and human decisions.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Competitor storage approaches"
+              "title": "AI-managed synchronization and human decisions"
             }
           }
         ],
@@ -124,7 +124,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "07_Engineering/Competitor storage approaches.md",
+                "file": "04_Discovery/AI-managed synchronization and human decisions.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -143,7 +143,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "07_Engineering/Competitor storage approaches.md",
+                "file": "04_Discovery/AI-managed synchronization and human decisions.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -216,13 +216,13 @@
   },
   "active": "e98037094265d0d3",
   "lastOpenFiles": [
+    "07_Engineering/Competitor storage approaches.md",
     "07_Engineering/Decisions.base",
     "04_Discovery/AI-managed synchronization and human decisions.md",
     "02_Product/Dispatch Mesh milestone plan.md",
     "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
     "06_UX/Dispatch Mesh desktop app.pdf",
     "02_Product/Competitors/gitwatch.md",
-    "07_Engineering/Competitor storage approaches.md",
     "02_Product/Competitors/Jujutsu.md",
     "02_Product/Competitors/git-annex assistant.md",
     "02_Product/Competitors/Agentic Git Sync.md",
