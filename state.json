@@ -652,7 +652,7 @@
       "created_at": 1793899101,
       "last_edit": 1793899254,
       "revision": 4,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -697,8 +697,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: add US00003 ticket for device-local file exclusions",
+        "description": "Add a backlog story covering exclusion of already-synchronized device-local files, especially Obsidian workspace state, and document its scope and open questions. List the story in the wiki index and log its addition. Update the Obsidian workspace to focus on the US00001 story."
+      },
+      "message_base": "2edbe87140ae3f1c4ec5547e4b6e00f6e085120e"
     },
     "30db13cc-decb-462d-b230-7748df5a0e9b": {
       "id": "30db13cc-decb-462d-b230-7748df5a0e9b",
@@ -2719,6 +2722,94 @@
         "description": "Add the auth.md path to the recent-files list and remove the ADR-0005 entry."
       },
       "message_base": "aeb2e83b770b219bc33b42ba0f90187496cc13e3"
+    },
+    "c7ca6bef-6128-4dee-a7ab-48946eb29798": {
+      "id": "c7ca6bef-6128-4dee-a7ab-48946eb29798",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793954998,
+      "last_edit": 1793954998,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        ".obsidian/workspace.json": {
+          "base": {
+            "blob": "14965f3dd591035e66f2ebf0aae20bcfeca10e16"
+          },
+          "content": {
+            "blob": "7e5e3e54ce13b8cb3bc39b7398df8df5315b55d9"
+          },
+          "intent": null,
+          "last_edit": 1793954998
+        },
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "7340b624ff4a4fed19a0efa94210e40c59dc25a3"
+          },
+          "content": {
+            "blob": "4c296fd18ebe052d13f33eff5b2e3a9f805478ad"
+          },
+          "intent": null,
+          "last_edit": 1793954998
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "685c4eac94800aae4c008fd43d3ecbb74237821d"
+          },
+          "content": {
+            "blob": "713c1df02dcab84aee991082da46366eceaf00d5"
+          },
+          "intent": null,
+          "last_edit": 1793954998
+        },
+        "02_Product/Competitor overview.md": {
+          "base": {
+            "blob": "de3024786e44886e128bd4e0183f57dce3303118"
+          },
+          "content": {
+            "blob": "feed4e257b9abcd66567990b9b890d771fb74198"
+          },
+          "intent": null,
+          "last_edit": 1793954998
+        },
+        "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md": {
+          "base": {
+            "blob": "44589de1282e18064c3b4a8425a6b7ec4e432968"
+          },
+          "content": {
+            "blob": "6675ad36412367ec5eac3ae68dad112829d58bad"
+          },
+          "intent": null,
+          "last_edit": 1793954998
+        },
+        "07_Engineering/Device branch format.md": {
+          "base": null,
+          "content": {
+            "blob": "63585a0e5eb72a60e504a61406a94b25163968ad"
+          },
+          "intent": null,
+          "last_edit": 1793954998
+        },
+        "07_Engineering/SQLite database format.md": {
+          "base": null,
+          "content": {
+            "blob": "fe2547c775add86b187c0457c4ecda003ffe0e6e"
+          },
+          "intent": null,
+          "last_edit": 1793954998
+        }
+      },
+      "dependencies": [
+        "2b88752c-d45e-4007-b644-4240fa538a01"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
     },
     "ca6102a4-9425-4626-b7e3-70a2f268d64c": {
       "id": "ca6102a4-9425-4626-b7e3-70a2f268d64c",
