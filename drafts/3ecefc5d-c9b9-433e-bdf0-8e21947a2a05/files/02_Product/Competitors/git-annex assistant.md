@@ -67,7 +67,7 @@ This tree shows tracked entries at a remote branch tip, as seen in a repository 
 ├── notes/
 │   └── plain.md                      # ordinary Git-managed bytes, if used
 ├── media/
-│   └── large.bin                     # tracked annex link/pointer, not full payload
+│   └── large.bin                  # tracked annex link/pointer, not full payload
 └── <name>.variant-<key-derived-part>  # annex conflict variants, when created
 
 git-annex                            # a separate metadata branch
