@@ -283,3 +283,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-06] code-review | US00003 fixes approved at 9b98471
 - Re-checked the original review's fixes in [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]]. F1/F2 and F3's coverage gap are closed; `open_findings: 0`. Independently repeated the original CLI failures successfully and reran formatting, Clippy and all 115 tests on Windows. No source changes or status transition; `/test-plan US00003` is next.
+
+## [2026-11-06] test-plan | US00003 manual test plan and freeze
+- Wrote the manual test plan for [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]] against reviewed build `9b98471`: three checks (real Obsidian navigation, the live GitHub publication, two vaults in Obsidian). Set `open_tests: 3`, stamped `frozen: 2026-11-06`, moved the ticket to `Review`.

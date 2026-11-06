@@ -1,7 +1,7 @@
 ---
 id: US00003
 type: story
-status: In progress
+status: Review
 priority: medium
 rank: 2000
 version_target: v0.3.0
@@ -9,12 +9,12 @@ size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests:
+open_tests: 3
 open_findings: 0
 discussion:
 updated: 2026-11-06
 completed:
-frozen:
+frozen: 2026-11-06
 ---
 **Let a user stop synchronizing files that belong to one device, above all Obsidian's `.obsidian/workspace.json`, even after Mesh has already synchronized them.** Today `.meshignore` and `.gitignore` are honored only for files that were never synchronized. Adding a rule for a synchronized file stops capture with "A previously synchronized path is now ignored or unsupported … Restore the ignore policy before syncing". So the one file that most needs excluding can't be excluded once it's been shared. Meanwhile it changes whenever the user opens a note or moves a pane, and it fills the history with layout commits.
 
@@ -215,8 +215,13 @@ Plan signed off by Kai on 2026-11-06 by invoking `/develop US00003`. Extracted a
 
 ## Test plan
 
-<!-- GUIDE: Written by /test-plan — `- [ ]` manual checks only, excluding what the
-     automated suites already assert. Keep `open_tests:` in sync as items are ticked. -->
+Manual checks for the exclusion of synchronized files, build `9b98471` on branch `us00003-exclude-device-local-files` (reviewed and approved). **Setup:** the tray running the wiki was built from `2ae22f6`. Before testing, quit it from its right-click menu, run `cargo build --release` in `C:\Users\kai\Workspace\dispatch-mesh`, and start `target\release\dispatch-mesh-tray.exe --workspace .\dispatch\wiki` again.
+
+Everything else is automated (43 engine, 10 CLI and 21 provider tests): AC 1–12 and 15 on one and two devices, both publication orders, re-inclusion, crash replay, `init` defaults, the linked-`.meshignore` refusal and the provider payload. These checks cover only real Obsidian, real wall-clock time and the real GitHub remote.
+
+- [ ] **Kai:** *Navigation no longer opens sessions.* Run the tray as above with the wiki vault open in Obsidian, and don't edit any note. For two minutes, open about ten different notes, split a pane and close it, and toggle the left sidebar. Then wait six minutes. Expected: `.obsidian\workspace.json` in `C:\Users\kai\Workspace\dispatch-mesh-wiki` has a new modification time (Obsidian did save it). The tray icon and window show *Up to date*, not *Working*. `target\release\dispatch-mesh.exe --workspace .\dispatch\wiki status` shows `"active_session": null`, and no session started in this window lists `.obsidian/workspace.json`. If an agent or you edited a note meanwhile, repeat the check when nothing else is writing.
+- [ ] **Kai:** *The removal reaches GitHub once.* When the session that holds the new `.meshignore` (draft `b394dfd5-…`) has published, open the commit history of `main` at https://github.com/kaimys/dispatch-mesh-llm-wiki. Expected: exactly one commit adds `.meshignore` and deletes `.obsidian/workspace.json`, authored as Kai. If its message is the local fallback, it lists "Stopped synchronizing (now ignored): .obsidian/workspace.json". No later commit touches `.obsidian/workspace.json`. `.obsidian/app.json` and `.obsidian/plugins/dispatch/data.json` are still in the tree.
+- [ ] **Kai:** *Two vaults keep their own layouts.* Create an empty private GitHub repository. Copy any small Obsidian vault's notes and `.obsidian\` into a new folder `C:\MeshTest\one`, then run `dispatch-mesh.exe --workspace C:\MeshTest\one init --name Kai --email kai@eightnine.de --remote <repo URL>` and `session finish` and `sync` until `status` is `synced`; `C:\MeshTest\one\.meshignore` must now contain the two Obsidian rules. Then `init` an empty `C:\MeshTest\two` against the same remote and `sync` it. Open both folders in Obsidian as separate vaults. Arrange them differently (other open notes, a split pane in one only). Run `sync` on both twice, then close and reopen both vaults. Expected: each vault reopens with its own arrangement, neither `status` shows a conflict or attention, and both vaults show notes and `.obsidian\app.json` changes from the other. Delete the test repository afterwards.
 
 ## As-built notes
 
