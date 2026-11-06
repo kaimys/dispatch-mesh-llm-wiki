@@ -1,7 +1,7 @@
 ---
 id: BUG00001
 type: bug
-status: "Backlog"
+status: "In progress"
 priority: high
 rank: 11000
 version_target:

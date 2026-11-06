@@ -2146,8 +2146,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793994585,
-      "last_edit": 1793994585,
-      "revision": 1,
+      "last_edit": 1793994621,
+      "revision": 2,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -2175,10 +2175,10 @@
         "05_Requirements/Tickets/Bug - BUG00001 - AI summaries of large sessions never finish.md": {
           "base": null,
           "content": {
-            "blob": "8a0fc45d7a5d0363af453dc4024eb56c618922a7"
+            "blob": "8e09a017872fb665909c6ca9b978cbe905dc8327"
           },
           "intent": null,
-          "last_edit": 1793994585
+          "last_edit": 1793994621
         }
       },
       "dependencies": [],
