@@ -54,7 +54,30 @@ Inspected revision: [`2f76430997be`](https://github.com/jj-vcs/jj/commit/2f76430
 
 **Cons (assessment).** More stores, indexes and metadata formats must remain consistent. Git interoperability does not transport the entire local operation history. Jujutsu's rewrite-oriented developer workflow cannot be copied wholesale into Mesh's immutable shared history. The useful adaptation is inspectable local operations and recovery references, not replacing Mesh sessions with mutable shared commits.
 
-### Tree layout
+### Remote branch tree layout
+
+This tree shows tracked entries at a remote branch tip, as seen in a repository file browser. The branch label is not a directory. Example user paths illustrate the layout; optional files appear only if committed. `.git/` is never a tracked subtree.
+
+```text
+<pushed Git branch/bookmark target>   # ordinary, non-conflicted commit
+├── notes/
+│   └── example.md                    # tracked user content
+└── .gitignore                        # optional tracked ignore rules
+```
+
+The local `.jj/` operation store, working-copy state and Git keep refs are not directories in this branch. A Git-backed commit can also use a special conflict tree representation:
+
+```text
+<Git commit using Jujutsu's conflict-tree encoding>
+├── JJ-CONFLICT-README
+├── .jjconflict-base-<N>/              # trees holding conflict base inputs
+├── .jjconflict-side-<N>/              # trees holding competing inputs
+└── <entries from the first input tree>
+```
+
+Unlike `.jj/`, those special conflict entries really are in the encoded Git commit tree. This conditional representation does not mean normal pushes publish unresolved conflicts; export/push policy is a separate concern. [Source: `write_tree_conflict`](https://github.com/jj-vcs/jj/blob/2f76430997be91fa1557ca7f5fa323e3ed004dcc/git-backend/src/git_backend.rs).
+
+### Local filesystem layout — not remote branch contents
 
 Representative standalone workspace with a managed Git backend. In a colocated workspace, Git data lives in the workspace's `.git/` instead; linked workspaces can refer to another repository rather than owning this entire tree.
 

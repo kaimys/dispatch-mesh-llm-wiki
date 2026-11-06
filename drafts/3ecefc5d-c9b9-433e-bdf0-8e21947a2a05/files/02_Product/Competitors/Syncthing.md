@@ -54,7 +54,20 @@ Inspected revision: [`b34734376128`](https://github.com/syncthing/syncthing/comm
 
 **Cons (assessment).** It supplies no immutable Git session history or author-intent record. Optional receive-side versioning is not an all-local-save backup. Conflict copies do not express a durable semantic selection. Adopting its retention schedule alone would be unsafe for Mesh, whose blobs can remain essential to unresolved sessions and conflict recovery.
 
-### Tree layout
+### Remote branch tree layout
+
+**There is no remote Git branch tree.** Syncthing exchanges indexes and file blocks between devices. The comparable view is the synchronized user-file namespace on a receiving peer:
+
+```text
+<peer's synchronized folder>          # filesystem view, not a Git branch
+├── notes/
+│   └── example.md                    # synchronized user bytes
+└── <conflict-copy-name>              # when generated and synchronized
+```
+
+SQLite databases, receive temporaries and the optional local version archive are not a shared Git transport tree. The local-storage diagram below is useful for disk layout only; there is no Syncthing counterpart to browsing `mesh/devices/<id>` on a Git host.
+
+### Local filesystem layout — not remote branch contents
 
 Representative folder and local database layout at the reviewed revision. The database directory is configured/platform-dependent and is separate from synchronized user content; this is not a Git repository layout.
 

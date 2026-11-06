@@ -58,7 +58,22 @@ Inspected revision: [`2a82f02dbbdd`](https://github.com/leweii/agentic-git-sync/
 
 **Cons (assessment).** Multiple stores require coordinated migration and backup; path-keyed secrets need care when moving a vault. Event retention is not file retention. Agent-driven repair introduces a wider safety surface; copying those mutations would conflict with Mesh's immutable-history and recovery guarantees.
 
-### Tree layout
+### Remote branch tree layout
+
+This tree shows tracked entries at a remote branch tip, as seen in a repository file browser. The branch label is not a directory. Example user paths illustrate the layout; optional files appear only if committed. `.git/` is never a tracked subtree.
+
+```text
+<configured vault branch>
+├── notes/
+│   └── example.md                    # ordinary committed user file
+├── .github-sync.json                 # portable config, when written and committed
+├── .gitmodules                       # when submodules are configured/committed
+└── <submodule-path>                  # gitlink: commit ID in another repository
+```
+
+A submodule entry records a commit reference; it does not embed that submodule's file tree in the parent branch. Its files belong to the submodule repository. Plugin `data.json` and event logs can also appear if tracked, but are not a required branch schema. External secret files and Git metadata are not part of this tree.
+
+### Local filesystem layout — not remote branch contents
 
 Representative desktop vault layout. `<config-dir>` is normally `.obsidian`; plugin data/logs lie inside the vault, so their synchronization depends on ignore/tracking policy.
 

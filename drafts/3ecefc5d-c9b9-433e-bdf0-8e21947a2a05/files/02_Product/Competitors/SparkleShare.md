@@ -59,7 +59,23 @@ Inspected revision: [`9b10379c7537`](https://github.com/hbons/SparkleShare/commi
 
 **Cons (assessment).** Git and LFS availability must both be considered; a Git clone alone does not prove every payload is locally available. Conflict copies alter the user's file namespace and do not encode Mesh-style retained input selections. The reviewed paths expose local flags and Git history, rather than a single transactional session/apply database. No equivalent application retention policy was established from these paths.
 
-### Tree layout
+### Remote branch tree layout
+
+This tree shows tracked entries at a remote branch tip, as seen in a repository file browser. The branch label is not a directory. Example user paths illustrate the layout; optional files appear only if committed. `.git/` is never a tracked subtree.
+
+```text
+<shared remote branch>
+├── notes/
+│   └── example.md           # ordinary bytes, or an LFS pointer in LFS mode
+├── .sparkleshare            # project identifier when created/tracked
+├── <empty-directory>/
+│   └── .empty               # placeholder preserving an otherwise empty folder
+└── <renamed conflict files> # competing versions when committed by resolution
+```
+
+LFS payload bytes are fetched separately; the tracked file at its original path contains the pointer in that mode. Local attributes, hooks, size caches and unsynced flags do not appear in this branch tree. Identifier/placeholder creation is in the fetcher and repository backend linked above.
+
+### Local filesystem layout — not remote branch contents
 
 Representative shared folder in the inspected C# implementation. LFS entries are conditional; normal mode keeps payloads in Git objects. Ref names below are logical, not a promise of loose files.
 

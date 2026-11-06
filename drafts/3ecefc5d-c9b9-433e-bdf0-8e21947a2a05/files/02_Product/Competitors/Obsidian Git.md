@@ -58,7 +58,23 @@ Inspected revision: [`8d1144aef2d4`](https://github.com/Vinzent03/obsidian-git/c
 
 **Cons (assessment).** Frequent automatic commits can accumulate permanent history. Desktop and JavaScript backends require separate compatibility testing. Plugin/local-storage state does not provide Mesh's transactionally linked capture, apply-recovery and conflict-input records.
 
-### Tree layout
+### Remote branch tree layout
+
+This tree shows tracked entries at a remote branch tip, as seen in a repository file browser. The branch label is not a directory. Example user paths illustrate the layout; optional files appear only if committed. `.git/` is never a tracked subtree.
+
+```text
+<configured remote branch>
+├── notes/
+│   └── example.md                    # ordinary committed vault file
+├── .gitignore                        # optional tracked ignore rules
+└── <config-dir>/                     # only the editor files actually tracked
+    └── plugins/obsidian-git/
+        └── data.json                 # only if included in Git
+```
+
+The plugin adds no separate remote session/draft layout in the reviewed backends. Editor configuration is ordinary optional tracked content, not a mandatory transport format. Git index/merge state and Obsidian device-local storage are absent from the branch tree.
+
+### Local filesystem layout — not remote branch contents
 
 Typical vault-root repository; the plugin also supports repository/Git-directory configuration, so this is not the only placement. `<config-dir>` is usually `.obsidian`.
 

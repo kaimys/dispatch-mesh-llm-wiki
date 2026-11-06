@@ -55,7 +55,20 @@ Inspected revision: [`04735cfa8973`](https://github.com/gitwatch/gitwatch/commit
 
 **Cons (assessment).** Event batches become permanent commits, so frequent saves can create noisy history. Uncaptured changes have no independent application checkpoint. Optional rebase and unresolved Git states need a recovery workflow; there is no equivalent of Mesh's continuously shared open session. This conclusion applies to the inspected script, not every possible wrapper or deployment.
 
-### Tree layout
+### Remote branch tree layout
+
+This tree shows tracked entries at a remote branch tip, as seen in a repository file browser. The branch label is not a directory. Example user paths illustrate the layout; optional files appear only if committed. `.git/` is never a tracked subtree.
+
+```text
+<configured remote branch>
+├── notes/
+│   └── example.md           # user file, stored as an ordinary Git blob
+└── .gitignore               # optional tracked ignore rules
+```
+
+There is no gitwatch-specific branch directory schema in the reviewed script: the branch contains the captured user tree. It does not add Mesh-style `state.json` or `drafts/`.
+
+### Local filesystem layout — not remote branch contents
 
 Representative watched directory; `notes/example.md` is an example user file. Git internals are local; pushing transfers reachable objects and updates remote refs, not the literal `.git/` directory.
 
