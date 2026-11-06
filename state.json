@@ -1807,8 +1807,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793982587,
-      "last_edit": 1793982587,
-      "revision": 1,
+      "last_edit": 1793982855,
+      "revision": 2,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1822,6 +1822,16 @@
           },
           "intent": null,
           "last_edit": 1793982587
+        },
+        "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md": {
+          "base": {
+            "blob": "b63c7a3ad77fd1490b05cf12006bf78e773ef1f2"
+          },
+          "content": {
+            "blob": "425e0a5f0dd13a01a2e74066ee484a171c2760e6"
+          },
+          "intent": null,
+          "last_edit": 1793982855
         }
       },
       "dependencies": [],
