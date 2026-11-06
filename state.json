@@ -1523,7 +1523,7 @@
       "created_at": 1793996439,
       "last_edit": 1793996463,
       "revision": 2,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -1542,8 +1542,11 @@
         "0ea31b4d-3198-428b-b480-98abe7b3c8a5"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Normalize BUG00001 status field formatting",
+        "description": "Update the existing ticket’s status from quoted to unquoted YAML text; no other content changes."
+      },
+      "message_base": "1d73bf780aa96a1ad633a2c395c562ae9a6b9b42"
     },
     "35bca660-edcd-43fa-a8be-ef21e46f56bd": {
       "id": "35bca660-edcd-43fa-a8be-ef21e46f56bd",
@@ -3479,6 +3482,48 @@
         "description": "Add the v0.3.0 tray icon and status window story, outlining its scope, acceptance context, and unresolved implementation decisions. Link it from the wiki index and record it in the change log. Update the Obsidian workspace to open the Dispatch board with product docs available in tabs."
       },
       "message_base": "42b5e139f847738ea41b849aba53f55bda1e5b26"
+    },
+    "94a377a9-21a0-423e-8080-6154210c2849": {
+      "id": "94a377a9-21a0-423e-8080-6154210c2849",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793996803,
+      "last_edit": 1793996803,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "a5b9c78f2b42537f63401705661b36b7e8062576"
+          },
+          "content": {
+            "blob": "1316525f6ff8e5f0a811a9c9e4698bc8b0f9cfda"
+          },
+          "intent": null,
+          "last_edit": 1793996803
+        },
+        "05_Requirements/Tickets/Bug - BUG00001 - AI summaries of large sessions never finish.md": {
+          "base": {
+            "blob": "5f399e8239112440f98a3c449c08aaf1fe304699"
+          },
+          "content": {
+            "blob": "0818673581b203992444c1ed666293625e6da60b"
+          },
+          "intent": null,
+          "last_edit": 1793996803
+        }
+      },
+      "dependencies": [
+        "34d24af1-c115-4eca-a955-d097bb560326"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
     },
     "986376a9-94ab-4201-951a-004087b28b5a": {
       "id": "986376a9-94ab-4201-951a-004087b28b5a",
