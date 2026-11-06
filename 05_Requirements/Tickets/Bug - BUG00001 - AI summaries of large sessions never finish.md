@@ -78,8 +78,10 @@ Small-bug shortcut, no separate plan. Approach: in `src/runner.rs`, add an async
 
 ## Test plan
 
-<!-- GUIDE: Written by /test-plan — manual checks only. Include the original
-     reproduction as an explicit item. -->
+Coverage for the small-bug shortcut (no separate `/test-plan`; its review gate is unmet by design).
+
+- **Automated:** both acceptance-criteria cases are asserted by the two regression tests in `tests/provider.rs` (busy lock when the summary starts; busy lock when the answer arrives, with exactly one AI request). The full suite passes.
+- **Original reproduction:** the live tray on `dispatch/wiki` with the real provider. Verified by finishing a session in that workspace under a release tray built from `403b165` (result below).
 
 ## As-built notes
 
