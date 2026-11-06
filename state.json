@@ -607,6 +607,48 @@
       },
       "message_base": "847dfdb807f35854595077d4e4739b5f7d7c01b3"
     },
+    "173aff3e-84ba-4acc-b3d8-34ac84e0f71b": {
+      "id": "173aff3e-84ba-4acc-b3d8-34ac84e0f71b",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793985558,
+      "last_edit": 1793985558,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "f640d8a14676ab8013f4228e1a960a22a222574a"
+          },
+          "content": {
+            "blob": "97f53bdb798baeaed1c95688623e7d3914ad7989"
+          },
+          "intent": null,
+          "last_edit": 1793985558
+        },
+        "05_Requirements/Tickets/Story - US00006 - Conflict list and resolution in the status window.md": {
+          "base": {
+            "blob": "0ac1433a932a5b18f6ec15635fbc16053f700612"
+          },
+          "content": {
+            "blob": "daf061e2a9a64cd11082cf0d06bbe5d57dc60f54"
+          },
+          "intent": null,
+          "last_edit": 1793985558
+        }
+      },
+      "dependencies": [
+        "71416bb6-b91e-45af-8d38-87fe825df31d"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "1b3c9b07-2d29-4712-8ec9-43f94ada5bfe": {
       "id": "1b3c9b07-2d29-4712-8ec9-43f94ada5bfe",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
@@ -2181,8 +2223,11 @@
         "3cc5f4ce-648d-458c-983a-0c1fa414f0d5"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: record US00005 review blockers and add recovery-retention ticket",
+        "description": "Update the existing US00005 ticket and wiki log with two blocking review findings and test results; list US00011 in the index and add its ticket to investigate saved-copy growth and retention."
+      },
+      "message_base": "ae55b67a4d7087760b3b79697733ee8ea342faa7"
     },
     "74689f7a-cc1a-4a88-b738-f5dd99e4e7b9": {
       "id": "74689f7a-cc1a-4a88-b738-f5dd99e4e7b9",
