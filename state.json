@@ -3192,21 +3192,27 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793978786,
-      "last_edit": 1793978961,
-      "revision": 3,
+      "last_edit": 1793979127,
+      "revision": 4,
       "closed": false,
       "published": false,
       "discarded": false,
       "changes": {
+        ".meshignore": {
+          "base": null,
+          "content": {
+            "blob": "c4fce715c38b1450cbdc1b6e4213e96cd3afe234"
+          },
+          "intent": null,
+          "last_edit": 1793979127
+        },
         ".obsidian/workspace.json": {
           "base": {
             "blob": "89c57684cdf3c9427a02e9e4da3104f9ac38970d"
           },
-          "content": {
-            "blob": "849394219844336cd7c64e66e00220a953a3b89a"
-          },
+          "content": null,
           "intent": null,
-          "last_edit": 1793978961
+          "last_edit": 1793979127
         },
         "00_Start-Here/index.md": {
           "base": {
