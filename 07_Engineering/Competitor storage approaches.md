@@ -36,6 +36,18 @@ The profiles' **Remote branch tree layout** sections show tracked branch content
 
 Source evidence for each row is in its linked profile; exact revisions are registered below. Pros and cons are architectural assessments inferred from those implementations.
 
+## Conflict resolution approaches
+
+| Approach                               | What happens to a conflict                                                                                                                                                                                |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **SparkleShare, git-annex, Syncthing** | Preserve competing versions as separately named files in the synchronized folder. This lets synchronization proceed, but a person may still need to reconcile their meaning. Syncthing has no Git branch. |
+| **Obsidian Git, Agentic Git Sync**     | Handle conflicts through the local Git merge workflow, with user or AI assistance. The resulting committed files are then shared.                                                                         |
+| **gitwatch**                           | Primarily delegates to Git; it does not supply a comparable conflict-resolution system.                                                                                                                   |
+| **Jujutsu**                            | Can represent an unresolved conflict structurally using its contributing trees, rather than requiring an immediately resolved file.                                                                       |
+| **Mesh**                               | Preserves base, accepted and incoming inputs in synchronized conflict records, then records the selected result separately.                                                                               |
+
+**Mesh is closer to Jujutsu in treating a conflict as durable structured state**. The implementation differs: Jujutsu can encode conflicts into Git commit trees; Mesh keeps explicit conflict and resolution records on device branches while permanent publication of affected sessions waits.
+
 ## What the approaches teach us
 
 **Content, synchronization state and recovery history are different stores.** Gitwatch relies almost entirely on normal Git. SparkleShare and the Obsidian plugins add application bookkeeping around it. Git-annex separates payload availability from metadata; Syncthing separates file bytes from an indexed synchronization model; Jujutsu separately records operations and views. Mesh already distinguishes local state from transport, but its single current JSON row is not a chronological operation history.
