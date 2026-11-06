@@ -77,12 +77,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "07_Engineering/Competitor storage approaches.md",
+                "file": "02_Product/Competitors/Jujutsu.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Competitor storage approaches"
+              "title": "Jujutsu"
             }
           }
         ],
@@ -164,7 +164,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "07_Engineering/Competitor storage approaches.md",
+                "file": "02_Product/Competitors/Jujutsu.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -183,7 +183,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "07_Engineering/Competitor storage approaches.md",
+                "file": "02_Product/Competitors/Jujutsu.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -256,15 +256,17 @@
   },
   "active": "447fe21e65fb8118",
   "lastOpenFiles": [
-    "02_Product/Competitors/SparkleShare.md",
-    "07_Engineering/Competitor storage approaches.md",
-    "02_Product/Competitors/Syncthing.md",
-    "02_Product/Competitors/Agentic Git Sync.md",
-    "07_Engineering/Device branch format.md",
-    "02_Product/Competitors/git-annex assistant.md",
     "02_Product/Competitors/gitwatch.md",
-    "02_Product/Competitors/Jujutsu.md",
+    "02_Product/Competitors/git-annex assistant.md",
+    "02_Product/Competitors/Agentic Git Sync.md",
+    "02_Product/Competitors/Syncthing.md",
+    "02_Product/Competitors/SparkleShare.md",
     "02_Product/Competitors/Obsidian Git.md",
+    "02_Product/Competitors/Jujutsu.md",
+    "08_Delivery-and-QA/Reports/github-workflow-test-2026-11-04.md",
+    "08_Delivery-and-QA/Reports/github-workflow-findings-2026-11-04.md",
+    "07_Engineering/Device branch format.md",
+    "07_Engineering/Competitor storage approaches.md",
     "07_Engineering/SQLite database format.md",
     "02_Product/Competitor overview.md",
     "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
@@ -285,9 +287,7 @@
     "08_Delivery-and-QA/Releases/v0.2.5.md",
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
     "08_Delivery-and-QA/Releases/GitHub/v0.2.5 GitHub release.md",
-    "file:C:/Users/kai/AppData/Local/Temp/claude/4b8f75bbeb1eb607/6998f873-9e5b-4e46-a36d-d0b0ef1ab545/scratchpad/github-release-v0.2.5.md",
     "08_Delivery-and-QA/Releases/GitHub",
-    "05_Requirements/Tickets/Task - TASK00001 - Close remaining 0.2.x stabilization gaps.md",
     "06_UX/Dispatch Mesh desktop app.html",
     "05_Requirements/Tickets/sedWaTUlD",
     "07_Engineering/Decisions.base",

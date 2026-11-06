@@ -58,5 +58,44 @@ Inspected revision: [`2a82f02dbbdd`](https://github.com/leweii/agentic-git-sync/
 
 **Cons (assessment).** Multiple stores require coordinated migration and backup; path-keyed secrets need care when moving a vault. Event retention is not file retention. Agent-driven repair introduces a wider safety surface; copying those mutations would conflict with Mesh's immutable-history and recovery guarantees.
 
+### Remote branch tree layout
+
+This tree shows tracked entries at a remote branch tip, as seen in a repository file browser. The branch label is not a directory. Example user paths illustrate the layout; optional files appear only if committed. `.git/` is never a tracked subtree.
+
+```text
+<configured vault branch>
+├── notes/
+│   └── example.md                  # ordinary committed user file
+├── .github-sync.json               # portable config, when written and committed
+├── .gitmodules                     # when submodules are configured/committed
+└── <submodule-path>                # gitlink: commit ID in another repository
+```
+
+A submodule entry records a commit reference; it does not embed that submodule's file tree in the parent branch. Its files belong to the submodule repository. Plugin `data.json` and event logs can also appear if tracked, but are not a required branch schema. External secret files and Git metadata are not part of this tree.
+
+### Local filesystem layout — not remote branch contents
+
+Representative desktop vault layout. `<config-dir>` is normally `.obsidian`; plugin data/logs lie inside the vault, so their synchronization depends on ignore/tracking policy.
+
+```text
+vault/
+├── notes/example.md                       # ordinary tracked content
+├── .github-sync.json                      # portable versioned configuration
+├── .git/                                  # Git objects, refs, index, config
+├── .gitmodules                            # conditional: submodule definitions
+├── <submodule>/                           # conditional: separate Git history
+└── <config-dir>/plugins/agentic-git-sync/
+    ├── data.json                          # non-secret plugin/device state
+    └── event-log/
+        └── YYYY-MM-DD.jsonl                # diagnostic events; seven-day cleanup
+
+<OS user-config>/agentic-git-sync/           # outside the vault
+└── vault-<16-hex-path-hash>.json            # per-vault secrets
+
+Git remote(s) → configured branches        # vault and optional submodule commits
+```
+
+The user-config root is platform-specific: Windows uses `%APPDATA%`, macOS uses `~/Library/Application Support/`, and Linux uses `$XDG_CONFIG_HOME` or `~/.config/`. These are storage locations, not a claim of encryption or immunity from other OS backup/sync software. Sources are the configuration I/O, secret store and event-log modules linked above.
+
 Comparison and selected Mesh adaptations: [[Competitor storage approaches]].
 

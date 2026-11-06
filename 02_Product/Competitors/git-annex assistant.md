@@ -58,5 +58,53 @@ Inspected revision: [`de5ced7ec6db`](https://github.com/con/git-annex/commit/de5
 
 **Cons (assessment).** Git history alone does not guarantee payload availability. Objects, location records, local databases and remote storage add operational complexity. Variant files change the visible namespace. Mesh cannot adopt this representation without an explicit large-file protocol and migration design.
 
+### Remote branch tree layout
+
+This tree shows tracked entries at a remote branch tip, as seen in a repository file browser. The branch label is not a directory. Example user paths illustrate the layout; optional files appear only if committed. `.git/` is never a tracked subtree.
+
+```text
+<content branch>
+├── notes/
+│   └── plain.md                   # ordinary Git-managed bytes, if used
+├── media/
+│   └── large.bin                  # tracked annex link/pointer, not full payload
+└── <name>.variant-<key-derived-part>  # annex conflict variants, when created
+
+git-annex                          # a separate metadata branch
+├── uuid.log                       # repository identity descriptions
+├── trust.log                      # trust metadata, when present
+├── remote.log                     # remote configuration, when present
+└── <hash-directory>/<key>.log     # content location/presence records
+```
+
+These are two branch trees, not nested folders. Metadata entries depend on recorded state; the list is illustrative, not exhaustive. Annex payloads are transferred/stored separately, so `.git/annex/objects/` is not checked into either branch. [Source: metadata log paths](https://github.com/con/git-annex/blob/de5ced7ec6db8f4316a0090f37f006ac179f2c07/Logs.hs), plus the pointer and metadata-branch implementations linked above.
+
+### Local filesystem layout — not remote branch contents
+
+Representative default local layout; annex configuration can relocate databases. The payload example uses a locked annexed file; unlocked working files use a different representation.
+
+```text
+repository/
+├── notes/plain.md                  # optional ordinary Git-managed file
+├── media/large.bin                  # locked link to annex object, or unlocked file
+└── .git/
+    ├── objects/                    # Git trees/commits, pointers/links, metadata
+    ├── refs/                       # logical refs; may be packed
+    │   └── heads/
+    │       ├── <content-branch>    # tracked paths and annex references
+    │       └── git-annex           # location/configuration metadata history
+    └── annex/
+        ├── objects/
+        │   └── <hash-dirs>/<key>/<key>  # locally available payload
+        ├── journal/                # pending metadata-branch updates
+        ├── index                   # index for staging git-annex metadata
+        └── keysdb/                 # SQLite key/file and content associations
+
+Git peer → content + metadata refs  # does not by itself transfer all payloads
+content remote(s) → annex keys      # separately placed/retrieved payloads
+```
+
+A tracked annex reference can exist when its payload is absent locally. The `git-annex` branch is a logical tree/history, not a second checked-out directory alongside the user's files. Object paths, journal/index and database locations are defined in the pinned `Annex/Locations.hs` source linked above.
+
 Comparison and selected Mesh adaptations: [[Competitor storage approaches]].
 

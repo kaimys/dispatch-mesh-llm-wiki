@@ -22,6 +22,8 @@ Mesh baseline: [[Device branch format]] and [[SQLite database format]]. Mesh sep
 
 ## Comparison
 
+The profiles' **Remote branch tree layout** sections show tracked branch contents, matching the scope of Mesh's device-branch tree. Their separate **Local filesystem layout** sections show on-disk internals. `.git/` and `.jj/` metadata directories are not tracked branch subtrees; Syncthing has no Git branch at all. Git-annex's metadata branch and Jujutsu's conditional conflict-tree entries are explicitly distinguished from local storage.
+
 | Project / model | What goes into Git or across peers | Local data beyond working files | Recovery and retention | Main tradeoff for Mesh |
 |---|---|---|---|---|
 | [[gitwatch]] — commit watched changes | Ordinary file blobs and commits; optional pull/rebase/push | Git objects, index and refs; watcher/timer process state | Ordinary Git history and merge-state checks; no separate application snapshot retention found in the script | Simple and portable, but short save batches become permanent commits. |

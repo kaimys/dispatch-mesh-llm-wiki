@@ -208,3 +208,12 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 - Added dated, revision-pinned storage architecture sections to [[gitwatch]], [[SparkleShare]], [[Obsidian Git]], [[Agentic Git Sync]], [[git-annex assistant]], [[Syncthing]], and [[Jujutsu]]: Git/peer representation, local stores, recovery/retention, and assessed pros and cons, with source-file links.
 - Created [[Competitor storage approaches]] in `07_Engineering/` and listed it in [[index]]. Selected three proposals: inspectable local operation history, retention based on reachability/recovery guarantees, and explicit shared-policy/device-configuration boundaries. Recorded fit, costs, validation needs, and Mesh invariants; no implementation or ticket changes.
 - Static review of pinned source snapshots only; no competitor builds or runtime benchmarks. Retained source evidence in ignored `target/competitor-source-review/`. Used the explicitly unofficial git-annex upstream mirror after the canonical browser failed; read relevant Git objects directly after long documentation paths prevented a complete Windows checkout. Existing activity metrics were not refreshed. Registered manual refresh before design adoption.
+
+## [2026-11-06] documentation | Competitor storage tree layouts
+- Added annotated tree layouts to [[gitwatch]], [[SparkleShare]], [[Obsidian Git]], [[Agentic Git Sync]], [[git-annex assistant]], [[Syncthing]], and [[Jujutsu]]. Distinguished tracked/shared content, local metadata, optional payload/version stores, and logical remote refs.
+- Checked additional database/workspace paths against the previously pinned source snapshots. Marked examples, optional/configurable paths, packed refs, and alternative placements; no competitor runtime tests.
+
+## [2026-11-06] correction | Remote branch trees versus local competitor storage
+- Corrected all seven competitor profiles to lead with remote tracked branch contents, matching the intended scope of [[Device branch format]]. Relabeled the earlier trees as local filesystem layouts, not remote contents.
+- Explicitly distinguished Syncthing's lack of Git branches, git-annex's separate metadata branch and payload store, LFS pointers, submodule gitlinks, and Jujutsu's conditional tracked conflict-tree entries from local `.git/` and `.jj/` directories.
+- Added the distinction to [[Competitor storage approaches]]. Checked relevant paths against the pinned source snapshots; documentation-only.
