@@ -2815,8 +2815,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793959245,
-      "last_edit": 1793959373,
-      "revision": 6,
+      "last_edit": 1793959425,
+      "revision": 8,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -2829,17 +2829,17 @@
             "blob": "b775f5e60fa9bb4bbd7a278ae7bb0c10799ac693"
           },
           "intent": null,
-          "last_edit": 1793959373
+          "last_edit": 1793959425
         },
         "07_Engineering/Competitor storage approaches.md": {
           "base": {
             "blob": "71c162f386f7f185365504d5337b29a570091acb"
           },
           "content": {
-            "blob": "8a1357a88186ae4ca41b8baedd17f706a0edb148"
+            "blob": "492119d2f7b56f67c478889117aa1ad66fb60bb9"
           },
           "intent": null,
-          "last_edit": 1793959373
+          "last_edit": 1793959418
         }
       },
       "dependencies": [

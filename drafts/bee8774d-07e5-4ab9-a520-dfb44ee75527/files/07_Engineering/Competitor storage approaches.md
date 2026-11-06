@@ -46,6 +46,8 @@ Source evidence for each row is in its linked profile; exact revisions are regis
 | **Jujutsu**                            | Can represent an unresolved conflict structurally using its contributing trees, rather than requiring an immediately resolved file.                                                                       |
 | **Mesh**                               | Preserves base, accepted and incoming inputs in synchronized conflict records, then records the selected result separately.                                                                               |
 
+**Mesh is closer to Jujutsu in treating a conflict as durable structured state**. The implementation differs: Jujutsu can encode conflicts into Git commit trees; Mesh keeps explicit conflict and resolution records on device branches while permanent publication of affected sessions waits.
+
 ## What the approaches teach us
 
 **Content, synchronization state and recovery history are different stores.** Gitwatch relies almost entirely on normal Git. SparkleShare and the Obsidian plugins add application bookkeeping around it. Git-annex separates payload availability from metadata; Syncthing separates file bytes from an indexed synchronization model; Jujutsu separately records operations and views. Mesh already distinguishes local state from transport, but its single current JSON row is not a chronological operation history.
