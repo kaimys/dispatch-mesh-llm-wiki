@@ -1,6 +1,48 @@
 {
   "version": 2,
   "sessions": {
+    "01f056d8-4c8d-4c18-997d-ba2c16ee2ac7": {
+      "id": "01f056d8-4c8d-4c18-997d-ba2c16ee2ac7",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793979580,
+      "last_edit": 1793979580,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "52139e3c7f795c11722e962f45d133e5c6a81af1"
+          },
+          "content": {
+            "blob": "8fc0922f006376925074bdf6a128ad55d50ac773"
+          },
+          "intent": null,
+          "last_edit": 1793979580
+        },
+        "05_Requirements/Tickets/Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync.md": {
+          "base": {
+            "blob": "cb2e1dd1e427372d5a8f6e09504a93d8a0052c06"
+          },
+          "content": {
+            "blob": "4f135b642288e641eed2a55c0786f0b79ff2ef45"
+          },
+          "intent": null,
+          "last_edit": 1793979580
+        }
+      },
+      "dependencies": [
+        "b394dfd5-0f07-4d3e-9e1a-e1e9ccfada50"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "05767776-8724-48b7-94ee-7eadb839c9ff": {
       "id": "05767776-8724-48b7-94ee-7eadb839c9ff",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
