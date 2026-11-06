@@ -292,3 +292,7 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-06] merge | US00003 merged to main
 - Fast-forwarded `main` to `9b98471` (three US00003 commits) and pushed. Recorded in [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]].
+
+## [2026-11-06] develop | US00005 Workspace detail with Finish session and recovery information
+- [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]] → In progress (assignee Kai) and implemented on branch `US00005-workspace-detail`: new `Status` fields, tray activity list, Finish session in the window and the tray menu, saved copies with Show in folder. As-built notes record the deviations (`has_remote` added, author name instead of "You").
+- Amended [[ADR-0010 — Report workspace status and session stages separately]] with the workspace-detail fields, the coalescing of `last_sync` and saved-copy recording.

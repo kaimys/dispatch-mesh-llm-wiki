@@ -180,7 +180,20 @@ Order of magnitude: about three to four focused days, half engine and tests, hal
 
 ## As-built notes
 
-<!-- GUIDE: Where the implementation deviated from the plan, and why. Dated entries. -->
+### 2026-11-06 — development (branch `US00005-workspace-detail`)
+
+Built as planned in three commits (engine `Status`, tray host and model, window and docs). Deviations and details the plan left open:
+
+- **`has_remote` added to `Status`.** The plan gives `WorkspaceView` a `has_remote` but `Status` had no such field, and hosts read detail only through `Status`. Added as one more additive field; listed in the ADR-0010 amendment and README.
+- **No "You" for own sessions.** The plan said "You" when the session's device is this device, but `SessionStatus` carries no device and AC 1 asks for the author's name. The window always shows the author's name, which also satisfies AC 4. No device field was added.
+- **Reason matching uses engine constants.** `engine::SYNC_FAILURE` ("Synchronization waiting: ") and `engine::RECEIVED_DRAFT_DEPENDENCY` are now public, so the tray recognizes the two reasons without copying text. The retry note shows only for a `needs_attention` sync failure; offline keeps its own note.
+- **Saved-copy bookkeeping on replay.** If a crash leaves an empty recovery folder before the move and the replay displaces the file again under a new id, the empty one is dropped from `saved_copies`. The one-time backfill skips folders whose name is not a UUID or whose `record.json` is unreadable. A read-only `inspect` of a workspace that has not recorded copies yet reads the folder, without saving.
+- **Finish session waits for the engine.** `Host::finish` retries `Workspace::open` for up to 30 s while the engine holds the operation lock (`open` itself gives up after 0.5 s). A failure from the window is shown under the state card; from the tray menu it is silent (the session simply stays open).
+- **Show in folder** calls `tauri_plugin_opener::reveal_item_in_dir` directly: no plugin registration and no JS permission.
+- **Window layout.** Saved copies sit in a collapsed "Saved copies · N" disclosure, newest first. The activity card's heading is the summary title once published, otherwise the files. The stage track marks steps ✓ / ● / ○ with hidden "(done / current step / not yet)" text. With the attention action showing, the activity section's own **Finish session** button is hidden so there is only one.
+- **Observation, not changed:** every incoming change to an existing file displaces the old file into `.mesh/recovery`, so `saved_copies` grows with each received edit and is never cleaned up (README). Status JSON and the window list grow with it. A cleanup or retention ticket may be warranted.
+
+**Verification (Windows, 2026-11-06):** `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings` and `cargo test` are green. The debug tray ran against two disposable workspaces with a local bare remote. The window showed the last sync, a received draft under its author (Alice), an own session with its requested purpose, a published session with its title, and a saved copy. **Finish session** in the window moved the open session to "Added to shared history" and removed the button. **Show in folder** opened Explorer in the copy's recovery folder. Not exercised live: the tray-menu items, the attention card's action, Narrator.
 
 ## Follow-ups
 
