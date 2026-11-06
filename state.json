@@ -768,8 +768,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793991270,
-      "last_edit": 1793991371,
-      "revision": 3,
+      "last_edit": 1793991437,
+      "revision": 4,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -811,6 +811,110 @@
           },
           "intent": null,
           "last_edit": 1793991338
+        },
+        "06_UX/frames/01-tray-icons.png": {
+          "base": null,
+          "content": {
+            "blob": "c920b4cc52076c59d9e665986e63dd1aaa502c26"
+          },
+          "intent": null,
+          "last_edit": 1793991437
+        },
+        "06_UX/frames/02-tray-menu.png": {
+          "base": null,
+          "content": {
+            "blob": "bdc27aff13991b8a8cee65b517cb7d1319c5f704"
+          },
+          "intent": null,
+          "last_edit": 1793991437
+        },
+        "06_UX/frames/03a-status-window.png": {
+          "base": null,
+          "content": {
+            "blob": "996571cd5269d697634c7654624e1b41b4890568"
+          },
+          "intent": null,
+          "last_edit": 1793991437
+        },
+        "06_UX/frames/03b-summary-states.png": {
+          "base": null,
+          "content": {
+            "blob": "7fabc8e2620efd5dfdc9ab22bd0cd9b61dcf0815"
+          },
+          "intent": null,
+          "last_edit": 1793991437
+        },
+        "06_UX/frames/03c-activity-presence.png": {
+          "base": null,
+          "content": {
+            "blob": "910844a344ae2c1a30234336258226ff51eee9a2"
+          },
+          "intent": null,
+          "last_edit": 1793991437
+        },
+        "06_UX/frames/03d-conflicts-list.png": {
+          "base": null,
+          "content": {
+            "blob": "7c01f1c2d3ac80295e7b0f4e6a4b45310329dcee"
+          },
+          "intent": null,
+          "last_edit": 1793991437
+        },
+        "06_UX/frames/03e-text-conflict.png": {
+          "base": null,
+          "content": {
+            "blob": "cb338045c2ccd03daf7e4ce87778c091471921d6"
+          },
+          "intent": null,
+          "last_edit": 1793991437
+        },
+        "06_UX/frames/03f-binary-conflict.png": {
+          "base": null,
+          "content": {
+            "blob": "ec2f01ca466bde0fa50e65ec6af43587c3faa141"
+          },
+          "intent": null,
+          "last_edit": 1793991437
+        },
+        "06_UX/frames/03g-already-running-first-run.png": {
+          "base": null,
+          "content": {
+            "blob": "cf56d292062ff21d56d58840728d2d55423a6b23"
+          },
+          "intent": null,
+          "last_edit": 1793991437
+        },
+        "06_UX/frames/03h-several-workspaces.png": {
+          "base": null,
+          "content": {
+            "blob": "e0dddfb21a72397b80c8e153ec1e7f175e8731e2"
+          },
+          "intent": null,
+          "last_edit": 1793991437
+        },
+        "06_UX/frames/04-notifications.png": {
+          "base": null,
+          "content": {
+            "blob": "20d8e8eb95b4ff99ee6a60c447c1462f72af5027"
+          },
+          "intent": null,
+          "last_edit": 1793991437
+        },
+        "06_UX/frames/05-guided-setup.png": {
+          "base": null,
+          "content": {
+            "blob": "949b38c5f967a4f5b634dd49db5cc63077f6cf11"
+          },
+          "intent": null,
+          "last_edit": 1793991437
+        },
+        "06_UX/frames/06-tokens-components.png": {
+          "base": null,
+          "content": {
+            "blob": "8425a41cbaff8648d15ef6e9982038b967b2fe31"
+          },
+          "intent": null,
+          "last_edit": 1793991437
         }
       },
       "dependencies": [],
