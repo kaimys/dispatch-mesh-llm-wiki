@@ -422,7 +422,7 @@
       "last_edit": 1793996407,
       "revision": 1,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "05_Requirements/Tickets/Bug - BUG00001 - AI summaries of large sessions never finish.md": {
