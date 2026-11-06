@@ -2132,8 +2132,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793984755,
-      "last_edit": 1793984797,
-      "revision": 2,
+      "last_edit": 1793985052,
+      "revision": 3,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -2153,20 +2153,20 @@
             "blob": "7490e456e402a4cf4f4e0dc3774269587b1bed29"
           },
           "content": {
-            "blob": "891b31f95a94852ebfa716b6d75d47f1fb5c1a02"
+            "blob": "f640d8a14676ab8013f4228e1a960a22a222574a"
           },
           "intent": null,
-          "last_edit": 1793984797
+          "last_edit": 1793985052
         },
         "05_Requirements/Tickets/Story - US00005 - Workspace detail with Finish session and recovery information.md": {
           "base": {
             "blob": "96353005f54105a4241a8eb3ab4fb8ec560bcd50"
           },
           "content": {
-            "blob": "aabfc810a9ef36c3dc4fc6b20db7ac3009706728"
+            "blob": "18d3ce965b0d7cae1fd7f5966e51352865b851a4"
           },
           "intent": null,
-          "last_edit": 1793984797
+          "last_edit": 1793985052
         },
         "05_Requirements/Tickets/Story - US00011 - Limit saved copies in the recovery folder.md": {
           "base": null,

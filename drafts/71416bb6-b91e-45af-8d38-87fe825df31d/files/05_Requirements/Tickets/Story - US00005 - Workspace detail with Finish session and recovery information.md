@@ -207,7 +207,7 @@ Independent code review found two blockers: F1 (AC 11: interrupted displacement 
 
 **Verdict: blocked.** Two blocking findings, no additional non-blocking findings. Keep `In progress`; this build cannot proceed to `/test-plan` or leave Review as it stands. This is an independent review: this session authored none of the implementation. Scope: all three commits in `main...4133e9c` (`c9a894c`, `fb38b8c`, `4133e9c`), all 17 changed files, the complete ticket and its linked ADR-0009/ADR-0010, plus the recovery and tray-host decisions. No open pull request was found for this branch. No unrelated commits found.
 
-**Gates:** independently passed `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, and `git diff --check main...HEAD` on Windows. Full `cargo test` is running; final result will be added below. No live remote, AI-provider, separate-host or UI/Narrator validation was performed in this review. Disposable crash-state CLI evidence is retained at `target/us00005-review-evidence.json` (not in source commits).
+**Gates:** independently passed `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, and `git diff --check main...HEAD` on Windows. Full `cargo test` passed: 132 tests, zero failures (engine suite 383.50 s); both packages and doc-test targets completed successfully. No live remote, AI-provider, separate-host or UI/Narrator validation was performed in this review. Disposable crash-state CLI evidence is retained at `target/us00005-review-evidence.json` (not in source commits).
 
 **Findings, in severity order**
 
