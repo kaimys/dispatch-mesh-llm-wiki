@@ -2443,8 +2443,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Document AI-managed synchronization discovery",
+        "description": "Add an exploratory discovery page covering AI-assisted sync decisions, scenarios, prompt and API examples, safety constraints, open product questions, and evaluation plans. Link it from the wiki index, record the addition in the change log, and update the Obsidian workspace to open the new page."
+      },
+      "message_base": "28bc489662dc7b9750253e38329d6753d59f628e"
     },
     "99acae47-298b-4061-877a-a6ef12723d4d": {
       "id": "99acae47-298b-4061-877a-a6ef12723d4d",
