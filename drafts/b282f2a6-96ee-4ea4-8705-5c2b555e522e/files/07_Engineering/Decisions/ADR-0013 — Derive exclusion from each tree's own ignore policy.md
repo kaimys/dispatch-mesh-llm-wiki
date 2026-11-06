@@ -19,8 +19,9 @@ Decision provenance: Kai's refinement answers in US00003 and sign-off of its imp
 
 ## Decision
 
-- **Every tree Mesh computes omits the paths that the tree's own ignore policy excludes.** That policy is the `.gitignore` / `.meshignore` files contained in that tree plus the fixed secret excludes. It is never the disk's current policy.
+- **Every tree Mesh computes omits the paths that the tree's own ignore policy excludes.** That policy is the `.gitignore` / `.ignore` / `.meshignore` files contained in that tree plus the fixed secret excludes. It is never the disk's current policy.
 - **On disk, an excluded path is left untouched**: no write, no backup, no removal. Leaving the tree never means deleting the file.
+- **Rule files always belong to the tree.** A rule that matches `.gitignore`, `.ignore` or `.meshignore` has no effect on that file; only an excluded parent folder or a fixed exclude keeps it out. The shared policy is then always complete, and the folder walker and the tree's policy can't disagree because a rule file stayed local (added 2026-11-06, Kai, from the US00003 code review).
 - When merging a session into a tree, a change to a path the tree's policy excludes is dropped without a merge. It creates no conflict, and the removal wins.
 
 ## Consequences
@@ -42,6 +43,7 @@ Decision provenance: Kai's refinement answers in US00003 and sign-off of its imp
 - **Disk policy decides** (the 0.2.5 `ignored()` check): rejected. The incoming rule isn't on disk yet when the removal is applied, so the file would be deleted, and journal replay could decide differently from the first attempt.
 - **Refuse until the rule is restored** (0.2.5 behavior): rejected. The files that most need excluding can't be excluded.
 - **Freeze the last version on `main`**: rejected in US00003. A stale file stays in the shared tree and reaches every new device.
+- **Let rules exclude rule files, or reject that configuration**: rejected 2026-11-06. An excluded rule file still steers the walker on its own device, which is device-local policy by another name; rejecting it would keep the pause this ADR removes.
 - **Device-local exclude lists**: out of scope for now. Only the shared `.meshignore` defines the policy.
 
 ## Related

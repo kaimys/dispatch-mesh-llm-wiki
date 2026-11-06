@@ -93,6 +93,9 @@ Sharpened in refinement on 2026-11-06 (decisions under *Open questions*):
 - [x] **Version target.** Is this a 0.2.x patch, because it affects every Obsidian vault today, or does it belong to 0.3 next to the tray?
   - **Answer (Kai, 2026-11-06):** v0.3.0. It ships with the tray milestone and its two-device tests ([[Task - TASK00003 - Two-device tests for the 0.3 exit criteria|TASK00003]]). Older engines need to be updated first (see the third question), and a minor release suits that better than a patch.
 
+- [x] **A rule file matched by a rule.** *(Raised 2026-11-06 by the code review, F2.)* What happens when `.gitignore`, `.ignore` or `.meshignore` is itself matched by an ignore rule? The folder walker still applies its rules, but the file doesn't enter the shared tree, so the device-local and shared policies split and exclusion pauses.
+  - **Answer (Kai, 2026-11-06):** Rule files always synchronize. A rule that matches a rule file has no effect on that file; only an excluded parent folder or a fixed exclude keeps it out of the tree. The shared policy is then always complete. The README says so, and ADR-0013 records it.
+
 ## Acceptance criteria
 
 Each criterion names the setup it needs. "Synchronized" means the path is on `main` and in the device's observed state.
@@ -110,7 +113,8 @@ Each criterion names the setup it needs. "Synchronized" means the path is on `ma
 11. **No silent edits to existing workspaces.** Opening or running an existing workspace without these rules never modifies `.meshignore`.
 12. **Unchanged guards.** A path that becomes unsupported for another reason (symlink, case collision, size limit) still stops capture with its existing message. The fixed secret excludes are unchanged.
 13. **README.** *Preview boundaries* and *Recovery procedures* describe this behavior. They no longer say that changing ignore rules for synchronized files is unsupported, show the two Obsidian lines for existing vaults, and warn that engines before 0.3.0 must be updated before such a rule is added.
-14. **Gates.** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` pass, and the new tests cover criteria 1–12.
+15. **Rule files always synchronize.** With `.gitignore` containing `.meshignore` (or a rule file that matches itself), adding a rule for a synchronized file behaves as in criterion 1, the rule file reaches `main`, and a second device applies it. A rule file inside an excluded folder stays out.
+14. **Gates.** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` pass, and the new tests cover criteria 1–12 and 15.
 
 ## Implementation plan
 

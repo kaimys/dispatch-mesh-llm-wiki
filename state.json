@@ -2908,8 +2908,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793977336,
-      "last_edit": 1793977680,
-      "revision": 3,
+      "last_edit": 1793977862,
+      "revision": 5,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -2919,10 +2919,10 @@
             "blob": "49db5b87ce99ba9628732f6adcac5c3de5e09b25"
           },
           "content": {
-            "blob": "77fc79f5f6d89666edc8a8cf1a076c2ce73587c7"
+            "blob": "e2917ca7e289b546538c514039f0facd3a0402ab"
           },
           "intent": null,
-          "last_edit": 1793977336
+          "last_edit": 1793977862
         },
         "00_Start-Here/Templates/ticket-story.md": {
           "base": {
@@ -3039,10 +3039,10 @@
             "blob": "89d676ed5fbb3044d4226d7bc32134e63895173f"
           },
           "content": {
-            "blob": "20a6fb6de5f5f92ed5d22f8ce6200d5d7c0a98db"
+            "blob": "eef44f2d74843df54b52907309c9ba3f25de31dc"
           },
           "intent": null,
-          "last_edit": 1793977680
+          "last_edit": 1793977855
         },
         "05_Requirements/Tickets/Story - US00004 - AI-proposed text conflict merges with human approval.md": {
           "base": {
@@ -3065,10 +3065,10 @@
         "05_Requirements/Tickets/Story - US00006 - Conflict list and resolution in the status window.md": {
           "base": null,
           "content": {
-            "blob": "0aa259b2804c3edd3b3b409a78b8b593c5ab0a17"
+            "blob": "ed262d311de6a7601530fbf67eb1794e0a082c12"
           },
           "intent": null,
-          "last_edit": 1793977336
+          "last_edit": 1793977855
         },
         "05_Requirements/Tickets/Story - US00007 - Recent-save presence in the status window.md": {
           "base": null,
@@ -3115,10 +3115,10 @@
         "07_Engineering/Decisions/ADR-0013 — Derive exclusion from each tree's own ignore policy.md": {
           "base": null,
           "content": {
-            "blob": "810cb9e69c9089bd41f1234657f3a2d72dd01a6a"
+            "blob": "70ec8b159146a87169812ea2119d8e91092257bb"
           },
           "intent": null,
-          "last_edit": 1793977336
+          "last_edit": 1793977862
         }
       },
       "dependencies": [],
