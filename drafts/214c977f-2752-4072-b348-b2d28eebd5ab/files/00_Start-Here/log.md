@@ -317,3 +317,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 ## [2026-11-06] test-plan | US00005 manual test plan and freeze
 - Before writing the plan, verified AC 9, AC 10, AC 6 (restart) and AC 11 (Explorer selection) in the running tray. Found and fixed an AC 9 defect: the dependent-edits reason was masked as a capture fault or sync failure, so Finish session was never offered (`819d9b0`, two regression tests; as-built notes). Gates green after the fix.
 - Wrote the manual test plan in [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]] (4 checks: tray menu, keyboard, Narrator, dark theme), set `open_tests: 4`, stamped `frozen: 2026-11-06`, moved the ticket to Review.
+
+## [2026-11-06] test-plan | US00005 Narrator check removed
+- At Kai's request, removed the Narrator check from the [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]] test plan before testing (`open_tests` 4 → 3); noted in the plan that AC 13's screen-reader names are verified by code only.
