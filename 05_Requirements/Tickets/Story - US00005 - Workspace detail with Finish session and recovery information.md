@@ -207,6 +207,14 @@ Independent code review found two blockers: F1 (AC 11: interrupted displacement 
 - **F2 (AC 5 vs. plan) resolved by contract.** Kai chose the planned policy (2026-11-06): unsettled sessions first, then the 10 settled ones with the latest last save, each group newest first. AC 5, the Scope line and README now say this; no code change. Added `activity_keeps_open_sessions_first_and_ranks_settled_ones_by_last_save` for the interleaved open/published and settled-late cases.
 - `open_findings` cleared to empty for the review's re-check.
 
+### 2026-11-06 — test-plan preparation: AC 9 defect found and fixed
+
+- **Found while verifying AC 9 in the running tray** (`47f810e`, two disposable workspaces on a local bare remote). With "Edits depend on a received draft …" raised, the window showed "Local capture waiting: Dependent edits preserved; finish the current session …" with no primary **Finish session**. The runner reported capture's refusal as a capture fault, and a capture fault outranks `attention` in the summary. CLI `sync` had the same effect another way: `record_sync_failure` replaced the engine's reason with "Synchronization waiting: …", which would also have shown "Mesh retries automatically." where retrying cannot help. The cause predates US00005 (TASK00001/US00002 failure recording), but it defeats AC 9 and AC 10.
+- **Fix:** capture's refusal is now a typed error, `engine::DependentEditsPreserved`. `record_sync_failure` leaves the engine-raised reason in place for it, and the runner does not count it as a capture fault. The recorded reason, and with it the attention card's **Finish session**, now reaches CLI `status` and the tray.
+- **Tests:** `a_sync_failure_keeps_the_dependent_edits_reason_and_its_remedy` (`tests/engine.rs`) and `edits_depending_on_a_received_draft_show_their_reason_not_a_capture_fault` (`tests/runner.rs`). Both fail on `47f810e` and pass on the fix.
+- **Unchanged, noted:** while such edits are pending, `RunnerHandle::join` after a stop still returns that error from the final capture. The bytes stay in pending capture. Pre-existing behavior; the tray ignores the result on Quit.
+- **Verified live on the fixed debug build (Windows):** the card shows the engine's reason and a primary **Finish session**, and the activity section's button is hidden. Clicking it cleared the attention, and the dependent edit entered a new session that was shared as draft. With the bare remote renamed away, the card showed "Synchronization waiting: Git fetch …" then "Mesh retries automatically.", no Retry button, and the header kept "Last synced 1 min ago". Restoring the remote cleared it. After restarting the tray, the header showed the stored sync time, not "Not synced yet". **Show in folder** opened Explorer in `.mesh/recovery/<id>` with `content` selected (read back through the Shell API).
+
 ## Code review
 
 ### 2026-11-06 — branch US00005-workspace-detail at 4133e9c
