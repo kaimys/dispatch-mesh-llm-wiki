@@ -611,8 +611,11 @@
         "b282f2a6-96ee-4ea4-8705-5c2b555e522e"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "fix: address US00003 review findings",
+        "description": "Fix the `.meshignore` symlink write-through issue and ensure ignore-rule files always synchronize, with regression coverage for F1/F2 and excluded-file provider payloads (F3). Record the fixes and passing gates in US00003, clear its open findings pending review re-check, and update the change log. Also save the Obsidian workspace with the US00006 story active."
+      },
+      "message_base": "265caca04817db46d8e65f115372ac9ee6604ba3"
     },
     "1f8fbadd-90c0-4b9e-91f9-121a9f7112c9": {
       "id": "1f8fbadd-90c0-4b9e-91f9-121a9f7112c9",
@@ -3180,6 +3183,48 @@
         "description": "Updated US00003 with implementation notes, its two blocking code-review findings, and the policy-file contract decision; added proposed ADR-0013 specifying that each computed tree uses its own ignore policy and rule files remain synchronized. Added US00005–US00009 and TASK00003, linked them in the index and milestone plan, and set US00004's target to v0.4.0. Recorded ADR-0011 as accepted, clarified the ticket template's review-counter guidance, and converted competitor storage-layout diagrams to Mermaid tree views."
       },
       "message_base": "f8d04be8af135abcd98018d3bf18b353155d5c30"
+    },
+    "b394dfd5-0f07-4d3e-9e1a-e1e9ccfada50": {
+      "id": "b394dfd5-0f07-4d3e-9e1a-e1e9ccfada50",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793978786,
+      "last_edit": 1793978786,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "517d9c22c92fafebb54186a5d6f16c13a760a6f3"
+          },
+          "content": {
+            "blob": "564a96b619f7b0b202d740cbf3a96110e96630c6"
+          },
+          "intent": null,
+          "last_edit": 1793978786
+        },
+        "05_Requirements/Tickets/Story - US00006 - Conflict list and resolution in the status window.md": {
+          "base": {
+            "blob": "4e2335c9e6d566040a107e8c6ecfa35adaa977f0"
+          },
+          "content": {
+            "blob": "ae2919a8ddbfc3c10bd9bd85c138b068721680f9"
+          },
+          "intent": null,
+          "last_edit": 1793978786
+        }
+      },
+      "dependencies": [
+        "1b3c9b07-2d29-4712-8ec9-43f94ada5bfe"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
     },
     "ba227071-16b8-48ff-ba3c-28bb2bd3682e": {
       "id": "ba227071-16b8-48ff-ba3c-28bb2bd3682e",
