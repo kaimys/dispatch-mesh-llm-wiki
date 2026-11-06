@@ -1428,6 +1428,56 @@
       },
       "message_base": "ee44c5fc8e77acabc5cf66e322520533c3a72688"
     },
+    "5367960c-aba0-4dbb-959e-e47759ee8d72": {
+      "id": "5367960c-aba0-4dbb-959e-e47759ee8d72",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793965384,
+      "last_edit": 1793965392,
+      "revision": 2,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "2b71352d3a71c4c196d478b7dc08a47941cc0829"
+          },
+          "content": {
+            "blob": "f42463eeea60e720183bcf527e7c3700696555e8"
+          },
+          "intent": null,
+          "last_edit": 1793965392
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "d9d998b1b2b09e302ea3a7ae101b64c350d60503"
+          },
+          "content": {
+            "blob": "d4d4be50342ae6fc80e37818a023a796fa7ead0a"
+          },
+          "intent": null,
+          "last_edit": 1793965392
+        },
+        "04_Discovery/AI-managed synchronization and human decisions.md": {
+          "base": {
+            "blob": "0726fcebbc53a79c2a938ce2fb71511d228e1c85"
+          },
+          "content": {
+            "blob": "ad83719cec3d2957725a9f8d5688a69fc3281e07"
+          },
+          "intent": null,
+          "last_edit": 1793965384
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "57c6e987-36dc-4574-abe2-c9484fafaccd": {
       "id": "57c6e987-36dc-4574-abe2-c9484fafaccd",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
