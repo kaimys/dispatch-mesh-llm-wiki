@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tray icon set</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#2457C5}a:hover{color:#1A408F}
+</style>
+</helmet>
+<div style="width: 1040px; height: 900px; box-sizing: border-box; padding: 48px; background: #F7F7F5; color: #1C1D1F; font-family: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column; gap: 24px">
+  <div style="display: flex; flex-direction: column; gap: 6px">
+    <div style="font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #55575C">Deliverable 1 · 0.3 · US00001</div>
+    <h1 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.01em">Tray icon states</h1>
+    <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #55575C; max-width: 720px; text-wrap: pretty">One mark, one corner badge. The badge shape carries the state, so it reads on a monochrome menu bar and without color. Up to date has no badge at all: the quiet state is the plain mark.</p>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 8px">
+    <div style="display: grid; grid-template-columns: 160px repeat(6, 88px) 1fr; gap: 8px; font-size: 11px; font-weight: 500; color: #55575C; letter-spacing: 0.02em">
+      <div>State</div>
+      <div>Win 16 · light</div>
+      <div>Win 16 · dark</div>
+      <div>Win 32 · light</div>
+      <div>Win 32 · dark</div>
+      <div>macOS template</div>
+      <div>16 px master ×4</div>
+      <div>Tooltip</div>
+    </div>
+    <sc-for list="{{rows}}" as="row" hint-placeholder-count="5">
+      <div style="display: grid; grid-template-columns: 160px repeat(6, 88px) 1fr; gap: 8px; align-items: stretch; opacity: {{row.rowOpacity}}">
+        <div style="display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 8px 0">
+          <div style="font-size: 14px; font-weight: 600">{{row.label}}</div>
+          <div style="font-size: 12px; color: #55575C; line-height: 1.35">{{row.sub}}</div>
+        </div>
+        <sc-for list="{{row.cells}}" as="cell" hint-placeholder-count="6">
+          <div style="height: 88px; border-radius: 6px; display: flex; align-items: center; justify-content: center; background: {{cell.bg}}; background-image: {{cell.grid}}; background-size: 4px 4px; border: 1px solid #E3E2DE">
+            <svg width="{{cell.px}}" height="{{cell.px}}" viewBox="0 0 16 16" role="img" aria-label="{{row.aria}}">
+              <g opacity="{{row.markOpacity}}" fill="{{cell.mark}}" stroke="{{cell.mark}}">
+                <path d="M4 4L12 4M4 4L4 12M12 4L4 12" stroke-width="1.4" fill="none"></path>
+                <circle cx="4" cy="4" r="2.2" stroke="none"></circle>
+                <circle cx="12" cy="4" r="2.2" stroke="none"></circle>
+                <circle cx="4" cy="12" r="2.2" stroke="none"></circle>
+              </g>
+              <g opacity="{{row.badgeOpacity}}">
+                <circle cx="12" cy="12" r="4.6" fill="{{cell.bg}}"></circle>
+                <circle cx="12" cy="12" r="3.6" fill="{{cell.badge}}"></circle>
+                <path d="{{row.glyph}}" fill="none" stroke="{{cell.glyph}}" stroke-width="1.3" stroke-linecap="round"></path>
+              </g>
+            </svg>
+          </div>
+        </sc-for>
+        <div style="display: flex; align-items: center">
+          <div style="font-size: 12px; line-height: 1.4; padding: 8px 10px; background: #FFFFFF; border: 1px solid #D6D5D0; border-radius: 4px; box-shadow: 0 2px 6px rgba(20,20,20,0.08)">{{row.tooltip}}</div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="display: flex; gap: 32px; font-size: 12px; color: #55575C; line-height: 1.5; border-top: 1px solid #E3E2DE; padding-top: 16px">
+    <div style="flex: 1">Windows light taskbar #F3F3F3, dark #202020. macOS shown as a template image at 18 px: pure black + alpha, the badge glyph is a knockout so the system can tint it.</div>
+    <div style="flex: 1">Screen readers get the tooltip text as the icon name. The 32 px column is a scale of the 16 px master; hint the 16 px pixels by hand before shipping.</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1040,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const themes = [
+      { key: 'l16', bg: '#F3F3F3', mark: '#1C1D1F', px: 16, light: true },
+      { key: 'd16', bg: '#202020', mark: '#F2F2F2', px: 16, light: false },
+      { key: 'l32', bg: '#F3F3F3', mark: '#1C1D1F', px: 32, light: true },
+      { key: 'd32', bg: '#202020', mark: '#F2F2F2', px: 32, light: false },
+      { key: 'mac', bg: '#ECECEC', mark: '#000000', px: 18, light: true, template: true },
+      { key: 'x4', bg: '#FFFFFF', mark: '#1C1D1F', px: 64, light: true, grid: true }
+    ];
+    const tone = {
+      working: { l: '#2457C5', d: '#7FA6FF' },
+      offline: { l: '#5B6170', d: '#A7ADB8' },
+      attention: { l: '#C2540F', d: '#FF9E57' },
+      paused: { l: '#5B6170', d: '#A7ADB8' },
+      synced: { l: '#2457C5', d: '#7FA6FF' }
+    };
+    const states = [
+      { id: 'synced', label: 'Up to date', sub: 'Plain mark, no badge', glyph: '', badgeOpacity: 0, markOpacity: 1, tooltip: 'Dispatch Mesh — Up to date' },
+      { id: 'working', label: 'Working', sub: 'Saved locally · Shared as draft · Finishing up', glyph: 'M12 10a2 2 0 1 1-2 2', badgeOpacity: 1, markOpacity: 1, tooltip: 'Dispatch Mesh — Shared as draft (Team Wiki)' },
+      { id: 'offline', label: 'Offline', sub: 'Dimmed mark + slash. Calm, not red.', glyph: 'M10.5 13.5l3-3', badgeOpacity: 1, markOpacity: 0.5, tooltip: 'Dispatch Mesh — Offline, changes saved on this device' },
+      { id: 'attention', label: 'Needs attention', sub: 'Exclamation badge', glyph: 'M12 10v2.3M12 14.1v0.05', badgeOpacity: 1, markOpacity: 1, tooltip: 'Dispatch Mesh — Needs attention: 2 unresolved conflicts' },
+      { id: 'paused', label: 'Paused', sub: 'RESERVED — not in 0.3, needs ADR-0010', glyph: 'M11 10.5v3M13 10.5v3', badgeOpacity: 1, markOpacity: 1, tooltip: 'Dispatch Mesh — Paused (reserved)' }
+    ];
+    const rows = states.map((s) => ({
+      ...s,
+      rowOpacity: s.rowOpacity ?? 1,
+      aria: s.tooltip,
+      cells: themes.map((t) => {
+        const c = tone[s.id];
+        const badge = t.template ? t.mark : (t.light ? c.l : c.d);
+        const glyph = t.template ? t.bg : (t.light ? '#FFFFFF' : '#14161A');
+        return {
+          px: t.px, bg: t.bg, mark: t.mark, badge, glyph,
+          grid: t.grid ? 'linear-gradient(to right, #EEEDEA 1px, transparent 1px), linear-gradient(to bottom, #EEEDEA 1px, transparent 1px)' : 'none'
+        };
+      })
+    }));
+    return { rows };
+  }
+}
+</script>
+</body>
+</html>

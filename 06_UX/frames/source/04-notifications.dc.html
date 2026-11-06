@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Notifications</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#2457C5}a:hover{color:#1A408F}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 1040px; height: 860px; box-sizing: border-box; padding: 40px; background: #EDECE8; color: #1C1D1F; font-family: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column; gap: 24px">
+  <div style="display: flex; flex-direction: column; gap: 6px">
+    <div style="font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #55575C">Deliverable 4 · native toasts</div>
+    <h1 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.01em">Notify on change, never on repeat</h1>
+  </div>
+
+  <div style="display: flex; gap: 40px; flex: 1">
+    <div style="width: 380px; display: flex; flex-direction: column; gap: 12px">
+      <sc-for list="{{toasts}}" as="t" hint-placeholder-count="4">
+        <div style="display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 11px; font-weight: 600; color: #55575C; letter-spacing: 0.03em">{{t.when}}</span>
+          <div role="alert" style="background: #F9F9F9; border: 1px solid #D6D5D0; border-radius: 8px; box-shadow: 0 6px 18px rgba(20,20,20,0.12); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px">
+            <div style="display: flex; gap: 6px; align-items: center; font-size: 11px; color: #55575C">
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><g fill="#1C1D1F" stroke="#1C1D1F"><path d="M4 4L12 4M4 4L4 12M12 4L4 12" stroke-width="1.4" fill="none"></path><circle cx="4" cy="4" r="2.2" stroke="none"></circle><circle cx="12" cy="4" r="2.2" stroke="none"></circle><circle cx="4" cy="12" r="2.2" stroke="none"></circle></g></svg>
+              Dispatch Mesh · Team Wiki
+            </div>
+            <span style="font-size: 14px; font-weight: 600">{{t.title}}</span>
+            <span style="font-size: 13px; line-height: 1.45; color: #3D3F44">{{t.body}}</span>
+            <sc-if value="{{t.hasAction}}" hint-placeholder-val="{{ true }}">
+              <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; margin-top: 4px">
+                <button style="border: 1px solid #C9C8C3; background: #FFFFFF; border-radius: 4px; padding: 6px; font-size: 12px; color: #1C1D1F">{{t.action}}</button>
+                <button style="border: 1px solid #C9C8C3; background: #FFFFFF; border-radius: 4px; padding: 6px; font-size: 12px; color: #1C1D1F">Later</button>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="flex: 1; display: flex; flex-direction: column; gap: 18px">
+      <section style="background: #FFFFFF; border: 1px solid #D6D5D0; border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+        <h2 style="margin: 0; font-size: 15px; font-weight: 600">Show a toast when</h2>
+        <ul style="margin: 0; padding-left: 18px; font-size: 13px; line-height: 1.6; color: #1C1D1F">
+          <li>A new conflict is recorded. Conflicts that arrive within 60 s are batched into one toast.</li>
+          <li>A workspace enters Needs attention, or the reason changes to a new one.</li>
+          <li>A workspace leaves Needs attention, and only if its start was toasted.</li>
+        </ul>
+      </section>
+      <section style="background: #FFFFFF; border: 1px solid #D6D5D0; border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+        <h2 style="margin: 0; font-size: 15px; font-weight: 600">Never toast</h2>
+        <ul style="margin: 0; padding-left: 18px; font-size: 13px; line-height: 1.6; color: #1C1D1F">
+          <li>Going offline or back online. The tray and window say it calmly.</li>
+          <li>Saving, sharing as draft, finishing up or publishing.</li>
+          <li>The same workspace + reason again within 30 min, even if it clears and returns. The tray still updates.</li>
+          <li>While Windows Do not disturb / Focus is on. Toasts land quietly in the notification center.</li>
+        </ul>
+      </section>
+      <p style="margin: 0; font-size: 12px; line-height: 1.5; color: #55575C">Toast text uses the engine's reason in plain words. No credentials, raw Git output or provider responses, ever.</p>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1040,"height":860}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      toasts: [
+        { when: 'New conflict', title: 'Conflict in policies/retention.md', body: 'Alice and Bob both changed it. Both versions are kept — choose one when you’re ready.', action: 'Review', hasAction: true },
+        { when: 'Attention starts', title: 'Team Wiki can’t share changes', body: 'The remote refused access. Sign in again to keep sharing. Your edits are saved on this device.', action: 'Sign in again', hasAction: true },
+        { when: 'Attention starts · AI', title: 'AI summary failed', body: 'Your session was added to shared history with a local summary. Check the AI key, quota or endpoint.', action: 'Open AI settings', hasAction: true },
+        { when: 'Attention clears', title: 'Team Wiki is up to date again', body: 'All conflicts are resolved and everything is shared.', hasAction: false }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
