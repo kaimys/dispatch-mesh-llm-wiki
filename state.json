@@ -878,8 +878,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793957054,
-      "last_edit": 1793957201,
-      "revision": 2,
+      "last_edit": 1793957250,
+      "revision": 4,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -889,10 +889,90 @@
             "blob": "ca1dcce2a26f7f60a0f5e8cadbc05e80c5914c5c"
           },
           "content": {
-            "blob": "ae2445d2b8f8f7850b56e719cbfba835520f6858"
+            "blob": "a30fdbb62d9d4246c00e60382e94ecceb680d26f"
           },
           "intent": null,
-          "last_edit": 1793957201
+          "last_edit": 1793957243
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "6d0298b1d9f92b589f3dadf7fea7a1947c9a8805"
+          },
+          "content": {
+            "blob": "7a2d26160f27cc917b93cb74811bf24a8149f735"
+          },
+          "intent": null,
+          "last_edit": 1793957250
+        },
+        "02_Product/Competitors/Agentic Git Sync.md": {
+          "base": {
+            "blob": "d703b1276347709261e1906d9ac255aea4760a7f"
+          },
+          "content": {
+            "blob": "b411ef0bf128a57a23dc8bdee23832f362525b64"
+          },
+          "intent": null,
+          "last_edit": 1793957250
+        },
+        "02_Product/Competitors/Jujutsu.md": {
+          "base": {
+            "blob": "0f01bdde00c85adff8878d99986ff9e41aba8073"
+          },
+          "content": {
+            "blob": "36f897d6c36860ae88e59acb3a431e570cb85999"
+          },
+          "intent": null,
+          "last_edit": 1793957250
+        },
+        "02_Product/Competitors/Obsidian Git.md": {
+          "base": {
+            "blob": "eafc1f9fd399c49b6ab6f0d26871c9bb4f46d604"
+          },
+          "content": {
+            "blob": "87e0a834caf695f2be383086500205357dac9d33"
+          },
+          "intent": null,
+          "last_edit": 1793957250
+        },
+        "02_Product/Competitors/SparkleShare.md": {
+          "base": {
+            "blob": "3a24f700a42f5a6dcba15fa74fb86c066327cd89"
+          },
+          "content": {
+            "blob": "fa8890b1c356b6acb6147fb48f21eb58eed62d63"
+          },
+          "intent": null,
+          "last_edit": 1793957250
+        },
+        "02_Product/Competitors/Syncthing.md": {
+          "base": {
+            "blob": "4b591170f40b574496c41c896ff1521795652d61"
+          },
+          "content": {
+            "blob": "277cc690f873b5cfe0d67dd4e505930da912a5bc"
+          },
+          "intent": null,
+          "last_edit": 1793957250
+        },
+        "02_Product/Competitors/git-annex assistant.md": {
+          "base": {
+            "blob": "c520e945dfac344ec693a0e32703104e9b586fcd"
+          },
+          "content": {
+            "blob": "326f1e28997d5296ab0ea3a2ba0f99076850e837"
+          },
+          "intent": null,
+          "last_edit": 1793957250
+        },
+        "02_Product/Competitors/gitwatch.md": {
+          "base": {
+            "blob": "96d74d2f0f36cda6c8d9ff576818a93d2e8d6ee5"
+          },
+          "content": {
+            "blob": "8c86ce927fdb454d08207e5856f39c1777d20756"
+          },
+          "intent": null,
+          "last_edit": 1793957250
         }
       },
       "dependencies": [],
