@@ -2886,8 +2886,11 @@
         "2b88752c-d45e-4007-b644-4240fa538a01"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: document competitor storage models and complete US00001 records",
+        "description": "Add engineering references for the device-branch and SQLite formats, plus a comparison of seven competitors’ storage, recovery, and retention approaches. Expand competitor profiles with revision-pinned source reviews and add an inline refresh prompt to the overview. Update the US00001 ticket with completed test results, Linux CI verification, and Done status; refresh the wiki index and log, and adjust the Obsidian workspace layout."
+      },
+      "message_base": "e7ab5972e452cc6b1ac4f2010ac4d7a9adef806c"
     },
     "ca6102a4-9425-4626-b7e3-70a2f268d64c": {
       "id": "ca6102a4-9425-4626-b7e3-70a2f268d64c",
