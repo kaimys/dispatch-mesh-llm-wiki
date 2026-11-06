@@ -1,19 +1,19 @@
 ---
 id: US00003
 type: story
-status: Review
+status: Done
 priority: medium
-rank: 2000
+rank: 0
 version_target: v0.3.0
 size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests: 3
+open_tests: 0
 open_findings: 0
 discussion:
 updated: 2026-11-06
-completed:
+completed: 2026-11-06
 frozen: 2026-11-06
 ---
 **Let a user stop synchronizing files that belong to one device, above all Obsidian's `.obsidian/workspace.json`, even after Mesh has already synchronized them.** Today `.meshignore` and `.gitignore` are honored only for files that were never synchronized. Adding a rule for a synchronized file stops capture with "A previously synchronized path is now ignored or unsupported … Restore the ignore policy before syncing". So the one file that most needs excluding can't be excluded once it's been shared. Meanwhile it changes whenever the user opens a note or moves a pane, and it fills the history with layout commits.
@@ -219,9 +219,21 @@ Manual checks for the exclusion of synchronized files, build `9b98471` on branch
 
 Everything else is automated (43 engine, 10 CLI and 21 provider tests): AC 1–12 and 15 on one and two devices, both publication orders, re-inclusion, crash replay, `init` defaults, the linked-`.meshignore` refusal and the provider payload. These checks cover only real Obsidian, real wall-clock time and the real GitHub remote.
 
-- [ ] **Kai:** *Navigation no longer opens sessions.* Run the tray as above with the wiki vault open in Obsidian, and don't edit any note. For two minutes, open about ten different notes, split a pane and close it, and toggle the left sidebar. Then wait six minutes. Expected: `.obsidian\workspace.json` in `C:\Users\kai\Workspace\dispatch-mesh-wiki` has a new modification time (Obsidian did save it). The tray icon and window show *Up to date*, not *Working*. `target\release\dispatch-mesh.exe --workspace .\dispatch\wiki status` shows `"active_session": null`, and no session started in this window lists `.obsidian/workspace.json`. If an agent or you edited a note meanwhile, repeat the check when nothing else is writing.
-- [ ] **Kai:** *The removal reaches GitHub once.* When the session that holds the new `.meshignore` (draft `b394dfd5-…`) has published, open the commit history of `main` at https://github.com/kaimys/dispatch-mesh-llm-wiki. Expected: exactly one commit adds `.meshignore` and deletes `.obsidian/workspace.json`, authored as Kai. If its message is the local fallback, it lists "Stopped synchronizing (now ignored): .obsidian/workspace.json". No later commit touches `.obsidian/workspace.json`. `.obsidian/app.json` and `.obsidian/plugins/dispatch/data.json` are still in the tree.
-- [ ] **Kai:** *Two vaults keep their own layouts.* Create an empty private GitHub repository. Copy any small Obsidian vault's notes and `.obsidian\` into a new folder `C:\MeshTest\one`, then run `dispatch-mesh.exe --workspace C:\MeshTest\one init --name Kai --email kai@eightnine.de --remote <repo URL>` and `session finish` and `sync` until `status` is `synced`; `C:\MeshTest\one\.meshignore` must now contain the two Obsidian rules. Then `init` an empty `C:\MeshTest\two` against the same remote and `sync` it. Open both folders in Obsidian as separate vaults. Arrange them differently (other open notes, a split pane in one only). Run `sync` on both twice, then close and reopen both vaults. Expected: each vault reopens with its own arrangement, neither `status` shows a conflict or attention, and both vaults show notes and `.obsidian\app.json` changes from the other. Delete the test repository afterwards.
+- [x] **Kai:** *Navigation no longer opens sessions.* Run the tray as above with the wiki vault open in Obsidian, and don't edit any note. For two minutes, open about ten different notes, split a pane and close it, and toggle the left sidebar. Then wait six minutes. Expected: `.obsidian\workspace.json` in `C:\Users\kai\Workspace\dispatch-mesh-wiki` has a new modification time (Obsidian did save it). The tray icon and window show *Up to date*, not *Working*. `target\release\dispatch-mesh.exe --workspace .\dispatch\wiki status` shows `"active_session": null`, and no session started in this window lists `.obsidian/workspace.json`. If an agent or you edited a note meanwhile, repeat the check when nothing else is writing.
+- [x] **Kai:** *The removal reaches GitHub once.* When the session that holds the new `.meshignore` (draft `b394dfd5-…`) has published, open the commit history of `main` at https://github.com/kaimys/dispatch-mesh-llm-wiki. Expected: exactly one commit adds `.meshignore` and deletes `.obsidian/workspace.json`, authored as Kai. If its message is the local fallback, it lists "Stopped synchronizing (now ignored): .obsidian/workspace.json". No later commit touches `.obsidian/workspace.json`. `.obsidian/app.json` and `.obsidian/plugins/dispatch/data.json` are still in the tree.
+- [x] **Kai:** *Two vaults keep their own layouts.* Create an empty private GitHub repository. Copy any small Obsidian vault's notes and `.obsidian\` into a new folder `C:\MeshTest\one`, then run `dispatch-mesh.exe --workspace C:\MeshTest\one init --name Kai --email kai@eightnine.de --remote <repo URL>` and `session finish` and `sync` until `status` is `synced`; `C:\MeshTest\one\.meshignore` must now contain the two Obsidian rules. Then `init` an empty `C:\MeshTest\two` against the same remote and `sync` it. Open both folders in Obsidian as separate vaults. Arrange them differently (other open notes, a split pane in one only). Run `sync` on both twice, then close and reopen both vaults. Expected: each vault reopens with its own arrangement, neither `status` shows a conflict or attention, and both vaults show notes and `.obsidian\app.json` changes from the other. Delete the test repository afterwards.
+
+### Test results — 2026-11-06 (build `9b98471`, Kai with Claude Code)
+
+- **Navigation no longer opens sessions — passed.** The tray was rebuilt from `9b98471` and restarted for the wiki at 16:43. While Kai navigated in Obsidian, `.obsidian/workspace.json` was saved at 16:48:58, 16:50:18 and 16:54:42 (9,327 → 10,004 → 9,583 bytes). The session opened by Kai's real edits (`5e30790c`) never listed the layout file: first `index.md`, then also an accidental empty `Unbenannt.canvas`, which Kai deleted, so the add and the delete cancelled in the session. `active_session` was null from 17:00:28, about five minutes after the last real edit, and the tray showed *Up to date* (confirmed by Kai).
+- **The removal reaches GitHub once — passed.** GitHub `main` = `97ee5c8` (session `b394dfd5`, author `kaimys`): `A .meshignore`, `D .obsidian/workspace.json`, plus that session's wiki edits. The message came from the configured AI provider, not the local fallback, and describes the file as excluded from synchronization but kept on every device. In the resulting tree, `.meshignore`, `.obsidian/app.json` and `.obsidian/plugins/dispatch/data.json` are present and `workspace.json` is absent; no later commit touches it. Confirmed by Kai on GitHub. Verified read-only with `ls-remote`. One plain `git fetch` during the check updated `FETCH_HEAD` in Mesh's private store, which is harmless.
+- **Two vaults keep their own layouts — passed.** Claude Code created a minimal vault in `C:\MeshTest\one` (three notes, `.obsidian` with `app.json` and `workspace.json`) and ran `init` against the private repository `kaimys/mesh-layout-test`. `init` wrote the two Obsidian rules into `.meshignore`. `C:\MeshTest\two` joined empty and received notes, `.obsidian/app.json` and `.meshignore`, but no `workspace.json`. Kai opened both as vaults and arranged them differently. Across four sync rounds neither layout file changed from synchronization. `community-plugins.json`, `plugins/` and the *Show line numbers* setting (`app.json`) crossed from one to two. After closing and reopening both windows, each vault kept its own arrangement, and line numbers showed in both (in vault one after switching from Reading view, where Obsidian never shows them).
+  - *Observation, not a US00003 fault:* opening vault two made Obsidian rewrite the seeded `app.json` from `{}` plus newline to `{}`, concurrently with vault one's line-numbers change. Mesh recorded an ordinary ADR-0003 conflict on `.obsidian/app.json` with both inputs kept. Kai chose vault one's version (`conflicts resolve … --choose accepted`), and both vaults then showed `synced` with no conflicts. A freshly copied vault can produce one such conflict when Obsidian normalizes its settings files on first open.
+  - Clean-up for Kai: delete the repository `kaimys/mesh-layout-test` and the folder `C:\MeshTest`, and remove both vaults from Obsidian's vault list.
+
+### 2026-11-06 — merged
+
+Fast-forwarded `main` to `9b98471` and pushed to `origin` at Kai's request, with no PR (the code review above is the review of record).
 
 ## As-built notes
 

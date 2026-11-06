@@ -286,3 +286,9 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-06] test-plan | US00003 manual test plan and freeze
 - Wrote the manual test plan for [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]] against reviewed build `9b98471`: three checks (real Obsidian navigation, the live GitHub publication, two vaults in Obsidian). Set `open_tests: 3`, stamped `frozen: 2026-11-06`, moved the ticket to `Review`.
+
+## [2026-11-06] test | US00003 manual tests passed
+- Ran all three manual checks of [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]] with Kai on build `9b98471`; all passed. Set `open_tests: 0`. Recorded an observation: Obsidian rewriting a freshly seeded `app.json` on first open caused one ordinary, resolved conflict in the test vaults. The ticket stays in `Review` for Kai to move.
+
+## [2026-11-06] merge | US00003 merged to main
+- Fast-forwarded `main` to `9b98471` (three US00003 commits) and pushed. Recorded in [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]].
