@@ -58,7 +58,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -136,7 +136,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "05_Requirements/Tickets/Story - US00006 - Conflict list and resolution in the status window.md",
+                "file": "06_UX/Dispatch Mesh desktop app.pdf",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -155,7 +155,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "05_Requirements/Tickets/Story - US00006 - Conflict list and resolution in the status window.md",
+                "file": "06_UX/Dispatch Mesh desktop app.pdf",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -226,12 +226,12 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "82a35f036be2897c",
+  "active": "6820be63a2d38253",
   "lastOpenFiles": [
+    "05_Requirements/Tickets/Story - US00006 - Conflict list and resolution in the status window.md",
     "06_UX/Dispatch Mesh desktop app.pdf",
     "05_Requirements/Tickets/Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync.md",
     "05_Requirements/Tickets/Story - US00005 - Workspace detail with Finish session and recovery information.md",
-    "05_Requirements/Tickets/Story - US00006 - Conflict list and resolution in the status window.md",
     "07_Engineering/Decisions/ADR-0013 — Derive exclusion from each tree's own ignore policy.md.tmp.13304.8455ca3ddbe2",
     "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md",
     "07_Engineering/Decisions/ADR-0003 — Preserve synchronized conflict inputs and traceable resolutions.md",
