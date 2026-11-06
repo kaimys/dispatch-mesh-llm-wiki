@@ -4,7 +4,7 @@ type: bug
 status: In progress
 priority: high
 rank: 11000
-version_target: v0.3.0
+version_target:
 size:
 assignee: Kai
 owner: "[[Kai]]"
