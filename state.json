@@ -2396,8 +2396,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793962573,
-      "last_edit": 1793962689,
-      "revision": 4,
+      "last_edit": 1793962728,
+      "revision": 7,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -2407,10 +2407,10 @@
             "blob": "4d77134a5904a172460919bfc72d2fb27fe6362a"
           },
           "content": {
-            "blob": "76f5435e3851484996e2ca6fff972df78af5901b"
+            "blob": "4573678c748f3da2cb1da33baadafc208ed2074b"
           },
           "intent": null,
-          "last_edit": 1793962689
+          "last_edit": 1793962728
         },
         "00_Start-Here/index.md": {
           "base": {
@@ -2421,6 +2421,16 @@
           },
           "intent": null,
           "last_edit": 1793962689
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "c1e70fa30a3136e8ae544c7c6ef36eb29a068306"
+          },
+          "content": {
+            "blob": "d9d998b1b2b09e302ea3a7ae101b64c350d60503"
+          },
+          "intent": null,
+          "last_edit": 1793962713
         },
         "04_Discovery/AI-managed synchronization and human decisions.md": {
           "base": null,
