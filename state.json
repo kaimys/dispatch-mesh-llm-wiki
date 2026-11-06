@@ -2910,7 +2910,7 @@
       "created_at": 1793977336,
       "last_edit": 1793977942,
       "revision": 7,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
