@@ -2177,7 +2177,7 @@
       "last_edit": 1793985052,
       "revision": 3,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "00_Start-Here/index.md": {
