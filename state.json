@@ -1436,8 +1436,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793965384,
-      "last_edit": 1793965589,
-      "revision": 5,
+      "last_edit": 1793965785,
+      "revision": 6,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1447,10 +1447,10 @@
             "blob": "4573678c748f3da2cb1da33baadafc208ed2074b"
           },
           "content": {
-            "blob": "cc7a13656c594710bd9e3d6c38aa8b53f105c101"
+            "blob": "9e9fe38737143038fd0300a5c706439bfc6dcb9b"
           },
           "intent": null,
-          "last_edit": 1793965589
+          "last_edit": 1793965785
         },
         "00_Start-Here/index.md": {
           "base": {
@@ -1481,6 +1481,14 @@
           },
           "intent": null,
           "last_edit": 1793965384
+        },
+        "05_Requirements/Tickets/Story - US00004 - AI-proposed text conflict merges with human approval.md": {
+          "base": null,
+          "content": {
+            "blob": "66b49377f57ad7635d9d7d28cf23ef4e741c6aa6"
+          },
+          "intent": null,
+          "last_edit": 1793965785
         }
       },
       "dependencies": [],
