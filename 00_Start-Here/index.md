@@ -32,6 +32,7 @@ Entry point for people and agents. Read this first, then follow the links. Every
 
 ## Discovery
 
+- [[AI-managed synchronization and human decisions]] — proposal for AI-managed Git operations and content-level human decisions; eight scenarios, six prompt templates, synthetic Chat Completions exchange and evaluation plan. Owner: [[Kai]]; review before refinement.
 - [[Dispatch Mesh concept|git-sync discovery]] — concept updates and the original discovery discussion
 
 ## Requirements

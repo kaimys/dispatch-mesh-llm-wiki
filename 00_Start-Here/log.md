@@ -217,3 +217,8 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 - Corrected all seven competitor profiles to lead with remote tracked branch contents, matching the intended scope of [[Device branch format]]. Relabeled the earlier trees as local filesystem layouts, not remote contents.
 - Explicitly distinguished Syncthing's lack of Git branches, git-annex's separate metadata branch and payload store, LFS pointers, submodule gitlinks, and Jujutsu's conditional tracked conflict-tree entries from local `.git/` and `.jj/` directories.
 - Added the distinction to [[Competitor storage approaches]]. Checked relevant paths against the pinned source snapshots; documentation-only.
+
+## [2026-11-06] discovery | AI-managed synchronization and human decisions
+- Created [[AI-managed synchronization and human decisions]] in `04_Discovery/` from Kai's proposal to hide Git mechanics with AI assistance and escalate ambiguous intent. Listed in [[index]].
+- Added eight concrete scenarios, user-facing wording, engine/AI/human boundaries, six prompt templates, a synthetic Chat Completions input/response, stale-input and execution checks, open architecture questions, and an evaluation matrix.
+- Marked all new behavior as exploratory and preserved current ADR constraints. Checked official API documentation and current summary code; parsed all example JSON, verified the nested response and request syntax. No AI provider called, no workspace content shared, and no implementation changed.
