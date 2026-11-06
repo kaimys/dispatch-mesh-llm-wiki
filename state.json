@@ -1189,8 +1189,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: complete US00005 workspace detail test plan",
+        "description": "Update the US00005 ticket from Review to Done. Record the Windows tray-menu, keyboard, and dark-theme checks as passed, document the AC 9 attention-action fix and verification, and add the completed review and test-plan notes."
+      },
+      "message_base": "1b7f280c20b3eb2710e797a614fd5196014fff3b"
     },
     "35bca660-edcd-43fa-a8be-ef21e46f56bd": {
       "id": "35bca660-edcd-43fa-a8be-ef21e46f56bd",
