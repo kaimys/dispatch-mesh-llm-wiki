@@ -23,13 +23,13 @@ Entry point for people and agents. Read this first, then follow the links. Every
 
 ## Product
 
+- [[Dispatch Mesh concept]] — concept updates and the original discovery discussion
 - [[Dispatch Mesh requirements and architecture]] — current requirements, session model, editing presence
 - [[Dispatch Mesh milestone plan]] — 0.2.x → 2.0 roadmap and release gates
 - [[Dispatch Mesh naming recommendations]]
 - [[Competitor overview]] — dated research, metric definitions, and maintenance register
 - [[Dispatch Mesh SWOT analysis]] — competitive assessment and recommended product actions
 - Competitor profiles: [[gitwatch]], [[SparkleShare]], [[Obsidian Git]], [[Agentic Git Sync]], [[git-annex assistant]], [[Syncthing]], [[Jujutsu]] (architectural reference)
-- [[Dispatch Mesh concept|git-sync discovery]] — concept updates and the original discovery discussion
 
 ## Discovery
 
