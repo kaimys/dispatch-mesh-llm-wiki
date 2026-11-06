@@ -332,3 +332,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-06] design | Readable design source in 06_UX
 - Added [[Dispatch Mesh desktop app — design spec]], one PNG per frame in `06_UX/frames/` (from the PDF export) and the frame markup in `06_UX/frames/source/` (canvas state of 2026-11-06). The PDF and bundled HTML have no extractable text. Answered Q4 of [[Story - US00012 - Status window layout follows the design frames|US00012]] (`open_questions` 4 → 3) and pointed it at the new files. Listed in [[index]].
+
+## [2026-11-06] ticket | BUG00001 AI summaries of large sessions never finish
+- Created [[Bug - BUG00001 - AI summaries of large sessions never finish]] (Backlog, high) from Kai's report of a session stuck in Finishing up in `dispatch/wiki`, with the diagnostic-build evidence; explicit `/fix-bug` shortcut requested. Listed in [[index]].

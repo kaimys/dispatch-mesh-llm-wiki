@@ -53,6 +53,7 @@ Entry point for people and agents. Read this first, then follow the links. Every
   - [[Story - US00010 - Resolve a conflict after the file was edited again|US00010]] — resolving a conflict after the file was edited again reconciles that edit onto the chosen version (v0.3.0)
   - [[Story - US00011 - Limit saved copies in the recovery folder|US00011]] — keep only useful saved copies in `.mesh/recovery`, so the folder, status and window list stop growing without bound
   - [[Story - US00012 - Status window layout follows the design frames|US00012]] — restyle the status window header, state card and activity list to the design frames (v0.3.0)
+  - [[Bug - BUG00001 - AI summaries of large sessions never finish|BUG00001]] — the summary step gives up on a busy workspace lock after 0.5 s, so large sessions stay in Finishing up
   - [[Task - TASK00003 - Two-device tests for the 0.3 exit criteria|TASK00003]] — two-device tests for the 0.3 exit criteria (v0.3.0)
 
 ## UX
