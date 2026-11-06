@@ -320,3 +320,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-06] test-plan | US00005 Narrator check removed
 - At Kai's request, removed the Narrator check from the [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]] test plan before testing (`open_tests` 4 → 3); noted in the plan that AC 13's screen-reader names are verified by code only.
+
+## [2026-11-06] test | US00005 manual tests passed
+- Kai ran the three remaining manual checks of [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]] (tray menu, keyboard, dark theme) in a guided session; all passed. Ticked them and set `open_tests: 0`; results recorded in the test plan. Status stays Review.

@@ -9,7 +9,7 @@ size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests: 3
+open_tests: 0
 open_findings: 0
 discussion:
 updated: 2026-11-06
@@ -195,9 +195,14 @@ Set-Content "$t\A\note.md" "hello"; & $m --workspace "$t\A" session finish; & $m
 >
 > 2026-11-06: The Narrator check was removed at Kai's request before testing began (`open_tests` 4 → 3). The screen-reader part of AC 13 therefore has no manual verification. It rests on the code: every new control has an `aria-label` or visible text, and the stage-track steps carry hidden state text.
 
-- [ ] **Kai:** *Tray menu (AC 8).* With no edits, right-click the tray icon: no "Finish session" item, and **Quit Dispatch Mesh** has no hint line beneath it. Save any change to `A\note.md`; within about 5 s the menu shows one plain **Finish session** item above Quit, and the greyed hint "Your edits stay saved. The session continues next start." Save a change in `B` too; the menu now shows **Finish session — A** and **Finish session — B** instead. Choose **Finish session — B**: in the window, B's session moves on to Finishing up and then Added to shared history, and A's session is still open (A still offers **Finish session**). Choosing **Quit Dispatch Mesh** while A's session is open closes the tray at once, with no prompt.
-- [ ] **Kai:** *Keyboard (AC 13).* Open the window and select workspace A (save a change in A first, so it has an open session). Using only Tab, Shift+Tab, Enter and Space: **‹ All workspaces**, **Finish session**, the **Saved copies · 1** disclosure and **Show in folder** are each reachable in visual order, each with a visible focus outline. Space on the disclosure opens and closes it. Enter on **Finish session** finishes the session. Wait 30 s with focus on a control: focus stays on that control when the window refreshes its relative times.
-- [ ] **Kai:** *Dark theme and layout.* Switch Windows to dark mode (Settings → Personalization → Colors → Dark) and reopen the window on A. The header's "Last synced …", the activity cards, the stage-track marks (✓ ● ○), an attention card if one shows, and the saved-copies list are all legible with no element lost against its background. At the window's default size there is no horizontal scrollbar, and the long folder path in the header wraps instead of overflowing. Switch back afterwards.
+- [x] **Kai:** *Tray menu (AC 8).* With no edits, right-click the tray icon: no "Finish session" item, and **Quit Dispatch Mesh** has no hint line beneath it. Save any change to `A\note.md`; within about 5 s the menu shows one plain **Finish session** item above Quit, and the greyed hint "Your edits stay saved. The session continues next start." Save a change in `B` too; the menu now shows **Finish session — A** and **Finish session — B** instead. Choose **Finish session — B**: in the window, B's session moves on to Finishing up and then Added to shared history, and A's session is still open (A still offers **Finish session**). Choosing **Quit Dispatch Mesh** while A's session is open closes the tray at once, with no prompt.
+- [x] **Kai:** *Keyboard (AC 13).* Open the window and select workspace A (save a change in A first, so it has an open session). Using only Tab, Shift+Tab, Enter and Space: **‹ All workspaces**, **Finish session**, the **Saved copies · 1** disclosure and **Show in folder** are each reachable in visual order, each with a visible focus outline. Space on the disclosure opens and closes it. Enter on **Finish session** finishes the session. Wait 30 s with focus on a control: focus stays on that control when the window refreshes its relative times.
+- [x] **Kai:** *Dark theme and layout.* Switch Windows to dark mode (Settings → Personalization → Colors → Dark) and reopen the window on A. The header's "Last synced …", the activity cards, the stage-track marks (✓ ● ○), an attention card if one shows, and the saved-copies list are all legible with no element lost against its background. At the window's default size there is no horizontal scrollbar, and the long folder path in the header wraps instead of overflowing. Switch back afterwards.
+
+**Results 2026-11-06 (Kai, guided session, debug build of `819d9b0`, Windows 11):** all three checks passed.
+- *Tray menu:* no item with no open session. One plain **Finish session** with the hint line once A had a session; **Finish session — A / — B** with both. Finishing B moved B's session to Added to shared history and left A open. Quit with A's session open closed the test tray at once with no prompt. Afterwards CLI `status` showed A's session still open and its last edit captured (`local_changes_waiting: false`); the wiki tray kept running.
+- *Keyboard:* every new control was reachable in order with a visible outline. The disclosure toggled with Space, and **Show in folder** opened Explorer with `content` selected. Focus survived the 30 s refresh, and Enter on **Finish session** finished the session. The transient "Finishing…" label was too brief to read, because the finish completes in a fraction of a second with no other operation holding the workspace. Expected, not a defect.
+- *Dark theme and layout:* all new elements legible in dark mode, no horizontal scrollbar, and the folder path wraps.
 
 ## As-built notes
 
