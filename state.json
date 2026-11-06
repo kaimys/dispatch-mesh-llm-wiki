@@ -1086,7 +1086,7 @@
       "created_at": 1793981897,
       "last_edit": 1793982054,
       "revision": 3,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
