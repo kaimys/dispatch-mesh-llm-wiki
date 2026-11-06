@@ -271,3 +271,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-06] implementation-plan | US00005 Workspace detail with Finish session and recovery information
 - Wrote the implementation plan in [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]]: additive `Status` fields (session times, title, purposes, `last_sync`, `saved_copies`) with an ADR-0010 amendment, tray model rules, host `finish`/saved-copy resolution, Tauri wiring with `tauri-plugin-opener`, window. Five decisions listed for review. Awaiting sign-off; ADR extraction follows it.
+
+## [2026-11-06] develop | US00003 code review fixes
+- Kai decided F2: ignore-rule files always synchronize (recorded in [[Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync|US00003]] as an answered question and AC 15, and in [[ADR-0013 — Derive exclusion from each tree's own ignore policy|ADR-0013]]). Fixed F1 and F2 and added F3's provider test in `9b98471`; gates green. `open_findings` cleared to empty for the review's re-check.

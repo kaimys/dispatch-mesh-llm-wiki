@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings: 2
+open_findings:
 discussion:
 updated: 2026-11-06
 completed:
@@ -237,6 +237,15 @@ Deviations from the plan:
 ### 2026-11-06 — code review blocks the hand-off
 
 Review of `2ae22f6` found F1 (initialization writes through an unsupported symlink before rejecting it; AC 12 / safety guard) and F2 (an ignored rule file makes the AC 1 exclusion fail; shared-policy contract needs a decision). Keep `In progress`; do not run `/test-plan`. The remediation steps are recorded below. No implementation was changed in this review.
+
+### 2026-11-06 — review findings fixed, awaiting re-check
+
+Commit `9b98471` on `us00003-exclude-device-local-files`. Gates green: `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, `cargo test` (115 tests over both packages; 43 engine, 21 provider). `open_findings` cleared to empty for the review's re-check.
+
+- **F1 fixed.** `init` checks `.meshignore` with `symlink_metadata` before reading it and refuses a symbolic link or Windows reparse point. It writes the Obsidian rules through a temporary file and a rename, so a link substituted after the check is replaced, not followed. `scan` uses the same no-follow check (`ensure_regular_file`) for every file. Regression `init_refuses_a_linked_meshignore_without_writing_through_it` creates a real symlink to an outside file and asserts that `init` fails and the outside file is byte-for-byte unchanged. Symlink creation works on this machine; on a machine without the privilege the test reports itself as skipped.
+- **F2 fixed as decided by Kai (2026-11-06, see *Open questions*, AC 15, ADR-0013): rule files always synchronize.** `scan` adds every rule file in a visited folder that the walker skipped because a rule matched it, and `Policy::ignores` never applies a rule to the rule file it matches; only its folders can exclude it. Regressions: `an_ignored_meshignore_still_synchronizes_and_excludes` (the review's AC 1 reproduction, on two devices), `a_rule_file_that_ignores_itself_still_synchronizes` (the review's second reproduction), `a_rule_file_inside_an_excluded_folder_stays_out`, and three new cases in the policy-vs-walker fixture. README *Preview boundaries* states the rule.
+- **F3 added.** `excluded_files_are_described_without_their_text_even_when_text_sharing_is_on` pins the payload with a mock provider: `operation: excluded`, `content_available: false`, no before/after text for the excluded path (the private text is absent from the whole request), and normal text sharing for an added file in the same session.
+- **Checked against the reviewed build.** With the source changes stashed, the F1 test, both F2 reproductions and the extended fixture fail; with them, they pass.
 
 ## Code review
 
