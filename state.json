@@ -1761,8 +1761,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793980050,
-      "last_edit": 1793980050,
-      "revision": 1,
+      "last_edit": 1793980098,
+      "revision": 2,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1772,10 +1772,10 @@
             "blob": "2be4cee9128687220f2203d0a848fcb60caa6c8b"
           },
           "content": {
-            "blob": "a106e27a633583ce49dd4c712b28c7d03a436822"
+            "blob": "1aa26021bbcf7c8cfee1cf0d4550962a87707a78"
           },
           "intent": null,
-          "last_edit": 1793980050
+          "last_edit": 1793980098
         }
       },
       "dependencies": [
@@ -3342,8 +3342,11 @@
         "1b3c9b07-2d29-4712-8ec9-43f94ada5bfe"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Document US00003 review fixes and refine conflict-resolution stories",
+        "description": "Add `.meshignore` rules for Obsidian desktop and mobile workspace files; `.obsidian/workspace.json` is now excluded from synchronization but remains on every device. Update the US00003 ticket with the approved review re-check and zero open findings, and log the results. Record US00006 refinement decisions and add US00010 for reconciling edits made after a conflict."
+      },
+      "message_base": "7693ab4ffed0ae5a94206a5c8e39d33fab4a65fd"
     },
     "ba227071-16b8-48ff-ba3c-28bb2bd3682e": {
       "id": "ba227071-16b8-48ff-ba3c-28bb2bd3682e",
