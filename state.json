@@ -768,8 +768,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793991270,
-      "last_edit": 1793991270,
-      "revision": 1,
+      "last_edit": 1793991338,
+      "revision": 2,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -807,10 +807,10 @@
         "05_Requirements/Tickets/Story - US00012 - Status window layout follows the design frames.md": {
           "base": null,
           "content": {
-            "blob": "6c3809bdbcd1bab81df4fbe718cec4dcf500140f"
+            "blob": "c5093da7e79efe8851bdcad446ec44240c10e4a7"
           },
           "intent": null,
-          "last_edit": 1793991270
+          "last_edit": 1793991338
         }
       },
       "dependencies": [],

@@ -1,9 +1,9 @@
 ---
 id: US00012
 type: story
-status: "Backlog"
+status: Backlog
 priority: medium
-rank: 10000
+rank: 3750
 version_target: v0.3.0
 size:
 assignee:
