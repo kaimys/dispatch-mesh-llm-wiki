@@ -2148,7 +2148,7 @@
       "created_at": 1793994585,
       "last_edit": 1793994621,
       "revision": 2,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -2183,8 +2183,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: add BUG00001 for stalled AI session summaries",
+        "description": "Add a high-priority bug ticket documenting how workspace lock contention can stall large-session summaries and discard provider responses, with a bounded retry fix plan and regression-test criteria. List the ticket in the wiki index and record its creation in the change log."
+      },
+      "message_base": "b441e878998246eeb56c57aab3882a0ba38f4fdd"
     },
     "51e94ff4-7021-4346-8663-f3116a595c90": {
       "id": "51e94ff4-7021-4346-8663-f3116a595c90",
