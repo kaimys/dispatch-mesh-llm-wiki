@@ -231,6 +231,10 @@ Everything else is automated (43 engine, 10 CLI and 21 provider tests): AC 1–1
   - *Observation, not a US00003 fault:* opening vault two made Obsidian rewrite the seeded `app.json` from `{}` plus newline to `{}`, concurrently with vault one's line-numbers change. Mesh recorded an ordinary ADR-0003 conflict on `.obsidian/app.json` with both inputs kept. Kai chose vault one's version (`conflicts resolve … --choose accepted`), and both vaults then showed `synced` with no conflicts. A freshly copied vault can produce one such conflict when Obsidian normalizes its settings files on first open.
   - Clean-up for Kai: delete the repository `kaimys/mesh-layout-test` and the folder `C:\MeshTest`, and remove both vaults from Obsidian's vault list.
 
+### 2026-11-06 — merged
+
+Fast-forwarded `main` to `9b98471` and pushed to `origin` at Kai's request, with no PR (the code review above is the review of record).
+
 ## As-built notes
 
 ### 2026-11-06 — development (`/develop`, branch `us00003-exclude-device-local-files`)
