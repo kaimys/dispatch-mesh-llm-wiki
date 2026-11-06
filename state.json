@@ -562,6 +562,58 @@
       },
       "message_base": "847dfdb807f35854595077d4e4739b5f7d7c01b3"
     },
+    "1b3c9b07-2d29-4712-8ec9-43f94ada5bfe": {
+      "id": "1b3c9b07-2d29-4712-8ec9-43f94ada5bfe",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793978438,
+      "last_edit": 1793978438,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        ".obsidian/workspace.json": {
+          "base": {
+            "blob": "aa1c24a03ed54e7d851721ced172c3ede1f77b49"
+          },
+          "content": {
+            "blob": "89c57684cdf3c9427a02e9e4da3104f9ac38970d"
+          },
+          "intent": null,
+          "last_edit": 1793978438
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "e611bf64d6c74ab7597931fd2d5b58e5886fc342"
+          },
+          "content": {
+            "blob": "517d9c22c92fafebb54186a5d6f16c13a760a6f3"
+          },
+          "intent": null,
+          "last_edit": 1793978438
+        },
+        "05_Requirements/Tickets/Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync.md": {
+          "base": {
+            "blob": "eef44f2d74843df54b52907309c9ba3f25de31dc"
+          },
+          "content": {
+            "blob": "fa774f8e08677b13a3a5f9749fe78095fe50b163"
+          },
+          "intent": null,
+          "last_edit": 1793978438
+        }
+      },
+      "dependencies": [
+        "b282f2a6-96ee-4ea4-8705-5c2b555e522e"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "1f8fbadd-90c0-4b9e-91f9-121a9f7112c9": {
       "id": "1f8fbadd-90c0-4b9e-91f9-121a9f7112c9",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
@@ -3123,8 +3175,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Document per-tree exclusions and expand the v0.3 tray backlog",
+        "description": "Updated US00003 with implementation notes, its two blocking code-review findings, and the policy-file contract decision; added proposed ADR-0013 specifying that each computed tree uses its own ignore policy and rule files remain synchronized. Added US00005–US00009 and TASK00003, linked them in the index and milestone plan, and set US00004's target to v0.4.0. Recorded ADR-0011 as accepted, clarified the ticket template's review-counter guidance, and converted competitor storage-layout diagrams to Mermaid tree views."
+      },
+      "message_base": "f8d04be8af135abcd98018d3bf18b353155d5c30"
     },
     "ba227071-16b8-48ff-ba3c-28bb2bd3682e": {
       "id": "ba227071-16b8-48ff-ba3c-28bb2bd3682e",
