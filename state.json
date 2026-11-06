@@ -764,6 +764,48 @@
       },
       "message_base": "a16efcd10955cb92b59b2c9272ec183e17b9d908"
     },
+    "214c977f-2752-4072-b348-b2d28eebd5ab": {
+      "id": "214c977f-2752-4072-b348-b2d28eebd5ab",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793987761,
+      "last_edit": 1793987761,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "5cfdccbea3b24d9c3510ec375b37bd00010f1a9d"
+          },
+          "content": {
+            "blob": "9cc53a5ebf12614c2db9d07fe0f30864577e631a"
+          },
+          "intent": null,
+          "last_edit": 1793987761
+        },
+        "05_Requirements/Tickets/Story - US00005 - Workspace detail with Finish session and recovery information.md": {
+          "base": {
+            "blob": "f09076d65994c618deb32fe36666e3c23b155cd2"
+          },
+          "content": {
+            "blob": "b492cd029af2c0fccbb76e3f6ff7fd74a78abf6b"
+          },
+          "intent": null,
+          "last_edit": 1793987761
+        }
+      },
+      "dependencies": [
+        "e4c6bad0-3f70-4694-a7bc-e49bbb05a22d"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "24733d17-5530-4475-a59d-47804472bc0a": {
       "id": "24733d17-5530-4475-a59d-47804472bc0a",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
@@ -4509,7 +4551,7 @@
       "created_at": 1793987416,
       "last_edit": 1793987416,
       "revision": 1,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -4526,8 +4568,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: record US00005 review fixes and cleared re-check",
+        "description": "Update the US00005 ticket with the agreed activity ordering, recovery-bookkeeping and dependent-draft attention fixes, regression-test notes, and the review re-check verdict clearing the findings."
+      },
+      "message_base": "c31c8306b40072ebd1036a38c389c454abfee20b"
     },
     "e7868d2f-0de7-4e6b-9b84-e600bd1b2b41": {
       "id": "e7868d2f-0de7-4e6b-9b84-e600bd1b2b41",
