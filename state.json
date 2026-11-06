@@ -576,6 +576,46 @@
       },
       "message_base": "8e1fea23873ece76ef747c6fee0098f6f527522e"
     },
+    "14d2bfc5-adc6-4d34-905e-a445783f46fb": {
+      "id": "14d2bfc5-adc6-4d34-905e-a445783f46fb",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1793989710,
+      "last_edit": 1793989710,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "180ce5f7000ea5822152dc2eb6ae3a3fa5ce13f9"
+          },
+          "content": {
+            "blob": "0ed6a7e3953d02bab0dbd3d2ab9bc60a7a159d70"
+          },
+          "intent": null,
+          "last_edit": 1793989710
+        },
+        "05_Requirements/Tickets/Story - US00005 - Workspace detail with Finish session and recovery information.md": {
+          "base": {
+            "blob": "c31c4ad90001383a3dbd244b22de05f4d71231df"
+          },
+          "content": {
+            "blob": "15ea9038ce1fc1eda04572916101875cbb4632aa"
+          },
+          "intent": null,
+          "last_edit": 1793989710
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "16bcef2e-800a-47e7-a542-bbf713b2be19": {
       "id": "16bcef2e-800a-47e7-a542-bbf713b2be19",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
