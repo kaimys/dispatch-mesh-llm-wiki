@@ -67,7 +67,7 @@ synchronized-folder/
     └── <archived versions>          # can be configured at another location
 
 <local database directory>/
-├── main.db                             # folder registry / database metadata
+├── main.db                          # folder registry / database metadata
 ├── folder.<hex-index>-<slug>.db         # per-folder device/file/block metadata
 └── <SQLite support files>              # e.g. WAL/SHM when present
 
