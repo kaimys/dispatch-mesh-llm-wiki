@@ -878,8 +878,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1793957054,
-      "last_edit": 1793958344,
-      "revision": 26,
+      "last_edit": 1793958365,
+      "revision": 27,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -959,10 +959,10 @@
             "blob": "c520e945dfac344ec693a0e32703104e9b586fcd"
           },
           "content": {
-            "blob": "d77d94920922fc4f1b6e95bcbbcee8674e7aeac0"
+            "blob": "3696dce155eec472df6632113deebae16e2ac960"
           },
           "intent": null,
-          "last_edit": 1793958344
+          "last_edit": 1793958365
         },
         "02_Product/Competitors/gitwatch.md": {
           "base": {

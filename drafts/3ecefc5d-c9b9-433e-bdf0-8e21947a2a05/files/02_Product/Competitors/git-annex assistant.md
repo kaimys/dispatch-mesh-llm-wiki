@@ -65,14 +65,14 @@ This tree shows tracked entries at a remote branch tip, as seen in a repository 
 ```text
 <content branch>
 ├── notes/
-│   └── plain.md                      # ordinary Git-managed bytes, if used
+│   └── plain.md                   # ordinary Git-managed bytes, if used
 ├── media/
 │   └── large.bin                  # tracked annex link/pointer, not full payload
 └── <name>.variant-<key-derived-part>  # annex conflict variants, when created
 
-git-annex                            # a separate metadata branch
-├── uuid.log                          # repository identity descriptions
-├── trust.log                         # trust metadata, when present
+git-annex                          # a separate metadata branch
+├── uuid.log                       # repository identity descriptions
+├── trust.log                      # trust metadata, when present
 ├── remote.log                        # remote configuration, when present
 └── <hash-directory>/<key>.log        # content location/presence records
 ```
