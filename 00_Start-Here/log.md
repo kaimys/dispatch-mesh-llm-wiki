@@ -335,3 +335,9 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-06] ticket | BUG00001 AI summaries of large sessions never finish
 - Created [[Bug - BUG00001 - AI summaries of large sessions never finish]] (Backlog, high) from Kai's report of a session stuck in Finishing up in `dispatch/wiki`, with the diagnostic-build evidence; explicit `/fix-bug` shortcut requested. Listed in [[index]].
+
+## [2026-11-06] fix-bug | BUG00001 AI summaries of large sessions never finish
+- Fixed under the explicit small-bug shortcut on branch `BUG00001-summary-lock-wait` (`403b165`): the summary step now waits up to 30 s for a busy workspace lock before and after the AI request. Two regression tests; gates green; verified live on `dispatch/wiki` (session published about a minute after finishing). Independent review omitted by request. [[Bug - BUG00001 - AI summaries of large sessions never finish|BUG00001]] → Done (v0.3.0), frozen and completed 2026-11-06.
+
+## [2026-11-06] merge | BUG00001 merged to main
+- Fast-forwarded `main` to `403b165` (the BUG00001 fix) and pushed. Rebuilt `target/release` from it. Recorded in [[Bug - BUG00001 - AI summaries of large sessions never finish|BUG00001]].

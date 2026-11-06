@@ -1,20 +1,20 @@
 ---
 id: BUG00001
 type: bug
-status: In progress
+status: "Done"
 priority: high
 rank: 11000
-version_target:
+version_target: v0.3.0
 size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests:
+open_tests: 0
 open_findings:
 discussion:
 updated: 2026-11-06
-completed:
-frozen:
+completed: 2026-11-06
+frozen: 2026-11-06
 ---
 With an AI provider configured, a closed session in a large workspace can stay in **Finishing up** indefinitely. The summary step gets one 0.5-second attempt at the workspace lock before the AI request and one after it. While sync and capture hold the lock for longer, both attempts fail silently: nothing is summarized and nothing tells the user why. When an attempt does get through, the provider's answer, already paid for, is thrown away because the second lock attempt fails. Mesh then asks again about a minute later. Reported by Kai on 2026-11-06 for the `dispatch/wiki` workspace; requested as an explicit `/fix-bug` shortcut.
 
@@ -83,6 +83,8 @@ Coverage for the small-bug shortcut (no separate `/test-plan`; its review gate i
 - **Automated:** both acceptance-criteria cases are asserted by the two regression tests in `tests/provider.rs` (busy lock when the summary starts; busy lock when the answer arrives, with exactly one AI request). The full suite passes.
 - **Original reproduction:** the live tray on `dispatch/wiki` with the real provider. Verified by finishing a session in that workspace under a release tray built from `403b165` (result below).
 
+**Result 2026-11-06:** a release tray built from `403b165` ran on `dispatch/wiki` with the real provider and remote. Session `0ea31b4d` (this ticket's test-plan edit) was closed with CLI `session finish` at about 21:20:40, and was summarized and published at 21:21:53 as "Document regression coverage for summary lock-wait fix" (`1d73bf7`, on GitHub `main`). Before the fix, session `1edabcff` sat in Finishing up for more than 16 minutes. Nothing remains that needs a human: `open_tests: 0`.
+
 ## As-built notes
 
 ### 2026-11-06 — fix (branch `BUG00001-summary-lock-wait`, commit `403b165`)
@@ -90,6 +92,8 @@ Coverage for the small-bug shortcut (no separate `/test-plan`; its review gate i
 - **Explicit small-bug shortcut** (`/fix-bug`, requested by Kai). Independent code review omitted; `open_findings` left empty.
 - `src/runner.rs`: new `open_when_free`, which retries `Workspace::open` on `WorkspaceBusy` with a 50 ms `tokio::time::sleep` between attempts for up to `SUMMARY_LOCK_WAIT` (30 s), then returns the busy error as before. Used for both opens in `summarize_ready`. No other behavior changed.
 - `tests/provider.rs`: `a_summary_waits_for_a_workspace_busy_when_it_starts` and `an_answer_that_arrives_while_the_workspace_is_busy_is_kept` (one AI request only), plus a `serve_delayed` mock variant and an optional delay in `respond`. Both tests failed before the fix with "Another Mesh operation is using this workspace; retry shortly" and pass with it.
+- Completed 2026-11-06 under the shortcut, with `version_target: v0.3.0` set by Kai. Not merged: the fix is on branch `BUG00001-summary-lock-wait`; release, tag and merge are outside `/fix-bug`.
+- Merged 2026-11-06: `main` fast-forwarded to `403b165` and pushed, at Kai's request after completion.
 - Gates on `403b165` (Windows): `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings` and `cargo test` all pass (engine suite 54 tests, provider 23, runner 11, tray host 10, tray model 20, CLI 11, storage/transport 8).
 
 ## Follow-ups
