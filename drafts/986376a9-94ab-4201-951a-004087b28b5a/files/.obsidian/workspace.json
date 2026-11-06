@@ -18,46 +18,6 @@
             }
           },
           {
-            "id": "785127cb467d2939",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Story - US00001 - Tray icon and status window host"
-            }
-          },
-          {
-            "id": "f7b3d9fe981edde0",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Story - US00001 - Tray icon and status window host"
-            }
-          },
-          {
-            "id": "1db05cc8cdbfd73f",
-            "type": "leaf",
-            "state": {
-              "type": "pdf",
-              "state": {
-                "file": "06_UX/Dispatch Mesh desktop app.pdf"
-              },
-              "icon": "lucide-file-text",
-              "title": "Dispatch Mesh desktop app"
-            }
-          },
-          {
             "id": "6820be63a2d38253",
             "type": "leaf",
             "state": {
@@ -70,23 +30,8 @@
               "icon": "lucide-file",
               "title": "Dispatch Mesh milestone plan"
             }
-          },
-          {
-            "id": "447fe21e65fb8118",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "02_Product/Competitors/gitwatch.md",
-                "mode": "preview",
-                "source": true
-              },
-              "icon": "lucide-file",
-              "title": "gitwatch"
-            }
           }
-        ],
-        "currentTab": 5
+        ]
       }
     ],
     "direction": "vertical"
@@ -164,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "02_Product/Competitors/gitwatch.md",
+                "file": "02_Product/Dispatch Mesh milestone plan.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -183,7 +128,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "02_Product/Competitors/gitwatch.md",
+                "file": "02_Product/Dispatch Mesh milestone plan.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -254,11 +199,14 @@
       "dispatch:Open Dispatch board": false
     }
   },
-  "active": "55ceda3168845134",
+  "active": "8fc4e83af58370bc",
   "lastOpenFiles": [
+    "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
+    "02_Product/Dispatch Mesh milestone plan.md",
+    "06_UX/Dispatch Mesh desktop app.pdf",
+    "02_Product/Competitors/gitwatch.md",
     "07_Engineering/Competitor storage approaches.md",
     "02_Product/Competitors/Jujutsu.md",
-    "02_Product/Competitors/gitwatch.md",
     "02_Product/Competitors/git-annex assistant.md",
     "02_Product/Competitors/Agentic Git Sync.md",
     "02_Product/Competitors/Syncthing.md",
@@ -269,24 +217,20 @@
     "07_Engineering/Device branch format.md",
     "07_Engineering/SQLite database format.md",
     "02_Product/Competitor overview.md",
-    "05_Requirements/Tickets/Story - US00001 - Tray icon and status window host.md",
     "02_Product/Dispatch Mesh SWOT analysis.md",
     "02_Product/Dispatch Mesh concept.md",
     "07_Engineering/Unbenannt",
-    "06_UX/Dispatch Mesh desktop app.pdf",
     "file:C:/Users/kai/AppData/Local/Temp/mesh-test/UpToDate/a.md",
     "05_Requirements/Tickets/sedQRigYa",
     "05_Requirements/Tickets/Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync.md",
     "05_Requirements/Tickets/Story - US00003 - Exclude device-local files such as the Obsidian workspace from sync.md.tmp.13304.2ebf444cd77c",
     "07_Engineering/Decisions/ADR-0012 — Ship the desktop host as a separate executable serving several workspaces.md",
     "07_Engineering/Decisions/ADR-0011 — Build the desktop host with Tauri 2.md",
-    "02_Product/Dispatch Mesh milestone plan.md",
     "05_Requirements/Tickets/sedL0R3Qg",
     "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md",
     "06_UX/Claude Design briefing — desktop app.md",
     "08_Delivery-and-QA/Releases/v0.2.5.md",
     "05_Requirements/Tickets/Story - US00002 - Local engine control interface for the tray host.md",
-    "08_Delivery-and-QA/Releases/GitHub/v0.2.5 GitHub release.md",
     "08_Delivery-and-QA/Releases/GitHub",
     "06_UX/Dispatch Mesh desktop app.html",
     "05_Requirements/Tickets/sedWaTUlD",
