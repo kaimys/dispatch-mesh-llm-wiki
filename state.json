@@ -4910,7 +4910,7 @@
       "created_at": 1793995301,
       "last_edit": 1793995301,
       "revision": 1,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -4927,8 +4927,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: record BUG00001 summary lock-wait fix and verification",
+        "description": "Update the existing BUG00001 ticket with as-built notes for the 30-second async workspace-lock retry, regression tests, and passing Windows test gates."
+      },
+      "message_base": "0a06adf026e597e20ff371a855864744843e1fea"
     },
     "e26d9c26-80bc-40a6-b93d-fcfa31d8b4a5": {
       "id": "e26d9c26-80bc-40a6-b93d-fcfa31d8b4a5",
