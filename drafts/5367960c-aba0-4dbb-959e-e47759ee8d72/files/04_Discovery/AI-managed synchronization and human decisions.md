@@ -72,6 +72,8 @@ Known clean workflows should not require a model request. AI-selected operations
 
 ### 2. Primary case: AI combines compatible meanings, human approves the text
 
+Tracked for refinement in [[Story - US00004 - AI-proposed text conflict merges with human approval|US00004]] (created 2026-11-06; no implementation or release scheduled).
+
 Small complete file `help.md`:
 
 | Version | Content |

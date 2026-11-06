@@ -38,6 +38,7 @@ Entry point for people and agents. Read this first, then follow the links. Every
 ## Requirements
 
 - `05_Requirements/Tickets/` — tickets (the Dispatch board)
+  - [[Story - US00004 - AI-proposed text conflict merges with human approval|US00004]] — combine compatible text edits with an AI proposal and human approval of the exact result (unscheduled)
   - [[Story - US00001 - Tray icon and status window host|US00001]] — tray icon and status window host (v0.3.0)
   - [[Story - US00002 - Local engine control interface for the tray host|US00002]] — local engine/control interface for the tray host (v0.2.5)
   - [[Task - TASK00001 - Close remaining 0.2.x stabilization gaps|TASK00001]] — close remaining 0.2.x stabilization gaps (v0.2.5)

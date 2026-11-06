@@ -227,3 +227,8 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 - Updated [[AI-managed synchronization and human decisions]] and its [[index]] entry following Kai's clarification: the primary case is a technical text conflict whose meanings AI can combine, with mandatory human approval of the exact proposed text.
 - Added a fuller meaning-level example and review/edit/reject flow. Revised prompts, action contract, synthetic API response and execution checks to request candidate approval rather than automatic application; checked JSON consistency.
 - Kept contradictory intent (Monday/Tuesday) as a secondary case with unverified frequency. Moved general content-consistency checking and P3 outside initial scope; clean merges do not trigger AI editorial review. No implementation or live provider call.
+
+## [2026-11-06] ticket | US00004 AI-proposed text conflict merges with human approval
+- Created [[Story - US00004 - AI-proposed text conflict merges with human approval]] from case 2 of [[AI-managed synchronization and human decisions]] and Kai's explicit requirement for approval of the exact merged text. Backlog, medium priority, rank 3000, owner Kai; release, size and assignee unset.
+- Duplicate check found no matching ticket. Recorded source/code context, compatible-intent example, initial scope/exclusions and 8 refinement questions. Acceptance criteria, implementation plan, test plan and review/test counters remain unfilled as required by create-ticket.
+- Listed in [[index]] and linked back from discovery case 2. No tracker/chat integration configured; wiki is the only ticket record. Documentation only; no implementation or provider calls.
