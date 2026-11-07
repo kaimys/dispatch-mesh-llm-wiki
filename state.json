@@ -1708,7 +1708,7 @@
       "last_edit": 1794053911,
       "revision": 1,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "05_Requirements/Tickets/Story - US00012 - Status window layout follows the design frames.md": {
