@@ -793,6 +793,226 @@
       },
       "message_base": "265caca04817db46d8e65f115372ac9ee6604ba3"
     },
+    "1c026e77-6957-446b-b872-adc190d81534": {
+      "id": "1c026e77-6957-446b-b872-adc190d81534",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794043143,
+      "last_edit": 1794043143,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "06_UX/icons/status/status-needs-attention-dark.svg": {
+          "base": null,
+          "content": {
+            "blob": "2842a3e2fa07dafa2668b8c5746fad7952a28856"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/status/status-needs-attention-light.svg": {
+          "base": null,
+          "content": {
+            "blob": "3b28c60b0020eafac123ced5c92b79a8f9a55bfd"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/status/status-offline-dark.svg": {
+          "base": null,
+          "content": {
+            "blob": "0f595b47b6ec2da12019aa84917d0cc5353bc9ef"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/status/status-offline-light.svg": {
+          "base": null,
+          "content": {
+            "blob": "298645ffb0058b09c1b723aaf274ee9759e20000"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/status/status-paused-reserved-dark.svg": {
+          "base": null,
+          "content": {
+            "blob": "4cf4b4d4d60417cd08185fe528674453eaa987e6"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/status/status-paused-reserved-light.svg": {
+          "base": null,
+          "content": {
+            "blob": "e7cd312022d7d5534a30fbc237944e0a9138701a"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/status/status-up-to-date-dark.svg": {
+          "base": null,
+          "content": {
+            "blob": "94d0f8fced086433f61735752ed9529ee24dec4c"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/status/status-up-to-date-light.svg": {
+          "base": null,
+          "content": {
+            "blob": "acd9138cedc2a59aa7eb5937185cdffb09557c54"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/status/status-working-dark.svg": {
+          "base": null,
+          "content": {
+            "blob": "cebed6f31c186b3615e1efc1d9f11f69e400fe10"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/status/status-working-light.svg": {
+          "base": null,
+          "content": {
+            "blob": "1f71417364a58ff1a3a736343d602358200a0713"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/tray/tray-needs-attention-dark.svg": {
+          "base": null,
+          "content": {
+            "blob": "1d7d8abdf1dd33208098cab0ebd8eac0a6680cd7"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/tray/tray-needs-attention-light.svg": {
+          "base": null,
+          "content": {
+            "blob": "7cc511724ac6773481f4c92cfddf868cf57527ab"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/tray/tray-needs-attention-template.svg": {
+          "base": null,
+          "content": {
+            "blob": "33e7ff35a48d9c12b5f4b10e403549259e4f8771"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/tray/tray-offline-dark.svg": {
+          "base": null,
+          "content": {
+            "blob": "5055daad6ec553abbe7670eedc048eb0160afc22"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/tray/tray-offline-light.svg": {
+          "base": null,
+          "content": {
+            "blob": "32d483c08b30525f2bf029d4c99a95058a594c79"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/tray/tray-offline-template.svg": {
+          "base": null,
+          "content": {
+            "blob": "e73e022568f4c42e9967ef46e4ddfe85184b0bbf"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/tray/tray-paused-reserved-dark.svg": {
+          "base": null,
+          "content": {
+            "blob": "afbd4db9ec13219dd0f67655b0da5beb297a84e3"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/tray/tray-paused-reserved-light.svg": {
+          "base": null,
+          "content": {
+            "blob": "8fec232580ad2b2495d761e2baa004fde8a474f1"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/tray/tray-paused-reserved-template.svg": {
+          "base": null,
+          "content": {
+            "blob": "a58e2f58dabc5948ff668ae43f938a72fd9a43b9"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/tray/tray-up-to-date-dark.svg": {
+          "base": null,
+          "content": {
+            "blob": "15d85c2874ae4a1df3bdded2b4528ae1b572786c"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/tray/tray-up-to-date-light.svg": {
+          "base": null,
+          "content": {
+            "blob": "e04b4529cd3ea37f47208f683cc43e7407a87b62"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/tray/tray-up-to-date-template.svg": {
+          "base": null,
+          "content": {
+            "blob": "dd5dcee169629361b45cbca760da9ec9c805a291"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/tray/tray-working-dark.svg": {
+          "base": null,
+          "content": {
+            "blob": "82c2e5dc4cd6ba7efe579f54fbdabd48b704de96"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/tray/tray-working-light.svg": {
+          "base": null,
+          "content": {
+            "blob": "3b6d58347d3fec218ac8dd1110c5b9f2439fdb70"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        },
+        "06_UX/icons/tray/tray-working-template.svg": {
+          "base": null,
+          "content": {
+            "blob": "43946642df962b95c021a640e8839c04e929a37c"
+          },
+          "intent": null,
+          "last_edit": 1794043143
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "1edabcff-1114-4d48-9f06-bc524ec7daea": {
       "id": "1edabcff-1114-4d48-9f06-bc524ec7daea",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
