@@ -5057,6 +5057,56 @@
       },
       "message_base": "a2985903fc592458626430d51328f16afb064cb9"
     },
+    "d24d18aa-6b13-4521-bb04-1b85b0061707": {
+      "id": "d24d18aa-6b13-4521-bb04-1b85b0061707",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794044271,
+      "last_edit": 1794044271,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "4f7e4471743850da2ab4ba5aff0310ff086965d8"
+          },
+          "content": {
+            "blob": "eaa2c0d869f668082a9793e60f15ed274cb78c10"
+          },
+          "intent": null,
+          "last_edit": 1794044271
+        },
+        "05_Requirements/Tickets/Story - US00006 - Conflict list and resolution in the status window.md": {
+          "base": {
+            "blob": "a8c16c6237e1068b71dcb187e1bcdb7ffc29896f"
+          },
+          "content": {
+            "blob": "35304b20267b8d62b3e73def9d30afe718a27572"
+          },
+          "intent": null,
+          "last_edit": 1794044271
+        },
+        "05_Requirements/Tickets/Story - US00012 - Status window layout follows the design frames.md": {
+          "base": {
+            "blob": "35fc56ae310639484745c415ba52fb9920f67522"
+          },
+          "content": {
+            "blob": "a427bb61cbe14a37bcf8f2aa171a4b0dbaa965b7"
+          },
+          "intent": null,
+          "last_edit": 1794044271
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "de967730-9a35-4d7b-bbbe-f9b027f7ba39": {
       "id": "de967730-9a35-4d7b-bbbe-f9b027f7ba39",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
