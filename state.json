@@ -298,8 +298,11 @@
         "2b9f1d1e-2874-4d03-b27f-33c6a9da51ff"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: record US00012 re-check fixes",
+        "description": "Append the US00012 update documenting the maximize/unminimize sizing fix, full-text tooltips for clipped metadata and purpose lines, and the decision to prioritize full summary titles over showing three rows. Record the related acceptance-criteria and design-spec amendments, green gates, cleared findings, and pending re-review."
+      },
+      "message_base": "6360d53df30ac90ebfe5ae498d8bcd0b310f5a48"
     },
     "08031fa1-09dc-4345-aa5a-df4d2c8f67ac": {
       "id": "08031fa1-09dc-4345-aa5a-df4d2c8f67ac",
