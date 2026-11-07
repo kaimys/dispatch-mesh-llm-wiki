@@ -396,3 +396,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-07] test-plan | US00012 Status window layout follows the design frames
 - Wrote the manual test plan for [[Story - US00012 - Status window layout follows the design frames|US00012]] at `8f338a0`: 6 checks (frames 3a/3b in light theme, dark theme, full titles in a real workspace, short screen, maximized reopen, Narrator and keyboard); `open_tests: 6`. Verified the several-workspaces list, the switcher, the already-running card and the layout cases in the debug build myself. Fixed the review's non-blocking finding in [[Dispatch Mesh desktop app — design spec]] (three-row shorthand). Stamped `frozen: 2026-11-07`; In progress → Review.
+
+## [2026-11-07] test | US00012 manual checks 1–5 passed
+- Kai ran checks 1–5 of the [[Story - US00012 - Status window layout follows the design frames|US00012]] test plan on release build `8f338a0`: light-theme states, dark theme, full titles in `dispatch-mesh-wiki`, short screen and offset window, maximized and minimized reopen. All passed. Check 6 (Narrator) was skipped for now, so `open_tests: 1` and the ticket stays in Review.

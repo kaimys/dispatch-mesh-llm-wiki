@@ -9,7 +9,7 @@ size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests: 2
+open_tests: 1
 open_findings: 0
 discussion:
 updated: 2026-11-07
@@ -317,7 +317,7 @@ Manual checks for the restyled status window, build `8f338a0` on branch `us00012
 - [x] **Kai: Dark theme.** Switch Windows to dark mode (Settings → Personalization → Colors → Choose your mode: Dark) with the tray window open, then reopen it from the tray. Expected: the window follows the theme, and the state glyph changes to its dark variant (a darker fill inside the circle or triangle). Text on **Open conflicts** and on the Conflicts count badge is dark on the light-blue / orange background. No text is hard to read. Switch back afterwards.
 - [x] **Kai: Full summary titles in a real workspace.** Run the tray on a workspace whose published sessions have long AI-written titles (for example `dispatch-mesh-wiki`). Expected: each published row shows its whole title over as many lines as it needs, never cut off with "…", and with no horizontal scrollbar. The list scrolls to later rows. Hovering a published row's title shows the author's name and "Changed files:" with the files one per line. Hovering the meta line shows its full text.
 - [x] **Kai: Short screen and offset window.** Make the work area shorter than the window: Settings → System → Display, set the scale so the screen is less than about 700 logical pixels high (for example 175 % on 1920 × 1080), or drag the window so its bottom edge is below the taskbar. Close the window with **X**, then open it again from the tray icon (left-click). Expected: the window reappears whole: its bottom edge is above the taskbar and its top below the screen's top, and it is no wider than before.
-- [ ] **Kai: Maximized window stays maximized.** Maximize the status window, close it with **X**, then open it again from the tray icon. Expected: it reopens maximized and fills the screen as before. Then minimize it with **_** and open it from the tray icon. Expected: it comes back at its normal size, wholly on screen.
+- [x] **Kai: Maximized window stays maximized.** Maximize the status window, close it with **X**, then open it again from the tray icon. Expected: it reopens maximized and fills the screen as before. Then minimize it with **_** and open it from the tray icon. Expected: it comes back at its normal size, wholly on screen.
 - [ ] **Kai: Narrator and keyboard.** With Narrator on (Ctrl+Win+Enter), open the demo window and move with Tab and the arrow keys. Expected:
   - The state glyph is announced with the state label.
   - The tabs are announced as "Activity" and "Conflicts, 1 unresolved", and Left/Right switch between them.
@@ -332,6 +332,8 @@ Manual checks for the restyled status window, build `8f338a0` on branch `us00012
 - 2026-11-07, Kai, same build: check 2 **passed**. Dark theme for Shared as draft and Needs attention: dark glyph variants, readable text, and dark text on the light-blue **Open conflicts** and on the orange count badge (`on-action`, `on-attention`).
 - 2026-11-07, Kai, same build on `dispatch-mesh-wiki`: check 3 **passed**. Long AI titles wrap in full without horizontal scrolling; the row and meta tooltips are correct; file lists stay on one line.
 - 2026-11-07, Kai, same build: check 4 **passed**. Reopened from the tray icon, the window came back whole inside the work area.
+- 2026-11-07, Kai, same build: check 5 **passed**. A maximized window reopened from the tray stays maximized; a minimized one comes back at its normal size, on screen.
+- 2026-11-07: check 6 (Narrator and keyboard) **not run yet**. Kai skipped it in this pass; it stays open and keeps `open_tests: 1`.
 
 **Verified in the build already, not repeated above:**
 - **By me**, debug build of `8f338a0` on Windows at 150 % scaling, screenshots in `target/us00012-evidence/`:
