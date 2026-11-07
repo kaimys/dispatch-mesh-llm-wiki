@@ -1,7 +1,7 @@
 ---
 id: US00006
 type: story
-status: "In progress"
+status: "Review"
 priority: high
 rank: 5000
 version_target: v0.3.0
@@ -9,12 +9,12 @@ size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests:
-open_findings:
+open_tests: 9
+open_findings: 0
 discussion:
 updated: 2026-11-07
 completed:
-frozen:
+frozen: 2026-11-07
 ---
 List unresolved conflicts in the status window and resolve them there. Each conflict shows its path, the competing authors and versions, timestamps, and which version is currently in the folder. Text conflicts open a comparison of the *current version* and the *other version*, with the common base available; binary conflicts offer whole-file choice only. **Keep current version** / **Use other version** use the same engine operation as `dispatch-mesh conflicts resolve --choose accepted|incoming`, and both versions stay preserved. This is the largest piece of 0.3 and carries the exit criterion "resolve a conflict through the desktop interface".
 
@@ -279,12 +279,200 @@ Order of magnitude: about five to seven focused days, roughly two for the engine
 
 ## Test plan
 
-<!-- GUIDE: Written by /test-plan — `- [ ]` manual checks only, excluding what the
-     automated suites already assert. Keep `open_tests:` in sync as items are ticked. -->
+Manual checks for the conflict list and resolution in the status window, on branch `us00006-conflict-resolution` at `2066559` (Windows, debug build). Only what the suites and the checks I ran do not cover: how the window looks against frames 3d–3f in both themes, the timeout message, the window resizing on real displays, and a choice made in the window reaching a second client. Wording, line marks, the 1 MB and image rules, resolving each way, the refusal path and the deletion side are asserted by the model, engine and host tests.
+
+**Setup (once, PowerShell, repository root).** Build with `cargo build`, then run the script below. It creates a disposable remote with Alice and Bob and gives Bob three unresolved conflicts, which Bob's tray shows. The tray runs on Bob's workspace, so "You" is Bob and Alice made the current version (the one in Bob's folder).
+
+| File | Kind | What it is for |
+|---|---|---|
+| `policies/retention.md` | text | Only the "Retention: N days" line differs (Alice 60, Bob 90). Frame 3e. |
+| `assets/logo.png` | image | Alice's is blue, Bob's orange, 240 × 150. Frame 3f. |
+| `data/export.csv` | text | Two files of 40 000 lines each, drawn from 64 values in two unrelated orders. The exact line diff cannot finish in its 200 ms deadline, so no line is marked. These are the same inputs as the unit test `a_pathological_file_cannot_hang_the_comparison`. |
+
+```powershell
+$t = "$env:TEMP\mesh-us6"; $m = (Resolve-Path .\target\debug\dispatch-mesh.exe).Path
+$A = "$t\Alice"; $B = "$t\Bob"
+if (Test-Path $t) { Remove-Item $t -Recurse -Force }
+New-Item -ItemType Directory $A, $B | Out-Null; git init -q --bare "$t\remote.git"
+@'
+import os, struct, sys, zlib
+folder, who = sys.argv[1], sys.argv[2]
+def put(rel, data):
+    p = os.path.join(folder, *rel.split("/")); os.makedirs(os.path.dirname(p), exist_ok=True)
+    open(p, "wb").write(data)
+def png(rgb, w=240, h=150):
+    raw = b"".join(b"\0" + bytes(rgb) * w for _ in range(h))
+    def chunk(k, d): return struct.pack(">I", len(d)) + k + d + struct.pack(">I", zlib.crc32(k + d))
+    return b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", w, h, 8, 2, 0, 0, 0)) + chunk(b"IDAT", zlib.compress(raw)) + chunk(b"IEND", b"")
+def shuffled(seed):
+    s, out = seed, []
+    for _ in range(40000):
+        s = (s * 6364136223846793005 + 1442695040888963407) % (1 << 64)
+        out.append("line %d\n" % ((s >> 33) % 64))
+    return "".join(out).encode()
+days = {"base": 30, "alice": 60, "bob": 90}[who]
+put("policies/retention.md", ("# Retention\n\nDocuments are kept for a fixed period.\n\nRetention: %d days\n\nAfter that they move to the archive.\nThe archive is reviewed once a year.\n" % days).encode())
+put("assets/logo.png", png({"base": (120, 120, 120), "alice": (31, 111, 235), "bob": (214, 90, 49)}[who]))
+put("data/export.csv", {"base": b"line 0\n", "alice": shuffled(1), "bob": shuffled(2)}[who])
+'@ | Set-Content "$t\make.py" -Encoding utf8
+& $m --workspace $A init --name Alice --email alice@example.test --remote "$t\remote.git"
+& $m --workspace $B init --name Bob --email bob@example.test --remote "$t\remote.git"
+python "$t\make.py" $A base
+& $m --workspace $A session finish; & $m --workspace $A sync; & $m --workspace $A sync
+& $m --workspace $B sync
+python "$t\make.py" $A alice; python "$t\make.py" $B bob
+& $m --workspace $A sync; & $m --workspace $B sync
+& $m --workspace $B conflicts list
+.\target\debug\dispatch-mesh-tray.exe --workspace $B
+```
+
+The last `conflicts list` prints three conflicts (`data/export.csv`, `assets/logo.png`, `policies/retention.md`). Open the window from the tray icon. Windows must be in **light** mode for checks 1–4 and 6–9, and the last check changes `retention.md`, so do it last. The spec's *How to check a build against this page* applies to checks 1–3 and 5: screenshots next to the frames in `06_UX/frames/`, recorded under *Results*. **Cleanup:** Quit the tray from its menu, then `Remove-Item $env:TEMP\mesh-us6 -Recurse -Force`.
+
+Where the build differs from a frame on purpose, that is a recorded decision (ticket *Open questions*, planning decisions of 2026-11-07), not a defect: buttons name the side's author (frame 3e's "· 60 days" suffix is not used), **Review and choose** is a secondary button on every card (3d draws it primary), the binary sentence has no "saved copy", and the metadata list has a **Type** row.
+
+- [ ] **Kai: Light theme, conflict list against frame 3d (AC 1, 2, 13).** In the Conflicts tab (reached from the attention card's **Open conflicts**), screenshot the list at the default size next to `03d-conflicts-list.png`. Expected: the tab shows the count 3. The heading is "3 unresolved conflicts" with the explanation line below it. There is one card per file with a file icon, the path in mono, "Text · recorded …" (the PNG: "Image · whole-file choice") and two side boxes: **Current version · shown** with Alice, a 1 px solid dark border; **Other version · kept** with "You", a dashed grey border; both with "saved <time>". No device is named. **Review and choose** is a secondary button on every card and there is no primary button in the view. Tokens, spacing and type match the frame apart from the decisions above.
+- [ ] **Kai: Light theme, text detail against frame 3e (AC 4, 13).** Choose **Review and choose** on `policies/retention.md`. Screenshot next to `03e-text-conflict.png`. Expected: the window widens to about 1000 × 760 and stays on screen. Breadcrumb "‹ Conflicts / n of 3", path heading in mono, the toggle **Show common base**, a summary line "Alice and You both changed this file. Pick the version to keep in the folder." Two columns with line numbers. The current column has a 1.5 px solid border and "In the folder now"; the other has a dashed border and "Kept, not shown". Only the "Retention:" line is tinted, with a "≠" in its gutter, in both columns; the other lines are not. Each column names its author and time and says "Requested purpose: none recorded". **Show common base** reveals a strip with the caps label "Common base" and "Before both changes" above the columns, showing "Retention: 30 days"; pressing it again hides it. Footer "Both versions stay in history whichever you choose." Buttons: primary **Keep current version (Alice)**, secondary **Use other version (You)**, both enabled. Do not press either yet.
+- [ ] **Kai: Light theme, binary detail and previews against frame 3f (AC 6, 13).** Back (the "‹ Conflicts" crumb), then **Review and choose** on `assets/logo.png`. Screenshot next to `03f-binary-conflict.png`. Expected: the sentence "Images can't be combined. Choose which whole file stays in the folder; the other version stays kept." Both previews show, on a checkerboard: Alice's blue in the current box, Bob's orange in the other. Each side lists Saved by, Saved, Size, Type (PNG) and Purpose. The footer reads "Whole-file choice only. Both versions stay in history." and there is no side-by-side text and no "≠".
+- [ ] **Kai: "Changes could not be marked here" in the window (AC 4; review round 2).** Back, then **Review and choose** on `data/export.csv`. Expected: the view opens within a few seconds without freezing the window. Above the two columns, a summary-style line says "Changes could not be marked here". Both columns still show their 40 000 lines with line numbers and scroll, no line is tinted and no "≠" shows. Both buttons are enabled. Then open `policies/retention.md` again: the message is absent there and its "Retention:" line is marked. Screenshot the `export.csv` view.
+- [ ] **Kai: Dark theme, all four views (AC 13).** Switch Windows to dark mode (Settings → Personalization → Colors → Choose your mode: Dark), close the window with X and reopen it from the tray icon. Go through the list, `policies/retention.md`, **Show common base**, `assets/logo.png` and `data/export.csv`, with a screenshot of each next to its frame. Expected: the window follows the theme and every view uses the dark tokens. Text, line numbers and the "≠" mark are readable on their backgrounds. The marked line is still tinted. The base strip is a visible, darker-than-page strip with readable text, not the light `#EFEEEA`. The dashed border of the other version can be seen against the page, and so can the solid border of the current one. The checkerboard and previews are visible. "Changes could not be marked here" is readable above the unmarked columns of `export.csv`. Switch back to light afterwards.
+- [ ] **Kai: Widening and Back at 100 % and 150 % (AC 4, 13).** In Settings → System → Display, set the scale to 100 %, reopen the window from the tray, open `policies/retention.md`, then press **Back**; repeat and press Escape instead. Do the same at 150 %. Expected at each scale: opening the detail grows the window to about 1000 × 760 logical pixels (at 100 %, 1000 × 760 px; at 150 %, as much of that as the work area allows), wholly inside the work area with its bottom edge above the taskbar and no part cut off. Back and Escape each return the window to the compact size it had before, without a flicker to another size. The two columns and both footer buttons are visible without horizontal scrolling. Set the scale back afterwards.
+- [ ] **Kai: Small screen (AC 4).** Make the work area smaller than the detail window: set the scale to 200 % on a 1920 × 1080 display (work area about 960 × 520 logical), or use a display of that size. Reopen the window and open `policies/retention.md`. Expected: the window fills the work area and is no larger than it, with its title bar and edges on screen. The detail view's content scrolls, so both footer buttons can be reached. **Back** restores the compact window as it was before. Set the scale back afterwards.
+- [ ] **Kai: A maximized window is left alone (AC 4).** Maximize the status window, open a conflict, then press **Back**. Expected: the window stays maximized the whole time; it is neither shrunk to 1000 × 760 nor restored to the compact size. Close it with X and reopen it from the tray: it is still maximized.
+- [ ] **Kai: A choice made in the window reaches a second client (AC 8, 9).** Do this last. With `policies/retention.md` open, press **Use other version (You)**. Expected in the window: the buttons are disabled with a busy label for a moment, then the window shows the next conflict and a dismissible line "policies/retention.md: used the other version. Both versions stay kept; your choice is shared with collaborators on the next sync." The count drops to 2. Then, in PowerShell: `& $m --workspace $A sync` twice (the variables from setup, in the same session), and open `$t\Alice\policies\retention.md`. Expected: it reads "Retention: 90 days", and `& $m --workspace $A conflicts list` no longer lists `policies/retention.md`; the other two files stay listed. This is one machine and one Windows account, so it does not prove two separate hosts; that is TASK00003.
+
+**Verified already, so not in the list above:**
+- **By me, 2026-11-07, at `2066559`:** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` green. The setup script runs end to end and gives Bob exactly the three conflicts above. CLI `status` on Bob's workspace names Alice as the contributor of each current version and Bob as each other version's. The three files are valid text or PNG as intended. After CLI `conflicts resolve <id> --choose incoming` on `policies/retention.md` and syncs on both sides, Alice's folder holds "Retention: 90 days" and her conflict list drops that file, so the last check's expected result holds for the engine. I did not run the window: the app needs a user session to click through, and I did not switch the Windows theme or scale of your machine.
+- **By the review:** the app code for the message (`conflictBody` in `tray/ui/app.js`), the serialization names, and that the unit test fails when the deadline is not reached.
+- **By the developer's app run (as-built notes):** the list with "You" and "Alice", the "≠" line, **Show common base**, both image previews through `blob:` URLs under the CSP, a delete-versus-edit conflict, the later-save note with both buttons disabled, Escape returning to the list, and the confirmation line and next conflict after each choice.
+- **By the automated suites:** all wording and the forbidden words, the 1 MB boundary, image sniffing and the 10 MB cap, line marks, `next_after`, list and detail metadata for each kind of conflict, resolving each way while the runner runs (same record and folder as the CLI), the refusal path, refused workspaces and ids, and the `status` JSON keys.
+- **Not in the plan on purpose:** screen-reader checks (`dispatch/invariants.md`, *No screen-reader tests*); accessible names and keyboard order were built and reviewed, not part of the manual pass.
+
+**Results.**
+
+*(Empty. Testers add dated entries here, tick the items above and lower `open_tests`.)*
 
 ## As-built notes
 
-<!-- GUIDE: Where the implementation deviated from the plan, and why. Dated entries. -->
+- **2026-11-07 — development started** (Kai confirmed the run plan: "develop US00006 until it has a test plan"; no gate waived). Status moved `Refinement` → `In progress`, `assignee: Kai`. Branch `us00006-conflict-resolution`, stacked on `main` (`bdf8684`); the `/orchestrate` run cut it, so `/develop` step 2 (pull) was skipped.
+- **2026-11-07 — drift since the plan (written against `403b165`, before US00012).** Built against the current code; the frozen plan text is unchanged:
+  1. `WorkspaceView.action` already returned `open_conflicts`, the attention card's **Open conflicts** button already switched to the Conflicts tab. Plan step 6's first bullet and step 8's navigation bullet were done; reused.
+  2. The Conflicts tab already had its count badge, accessible name (`conflicts_tab`) and `CONFLICTS_REASSURANCE`. Replaced the placeholder (`model::conflicts_placeholder`, `WorkspaceView.conflicts_placeholder`) with `WorkspaceView.conflicts` (the list and the empty state).
+  3. The window already opens at 440 × 640.
+  4. `SessionStatus` and `Status` already carry `device`; the "You" rule uses it.
+  5. Widening reuses the launch fit: `model::widen` fits both axes with `fit_vertically` (it works along either axis), `set_layout` leaves a maximized window alone (both ways), never shrinks a window already larger than 1000 × 760, and on Back restores only the remembered size.
+- **2026-11-07 — deviations from the plan, each small:**
+  - **Module.** The conflict views live in `tray/src/model/conflicts.rs`, a submodule of `model.rs` (1.7k lines already), not inside it. `AGENTS.md`'s repository map says so.
+  - **Engine tests** are in a new `tests/conflicts.rs` (the status fields, `conflict_detail`, the `status` JSON keys, the shared-history setup from the plan), not in `tests/engine.rs` and `tests/cli.rs`. The shared-history setup (Alice publishes, Carol edits from the old base offline, Bob without a session of his own) does give an empty `accepted_sessions`, so no constructed state was needed.
+  - **`ConflictSide.size`** is a `u64` that is `0` for a deletion; `deleted` tells them apart.
+  - **Detail position and "next".** "n of N" and the conflict to open next come from the engine's committed state (`Workspace::status_from` on the inspected or opened workspace), not from the runner's latest snapshot, which lags a resolve by up to a second and would otherwise say "1 of 2" for the last conflict. `next_after` wraps: after the last conflict it names the first one that remains, and returns `None` only when no other conflict is left (Q8).
+  - **Diff.** `similar` 3.2.1, `TextDiff::configure().deadline(200 ms)`. The crate has no timeout flag, so a run that took the whole deadline counts as timed out and marks no line ("Changes could not be marked here").
+  - **Wording the plan left open.** A deletion gets its own summary line ("Bob deleted this file while you changed it."; "You" reads "you" mid-sentence). A non-image binary says "These files can't be combined." (the frame's "Images" sentence only when a side is an image). The metadata list adds **Type** (sniffed by magic bytes, else the extension) and shows no dimensions. The "≠" mark is named per column ("Differs from the other version" in the current column, "… the current version" in the other). A text file over 1 MB gets the same whole-file layout as a binary one, with its reason.
+  - **Live note.** The open detail re-reads the conflict whenever the runner publishes a snapshot, and after a refused choice, so a later save shows its note and disables the buttons without reopening (criterion 10, "buttons follow the latest state"). Only the note changes; the versions shown stay as loaded.
+  - **Host API.** `Host::conflict_detail` returns the finished `ConflictDetailView` (it needs the device and the list order from the snapshot and the engine), `resolve_conflict` returns `Resolved { confirmation, next }`, `conflict_preview` returns the bytes with their image type or `None`. All three refuse a workspace the engine does not run here and a conflict the snapshot does not list.
+  - **Base history.** As planned, only the last commit on `main` touching the path counts. For the base it often matches (the base is usually the last published version); when someone published again, the strip reads just "Before both changes".
+- **2026-11-07 — verified by running the app** (debug build, two real workspaces on a local remote): the list with "You" and "Alice", the text comparison with the "≠" line and the purpose of a scoped intent, **Show common base**, an image conflict with both previews through `blob:` URLs under the CSP, a delete-versus-edit conflict ("Deleted by Alice", "Use other version (deleted by Alice)", the file removed from the folder), the later-save note appearing live with both buttons disabled, Escape returning to the list at the compact size, and the confirmation line plus the next conflict after each choice. Screenshot comparison against frames 3d–3f in light and dark and at other scalings stays for the test plan (criterion 13).
+- **2026-11-07 — observed, not changed:** a save made after the conflict was recorded made the runner record a second conflict for the same file (the engine merges the new edit against the other version). That is the situation US00010 reconciles; until then the window shows the later-save note on it.
+- **2026-11-07 — code review blocked the hand-off** (round 1, at `73334c1`): finding 1 fails AC 4 when the line diff runs out of time. The window then marks no line and does not show "Changes could not be marked here". The ticket stays `In progress`, and `/test-plan` waits for the fix and its re-check. See *Code review*.
+- **2026-11-07 — code review round 1, finding 1 fixed** (fix commit `2066559`, on top of `73334c1`). Finding 1 (AC 4, blocking): `conflictBody` in `tray/ui/app.js` now renders `body.marks_unavailable` as a `detail-summary` line above the columns, only for a text comparison (`data-key="marks-unavailable"`). `a_pathological_file_cannot_hang_the_comparison` now asserts that `marks_unavailable` is `Some(MARKS_UNAVAILABLE)` and that no line is `changed`. While writing that assertion it turned out that the review's example, 40 000 distinct lines per side, never reached the 200 ms deadline (the diff finished in about 0.1 s and marked every line), so the test had not covered the timeout at all. The input is now 40 000 lines drawn from 64 distinct values in two unrelated pseudo-random orders, which does hit the deadline. Gates green (`cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, `cargo test`). I did not run the app for this change, only `node --check` on `app.js`; the message needs a file that times out the diff, which is a case for the test plan. Findings 2–8 are non-blocking and stay as follow-ups. `open_findings` cleared to empty; the re-check of finding 1 belongs to round 2 of the review.
+
+## Code review
+
+### 2026-11-07 — branch us00006-conflict-resolution at 73334c1, stacked on main
+
+**Scope and gates.** Range `bdf8684..73334c1`, two commits, both US00006: `1a3c2df` (engine and `status`) and `73334c1` (tray). Read:
+- the whole ticket, with the five drift points Kai confirmed on 2026-11-07 (as-built notes);
+- ADR-0003, ADR-0009 and the ADR-0010 amendment;
+- the design spec's *Conflicts* section;
+- every file in the diff, with its tests.
+
+No PR is open. This review ran the gates on Windows at `73334c1`, with a clean tree that includes the README, AGENTS.md and wiki edits. `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings` and the full `cargo test` pass (190 tests, 0 failed). The window was reviewed from source; this review did not run the app. The developer's app run is in the as-built notes, and the screenshot comparison belongs to the test plan (criterion 13).
+
+**Verdict.** Blocked: one blocking finding, seven non-blocking. US00006 stays `In progress`, and `/test-plan` waits for the fix and its re-check.
+- Criteria 1–3 and 5–12 hold as written. Criterion 13 is manual.
+- The code follows the plan as amended by the as-built notes. Every deviation has a dated as-built entry.
+
+1. **Blocking · AC 4 · When the line diff runs out of time, no line is marked and the window does not say so.**
+   - **What happens.** `tray/src/model/conflicts.rs:693` sets `Body::Text.marks_unavailable` to "Changes could not be marked here" when `similar` reaches the 200 ms deadline, and leaves every line unmarked. `tray/ui/app.js` never reads `marks_unavailable`: `conflictBody` renders only the path, the summary, the base strip, the metadata reason and the two columns.
+   - **Scenario.** A text conflict under 1 MB in which both people rewrote most lines, such as a regenerated export or a reformatted file (the unit test's 40 000 distinct lines per side is one case). The window shows the two versions side by side with no "≠" mark and no explanation. In this view, that reads as "no line differs", and the user is choosing which version stays in the folder.
+   - **Why it blocks.** AC 4 promises marked changed lines. Plan step 6 allows the timeout only together with the message, and the as-built note on the diff says the message is shown.
+   - **Fix.** Render `body.marks_unavailable` in `conflictBody`, as a line above the columns that uses the existing tokens. Extend `a_pathological_file_cannot_hang_the_comparison` (`conflicts.rs:1348`) to assert that `marks_unavailable` is `Some(MARKS_UNAVAILABLE)` and that no line is `changed` when the deadline was hit.
+
+2. **Non-blocking · Back during a choice drops the confirmation line.**
+   - **What happens.** The "‹ Conflicts" crumb (`tray/ui/app.js:537`) stays enabled while a choice is under way, though Escape is guarded (line 693). Clicking it closes the detail, so `choose()` returns early when the resolve succeeds (`if (state.closed) return;`). The Q8 line never appears, even though the choice was recorded.
+   - **Fix.** Disable the crumb while `state.busy` is set, as Escape already behaves.
+3. **Non-blocking · "This conflict was resolved elsewhere." when the engine stops.**
+   - **What happens.** `closeGoneConflicts` (`tray/ui/app.js:649–660`) treats an empty list as a resolution. When the workspace's runner stops (state `Stopped`), the workspace has no status and no entries. An open conflict then closes with "This conflict was resolved elsewhere.", which is false.
+   - **Fix.** When the workspace has no running status (`ws.retry`), close the detail without that line. Keep the line for a conflict that left a live list.
+4. **Non-blocking · The keep button does not name a deletion that came from shared history.**
+   - **What happens.** `suffix` (`tray/src/model/conflicts.rs:477–485`) checks `shared_history` before `deleted`. The button then reads "Keep current version (shared history)", although AC 7 asks the button to name the deletion; AC 8's "(shared history)" rule collides with AC 7 only in this case. The list card (`app.js:304`) does not say "deleted" either, because a shared-history side has no time to show.
+   - **Fix.** Choose the wording, for example "(deleted, shared history)", and record it in an as-built note. The panel's placeholder already reads "Deleted by <commit author> · <time>".
+5. **Non-blocking · The summary line ignores a known commit author.**
+   - **What happens.** `summary` (`tray/src/model/conflicts.rs:586–611`) uses `who()`. When `current_history` names Alice, the detail says "Shared history and Bob both changed this file." while the panel beside it says "Alice · shared history".
+   - **Fix.** Use the commit author in the sentence when the detail has one.
+6. **Non-blocking · The live note re-reads the whole conflict on every snapshot.**
+   - **What happens.** While a conflict is open, `refreshNote` (`tray/ui/app.js:435–451`) calls `conflict_detail` on every published snapshot and keeps only `note` and `can_choose`. Each call loads the state, runs up to six Git processes, recomputes the diff (up to 200 ms) and sends every line of all three versions, which is several MB for a 1 MB file.
+   - **Fix.** Add a small host command that returns `edited_after` for one conflict. This is performance only: the `refreshing` guard already prevents overlapping calls.
+7. **Non-blocking · A text file over 1 MB says "No preview for this file type."**
+   - **What happens.** A text file over 1 MB gets the binary layout (`tray/src/model/conflicts.rs:563–568`, `app.js:470–479`). The layout shows an empty preview frame with that line, under "Too large to compare here".
+   - **Fix.** Leave the preview frame out for `Body::Metadata`.
+8. **Non-blocking · AC 12 asks for host tests where the plan placed engine tests.**
+   - **What happens.** List metadata for a text and a binary conflict is covered with real workspaces in the engine suite `tests/conflicts.rs`, where the plan's *Tests* section assigns it. Only the shared-history case is also covered in `tray/tests/host.rs`.
+   - **Fix.** The coverage exists. If the criterion's wording should match, annotate AC 12 at the freeze.
+
+**What held up.**
+- **History names the right person.** `history_of` (`src/conflicts.rs:131–142`) names a commit only when its blob is exactly the version. It hashes with `hash-object --stdin`, which applies no filters, and queries with `--literal-pathspecs`. The test that replaces the base with bytes no commit holds pins this. It is what keeps the detail from naming the wrong person after a later publication.
+- **Position and "next" come from committed state.** "n of N" and the next conflict come from the engine's committed state, not from the lagging snapshot (`tray/src/host.rs`). The list, the breadcrumb and `next_after` share one ordering function, `conflicts::ordered`. Keep both.
+- **Previews never expose a path.** The format is sniffed by magic bytes, with SVG excluded. The 10 MB cap lives in one public function that the host and the model both use. Bytes travel as raw IPC, keyed by workspace, conflict id and a validated side, and `blob:` is the only CSP addition. The host test sends `../../note.md` as a side and gets a refusal.
+- **Strong evidence for AC 8.** The host resolve test builds two identical collisions and resolves one through the host while the runner runs, the other with a direct `Workspace::resolve`. It then compares the records and the folder content byte for byte.
+- **Forbidden words cannot slip in.** The wording test walks every string of every serialized view, so a new label cannot bring in "incoming" or "saved copy" unnoticed.
+- **The lock wait stays in the host.** `open_engine` keeps the 30 s wait a host concern, and the CLI still fails fast.
+- **`Status` stays in memory,** as the ADR-0010 amendment requires: a snapshot carries no Git output and no file bytes, and everything else comes on demand through `conflict_detail` on `Workspace::inspect`.
+
+**Before this leaves review.**
+- A fresh `/develop US00006` session fixes finding 1: the window shows `marks_unavailable`, and the pathological test asserts it. Findings 2–8 are optional for that session.
+- Round 2 re-checks finding 1 at the fix commit. `/test-plan` follows.
+
+### 2026-11-07 — branch us00006-conflict-resolution at 2066559, stacked on main (round 2)
+
+**Scope and gates.** This round re-checks the blocking finding from round 1.
+- **Range.** `73334c1..2066559`: one commit, `2066559` (US00006). It changes `tray/ui/app.js` (3 lines) and one test in `tray/src/model/conflicts.rs`. The rest of `bdf8684..2066559` was reviewed in round 1 and is not reviewed again.
+- **Read.** The round 1 entry, the as-built entry of the fix round, and the whole fix diff. Also the code that diff relies on: `compare`, the serde attributes of `Body`, `el`, and `codeColumn`.
+- **Gates.** This review ran them on Windows at `2066559`, with a clean tree. `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings` and the full `cargo test` pass (190 tests, 0 failed), including the changed `a_pathological_file_cannot_hang_the_comparison`. `node --check tray/ui/app.js` passes.
+- **Not run.** This review did not run the app.
+
+**Verdict.** Clean. Finding 1 is fixed, and the fix diff brings no new finding. `open_findings` is now `0`, which ends the code review of US00006. The ticket can go to `/test-plan`.
+
+**Finding 1 (AC 4): fixed.**
+- **Window.** `conflictBody` (`tray/ui/app.js:531–533`) shows `body.marks_unavailable` as a `detail-summary` line between the base strip and the two columns. The line appears only when `body.kind === "text"` and the field is set.
+  - The names match the Rust side: `Body` is serialized with `tag = "kind"` and `rename_all = "snake_case"`, so the window receives `kind: "text"` and `marks_unavailable` as the string, or as `null`, which the check skips.
+  - The message is added as a text node through `el`, not as markup.
+- **Model.** Unchanged and already correct.
+  - `compare` (`conflicts.rs:402–421`) treats a diff that used the whole 200 ms as timed out and then marks no line.
+  - `detail_view` turns that into `Some(MARKS_UNAVAILABLE)` (line 693).
+  - A side that is a deletion never runs the diff, so the line cannot appear for one.
+- **Test.** `a_pathological_file_cannot_hang_the_comparison` now asserts both parts of the timeout behaviour: no line is `changed`, and `marks_unavailable == Some(MARKS_UNAVAILABLE)`.
+  - Because of that assertion, a green run proves the deadline was reached. The test can no longer pass on the fast path without anyone noticing, which the round 1 version did.
+  - The input is fixed. Two seeded linear congruential generators produce 40 000 lines per side from 64 values, so every run and platform gets the same files.
+  - An exact diff of two random orders like these needs tens of thousands of edits across 80 000 lines (an estimate). That takes orders of magnitude longer than 200 ms, even in an optimized build, so the test does not rely on a slow machine.
+
+**The fix diff, read as new code.** No finding.
+- The line sits where round 1 asked and uses the existing summary style.
+- It is not a control, so it needs no `data-key` or accessible name. The diff gives it a `data-key` anyway.
+- Nothing nearby contradicts it. The column region's accessible name ("…, N lines") makes no claim about differences.
+
+**Not re-checked.** Round 1's findings 2–8 are non-blocking. The fix did not touch them, and they stay under *Follow-ups* as they were.
+
+**What held up.** The developer did more than add the assertion round 1 asked for.
+- They found that round 1's own example input, all-distinct lines, finishes in about 0.1 s. So the old test had never exercised the timeout.
+- They replaced it with an input that does reach the deadline.
+- Keep the assertion on `marks_unavailable`. It is what keeps this test honest.
+
+**Before this leaves review.**
+- Nothing blocks. `/test-plan` is next, at `2066559` or later.
+- The suite cannot check that the line is visible in the window, and the fix session did not run the app. The manual pass should therefore cover it:
+  - write the test's two inputs as the two versions of a text conflict;
+  - open it;
+  - confirm "Changes could not be marked here" above the unmarked columns, in light and dark theme.
 
 ## Follow-ups
 
@@ -292,6 +480,7 @@ Order of magnitude: about five to seven focused days, roughly two for the engine
      ticket, linked both ways — a finished ticket is not superseded, it is finished. -->
 
 - 2026-11-06 (refinement, Q4): a new engine story is needed — resolving a conflict after the file was edited again reconciles that edit onto the chosen version instead of refusing (applies to CLI `conflicts resolve` as well). Created as [[Story - US00010 - Resolve a conflict after the file was edited again|US00010]] (Backlog, v0.3.0).
+- 2026-11-07 (code review at `73334c1`): non-blocking findings 2–8 of the review entry. They cover Back during a choice, "resolved elsewhere" when the engine stops, the wording for a deletion from shared history, the summary's author, the cost of the live note, the preview line for a text file over 1 MB, and AC 12's wording. Each is small enough for the fix session or later polish, so no ticket was created.
 
 ## References
 

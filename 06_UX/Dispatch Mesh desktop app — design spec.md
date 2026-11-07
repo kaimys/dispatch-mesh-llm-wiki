@@ -82,6 +82,8 @@ Refinement decisions of 2026-11-07 ([[Story - US00012 - Status window layout fol
 | `presence` | Recent-save presence ring | `#7A4FB0` | `#B793E6` |
 | `on-action` | Text on a primary button | `#FFFFFF` | `#14161A` |
 | `on-attention` | Text on the count badge | `#FFFFFF` | `#14161A` |
+| `base-strip` | Common base strip in conflict detail | `#EFEEEA` | `#2B2D31` |
+| `kept-border` | Dashed border of the other version (list and detail) | `#8A8C91` | `#8A8C91` |
 
 `on-action` and `on-attention` were added in US00012 (2026-11-07): white on the dark-theme `action` (`#7FA6FF`) and `attention` (`#FF9E57`) is about 2.4:1 and 2.0:1, so dark theme uses near-black text there. `tray/src/model.rs` tests every text pair of the shipped stylesheet against 4.5:1.
 
@@ -223,6 +225,7 @@ Planning decisions of 2026-11-07 are in [[Story - US00006 - Conflict list and re
 - **Buttons** name the side's author: secondary **Use other version (Bob)** and primary **Keep current version (Alice)**. Several contributors read "(Alice +1)", no contributing session reads "(shared history)", and a deletion reads "(deleted by Bob)". Footer: "Both versions stay in history whichever you choose."
 - **Edited again after the conflict** (until [[Story - US00010 - Resolve a conflict after the file was edited again|US00010]]): a `working-tint` note "You saved this file again at 11:20, after the conflict was recorded. Your edit is safe. Choosing a version is possible once the file matches the current version again." Both buttons are disabled. US00010 enables them and switches to "That edit is protected and reconciled separately once you choose."
 - **Binary detail:** same frame, checkerboard preview boxes, a metadata list (saved by, saved, size, purpose), whole-file choice only. Sentence: "Images can't be combined. Choose which whole file stays in the folder; the other version stays kept." Never "saved copy", which means a recovery file since US00005. Footer: "Whole-file choice only. Both versions stay in history."
+- **As built (2026-11-07, US00006):** the metadata list also has **Type** (no dimensions are shown); a file that is not an image says "These files can't be combined." instead of "Images"; previews are PNG, JPEG, GIF and WebP up to 10 MB, otherwise "No preview for this file type." The "≠" gutter mark is named per column ("Differs from the other version" / "Differs from the current version"). A text file over 1 MB gets the whole-file view with "Too large to compare here". The detail view widens the window to 1000 × 760 (inner), fitted to the work area, and Back or Escape restores the compact size; a maximized window is never resized. A confirmation line, dismissible, follows each choice and the window opens the next conflict.
 
 ## Other surfaces
 

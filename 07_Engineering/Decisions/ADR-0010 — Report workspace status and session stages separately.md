@@ -37,6 +37,12 @@ Expose a workspace summary with precedence `needs_attention` > `offline` > `save
 
 **Session device** (amended 2026-11-07 with Kai's answer to Q5 in [[Story - US00012 - Status window layout follows the design frames|US00012]]): each session adds `device`, the id of the device it was made on. Hosts compare it with the workspace's `device` to tell this device's sessions ("You") from received ones. It is an opaque id, not a name, and hosts never display it (US00012 Q6).
 
+**Conflict list metadata** (amended 2026-11-07 with Kai's answers Q2 and Q3 in [[Story - US00006 - Conflict list and resolution in the status window|US00006]]): `unresolved_conflicts[]` keeps `id`, `path` and `binary` and adds, all in memory:
+
+- `created_at`, when the conflict was recorded.
+- `current` (the version in the folder) and `other` (the version kept aside), each `{ contributors, shared_history, deleted, size }`. `contributors` lists `{ author, device, last_saved, purposes }`, newest save first, taken from the sessions in the record's `accepted_sessions` (current) or its `session` (other). `last_saved` is that session's last edit of the file, and `purposes` are the requested purposes of its intents whose paths include the file. `shared_history` says no session contributed to the current version; `deleted` marks a deletion; `size` is the byte length, `0` for a deletion. The JSON names the sides `current` and `other`, never `accepted` and `incoming`. `device` is an opaque id, never displayed.
+- `Status` stays in memory: no Git lookup and no file content. Everything that needs bytes, Git or the folder comes on demand from `Workspace::conflict_detail(id)` on a read-only `Workspace::inspect`: the three versions, `edited_after` (this device saved the file again after the conflict was recorded, so the folder no longer shows the current version), and the author and time of the last commit on `main` touching the path for the current version and for the base, only when that commit's blob is exactly that version. Resolving stays `Workspace::resolve`, the call behind `conflicts resolve`.
+
 ## Consequences
 
 **Positive**
@@ -53,5 +59,5 @@ Treating every sync failure as offline: rejected, because it hides failures that
 
 ## Related
 
-[[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]; [[Story - US00002 - Local engine control interface for the tray host]]; [[Story - US00001 - Tray icon and status window host]]; [[ADR-0009 — Embed the engine with a runner handle and published status]]; [[Story - US00005 - Workspace detail with Finish session and recovery information]]; [[Story - US00012 - Status window layout follows the design frames]].
+[[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]; [[Story - US00002 - Local engine control interface for the tray host]]; [[Story - US00001 - Tray icon and status window host]]; [[ADR-0009 — Embed the engine with a runner handle and published status]]; [[Story - US00005 - Workspace detail with Finish session and recovery information]]; [[Story - US00012 - Status window layout follows the design frames]]; [[Story - US00006 - Conflict list and resolution in the status window]].
 
