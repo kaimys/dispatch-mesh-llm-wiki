@@ -1993,7 +1993,7 @@
       "created_at": 1794042004,
       "last_edit": 1794042411,
       "revision": 8,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -2016,8 +2016,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Add daily notes configuration and setup checklist",
+        "description": "Add Obsidian daily notes settings pointing to `01_Sources/Notes` and a note listing Mesh system prompt and line-ending configuration tasks."
+      },
+      "message_base": "cd8e5bc580ed54d2d7a3fb3452cbb5e36af22caf"
     },
     "4cb3d5ea-2375-42c9-800b-777a7d3e8b10": {
       "id": "4cb3d5ea-2375-42c9-800b-777a7d3e8b10",
