@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings:
+open_findings: 7
 discussion:
 updated: 2026-11-07
 completed:
@@ -329,6 +329,35 @@ Order of magnitude: about three to four focused days. Roughly one day for the mo
 - **Earlier screenshot:** one attempt showed the page scrolled by the top row's height. It did not reproduce on a fresh start; that attempt had first focused another window.
 
 **Not checked yet** (for `/test-plan`): dark theme, a screen shorter than 640, the several-workspaces list, the already-running state, Narrator, and side-by-side comparison with frames 3a and 3b for each summary state.
+
+**2026-11-07, independent code review (`2f2b73a`).** F1 fails AC 3 and 5, F2 and F4 fail AC 1, F3 fails AC 4, F5 fails AC 2, F6 fails AC 6 and F7 fails AC 7. The ticket stays in `In progress`. The owner needs to resolve the published received-track rule before the related fix. See the fix list under *Code review*.
+
+## Code review
+
+### 2026-11-07 — branch us00012-status-window-design at 2f2b73a
+
+Reviewed the four US00012 commits in `main..HEAD`, their tests, ADR-0010 and the current desktop design spec. No open PR. Independently ran the Windows mechanical gates. `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings` and the full `cargo test` passed (151 tests). Compared the existing Windows attention screenshot with frames 3a and 3b. A separate headless Chromium fixture exercised the unmodified window assets at 440 × 640. Measurements are in `target/us00012-review/layout.json`. The fixture uses synthetic tray payloads. Native short-screen behavior was checked in source, and the full Windows visual and Narrator pass belongs to the manual test plan.
+
+**Verdict.** Blocked with seven blocking findings and two non-blocking findings. Keep US00012 in `In progress`. The ticket cannot advance to `/test-plan`.
+
+1. **Blocking · AC 3 and 5 · A long author name clips the author and hides the metadata.** `tray/ui/app.css:129`, `tray/ui/app.js:180`. A received session with an unbroken collaborator name leaves the name at its intrinsic width because `.author` has `flex: none`. At 440 × 640 the measured name extended to x = 511.8 in a 425 px content viewport and the file count and timestamps had zero width. The page's hidden horizontal overflow clips the author. Give the author a shrinkable, ellipsized allocation and a full-name tooltip while reserving room for metadata. Exercise a long collaborator name at both default and minimum width.
+2. **Blocking · AC 1 · The short-screen resize can leave the bottom off-screen.** `tray/src/main.rs:95–108`. The function sets the outer height to the work-area height but leaves the window's origin in place. On Windows the underlying resize preserves position. A window whose top is 40 physical pixels below the work-area top therefore still extends 40 pixels below the work area after the resize. Fit the outer rectangle against the work area's origin as well as its size, preserving the configured minimum and native window behavior. Verify from an offset position on a short work area.
+3. **Blocking · AC 4 · Decide what the first segment means after a received session is published.** `tray/src/model.rs:493` and the assertion at line 1182. When a received draft becomes published, the published branch wins and turns its pale first segment green. AC 4 and the design spec say both that published fills every segment with the published color and that a received session starts pale. Frames 3a and 3b show the received published row with a pale first segment and three green ones. Confirm whether device origin stays visible after publication or the published color takes precedence. Align AC 4 and the spec, then make the implementation and its test assert that decision.
+4. **Blocking · AC 1 · The top-row app mark remains in the contract.** `tray/ui/app.js:266`. In a single workspace, only the workspace name appears below the native title bar. The as-built note records that the build follows the revised design spec, which puts the app mark in the native title bar. Q1, Scope and AC 1 still require another mark in the content row. Reconcile the ticket through `/update-ticket` with the current design and retain the native title-bar mark.
+5. **Blocking · AC 2 · The written action and glyph rules disagree with the agreed layout.** `tray/src/model.rs:348–357`, `tray/src/model.rs:684`. With an open session and an offline remote, the build keeps secondary **Finish session** per the dated plan amendment and the design spec. AC 2 says there is no action in Offline. The three working states also share one working glyph per Scope and the design spec, while AC 2 says the glyph shape differs per state. Reconcile AC 2 with the open-session rule and the shared working glyph, retaining the distinct text labels. Assert the amended action rule with an open offline session in the model test.
+6. **Blocking · AC 6 · The track misses the design's total widths.** `tray/ui/app.css:133–134`. The 25 px segments and 3 px gaps produce 109 px with a remote and 81 px without one. The design spec sets 112 px and 84 px, respectively. The deviation is recorded in the as-built notes. Set the total widths and divide the available space evenly among the segments while keeping the specified gap.
+7. **Blocking · AC 7 · The workspace switcher changes an existing accessible name.** `tray/ui/app.js:269–274`. With several workspaces, the previous button's name came from **‹ All workspaces**. The replacement uses **Team Wiki. Show all workspaces**, for example. The planned replacement explains the visible name, while AC 7 and plan step 7 require existing accessible names to stay. Reconcile the explicit name requirement with the planned switcher, and verify its announced name and its place in the keyboard order.
+
+8. **Non-blocking · Font provenance is missing the source URLs.** `tray/ui/fonts/SOURCE.md:5` identifies the IBM packages and release and records matching hashes for all five files. Step 4 also asks for the URL. Add the pinned package or tarball URLs alongside the hashes.
+9. **Non-blocking · README overstates when reassurance appears.** `README.md:145` says the card has a reassurance line for attention. A paused synchronization reason has none by design. Say reassurance is shown for attention reasons with an applicable message.
+
+**What held up.** The device field is additive in one shared status builder, so the CLI and tray use the same device identity without a storage or transport change. Activity still sorts unsettled sessions ahead of the ten most recent settled sessions. The model owns the stage text and the DOM hides the track and duplicate visible label from assistive technology. The fixture confirmed that **Open conflicts** switches to the named tab and moves focus there, and that Left Arrow moves back to Activity. Three normal rows fit in the fixture, long paths retain their full text and tooltip, the used Plex faces loaded, the font hashes match their record and all eight SVGs match the design exports. The diff contains only US00012 commits.
+
+**Before advancing.**
+
+- Use `/update-ticket US00012` to reconcile F3, F4, F5 and F7, with the ticket owner's decision on F3.
+- Use a fresh `/develop US00012` session to fix the layout and window fit in F1, F2 and F6, apply any code changes required by the contract decisions, and verify the long-name and short-screen cases.
+- Re-check this review against the fixed commit before running `/test-plan`.
 
 ## Follow-ups
 
