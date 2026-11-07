@@ -617,8 +617,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1794048056,
-      "last_edit": 1794048232,
-      "revision": 2,
+      "last_edit": 1794048296,
+      "revision": 4,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -638,10 +638,10 @@
             "blob": "6072d31ae8812f8038c3cfef77c8e3041d810358"
           },
           "content": {
-            "blob": "3a2f6aa6e5065074b1f8e4fd2b6732da27c25aed"
+            "blob": "f79c9a83e7aa0c2c2a2e6956144b1cf55ee04bcd"
           },
           "intent": null,
-          "last_edit": 1794048232
+          "last_edit": 1794048296
         },
         "06_UX/Dispatch Mesh desktop app — design spec.md": {
           "base": {
