@@ -303,6 +303,33 @@ Order of magnitude: about three to four focused days. Roughly one day for the mo
 
 ## As-built notes
 
+**2026-11-07, development (branch `us00012-status-window-design`, commits `8e265dd`, `ee9afa5`, `fbb9529`, `2f2b73a`).** Built as planned, with the plan amendment on **Finish session** (step 2) and these deviations:
+
+- **Top row has no app mark.** The design spec was revised on 2026-11-07, after the plan: the native title bar already shows the mark, and the row has `line-soft` borders above and below. The build follows the revised spec. The tray-mark drawing remains only as the glyph for the neutral "already running" state.
+- **`on-action` and `on-attention` tokens.** The spec asked for white text on primary buttons and on the count badge. In dark theme, white is 2.4:1 on `#7FA6FF` and 2.0:1 on `#FF9E57`, so the contrast test failed it. Dark theme uses `#14161A`, as US00005's window already did. Both tokens were added to the spec's color table.
+- **Wording added beyond Q8.**
+  - **No remote:** "Saved on this device" without a remote reads "Your latest edits are captured. They join history after 5 minutes without edits, or when you finish the session." The spec's sentence promises a draft that is never shared there.
+  - **Circular dependency:** the engine's circular-dependency reason ("Dependent edits are saved locally …") gets the dependent-edits reassurance, like "Edits depend on a received draft".
+  - **One conflict:** the Conflicts placeholder reads "Review it" for one conflict and "Review them" for several.
+  - **Spec updated:** all three were added to the spec.
+- **Engine constants.** The capture reason prefix (`status::CAPTURE_WAITING`) and the circular-dependency reason (`engine::CIRCULAR_DEPENDENCY`) became constants, so the model matches on the engine's own text instead of copies of it.
+- **Fonts.** IBM Plex Sans and Mono 1.1.0 (the same release for both) from the official `@ibm/plex-*` npm tarballs, each checked against the registry's sha512 before extraction. File hashes are in `tray/ui/fonts/SOURCE.md`. The licence is `OFL.txt`.
+- **Track.** Segments are 25 px wide with 3 px gaps (109 / 81 px in total), close to the spec's 28 px per segment including the gap.
+
+**Verification.**
+- **Gates:** `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings` and the full `cargo test` passed on Windows. After the last wording change, the tray suites were run again: 27 model tests and 10 host tests.
+- **New model tests:** the reason and reassurance per state and per reason, Finishing up for one and several sessions, Finish placement, segments, the received segment, stage text, "You", initials, avatar colors, the purpose line and the placeholder.
+- **Contrast check:** a stylesheet test checks 15 text pairs in both themes, white initials on every avatar color, and that the CSS avatar classes match the Rust palette.
+- **CLI and engine:** CLI `status` and an engine test check `device` for own and received sessions.
+
+**Run on Windows at 150 % scaling.** The demo was a disposable workspace pair (`target/us00012-evidence/demo.sh`): a remote, Alice and Bob, one text conflict, a received draft, a published session and an intent. The debug tray ran on Bob's workspace. Screenshots are in `target/us00012-evidence/`.
+- **Layout:** the window opens at 440 × 640 content. It shows the top row, the ellipsized path, and the attention card with its glyph, reason, reassurance, the primary **Open conflicts**, the secondary **Finish session** and "Last synced just now". Below it are the tabs with the badge, then three rows.
+- **Rows:** "You" with the purpose line, Alice's received draft with the pale first segment, and the published session all green.
+- **Keyboard:** Tab and Enter on **Open conflicts** switch to the Conflicts tab, with the focus on the tab and the dashed placeholder showing.
+- **Earlier screenshot:** one attempt showed the page scrolled by the top row's height. It did not reproduce on a fresh start; that attempt had first focused another window.
+
+**Not checked yet** (for `/test-plan`): dark theme, a screen shorter than 640, the several-workspaces list, the already-running state, Narrator, and side-by-side comparison with frames 3a and 3b for each summary state.
+
 ## Follow-ups
 
 ## References
