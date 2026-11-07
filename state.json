@@ -1880,7 +1880,7 @@
       "last_edit": 1794049673,
       "revision": 1,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "06_UX/Dispatch Mesh desktop app — design spec.md": {
@@ -1898,8 +1898,11 @@
         "65f81afd-bfef-4e82-af97-456251cc42e9"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Refine desktop design spec for contrast, session purposes, and status guidance",
+        "description": "Update the existing desktop design spec with dark-theme button and badge text tokens, expanded attention reassurance cases, and guidance for no-remote workspaces. Document requested-purpose lines in session rows and clarify when Finish session is available."
+      },
+      "message_base": "5d99fb5bdb979f2a1aa80abea9b26f589d78a122"
     },
     "34d24af1-c115-4eca-a955-d097bb560326": {
       "id": "34d24af1-c115-4eca-a955-d097bb560326",
