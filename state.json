@@ -803,7 +803,7 @@
       "created_at": 1794043143,
       "last_edit": 1794043188,
       "revision": 2,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -1030,8 +1030,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Add light and dark SVG icon sets for tray and status states",
+        "description": "Add 25 SVG assets covering five status glyphs in light and dark themes, plus five tray states in light, dark, and template variants. Update the existing design spec to document the icon paths and designs, and append a log entry recording the export."
+      },
+      "message_base": "8a78fd88b06229cd430cbf2054bbd7dbbc6f2921"
     },
     "1edabcff-1114-4d48-9f06-bc524ec7daea": {
       "id": "1edabcff-1114-4d48-9f06-bc524ec7daea",
