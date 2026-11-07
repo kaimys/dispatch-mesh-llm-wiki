@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings: 7
+open_findings:
 discussion:
 updated: 2026-11-07
 completed:
@@ -340,6 +340,28 @@ Order of magnitude: about three to four focused days. Roughly one day for the mo
 
 **2026-11-07, independent code review (`2f2b73a`).** F1 fails AC 3 and 5, F2 and F4 fail AC 1, F3 fails AC 4, F5 fails AC 2, F6 fails AC 6 and F7 fails AC 7. The ticket stays in `In progress`. The owner needs to resolve the published received-track rule before the related fix. See the fix list under *Code review*.
 
+
+**2026-11-07, review fix round (commits `1a8f05b`, `4139a7c`).** All nine findings of the 2026-11-07 review are addressed; `open_findings` is cleared to empty until the review's re-check. Contract changes are dated amendments under Q1, Scope and AC 1–4, 7 and 11. Kai decided F3 and F7 and asked for two changes.
+
+- **F1 long author:** `.author` shrinks and ellipsizes (at most 55 % of the line), and the meta takes the rest. The row tooltip carries the full name.
+- **F2 short screen:** the geometry is now a pure function, `model::fit_vertically`, which shortens the window to the work area and then moves it so its top and bottom lie inside. `show_window` applies both. Unit tests cover an offset window on a short work area (the review's case), a window running past the bottom, a work area that doesn't start at 0, and one above the work area.
+- **F3 received track (Kai):** the received first segment stays pale after publication. The model test asserts `received, synced, synced, synced`. AC 4 and the spec are amended.
+- **F4 app mark:** no code change. Q1, Scope and AC 1 are amended to the revised spec: the top row has no app mark, and the native title bar shows it.
+- **F5 actions and glyphs:** no behaviour change. AC 2 is amended: **Finish session** is secondary whenever a session is open, and the working states share one glyph. A model test asserts an open session while offline.
+- **F6 track width:** the track is 112 px with four segments and 84 px with three, with segments sharing the width evenly and 3 px gaps.
+- **F7 switcher name (Kai):** keeps "<workspace>. Show all workspaces", recorded as an exception under AC 7. *For `/test-plan`:* check the switcher's announced name and its place in the keyboard order instead of US00005's "‹ All workspaces".
+- **F8 font sources:** the tarball URLs are in `tray/ui/fonts/SOURCE.md`.
+- **F9 README:** the README says reassurance shows when offline and for the attention reasons that have one.
+- **Kai's change 1, summary title:** a published summary title wraps instead of being cut off (`line_is_title`); a file list stays on one ellipsized line.
+- **Kai's change 2, row tooltip:** hovering a session row shows the author's full name and "Changed files:" with one file per line, at most 20, then "… and N more". For published rows, screen readers get "Changed files: …" as text, because they don't read tooltips. The design spec's *Session row* is updated for both changes.
+
+**Verification.**
+- **Gates:** `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings` and the full `cargo test` pass on Windows (153 tests, 29 of them tray model tests).
+- **Run:** the debug tray on a demo whose collaborator name is one long unbroken word (`target/us00012-evidence/long-author-440.png`, `long-author-380-tooltip.png`).
+  - At 440 and at the 380 minimum width there is no horizontal overflow, the name ellipsizes, and the file count and start time stay visible.
+  - The received published row shows one pale segment and three green ones.
+  - Hovering shows the tooltip with the full name and the files.
+- **Not exercised natively:** a wrapping long title (the demo's local summary titles are short) and the off-screen fit. The fit is covered by unit tests, and both belong in the test plan.
 ## Code review
 
 ### 2026-11-07 — branch us00012-status-window-design at 2f2b73a

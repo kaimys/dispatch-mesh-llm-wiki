@@ -381,3 +381,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-07] design | Workspace switcher accessible name
 - Set the top-row switcher's accessible name to "Team Wiki. Show all workspaces" (visible name first, WCAG 2.5.3) on the canvas, in `06_UX/frames/source/03a-status-window.dc.html` and in [[Dispatch Mesh desktop app — design spec]], following review F7 of [[Story - US00012 - Status window layout follows the design frames|US00012]].
+
+## [2026-11-07] develop | US00012 review fixes
+- Fixed all nine findings of the [[Story - US00012 - Status window layout follows the design frames|US00012]] code review on `us00012-status-window-design` (`1a8f05b`, `4139a7c`). Code fixes: long author names, the work-area fit, track widths and the received published segment. Contract amendments: no app mark, Finish-session and glyph rules, and the switcher name. Docs: font URLs and the README. Kai decided F3 (the pale first segment stays) and F7 (the switcher name), and added two changes: published titles wrap, and a row tooltip lists the author and changed files. Updated [[Dispatch Mesh desktop app — design spec]] (*Session row*). Gates green; `open_findings` cleared to empty. Next: the review's re-check with `/code-review US00012` in a fresh session.
