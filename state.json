@@ -3873,6 +3873,46 @@
       },
       "message_base": "ad95c3205ee30fecb453e6c7475b880b4d0c6d24"
     },
+    "7d0efb41-13c1-450c-97fb-29bc1dbe5120": {
+      "id": "7d0efb41-13c1-450c-97fb-29bc1dbe5120",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794050209,
+      "last_edit": 1794050209,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "000122e631d8c9f1aee96b41822a700144c7850f"
+          },
+          "content": {
+            "blob": "a17ef9eb6d1541d58d8a50d664e882ce4c6beef7"
+          },
+          "intent": null,
+          "last_edit": 1794050209
+        },
+        "05_Requirements/Tickets/Story - US00012 - Status window layout follows the design frames.md": {
+          "base": {
+            "blob": "08b37e5967b7c791498d992596921d2d34b16431"
+          },
+          "content": {
+            "blob": "005b4e752a59b50201c4ccab516bfaf545316963"
+          },
+          "intent": null,
+          "last_edit": 1794050209
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "807623d2-dade-4353-bd1c-492ba2187468": {
       "id": "807623d2-dade-4353-bd1c-492ba2187468",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
