@@ -6480,6 +6480,56 @@
         "description": "Remove the test-notiz.md file."
       },
       "message_base": "b1784408eee204c4527e57f9caa24f3cf47845ff"
+    },
+    "fd0c00c2-c646-4549-b46b-96b38cd1fd2e": {
+      "id": "fd0c00c2-c646-4549-b46b-96b38cd1fd2e",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794052209,
+      "last_edit": 1794052209,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "8991e2da3dc24d371e95c78d59ac57985f82e901"
+          },
+          "content": {
+            "blob": "c89143f36eadae718d56867baab9a41334b23fc2"
+          },
+          "intent": null,
+          "last_edit": 1794052209
+        },
+        "06_UX/Dispatch Mesh desktop app — design spec.md": {
+          "base": {
+            "blob": "912e2b132d44c169f781eba7a38a8a787b98ee85"
+          },
+          "content": {
+            "blob": "966f2105a84e92e72b8bac25c2384ba460b3eabe"
+          },
+          "intent": null,
+          "last_edit": 1794052209
+        },
+        "06_UX/frames/source/03a-status-window.dc.html": {
+          "base": {
+            "blob": "f6c92cabc8888c69a72c9cb88fd7177ffa18c583"
+          },
+          "content": {
+            "blob": "3f75b0994ac087bbea5ea688db14d068631bc9ae"
+          },
+          "intent": null,
+          "last_edit": 1794052209
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
     }
   },
   "resolutions": {},
