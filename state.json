@@ -6308,7 +6308,7 @@
       "created_at": 1794051012,
       "last_edit": 1794051012,
       "revision": 1,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -6335,8 +6335,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: record US00012 review blockers",
+        "description": "Document the independent US00012 review in the ticket and append the result to the log. Record seven blocking findings and two non-blocking findings, the passing Windows gates (151 tests), and that the ticket remains In progress pending fixes."
+      },
+      "message_base": "f7fb415e506536ab1e707689d5351fbb47d323cc"
     },
     "e7868d2f-0de7-4e6b-9b84-e600bd1b2b41": {
       "id": "e7868d2f-0de7-4e6b-9b84-e600bd1b2b41",
