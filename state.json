@@ -620,7 +620,7 @@
       "last_edit": 1794048538,
       "revision": 5,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "00_Start-Here/log.md": {
@@ -716,8 +716,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Update session row design with start times and published titles",
+        "description": "Refine the design spec and status-window/activity frame sources so session metadata includes its start time and published sessions display a summary title. Update the rendered frame images, append the design change to the wiki log, and add a log-reading reminder to the source notes checklist."
+      },
+      "message_base": "1b6c33027c1fb16dbf556d021483e84231308acf"
     },
     "14d2bfc5-adc6-4d34-905e-a445783f46fb": {
       "id": "14d2bfc5-adc6-4d34-905e-a445783f46fb",
