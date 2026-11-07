@@ -1616,7 +1616,7 @@
       "created_at": 1794057068,
       "last_edit": 1794057681,
       "revision": 5,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -1655,8 +1655,11 @@
         "5b63c302-c7e8-4b74-9792-f711b1f8331e"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: close US00012 and remove screen-reader checks from manual plans",
+        "description": "Record US00012 as Done with its manual checks complete and all counters cleared. Log the decision to exclude screen-reader checks from manual test plans and remove the Narrator item from US00006’s plan."
+      },
+      "message_base": "8636f0a9260c6285f00ba9c9fb0c2861242952c1"
     },
     "28926594-47c5-476c-8217-c5a44f76c509": {
       "id": "28926594-47c5-476c-8217-c5a44f76c509",
