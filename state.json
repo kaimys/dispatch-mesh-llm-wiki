@@ -3467,8 +3467,11 @@
         "fd0c00c2-c646-4549-b46b-96b38cd1fd2e"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Fix US00012 status-window review findings",
+        "description": "Address all nine review findings: improve long-name layout and short-screen fitting, preserve the received track segment after publication, correct track widths, and document the agreed action, glyph, and switcher rules. Add font-source URLs and clarify README reassurance wording. Update the ticket and design spec; clear findings pending review re-check."
+      },
+      "message_base": "b37efaaefff5bdae542ce1fa586c97eab0ccaef8"
     },
     "71416bb6-b91e-45af-8d38-87fe825df31d": {
       "id": "71416bb6-b91e-45af-8d38-87fe825df31d",
