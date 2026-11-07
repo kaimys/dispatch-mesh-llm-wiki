@@ -2,7 +2,7 @@
 type: design-spec
 status: draft
 owner: "[[Kai]]"
-updated: 2026-11-06
+updated: 2026-11-07
 ---
 # Dispatch Mesh desktop app — design spec
 
@@ -95,6 +95,8 @@ IBM Plex Sans and IBM Plex Mono (Google Fonts), falling back to Segoe UI / syste
 - Lines 1 px. One shadow, for floating surfaces only (menus, toasts, popovers): `0 8px 24px rgba(20,20,20,0.12)`. No gradients, blurs or translucency, so any toolkit can draw it.
 
 ## Glyphs
+
+SVG files: `06_UX/icons/tray/tray-<state>-<light|dark|template>.svg` (16 × 16) and `06_UX/icons/status/status-<state>-<light|dark>.svg` (24 × 24). States are `up-to-date`, `working`, `offline`, `needs-attention` and `paused-reserved`. In the tray icons the ring around the badge is cut out with a mask, so the icons are transparent on any taskbar. The template variants are black plus alpha, with the badge glyph knocked out.
 
 ### Status glyphs (state card, workspace list)
 
