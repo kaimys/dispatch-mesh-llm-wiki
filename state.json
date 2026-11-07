@@ -6205,7 +6205,7 @@
       "last_edit": 1794074200,
       "revision": 1,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "00_Start-Here/log.md": {
@@ -6251,8 +6251,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: add US00006 conflict-resolution test plan",
+        "description": "Move US00006 to Review with its contract frozen and nine manual checks recorded; append the test-plan update to the log. Document the built conflict-list and detail behavior in the desktop design spec, and amend ADR-0010 with conflict metadata and on-demand detail rules."
+      },
+      "message_base": "0d0954b036891b3f6bb905565dbb4a196ecff641"
     },
     "de967730-9a35-4d7b-bbbe-f9b027f7ba39": {
       "id": "de967730-9a35-4d7b-bbbe-f9b027f7ba39",
