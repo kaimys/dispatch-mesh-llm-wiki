@@ -2995,7 +2995,7 @@
       "last_edit": 1794044643,
       "revision": 1,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "00_Start-Here/log.md": {
@@ -3121,8 +3121,11 @@
         "d24d18aa-6b13-4521-bb04-1b85b0061707"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Align desktop design frames with US00012 and US00006 decisions",
+        "description": "Update the existing design spec and frame sources with the refined native title bar, Activity/Conflicts tabs, 440×640 window, bundled fonts, device-free session details, avatar rules, and conflict-resolution wording and behavior. Add the Conflicts-tab placeholder frame and update the canvas layout; append the design update to the wiki log."
+      },
+      "message_base": "973951f42e6ab01c0546f1445861ccc430d47e5b"
     },
     "6bef1b80-3aed-4cfd-9bda-00a78c9fd325": {
       "id": "6bef1b80-3aed-4cfd-9bda-00a78c9fd325",
