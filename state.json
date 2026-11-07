@@ -3428,6 +3428,48 @@
       },
       "message_base": "89c208f3bd405f7c32d8bd73939be2873eceddfc"
     },
+    "7082928b-bae0-49fc-aba5-88139f5403cc": {
+      "id": "7082928b-bae0-49fc-aba5-88139f5403cc",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794052787,
+      "last_edit": 1794052787,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "c89143f36eadae718d56867baab9a41334b23fc2"
+          },
+          "content": {
+            "blob": "5f501908a28e7b1eb5f8bb55e00053a669599bab"
+          },
+          "intent": null,
+          "last_edit": 1794052787
+        },
+        "05_Requirements/Tickets/Story - US00012 - Status window layout follows the design frames.md": {
+          "base": {
+            "blob": "fa391b7886e55d8a11f91231b4d401658341319f"
+          },
+          "content": {
+            "blob": "b1022a253678f9a8d2d0ec5921200ec1718ad2a2"
+          },
+          "intent": null,
+          "last_edit": 1794052787
+        }
+      },
+      "dependencies": [
+        "fd0c00c2-c646-4549-b46b-96b38cd1fd2e"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "71416bb6-b91e-45af-8d38-87fe825df31d": {
       "id": "71416bb6-b91e-45af-8d38-87fe825df31d",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
@@ -6491,7 +6533,7 @@
       "created_at": 1794052209,
       "last_edit": 1794052465,
       "revision": 2,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -6538,8 +6580,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: reconcile US00012 design contract with review feedback",
+        "description": "Update the US00012 ticket and desktop design spec with post-review decisions: keep received sessions' first track segment pale after publication, allow published titles to wrap, add row tooltips and accessible changed-file text, and constrain long author names while preserving metadata. Update the frame source's workspace-switcher accessible name. Append the review record to the wiki log; US00012 remains blocked with seven findings."
+      },
+      "message_base": "472ad7e49d1a5b7d7e5c204dd03901e6a32ccb2c"
     }
   },
   "resolutions": {},
