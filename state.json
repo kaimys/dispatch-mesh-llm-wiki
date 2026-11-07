@@ -2559,7 +2559,7 @@
       "last_edit": 1794068854,
       "revision": 1,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "05_Requirements/Tickets/Story - US00006 - Conflict list and resolution in the status window.md": {
