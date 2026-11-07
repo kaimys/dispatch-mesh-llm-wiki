@@ -2548,6 +2548,36 @@
       },
       "message_base": "cd8e5bc580ed54d2d7a3fb3452cbb5e36af22caf"
     },
+    "4c650684-bd77-4524-888b-81d5a26aec35": {
+      "id": "4c650684-bd77-4524-888b-81d5a26aec35",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794068854,
+      "last_edit": 1794068854,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "05_Requirements/Tickets/Story - US00006 - Conflict list and resolution in the status window.md": {
+          "base": {
+            "blob": "45fc347fc451c7cef574c1684cdc0e0027fb988c"
+          },
+          "content": {
+            "blob": "8d24917a539c6193816dd58ae8f91e65639444c7"
+          },
+          "intent": null,
+          "last_edit": 1794068854
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "4cb3d5ea-2375-42c9-800b-777a7d3e8b10": {
       "id": "4cb3d5ea-2375-42c9-800b-777a7d3e8b10",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
