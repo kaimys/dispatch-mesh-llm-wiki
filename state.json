@@ -5549,8 +5549,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: record US00012 review blockers",
+        "description": "Append the US00012 re-review to the wiki log and ticket. Record three remaining blockers: preserving native maximize, fitting wrapped titles within the required density, and keeping clipped timestamps and purposes inspectable. Note that Windows formatting, Clippy, and all 153 tests passed; the ticket remains In progress with three open findings."
+      },
+      "message_base": "60bbe35236ae994b6c46b2c0d7c50466214123bc"
     },
     "c3c781a6-eecd-4291-82d2-3aa62bea045c": {
       "id": "c3c781a6-eecd-4291-82d2-3aa62bea045c",
