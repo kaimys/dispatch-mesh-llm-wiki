@@ -1994,7 +1994,7 @@
       "last_edit": 1794042411,
       "revision": 8,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         ".obsidian/daily-notes.json": {
