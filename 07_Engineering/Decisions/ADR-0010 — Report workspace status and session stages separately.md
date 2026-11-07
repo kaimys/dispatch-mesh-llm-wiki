@@ -35,6 +35,8 @@ Expose a workspace summary with precedence `needs_attention` > `offline` > `save
 - `last_sync` is the time the last sync with the remote succeeded, kept in local state. A success rewrites it only when the stored time is at least 60 s old, so an idle workspace does not write its state every 3 s cycle; hosts show it to the minute. A workspace without a remote never sets it, and a failed sync leaves it unchanged.
 - `saved_copies` lists the files Mesh moved to `.mesh/recovery/<id>/` before writing incoming changes (`id`, original `path`, `created_at`), recorded in local state when the file is displaced. A state that never recorded them is filled once from the recovery folder on the next open. `Status` carries no file-system location: hosts resolve `<root>/.mesh/recovery/<id>/content` from an id they received.
 
+**Session device** (amended 2026-11-07 with Kai's answer to Q5 in [[Story - US00012 - Status window layout follows the design frames|US00012]]): each session adds `device`, the id of the device it was made on. Hosts compare it with the workspace's `device` to tell this device's sessions ("You") from received ones. It is an opaque id, not a name, and hosts never display it (US00012 Q6).
+
 ## Consequences
 
 **Positive**
@@ -51,5 +53,5 @@ Treating every sync failure as offline: rejected, because it hides failures that
 
 ## Related
 
-[[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]; [[Story - US00002 - Local engine control interface for the tray host]]; [[Story - US00001 - Tray icon and status window host]]; [[ADR-0009 — Embed the engine with a runner handle and published status]]; [[Story - US00005 - Workspace detail with Finish session and recovery information]].
+[[Task - TASK00001 - Close remaining 0.2.x stabilization gaps]]; [[Story - US00002 - Local engine control interface for the tray host]]; [[Story - US00001 - Tray icon and status window host]]; [[ADR-0009 — Embed the engine with a runner handle and published status]]; [[Story - US00005 - Workspace detail with Finish session and recovery information]]; [[Story - US00012 - Status window layout follows the design frames]].
 

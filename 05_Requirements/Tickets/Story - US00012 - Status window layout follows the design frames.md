@@ -1,12 +1,12 @@
 ---
 id: US00012
 type: story
-status: "Refinement"
+status: "In progress"
 priority: medium
 rank: 3750
 version_target: v0.3.0
 size:
-assignee:
+assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
@@ -174,6 +174,8 @@ Checked on 2026-11-07 against `main` at `403b165` (US00005 done) and the design 
      - `conflict_count` and `conflicts_placeholder` (Q2);
      - `action` gains `open_conflicts` for the conflict reason;
      - `finish`: `primary` (attention, dependent edits), `secondary` (Saved on this device, Shared as draft, with an open session) or `None`. This moves the "where is Finish session" rule out of `app.js`.
+
+       > ⚠️ Amended 2026-11-07, at the start of development: `finish` is `secondary` **whenever a session is open** and the card has no primary **Finish session**. That includes attention for other reasons and offline, not only Saved on this device and Shared as draft. US00005 offers **Finish session** in those states, and its model test asserts it ("Finish session stays available"). Limiting it to two states would silently remove frozen behaviour. The spec's table lists the actions a state *adds*; it does not forbid **Finish session**.
    - **`SessionView` changes:**
      - `author` reads "You" when `device == Status.device`; `own: bool` is added;
      - `avatar: { initials, color }`: initials are up to two letters of the author's name, and the "You" row uses the user's own name, as in frame 3a ("AL"). `color` is 0–5, from a stable FNV-1a hash of the lower-cased email, or `you`;
