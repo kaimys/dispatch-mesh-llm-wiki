@@ -4398,7 +4398,7 @@
       "created_at": 1794047276,
       "last_edit": 1794047621,
       "revision": 3,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -4435,8 +4435,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Fix AI summary fallback when sessions contain oversized text files",
+        "description": "Make the 512 KiB summary limit a per-file text budget: include smaller file contents first and describe files that do not fit by operation and metadata, while keeping the cap. Add regression coverage and record BUG00002 as done, tested, and merged to main; update the index and change log."
+      },
+      "message_base": "bc4a648b6fd39e163142d1c0a3221fc5f79aaf82"
     },
     "ad5fc0e4-f89f-47c4-8b6d-6095b756c216": {
       "id": "ad5fc0e4-f89f-47c4-8b6d-6095b756c216",
