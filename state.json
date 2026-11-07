@@ -4396,8 +4396,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1794047276,
-      "last_edit": 1794047423,
-      "revision": 2,
+      "last_edit": 1794047621,
+      "revision": 3,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -4417,20 +4417,20 @@
             "blob": "b4358ace045dc3314cc683d567b8b470041b6b7a"
           },
           "content": {
-            "blob": "e6d03c2cefdb0eabbd7e2df63af3b986b4615346"
+            "blob": "10fcf69975e4483eef23a07a8abbb74d48cff3d9"
           },
           "intent": null,
-          "last_edit": 1794047423
+          "last_edit": 1794047621
         },
         "05_Requirements/Tickets/Bug - BUG00002 - One large text file makes the whole AI summary fall back.md": {
           "base": {
             "blob": "3ae03c1f2c2939a97f2ea0edb035c95b1d409b84"
           },
           "content": {
-            "blob": "20a66a2bccad52f3cbd8897b7bcee8f82e3100f7"
+            "blob": "5141a49fb4ab011d772b043e0b25a84dd2c8d849"
           },
           "intent": null,
-          "last_edit": 1794047423
+          "last_edit": 1794047621
         }
       },
       "dependencies": [],

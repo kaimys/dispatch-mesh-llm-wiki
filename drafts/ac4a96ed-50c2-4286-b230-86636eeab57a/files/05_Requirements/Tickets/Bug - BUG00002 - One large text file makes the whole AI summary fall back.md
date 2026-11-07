@@ -95,6 +95,7 @@ Coverage for the small-bug shortcut (no separate `/test-plan`; its review gate i
 - `tests/provider.rs`: `text_too_large_for_the_input_cap_is_left_out_file_by_file`. It failed before the fix (title "Update 3 workspace files", the local fallback) and passes with it.
 - Gates on `01da7b1` (Windows): `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings` and `cargo test` all pass (engine suite 54 tests, provider 24, runner 11, tray host 10, tray model 20, CLI 11, storage/transport 8, lib 5).
 - Completed 2026-11-07 under the shortcut, with `version_target: v0.3.0` set by Kai. Not merged: the fix is on branch `BUG00002-summary-text-budget`; release, tag and merge are outside `/fix-bug`.
+- Merged 2026-11-07: `main` fast-forwarded to `01da7b1` and pushed, and `target/release` rebuilt from it, at Kai's request after completion.
 - Noticed on the way: the stderr log line repeats the fallback phrase ("…using a factual local message; using a factual local message…") because the error text and `generate_with_failure` both say it. Wording only, not changed here.
 
 ## Follow-ups
