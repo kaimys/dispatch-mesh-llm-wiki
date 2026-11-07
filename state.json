@@ -5124,7 +5124,7 @@
       "last_edit": 1794045575,
       "revision": 4,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "06_UX/Claude Design briefing — desktop app.md": {
