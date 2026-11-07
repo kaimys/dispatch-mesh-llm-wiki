@@ -1614,8 +1614,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1794057068,
-      "last_edit": 1794057502,
-      "revision": 4,
+      "last_edit": 1794057681,
+      "revision": 5,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -1625,20 +1625,30 @@
             "blob": "f79c83486535cab2b4a93e7ed95d74b374bd8fa1"
           },
           "content": {
-            "blob": "c742bdbdfdd407679e2f4a1f6344f96162447d93"
+            "blob": "73f369b2acebbc82ab03a3cd3709304664d6d09d"
           },
           "intent": null,
-          "last_edit": 1794057502
+          "last_edit": 1794057681
+        },
+        "05_Requirements/Tickets/Story - US00006 - Conflict list and resolution in the status window.md": {
+          "base": {
+            "blob": "35304b20267b8d62b3e73def9d30afe718a27572"
+          },
+          "content": {
+            "blob": "45fc347fc451c7cef574c1684cdc0e0027fb988c"
+          },
+          "intent": null,
+          "last_edit": 1794057681
         },
         "05_Requirements/Tickets/Story - US00012 - Status window layout follows the design frames.md": {
           "base": {
             "blob": "dbd61c82ac1c27b0eeb9bf3cfef76e54aa5153f2"
           },
           "content": {
-            "blob": "9bb4405b90515f3eb2838c72a1b971c11113545f"
+            "blob": "cf36e9db37abd88f7cdddc048d8bebeb19780722"
           },
           "intent": null,
-          "last_edit": 1794057502
+          "last_edit": 1794057681
         }
       },
       "dependencies": [

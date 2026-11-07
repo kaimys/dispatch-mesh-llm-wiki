@@ -399,3 +399,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-07] test | US00012 manual checks 1–5 passed
 - Kai ran checks 1–5 of the [[Story - US00012 - Status window layout follows the design frames|US00012]] test plan on release build `8f338a0`: light-theme states, dark theme, full titles in `dispatch-mesh-wiki`, short screen and offset window, maximized and minimized reopen. All passed. Check 6 (Narrator) was skipped for now, so `open_tests: 1` and the ticket stays in Review.
+
+## [2026-11-07] decision | No screen-reader checks in manual test plans
+- Kai: manual test plans no longer include Narrator or other screen-reader checks; added *No screen-reader tests* to `dispatch/invariants.md`. Dropped check 6 of [[Story - US00012 - Status window layout follows the design frames|US00012]], so `open_tests: 0`. Removed the Narrator item from the manual checks in [[Story - US00006 - Conflict list and resolution in the status window|US00006]]'s plan.
