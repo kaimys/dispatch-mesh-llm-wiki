@@ -1606,7 +1606,7 @@
       "last_edit": 1794041552,
       "revision": 1,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "00_Start-Here/log.md": {
@@ -1642,8 +1642,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Rework US00006 conflict plan and begin US00012 refinement",
+        "description": "Rewrote US00006’s implementation plan for the current code and design spec, incorporating decisions on conflict attribution, later edits, controls, and layout; updated its context and acceptance criteria. Moved US00012 from Backlog to Refinement, documented code facts, and expanded its open questions from 3 to 8. Logged the plan update."
+      },
+      "message_base": "99ab439420e6ee51fcee8a8f9909c07cda6402b2"
     },
     "39df02d9-6758-4615-8df9-c44281deeaf6": {
       "id": "39df02d9-6758-4615-8df9-c44281deeaf6",
