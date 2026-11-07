@@ -1,20 +1,20 @@
 ---
 id: BUG00002
 type: bug
-status: "In progress"
+status: "Done"
 priority: high
 rank: 12000
-version_target:
+version_target: v0.3.0
 size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests:
+open_tests: 0
 open_findings:
 discussion:
 updated: 2026-11-07
-completed:
-frozen:
+completed: 2026-11-07
+frozen: 2026-11-07
 ---
 With text sharing on, a session that contains one large text file gets no AI summary at all. The summary input carries the full before and after text of every changed file, and `ChatCompletions::summarize` refuses the whole request when that input exceeds 512 KiB. One oversized file therefore costs the summary for every small edit beside it: the commit gets the factual local message, and the tray shows *Needs attention* until a later summary succeeds. Reported by Kai on 2026-11-07 for the `dispatch/wiki` workspace; requested as an explicit `/fix-bug` shortcut.
 
@@ -72,15 +72,35 @@ None, because the cause is confirmed from the live commit and the file sizes in 
 
 ## Implementation plan
 
-Small-bug shortcut, no separate plan. Approach: in `ChatCompletions::summarize`, build every change item first without text, recording for each shareable file its text, and the serialized size of that text (`{"before":…,"after":…}`). Measure the text-less payload; then add text to items in ascending size order while the running size stays within 512 KiB, setting `content_available: true` only for those. Keep the final `ensure!` as the guard for the text-less overflow. Test with the existing mock provider: a 600 KiB text file plus a small one.
+Small-bug shortcut, no separate plan. Approach: in `ChatCompletions::summarize`, build every change item first without text, recording for each shareable file its text, and the serialized size of that text (`{"before":…,"after":…}`). Measure the text-less payload; then add text to items in ascending size order while the running size stays within 512 KiB, setting `content_available: true` only for those. Keep the final `ensure!` as the guard for the text-less overflow. Test with the existing mock provider: a small text file plus two deleted text files of 300 KiB and 400 KiB, each under the cap alone but not together, so that the test also shows text is left out file by file.
 
 <!-- ═══════════ RECORD ZONE ═══════════ -->
 
 ## Test plan
 
+Coverage for the small-bug shortcut (no separate `/test-plan`; its review gate is unmet by design).
+
+- **Automated:** criteria 1, 2 and 4 are asserted by `text_too_large_for_the_input_cap_is_left_out_file_by_file` in `tests/provider.rs`. Criterion 3: the 23 existing provider tests pass unchanged. Criterion 5: gates below.
+- **Original reproduction (offline, 2026-11-07):** the 7 files of session `c65c0d1e`, before and after taken from `d49570f~1` and `d49570f`, run through `ai::generate_with_failure` with text sharing on against a local mock provider that records the request. That way no wiki text was sent to the real provider.
+  - On `403b165` (before the fix): no request is sent; "Update 7 workspace files" with failure "AI summary failed: Summary input exceeds preview limit; using a factual local message", exactly as reported.
+  - On `01da7b1` (the fix): one request with 140,232 bytes of input; the two Markdown files and three `.dc.html` frame sources are sent with their text, the deleted `Dispatch Mesh desktop app.html` (1,356,759 bytes) and the binary PDF with `content_available: false` and no text; the provider's message is used and no failure is recorded.
+- **Not checked live:** the real provider was not called. Its side of the request is unchanged (same fields, same prompt), and the first live session over the cap will show the result in the tray. Nothing requires a human check: `open_tests: 0`.
+
 ## As-built notes
 
+### 2026-11-07 — fix (branch `BUG00002-summary-text-budget`, commit `01da7b1`)
+
+- **Explicit small-bug shortcut** (`/fix-bug`, requested by Kai). Independent code review omitted; `open_findings` left empty.
+- `src/ai.rs`: new `SUMMARY_INPUT_LIMIT` (512 KiB, the existing value). `ChatCompletions::summarize` builds every change item without text and with `content_available: false`, sizes each shareable file's `{"before","after"}` text, then adds text smallest-first while the payload stays within the limit. The size added is computed exactly (the object's braces stand in for the two commas; `true` is one byte shorter than `false`). The final `ensure!` stays as the guard for a payload too large even without text.
+- `tests/provider.rs`: `text_too_large_for_the_input_cap_is_left_out_file_by_file`. It failed before the fix (title "Update 3 workspace files", the local fallback) and passes with it.
+- Gates on `01da7b1` (Windows): `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings` and `cargo test` all pass (engine suite 54 tests, provider 24, runner 11, tray host 10, tray model 20, CLI 11, storage/transport 8, lib 5).
+- Completed 2026-11-07 under the shortcut, with `version_target: v0.3.0` set by Kai. Not merged: the fix is on branch `BUG00002-summary-text-budget`; release, tag and merge are outside `/fix-bug`.
+- Merged 2026-11-07: `main` fast-forwarded to `01da7b1` and pushed, and `target/release` rebuilt from it, at Kai's request after completion.
+- Noticed on the way: the stderr log line repeats the fallback phrase ("…using a factual local message; using a factual local message…") because the error text and `generate_with_failure` both say it. Wording only, not changed here.
+
 ## Follow-ups
+
+- Sending a diff or an excerpt of a file too large for the cap, instead of leaving its text out (see *Out of scope*): not yet ticketed.
 
 ## References
 

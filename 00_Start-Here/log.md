@@ -363,3 +363,9 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-07] create | BUG00002 One large text file makes the whole AI summary fall back
 - Created [[Bug - BUG00002 - One large text file makes the whole AI summary fall back|BUG00002]] in Backlog from Kai's tray report: commit `d49570f` (session `c65c0d1e`) fell back to the local message because the deleted 1.36 MB `Dispatch Mesh desktop app.html` pushed the summary input over 512 KiB. Explicit `/fix-bug` shortcut requested. Listed in [[index]].
+
+## [2026-11-07] fix-bug | BUG00002 One large text file makes the whole AI summary fall back
+- Fixed under the explicit small-bug shortcut on branch `BUG00002-summary-text-budget` (`01da7b1`): the 512 KiB summary input cap is now a budget, so text that doesn't fit is left out file by file, smallest first, instead of failing the session. One regression test; gates green; the original session `c65c0d1e` reproduced offline against a mock provider (fallback before, summary after). Independent review omitted by request. [[Bug - BUG00002 - One large text file makes the whole AI summary fall back|BUG00002]] → Done (v0.3.0), frozen and completed 2026-11-07.
+
+## [2026-11-07] merge | BUG00002 merged to main
+- Fast-forwarded `main` to `01da7b1` (the BUG00002 fix) and pushed. Rebuilt `target/release` from it. Recorded in [[Bug - BUG00002 - One large text file makes the whole AI summary fall back|BUG00002]].
