@@ -9,7 +9,7 @@ updated: 2026-11-05
 ## Results of Claude Design
 This are the artifacts created by Claude Design from this briefing.
 - [[Dispatch Mesh desktop app.pdf]]
-- [[Dispatch Mesh desktop app.html]]
+- [[Dispatch Mesh desktop app — design spec]]
 ## Briefing
 A brief for Claude Design. It asks for the visual and interaction design of the Dispatch Mesh desktop app: the tray icon, the tray menu, the status window, and the conflict, presence and session views that follow it. Everything here comes from approved wiki sources. Where a decision is still open, the brief says so and asks the design to explore options instead of assuming one.
 

@@ -47,7 +47,7 @@ Made on the canvas on 2026-11-06, so the PNGs and the PDF don't show them yet:
 
 Refinement decisions of 2026-11-07 ([[Story - US00012 - Status window layout follows the design frames|US00012]] Q1–Q9, [[Story - US00006 - Conflict list and resolution in the status window|US00006]] planning), applied on the canvas the same day:
 
-- Every window keeps the **native Windows title bar**. Below it the app's top row holds the app mark and workspace name only, with no hide button of its own. The window content opens at 440 × 640, fitted to shorter screens.
+- Every window keeps the **native Windows title bar**, which carries the app icon. Below it the app's top row holds only the workspace name: no app mark and no hide button of its own. The window content opens at 440 × 640, fitted to shorter screens.
 - The **Activity / Conflicts** tabs are there from the start. Until US00006, Conflicts shows a placeholder (frame 3a2).
 - **No device** is ever shown: "Alice · 1 file · last saved 40 s ago", never "laptop" or a device id. Own sessions read **You**; sessions from another device get the pale first track segment.
 - **Avatars** are always circles. A hash of the email picks one of six colors; "You" is always grey.
@@ -148,7 +148,7 @@ Sizes: Windows 16 and 32 px (light taskbar `#F3F3F3`, dark `#202020`); macOS 18 
 
 Native Windows title bar ("Dispatch Mesh", minimise, maximise, close = hide), then content of 440 × 640 by default, fitted to the work area on a shorter screen (minimum 380 × 360). Top to bottom:
 
-1. **Top row**, 44 px, `surface`, borders `line-soft`: app mark 16 px and workspace name 14/600. With several workspaces the name is a button with a chevron (the switcher); with one it is plain text. No hide button: the native close hides the window.
+1. **Top row**, 44 px, `surface`, borders `line-soft`: workspace name 14/600, aligned with the content edge. No app mark, since the native title bar already shows it. With several workspaces the name is a button with a chevron (the switcher); with one it is plain text. No hide button: the native close hides the window.
 2. **Path**, mono 12 `text-3`, one line, ellipsized; full path as a tooltip.
 3. **State card**, radius 8, padding 16, gap 12:
    - Row 1: glyph 28 px, then label 17/600, reason 13 `text-2` under it, and the reassurance line 13/500 where the state has one.
