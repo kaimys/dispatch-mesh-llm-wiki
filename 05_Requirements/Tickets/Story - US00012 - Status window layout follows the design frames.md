@@ -1,18 +1,18 @@
 ---
 id: US00012
 type: story
-status: Backlog
+status: "Refinement"
 priority: medium
 rank: 3750
 version_target: v0.3.0
 size:
 assignee:
 owner: "[[Kai]]"
-open_questions: 3
+open_questions: 8
 open_tests:
 open_findings:
 discussion:
-updated: 2026-11-06
+updated: 2026-11-07
 completed:
 frozen:
 ---
@@ -79,9 +79,22 @@ As a person working in a Mesh workspace, I want the status window to show my rec
 
 ## Open questions
 
+Refinement started 2026-11-07 (no tracker or chat; questions recorded here). Checked against `main` at `403b165`.
+
+**Facts from the code (2026-11-07):**
+- `SessionStatus` (`src/status.rs`) has `author`, `stage`, times, `files`, `title` and `purposes`, but **no device**. `tray/src/model.rs` shows the author's name for every session; there is no "You". Telling own sessions from received ones, which the frames need for "You" and the pale first track segment, needs data that `Status` doesn't carry today.
+- A device id is a random UUID (`Uuid::new_v4()` at `init`). No human-readable device name exists anywhere, so the frames' "laptop" / "on Bob's desktop" has no source.
+- The window is 440 × 520 in `tray/tauri.conf.json`; the frames and criterion 5 assume 440 × 640. Scope says only `tray/ui/*` changes.
+- The view model has `note` only for offline (`OFFLINE_NOTE`). The spec gives a reassurance line for the conflict reason only, and a reason line per working state.
+
 - [ ] **Q1 — Window chrome.** Keep the native Windows title bar ("Dispatch Mesh", minimise/maximise/close) above the design's header, or draw the design's own top row (app mark, workspace name as switcher, hide button) with Tauri `decorations: false`? The second matches p. 3 but needs a drag region and native-feeling hide/move.
 - [ ] **Q2 — Conflicts tab.** Show the Activity / Conflicts section nav now (Conflicts empty or disabled until US00006), or introduce the nav together with US00006?
 - [ ] **Q3 — Font.** Bundle IBM Plex Sans + Mono with the app, or use the system fallback (Segoe UI, Consolas) and keep the design's sizes and weights?
+- [ ] **Q5 — Own vs. received sessions.** "You" for own sessions and the pale first segment for received ones need the session's device. Add `device` to `SessionStatus`, an additive field that contradicts "no `Status` change" under Out of scope, or drop both (always the author's name; every track starts with a normal segment)?
+- [ ] **Q6 — Device names.** No device has a readable name. Leave the device out of the meta line ("Alice · 1 file · last saved 40 s ago"), or add a device name (a new setting and a new ticket)?
+- [ ] **Q7 — Default window size.** Change `tauri.conf.json` to the frames' 440 × 640 (min size unchanged)? Scope currently limits the ticket to `tray/ui/*`.
+- [ ] **Q8 — Reason and reassurance lines.** Which wording per state and reason? The spec gives the conflict reassurance ("Both versions of each file are kept. Other files keep syncing.") and the working-state lines. Finishing up says "Writing a summary for your session (N files) …", but finalization also waits for earlier sessions, and N is ambiguous with several closed sessions. Other attention reasons (capture error, sync failure, AI summary failure, dependent edits) have no reassurance line in the spec.
+- [ ] **Q9 — Avatar colors.** The spec says "a per-person color" without a rule or palette. How is the color chosen, and from which colors (white initials need 4.5:1)?
 - [x] **Q4 — Readable design source.** Before development, add the design to the wiki in a form an agent can read.
   **Answer (Kai, 2026-11-06):** done. `06_UX/frames/*.png` (one per frame, from the PDF), `06_UX/frames/source/*.dc.html` (frame markup from the canvas, including the 2026-11-06 changes) and [[Dispatch Mesh desktop app — design spec]]. Where the spec and a PNG disagree, the spec wins.
 

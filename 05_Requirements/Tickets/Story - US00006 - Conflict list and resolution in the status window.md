@@ -12,7 +12,7 @@ open_questions: 0
 open_tests:
 open_findings:
 discussion:
-updated: 2026-11-06
+updated: 2026-11-07
 completed:
 frozen:
 ---
@@ -35,9 +35,11 @@ As a collaborator whose edit collided with someone else's, I want to see both ve
 - [[Dispatch Mesh milestone plan#0.3 — tray application|0.3 — tray application]]: work item "List unresolved conflicts. Show the path, competing authors and versions, and the currently displayed version. Support text comparison and version selection; binary resolution offers whole-file selection"; exit criterion "resolve a conflict through the desktop interface".
 - [[Dispatch Mesh requirements and architecture]], *Conflict handling recommendation* and *Durable conflict records*; [[ADR-0003 — Preserve synchronized conflict inputs and traceable resolutions]]: a resolution is a new traceable change, inputs are retained, and edits made since the conflict was recorded are not overwritten.
 - [[Claude Design briefing — desktop app]] §6.3 items 3–4 (conflicts list, conflict detail), §5 vocabulary (*current version* / *other version*, never ours/theirs), §7 (compact window, expandable for comparison), §8 sample conflicts (`policies/retention.md`, `assets/logo.png`); frames in [[Dispatch Mesh desktop app.pdf]].
+- **Readable design (since 2026-11-06):** [[Dispatch Mesh desktop app — design spec]], section *Conflicts (3d, 3e, 3f)* plus *Tokens* and *Components*; frame images `06_UX/frames/03d-conflicts-list.png`, `03e-text-conflict.png`, `03f-binary-conflict.png`; markup with sample data in `06_UX/frames/source/03d–03f-*.dc.html`. The PDF and the HTML bundle have no extractable text. Where the spec and a PNG disagree, the spec wins. Where this ticket and the spec disagree, the decisions recorded below win (2026-11-07).
+- **Builds on [[Story - US00012 - Status window layout follows the design frames|US00012]]** (Kai, 2026-11-07: developed before this ticket). It restyles the window to the frames: tokens, status glyphs, top row, state card and, depending on its Q2, the Activity / Conflicts section nav. This ticket uses those tokens and components and does not restyle them.
 - CLI today: `conflicts list`, `show`, `export`, `resolve --choose accepted|incoming`. The tray already shows needs attention with "N unresolved conflicts" ([[Story - US00001 - Tray icon and status window host|US00001]]).
 - [[Story - US00004 - AI-proposed text conflict merges with human approval|US00004]] (AI-proposed merges, v0.4.0) builds on this review surface; its Q1 asks which manual review capabilities must exist first.
-- Suggested 0.3 order (milestone plan, 2026-11-06): [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]] → [[Story - US00006 - Conflict list and resolution in the status window|US00006]] → [[Story - US00007 - Recent-save presence in the status window|US00007]] → [[Story - US00008 - Desktop notifications for conflicts and attention|US00008]] → [[Story - US00009 - Pause and resume synchronization|US00009]] → [[Task - TASK00003 - Two-device tests for the 0.3 exit criteria|TASK00003]].
+- Order update (Kai, 2026-11-07): US00005 is done; [[Story - US00012 - Status window layout follows the design frames|US00012]] comes before this ticket. Original suggested 0.3 order (milestone plan, 2026-11-06): [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]] → [[Story - US00006 - Conflict list and resolution in the status window|US00006]] → [[Story - US00007 - Recent-save presence in the status window|US00007]] → [[Story - US00008 - Desktop notifications for conflicts and attention|US00008]] → [[Story - US00009 - Pause and resume synchronization|US00009]] → [[Task - TASK00003 - Two-device tests for the 0.3 exit criteria|TASK00003]].
 
 ## Scope
 
@@ -83,6 +85,13 @@ Recorded here: no tracker or chat is configured. Refinement started 2026-11-06; 
 - [x] **Q8 After resolving.** What does the window show afterwards (back to the list, a confirmation, the resolution "shared on next sync"), and how does it say both versions are kept?
   **Answer (Kai, 2026-11-06):** the window moves to the next unresolved conflict, or back to the list at compact width when none remain, with a dismissible line: "<path>: kept the current version / used the other version. Both versions stay kept; your choice is shared with collaborators on the next sync." The count and tray state follow the next snapshot. A failed resolve (e.g. the engine's refusal) shows the engine's reason in the detail view and changes nothing.
 
+**Design decisions at planning (Kai, 2026-11-07)**, from reading [[Dispatch Mesh desktop app — design spec]] against this ticket. None of these was an open question, so the counter is unchanged:
+
+- [x] **Button suffix.** Footer buttons carry the side's author, as in frame 3f, for text and binary alike: "Keep current version (Alice)" / "Use other version (Bob)". This replaces frame 3e's changed-value suffix ("· 60 days").
+- [x] **Edits made after the conflict, before US00010.** The design's note ("That edit is protected and reconciled separately once you choose") is not true until [[Story - US00010 - Resolve a conflict after the file was edited again|US00010]] ships. Instead, the detail view shows an honest note in the same style: "You saved this file again at <time>, after the conflict was recorded. Your edit is safe. Choosing a version is possible once the file matches the current version again." Both buttons are disabled while that holds. US00010 switches to the design's wording and enables them.
+- [x] **One primary button.** **Review and choose** is a secondary button on every list card, so the components rule "one primary button per view" holds. Frame 3d draws it as primary.
+- [x] **No "saved copy" for conflict sides.** The binary detail says "Images can't be combined. Choose which whole file stays in the folder; the other version stays kept." Frame 3f's "kept in history as a saved copy" is not used, because "saved copy" means a recovery file since US00005.
+
 ## Acceptance criteria
 
 Status window and engine (Windows tray host; the same model code runs on Linux CI):
@@ -93,71 +102,110 @@ Status window and engine (Windows tray host; the same model code runs on Linux C
 4. **Review and choose** on a text conflict widens the window to the detail layout: current and other version side by side with line numbers, changed lines marked, and per side author, device, time and requested purpose (or "none recorded"). A current version from shared history shows the author and time of the last commit on `main` that touched the path, when that commit's content is the current version. **Show common base** reveals the base. **Back** returns to the list at compact width.
 5. A text conflict where any present side is over 1 MB shows the metadata view with "Too large to compare here"; both choices remain available. (Content that is not valid UTF-8 is binary by the engine's definition and gets the binary view, criterion 6.)
 6. A binary conflict shows per side the size, type, author, time and purpose. PNG, JPEG, GIF and WebP sides up to 10 MB show an image preview; SVG and all other types show metadata only. The webview receives preview bytes only through a host command keyed by conflict id and side, never a file path.
-7. A side that is a deletion shows "Deleted by <author> · <time>" instead of content, and its button reads "… · deleted".
-8. **Keep current version** and **Use other version** record the same resolution as `dispatch-mesh conflicts resolve <id> --choose accepted|incoming` (same engine call, same resulting record and folder content), while the tray's runner keeps running. The detail view says both versions stay kept.
+7. A side that is a deletion shows "Deleted by <author> · <time>" instead of content. Its button names the deletion ("Use other version (deleted by Bob)"), which replaces the "· deleted" suffix of the Q7 answer (planning, 2026-11-07).
+8. **Keep current version** and **Use other version** record the same resolution as `dispatch-mesh conflicts resolve <id> --choose accepted|incoming` (same engine call, same resulting record and folder content), while the tray's runner keeps running. The buttons carry the side's author ("Keep current version (Alice)"; "(shared history)" when the current version has no contributing session). The footer says "Both versions stay in history whichever you choose." (binary: "Whole-file choice only. Both versions stay in history."). **Review and choose** on the list is a secondary button.
 9. After a successful choice the window opens the next unresolved conflict, or the list at compact width when none remain, with the confirmation line from Q8. With the next snapshot the count, attention card and tray state update; with no conflicts left the workspace leaves Needs attention for its next applicable state.
-10. If the engine refuses (for example, the file has edits made after the conflict), the detail view shows the engine's reason, nothing is recorded, and both choices stay available.
+10. When the file was saved again after the conflict was recorded, the detail view shows the note from the planning decisions with the time of that save, and both buttons are disabled. If the engine refuses anyway (a race with a save, or a busy workspace), the detail view shows the engine's reason, nothing is recorded, and the buttons follow the latest state.
 11. No wording in the window uses "ours", "theirs", "accepted", "incoming" or "HEAD".
 12. Host tests with real workspaces cover: list metadata for a text and a binary conflict (including one whose current version came from shared history), resolving each way from the host, the refusal path, a deletion side, and the 1 MB / non-UTF-8 fallback. Gates green.
+13. The list, text detail and binary detail match frames 3d, 3e and 3f in structure and use the spec's tokens in light and dark theme, except where the planning decisions above differ. The comparison is checked side by side with screenshots, as in the spec's *How to check a build*, and recorded in the test plan.
 
-The engine story for edits made after a conflict (Q4, Follow-ups) turns criterion 10's refusal into a reconciliation; US00006 is complete without it.
+The engine story for edits made after a conflict (Q4, Follow-ups) turns criterion 10's note and refusal into a reconciliation; US00006 is complete without it.
 
 ## Implementation plan
 
+*Rewritten 2026-11-07 against `main` at `403b165` (US00005 done, BUG00001), the design spec and the planning decisions. It replaces the 2026-11-06 draft, which predated US00005's build.*
+
 ### Ground truth that shapes the plan
 
-Checked against the code at `9b98471` (branch `us00003-exclude-device-local-files`; the conflict code is as on `main`):
-
-- `Status.unresolved_conflicts` is built in `Workspace::status_from` (`src/status.rs`) from in-memory state, for CLI `status` and every runner snapshot (ADR-0009, ADR-0010). It must stay free of Git calls, hence the attribution decision recorded under criterion 2.
-- `model::Conflict` holds base/accepted/incoming bytes, the other version's `session` and `author`, `binary`, `created_at` and `accepted_sessions` (session id → change fingerprint). Sessions stay in `state.manifest.sessions` after they settle, so a contributing session's `author`, `device`, `changes[path].last_edit` and `intents` (purpose + paths) are available in memory.
-- `model::binary` = contains NUL or not valid UTF-8, for any side.
-- Mesh commits on `main` carry the session author as Git author (`Git::commit_objects`), so `git log -1 <main> -- <path>` names a real author. `Git` has `text(args)` and `validate_path`.
-- `Workspace::resolve(id, incoming)` captures, refuses when the folder differs from the current version, records the `Resolution`, and renders. CLI `conflicts resolve` calls exactly that.
-- `Workspace::open` fails with `WorkspaceBusy` after 500 ms; `Workspace::inspect` is lock-free and read-only; `runner::capture_for_shutdown` retries `open` for 10 s.
-- Tray: `tray/src/model.rs` holds all wording (pure, unit-tested); `tray/src/host.rs` owns one `RunnerHandle` per workspace and is Tauri-free; `tray/src/main.rs` exposes commands `workspaces` and `retry`; `tray/ui/app.js` renders only through `textContent`. The window is 440 × 520 (`tauri.conf.json`). The CSP already allows `img-src 'self' data:`. Capabilities grant only `core:event:default`; app commands need no extra permission.
-- No diff crate in `Cargo.lock`.
+- **Status and engine.** `ConflictStatus` is still `{ id, path, binary }` (`src/status.rs`), built in memory by `Workspace::status_from` for CLI `status` and every runner snapshot. US00005 added session times, purposes, titles, `last_sync` and `saved_copies` there; conflicts were untouched.
+- **Conflict record.** `model::Conflict` has base/accepted/incoming bytes, the other version's `session` and `author`, `binary`, `created_at` and `accepted_sessions`. Sessions stay in `state.manifest.sessions` after they settle, so contributors' `author`, `device`, `changes[path].last_edit` and `intents` are in memory. `model::binary` means NUL or not valid UTF-8.
+- **Resolve.** `Workspace::resolve(id, incoming)` captures, refuses when `state.observed[path] != accepted`, records, and renders. CLI `conflicts resolve` calls exactly that. `state.observed` is the last captured folder view, so "edited after the conflict" can be computed from committed state.
+- **Commits on `main`** carry the session author (`Git::commit_objects`), so `git log -1 <main> -- <path>` names a real person.
+- **Lock.** `Workspace::open` fails with `WorkspaceBusy` after 500 ms. US00005's `Host::finish` (`tray/src/host.rs`) retries `open` for 30 s inline; the engine's own `acquire_lock` is private. `Workspace::inspect` reads committed state lock-free and read-only.
+- **Tray.**
+  - `WorkspaceView` has `action: Option<&'static str>` (today only `finish_session`), `sessions` and `saved_copies`.
+  - The commands are `workspaces`, `retry`, `finish_session` (async, `spawn_blocking`) and `show_saved_copy`; the window sends ids only.
+  - The CSP allows `img-src 'self' data:`. Capabilities: `core:event:default`. The window is 440 × 520 in `tauri.conf.json`; US00012 makes the default 440 × 640.
+  - No diff crate in `Cargo.lock`.
+- **Design.** Frames 3d–3f and the spec's *Conflicts* section. The detail window is "about 1000 × 760". Differing lines are tinted `attention-card` with a "≠" gutter mark named for screen readers. The base strip is `#EFEEEA` in light, with no dark value given. The other version's box has a 1 px dashed `#8A8C91` border, and the current version's a 1.5 px solid `text` border.
 
 ### Steps, in order
 
-1. **Shared helper: wait for the operation lock** (`src/engine.rs`, `src/runner.rs`). Add `Workspace::open_waiting(root, timeout)`, which retries `open` on `WorkspaceBusy` the way `capture_for_shutdown` does, and make `capture_for_shutdown` use it. *Why first:* both the host's resolve (step 5) and US00005's Finish session need it. US00005's plan assumes `open` waits, which it does not, so whichever ticket is developed first adds the helper and the other reuses it.
+1. **Host: one helper to wait for the lock** (`tray/src/host.rs`). Extract US00005's inline 30 s retry from `Host::finish` into a private `open_engine(path)`, and use it for both finish and resolve. No engine API change: the retry is a host concern, and the CLI keeps failing fast on purpose.
 2. **Engine: list metadata in `Status`** (`src/status.rs`). `ConflictStatus` keeps `id`, `path` and `binary` and gains:
    - `created_at`;
    - `current` and `other`, each a `ConflictSide { contributors, shared_history, deleted, size }`;
-   - `contributors`: a list of `{ author, device, last_saved, purposes }` from the sessions in `accepted_sessions` (current) or the conflict's `session` (other). `last_saved` is that session's `changes[path].last_edit`, and `purposes` are its intents whose paths include the conflict's path;
-   - `shared_history`: `true` when the current side has no contributing session;
+   - `contributors`: a list of `{ author, device, last_saved, purposes }`, from the sessions in `accepted_sessions` (current) or the conflict's `session` (other). `last_saved` is that session's `changes[path].last_edit`, and `purposes` are its intents whose paths include the conflict's path;
+   - `shared_history`: the current side has no contributing session;
    - `deleted`: the side is `None`; `size`: the byte length.
 
-   Pure in-memory work, no Git and no bytes in `Status`. JSON field names say `current` and `other`, never accepted/incoming.
-3. **Engine: one conflict's detail on demand** (new `src/conflicts.rs`, an `impl Workspace` block like `src/status.rs`; `src/git.rs`). Add `Workspace::conflict_detail(id) -> Result<ConflictDetail>`: the `ConflictStatus` fields plus `base`, `current` and `other` bytes, plus `history` for the current side and the base. `history` is the author and time of `git log -1 <state.main> -- <path>`, given **only when** that commit's blob at `path` equals the side's bytes. Otherwise it is `None`, because the last commit may postdate that version and would name the wrong person. Add `Git::last_commit(reference, path) -> Option<CommitInfo>` with `validate_path`. Called on a `Workspace::inspect`, so it never waits for the runner. CLI `conflicts show` is unchanged.
-4. **ADR-0010 amendment** (wiki, with steps 2–3): the new `ConflictStatus` fields. The rule that `Status` stays in-memory, with no Git or content, and that per-conflict content and history come through `conflict_detail` on demand. Written with the code so the ADR never describes a different model.
-5. **Host** (`tray/src/host.rs`). All new methods run only for a workspace whose state is `Running` in this host; otherwise they return a refusal message, because another runner owns that folder.
-   - `conflict_detail(workspace, conflict)`: checks that the id is in the latest snapshot's `unresolved_conflicts`, then calls `Workspace::inspect(path)?.conflict_detail(id)`.
-   - `conflict_preview(workspace, conflict, side)` (`side` is `current`, `other` or `base`): returns `(mime, bytes)` only when the bytes sniff as PNG, JPEG, GIF or WebP by magic number and are at most 10 MB. Everything else gets `None`. SVG is never sniffed as an image. The webview never sends a path.
-   - `resolve(workspace, conflict, choice)` (`choice` is `current` or `other`): checks the id is unresolved in the latest snapshot, then calls `open_waiting(path, 10 s)` and `resolve(id, choice == other)`. It returns `Ok` or the engine's message (`{error:#}`). The next snapshot carries the result, so no extra notification is needed.
-6. **Tray model** (`tray/src/model.rs`; new dependency `similar` in `tray/Cargo.toml`), pure and unit-tested:
-   - `WorkspaceView` gains `conflicts`: the list entries with all wording ("Text", "Image · whole-file choice" or "Binary · whole-file choice", "Current version · shown", "Other version · kept", "Shared history", "You" for this device's sessions as in US00005, "Deleted by <name>") plus epoch times that the window formats. It also gains the attention action `open_conflicts` when the reason is the unresolved-conflict count.
-   - `conflict_detail_view(detail, this_device) -> ConflictDetailView`, which contains:
-     - the side headers (contributors, purposes or "none recorded", "In the folder now" / "Kept, not shown") and the base label "Before both changes", with history when known;
-     - `body`: `Text { current_lines, other_lines, base_lines }` with a changed mark per line, or `Metadata { reason }` ("Too large to compare here" when any present side is over 1 MB), or `Binary { previews }` (a preview flag per side from the same sniffing as the host, which the host exports);
-     - the button labels, with the " · deleted" suffix for a deletion side;
-     - the "Both versions stay kept…" line.
-   - Line marks come from `similar::TextDiff::from_lines(current, other)` with a 200 ms deadline. On timeout every line is unmarked and the view says "Changes could not be marked", so a pathological file cannot hang the window.
-   - `next_after(resolved, conflicts)` picks the next unresolved conflict in list order, or `None` to return to the list. `confirmation(path, choice)` returns the Q8 line.
+   In-memory only: no Git and no bytes. JSON names say `current` and `other`, never accepted/incoming.
+3. **Engine: one conflict's detail on demand** (new `src/conflicts.rs`, an `impl Workspace` block like `src/status.rs`; `src/git.rs`). `Workspace::conflict_detail(id) -> Result<ConflictDetail>` returns:
+   - the `ConflictStatus` fields, plus the `base`, `current` and `other` bytes;
+   - `edited_after`: `Some(time)` when `state.observed[path]` differs from the current version. The time is the latest `last_edit` of this device's session changes to that path after `created_at`, falling back to `created_at`;
+   - `history` for the current side and the base: the author and time of `git log -1 <state.main> -- <path>`, **only when** that commit's blob at `path` equals the side's bytes. Otherwise the last commit may postdate the version and would name the wrong person.
+
+   Add `Git::last_commit(reference, path) -> Option<CommitInfo>` with `validate_path`. The method works on a `Workspace::inspect`, so it never waits for the runner. CLI `conflicts show` is unchanged.
+4. **ADR-0010 amendment** (wiki, with steps 2–3): the new `ConflictStatus` fields. The rule that `Status` stays in memory, with no Git or content, and that per-conflict content, history and `edited_after` come through `conflict_detail` on demand.
+5. **Host** (`tray/src/host.rs`). Each method is refused, with a message, unless the workspace runs in this host (as for `finish`), and checks the conflict id against the latest snapshot's `unresolved_conflicts`.
+   - `conflict_detail(workspace, conflict)` calls `Workspace::inspect(path)?.conflict_detail(id)`.
+   - `conflict_preview(workspace, conflict, side)` (`current`, `other` or `base`) returns `(mime, bytes)` only when the bytes sniff as PNG, JPEG, GIF or WebP by magic number and are at most 10 MB. SVG is never an image here. The sniffing function is public, so the model uses the same rule.
+   - `resolve(workspace, conflict, choice)` (`current` or `other`) calls `open_engine` and then `resolve(id, choice == other)`. It returns `Ok`, or the engine's message (`{error:#}`).
+6. **Tray model** (`tray/src/model.rs`; new dependency `similar` in `tray/Cargo.toml`), pure and unit-tested; all wording lives here:
+   - **Workspace view.** `WorkspaceView.action` gains `open_conflicts` when the reason is the unresolved-conflict count, and `WorkspaceView` gains `conflicts`, the list entries:
+     - path and kind: "Text", "Image · whole-file choice", "File · whole-file choice";
+     - "recorded <time>";
+     - two side boxes, "Current version · shown" and "Other version · kept", each with "<author> · <device>" (or "You" for this device, as US00005 does, or "Shared history") and "saved <time>";
+     - the heading "N unresolved conflicts" and the explanation line from 3d.
+
+     Times are epoch seconds, formatted by the window as US00005 does.
+   - **Detail view.** `conflict_detail_view(detail, this_device) -> ConflictDetailView` holds:
+     - **Header and labels:** the breadcrumb count "n of N"; the summary line "<current author> and <other author> both changed this file. Pick the version to keep in the folder." (binary: the 3f sentence as decided); the side titles and badges "In the folder now" / "Kept, not shown"; and the author line with purposes, or "Requested purpose: none recorded";
+     - **Base strip:** "Common base", "Before both changes", plus " · shared history, <date>" when history is known;
+     - `body`, which is one of:
+       - `Text { current_lines, other_lines, base_lines }`, each line with number, text and a `changed` flag;
+       - `Metadata { reason }`, "Too large to compare here" when a present side is over 1 MB;
+       - `Binary { sides }`, with saved by, saved, size, purpose and a preview flag;
+     - `note`: the planning decision's later-edit note when `edited_after` is set, and then `can_choose: false`;
+     - **Buttons:** "Keep current version (<author>)" / "Use other version (<author>)". With several contributors the first name is followed by "+N". The current version from shared history reads "(shared history)"; a deletion reads "(deleted by <author>)";
+     - **Footer:** "Both versions stay in history whichever you choose." (binary: "Whole-file choice only. Both versions stay in history.").
+   - **Line marks.** They come from `similar::TextDiff::from_lines(current, other)` with a 200 ms deadline. On timeout no line is marked and the view says "Changes could not be marked here", so a pathological file cannot hang the window.
+   - **After a choice.** `next_after(resolved, conflicts)` picks the next unresolved conflict in list order, or `None`. `confirmation(path, choice)` returns the Q8 line.
 7. **Tauri wiring** (`tray/src/main.rs`, `tray/tauri.conf.json`):
-   - Commands `conflict_detail`, `conflict_preview` (returns `tauri::ipc::Response` raw bytes, an `ArrayBuffer` in JS), `resolve_conflict` and `set_layout(compact|detail)`. All except `set_layout` run on a blocking thread, so neither Git nor the lock wait touches the UI thread.
-   - `set_layout("detail")` stores the current size and resizes to 1040 × 720 logical pixels, clamped to the monitor's work area; `"compact"` restores the stored size. Resizing happens in Rust, so the webview gets no window permission.
-   - The CSP adds `blob:` to `img-src` for previews; the capabilities stay unchanged.
-8. **Window** (`tray/ui/app.js`, `app.css`):
-   - **Tabs and list:** **Activity** | **Conflicts N** tabs, with the activity list from US00005. The attention card's **Open conflicts** switches to the Conflicts tab. Conflict cards follow design page 6, with an empty state.
-   - **Detail view:** design pages 7–8. "‹ Conflicts / n of N", path, two panes with line numbers and ≠ marks, **Show common base** toggle, image previews via `URL.createObjectURL` (revoked when leaving), metadata table, and a footer with the buttons.
-   - **Resolving:** while a resolve is pending both buttons are disabled with a busy label. A returned error is shown inline and the buttons are enabled again. On success the view moves on per `next_after` and shows the confirmation line. If an open conflict disappears from the snapshot (resolved by CLI or another device), the window returns to the list with "This conflict was resolved elsewhere."
-   - **Rules:** text only through `textContent`; every control has a `data-key` and an accessible name; changed lines carry a text mark (≠), not only a tint.
-9. **Docs:** README (`status` conflict fields; the tray section now lists conflict review), the AGENTS.md repository map (tray no longer "status only"), and the ADR-0010 amendment (step 4).
+   - **Commands:**
+     - `conflict_detail`;
+     - `conflict_preview`, which returns `tauri::ipc::Response` raw bytes (an `ArrayBuffer` in JS);
+     - `resolve_conflict`;
+     - `set_layout(compact|detail)`.
+
+     The first three run through `spawn_blocking`, as `finish_session` does.
+   - **Layout.** `set_layout("detail")` remembers the current size and resizes to 1000 × 760 logical pixels, clamped to the monitor's work area. `"compact"` restores the remembered size. Resizing happens in Rust, so the webview needs no window permission.
+   - **CSP:** `img-src` gains `blob:`. Capabilities are unchanged.
+8. **Window** (`tray/ui/app.js`, `app.css`), using US00012's tokens, buttons, badge and section nav:
+   - **Navigation:** Conflicts tab content per 3d; the attention card's **Open conflicts** switches to it.
+   - **Detail view** per 3e/3f:
+     - breadcrumb "‹ Conflicts / n of N";
+     - mono 18 path heading;
+     - **Show common base** toggle and base strip;
+     - two columns with line numbers;
+     - ≠ marks with the accessible name "Differs from the other version";
+     - image previews through `URL.createObjectURL` (revoked on leaving);
+     - the metadata list, the note and the footer.
+   - **Pending resolve:** both buttons are disabled with a busy label. On error the message appears inline. On success the view moves on per `next_after` with the confirmation line. A conflict that disappears from the snapshot while open sends the window back to the list with "This conflict was resolved elsewhere."
+   - **New tokens** in `app.css`: `base-strip` (`#EFEEEA`, with a derived dark value checked for 4.5:1) and `kept-border` (`#8A8C91`, with a dark value). Add both to the spec's token table.
+   - **Rules:** text only through `textContent`; `data-key` and an accessible name on every control; changed lines carry the text mark, not only the tint.
+9. **Docs:**
+   - README: the `status` conflict fields, and the tray section now lists conflict review.
+   - AGENTS.md repository map: the tray is no longer "status only".
+   - The ADR-0010 amendment (step 4).
+   - The design spec: the planning decisions noted under *Conflicts*, and the two new tokens. Kai owns that page; I propose the edit in the same change.
 
 **Order and why.**
-- **After US00005.** Develop this after US00005 is merged: both extend `Status`, `WorkspaceView` and `app.js`, and US00005's activity list becomes the Activity tab here. Starting first would mean building the tabs twice.
-- **Engine before host, host before UI.** Steps 2–3 before 5 because the host's tests need real conflict data. Step 5 before 8 because the window has no logic of its own to test against.
-- **Step 1 can land in either ticket**, as explained above.
+- **After US00012:** this ticket uses its tokens, components, top row and possibly its section nav. Building conflict views on the old styles means restyling them twice.
+- **If US00012 leaves the nav to this ticket** (its Q2), step 8 adds it, following the spec's *Status window* item 4.
+- **Engine and host before the window** (steps 2–3 before 5, 5 before 8): host tests need real conflict data, and the window has no logic of its own to test.
+- **ADR amendment with the code:** step 4 lands together with steps 2–3, so the ADR never describes a different model.
 
 ### Tests
 
@@ -165,59 +213,67 @@ Checked against the code at `9b98471` (branch `us00003-exclude-device-local-file
   - `status` lists a two-device text conflict with both sides' authors, devices, `last_saved` and an intent-scoped purpose;
   - a binary conflict with sizes;
   - a delete-vs-edit conflict with `deleted`;
-  - a conflict whose current version came from `main` (Alice publishes; Carol, offline on the old base, edits the same line; Bob, with no own session, receives Carol's draft): `contributors` is empty and `shared_history` is true. If that setup does not produce an empty `accepted_sessions`, record why in the as-built notes and cover the case with a constructed state;
-  - `conflict_detail` returns the exact bytes, and `history` only when the commit content matches;
-  - `open_waiting` succeeds after a held lock is released and gives `WorkspaceBusy` after its timeout;
+  - a current version from `main` (Alice publishes; Carol, offline on the old base, edits the same line; Bob, with no session of his own, receives Carol's draft): `contributors` is empty and `shared_history` is true. If that setup doesn't yield an empty `accepted_sessions`, record why in the as-built notes and cover the case with a constructed state;
+  - `conflict_detail` returns the exact bytes; `history` appears only when the commit content matches; `edited_after` is set after a later local save and unset otherwise;
   - CLI `status` keeps every existing key.
 - **Tray model** (unit tests):
-  - wording for list entries and side headers, including "You", "Shared history", "Deleted by …" and the "· deleted" suffix;
+  - list and detail wording, including "You", "Shared history", "Deleted by …", "(deleted by Bob)", "(shared history)", "+N" and the binary sentence without "saved copy";
   - the 1 MB boundary (exactly 1 MB compares, one byte more does not);
-  - image sniffing: PNG, JPEG, GIF and WebP yes; SVG, a renamed text file and 10 MB + 1 byte no;
+  - sniffing: PNG, JPEG, GIF and WebP yes; SVG, a renamed text file and 10 MB + 1 no;
   - line marks for the retention sample;
-  - `next_after` at the start, middle and end of the list, and the confirmation line;
-  - an assertion that no model string contains "ours", "theirs", "accepted", "incoming" or "HEAD" (criterion 11).
+  - the later-edit note sets `can_choose: false`;
+  - `next_after` at the start, middle and end, and the confirmation line;
+  - no model string contains "ours", "theirs", "accepted", "incoming", "HEAD" or "saved copy" in a conflict view.
 - **Host** (`tray/tests/host.rs`, with a local bare remote and two workspaces):
-  - resolve each way from the host while its runner runs, and the folder and record equal what CLI `conflicts resolve` produces;
-  - the refusal path: an edit after the conflict returns the engine's message and records nothing;
+  - resolve each way while the runner runs; the folder and record equal what CLI `conflicts resolve` produces;
+  - after a later save, `conflict_detail` reports `edited_after` and `resolve` returns the engine's refusal without recording anything;
   - all three methods are refused for a workspace held by another runner, and for an unknown conflict id;
-  - `conflict_preview` returns `None` for a non-image.
-- **Newly assertable:** conflict attribution per side becomes engine-level state checked by tests instead of something only `conflicts show` hints at.
-- **Manual** (for `/test-plan`): widening and restoring on Windows at 100 % and 150 % scaling and on a small screen; image previews; dark mode; Narrator on tabs, panes and buttons; and a resolve made in the window being picked up by a second client (the full two-device check is TASK00003).
-- **When US00010 lands**, the host's refusal-path test turns into a reconciliation test. That change belongs to US00010.
+  - `conflict_preview` returns `None` for a non-image;
+  - `finish` still works through `open_engine`.
+- **Manual** (for `/test-plan`):
+  - screenshots of the list, text detail and binary detail against 3d/3e/3f in light and dark (criterion 13);
+  - widening and restoring at 100 % and 150 % scaling and on a small screen;
+  - image previews;
+  - Narrator on the tabs, ≠ marks, panes and buttons;
+  - a window-made resolution picked up by a second client (the full two-device check is TASK00003).
+- **When US00010 lands**, the later-edit note and refusal tests turn into reconciliation tests. That change belongs to US00010.
 
 ### External changes and migration
 
-- `status` JSON: `unresolved_conflicts[]` gains fields; the existing ones are unchanged. No state or synchronized-format change: everything is derived from existing records.
-- New dependency `similar` (tray only, MIT/Apache-2.0). The CSP adds `blob:` to `img-src`.
+- `status` JSON: `unresolved_conflicts[]` gains fields, and the existing ones are unchanged. No state or synchronized-format change: everything is derived from existing records.
+- New tray dependency `similar` (MIT/Apache-2.0). The CSP adds `blob:` to `img-src`.
 
 ### Wiki pages this makes wrong
 
 - [[ADR-0010 — Report workspace status and session stages separately]]: amended in step 4.
 - README and AGENTS.md: step 9.
-- [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]]'s plan states that `Workspace::open` waits for the lock. It does not (see step 1). That ticket's owner corrects it at its own sign-off; this ticket does not edit it.
+- [[Dispatch Mesh desktop app — design spec]], *Conflicts*: still describes the frame's value suffix, the "protected and reconciled" note, a primary button on every card and "saved copy". Step 9 updates it to the planning decisions.
 
 ### Risks and rollback
 
 - **Window resizing** across DPI settings and monitors: clamped to the work area, covered by manual checks.
-- **Large IPC payloads** (a 10 MB image per side): sent as raw bytes, never base64 in JSON, and only on demand.
+- **Large IPC payloads** (a 10 MB image per side): raw bytes, on demand only.
 - **Diff cost:** capped by the 1 MB limit and the 200 ms deadline.
-- **Lock wait:** a resolve during a long local operation waits up to 10 s with a busy label, then shows `WorkspaceBusy`'s message. Nothing is recorded in that case.
-- **Stale detail:** the engine's own guard rejects a resolve against changed content, and a conflict that vanished sends the window back to the list.
-- **Rollback:** revert the commits; no data or format migration either way.
+- **Lock wait:** a resolve during a long local operation waits up to 30 s with a busy label, as Finish session does, then shows `WorkspaceBusy`'s message; nothing is recorded.
+- **Stale detail:** `edited_after` comes from the last capture, so a save in the last tick can slip past the note. The engine's own guard still refuses, and the window shows the reason (criterion 10). A conflict that vanished sends the window back to the list.
+- **Depends on US00012's outcome** (chrome and nav). If its decisions change the top row, the breadcrumb sits wherever US00012 puts the back link.
+- **Rollback:** revert the commits. There is no data or format migration either way.
 
 ### Decisions for review
 
-1. The list shows "Shared history" without author or time; the detail adds the commit (Kai, 2026-11-06).
-2. Commit history is shown for the current version and the base only when the commit's content matches, never "the last commit that touched the file" on its own.
+1. The list shows "Shared history" without author or time, and the detail adds the commit (Kai, 2026-11-06).
+2. A commit on `main` is shown only when its content matches the version.
 3. The line diff runs in the tray (`similar`, 200 ms deadline), not in the engine.
-4. Previews travel as raw IPC bytes into `blob:` URLs, never as file paths. Image type comes from magic bytes, not the file extension.
-5. `open_waiting` with a 10 s limit, shared with the runner's shutdown capture and US00005's Finish session.
-6. Detail and resolve are only offered for workspaces this host runs.
-7. The detail layout is 1040 × 720 logical pixels, clamped, and the compact size is restored on Back.
+4. Previews travel as raw IPC bytes into `blob:` URLs, never as file paths. The type comes from magic bytes.
+5. The 30 s lock wait from US00005 is shared through a host helper, with no engine API change.
+6. Detail and resolve work only for workspaces this host runs.
+7. Detail layout 1000 × 760 logical pixels (design spec), clamped, with the compact size restored on Back.
+8. Button author suffix: the first contributor plus "+N" for several, "(shared history)" and "(deleted by …)". This applies Kai's 2026-11-07 decision to the cases the frames don't show.
+9. The detail summary line is generic ("<A> and <B> both changed this file."), without the frame's "the same line within a minute", which would need line-level and timing claims the engine doesn't make.
 
 ### Size
 
-Order of magnitude: about five to seven focused days, roughly two for the engine and host with tests, and three to five for the model, wiring and window. Not a commitment.
+Order of magnitude: about five to seven focused days, roughly two for the engine and host with tests and three to five for the model, wiring and window. US00012 removes the styling groundwork from this estimate. Not a commitment.
 
 <!-- ═══════════ RECORD ZONE ═══════════
      What actually happened. Always appendable, including after the freeze.

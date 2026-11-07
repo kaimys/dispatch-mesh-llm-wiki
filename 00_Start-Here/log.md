@@ -341,3 +341,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-06] merge | BUG00001 merged to main
 - Fast-forwarded `main` to `403b165` (the BUG00001 fix) and pushed. Rebuilt `target/release` from it. Recorded in [[Bug - BUG00001 - AI summaries of large sessions never finish|BUG00001]].
+
+## [2026-11-07] implementation-plan | US00006 plan reworked for US00005 as built and the design spec
+- Rewrote the plan in [[Story - US00006 - Conflict list and resolution in the status window|US00006]] against `main` at `403b165` and [[Dispatch Mesh desktop app — design spec]]: reuse US00005's 30 s lock wait via a host helper (no engine API change), `edited_after` in the on-demand detail, 1000 × 760 detail layout, and US00012's tokens and components. Kai decided four design points (author button suffix, an honest later-edit note with disabled buttons until US00010, a secondary "Review and choose", no "saved copy" for conflict sides). Criteria 7, 8 and 10 adjusted and 13 added (frame comparison). US00012 is developed first. Awaiting sign-off.
