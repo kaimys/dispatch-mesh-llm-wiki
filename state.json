@@ -3883,7 +3883,7 @@
       "created_at": 1794050209,
       "last_edit": 1794050209,
       "revision": 1,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -3910,8 +3910,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Document US00012 status-window implementation and verification",
+        "description": "Append the US00012 development entry to the wiki log and add as-built notes to the existing ticket. Record the implemented status-window redesign, model and status updates, bundled assets, design-spec adjustments, Windows gate results, and demo run; note the remaining manual checks for the test plan."
+      },
+      "message_base": "f894cec0708b898398dee8a9086b82c39da82875"
     },
     "807623d2-dade-4353-bd1c-492ba2187468": {
       "id": "807623d2-dade-4353-bd1c-492ba2187468",
