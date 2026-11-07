@@ -347,3 +347,7 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-07] design | Icons exported as SVG
 - Exported the tray icons (5 states × light, dark, macOS template) to `06_UX/icons/tray/` and the status glyphs (5 states × light, dark) to `06_UX/icons/status/`, 25 files. Referenced from [[Dispatch Mesh desktop app — design spec]] (*Glyphs*).
+
+## [2026-11-07] refine | US00012 Status window layout follows the design frames
+- [[Story - US00012 - Status window layout follows the design frames|US00012]] moved Backlog → Refinement. Checked against `main` at `403b165`: sessions carry no device (no "You", no received segment), device ids are UUIDs with no readable name, the window is 440 × 520. Added Q5–Q9; Kai answered all 8: native title bar plus the design's top row, nav now with a Conflicts placeholder, bundled IBM Plex, `SessionStatus.device` (amends ADR-0010), no device names, 440 × 640, wording per state and reason, avatar colors from an email hash. Scope widened; 11 acceptance criteria; `open_questions: 0`.
+- Aligned [[Story - US00006 - Conflict list and resolution in the status window|US00006]]: no device names on conflict sides, "You" via the session device, nav and placeholder from US00012.
