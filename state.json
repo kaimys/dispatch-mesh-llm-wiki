@@ -6194,6 +6194,66 @@
       },
       "message_base": "e256156a9bde63a5b992771c5f5d2296805e5e39"
     },
+    "d29f7332-a401-4ed2-9f0c-e7c3d623c354": {
+      "id": "d29f7332-a401-4ed2-9f0c-e7c3d623c354",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794074200,
+      "last_edit": 1794074200,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "73f369b2acebbc82ab03a3cd3709304664d6d09d"
+          },
+          "content": {
+            "blob": "90ae54772cc0bd13ec5668ddb88f1536514180f6"
+          },
+          "intent": null,
+          "last_edit": 1794074200
+        },
+        "05_Requirements/Tickets/Story - US00006 - Conflict list and resolution in the status window.md": {
+          "base": {
+            "blob": "8d24917a539c6193816dd58ae8f91e65639444c7"
+          },
+          "content": {
+            "blob": "56b6fb4b816875fa75976651a5997f4bd4940f3c"
+          },
+          "intent": null,
+          "last_edit": 1794074200
+        },
+        "06_UX/Dispatch Mesh desktop app — design spec.md": {
+          "base": {
+            "blob": "fb5760b33a9a2976c3d27c9c96764dfd53e469b4"
+          },
+          "content": {
+            "blob": "eb8d784354a32e06f7ec217942a5452e51b89aeb"
+          },
+          "intent": null,
+          "last_edit": 1794074200
+        },
+        "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md": {
+          "base": {
+            "blob": "dce1952e243887dc9ddab6bcef369c8072944a41"
+          },
+          "content": {
+            "blob": "7e9d45cc7a1ccf29fe7cf75686ed9014fd1b68a3"
+          },
+          "intent": null,
+          "last_edit": 1794074200
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "de967730-9a35-4d7b-bbbe-f9b027f7ba39": {
       "id": "de967730-9a35-4d7b-bbbe-f9b027f7ba39",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
