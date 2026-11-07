@@ -390,3 +390,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-07] develop | US00012 re-check fixes
 - Fixed the three findings of the [[Story - US00012 - Status window layout follows the design frames|US00012]] re-check: a maximized window is no longer resized on reopen, and the fit runs after un-minimizing; the clipped meta and purpose lines keep full-text tooltips. Kai decided that full summary titles matter more than three visible rows (AC 5 and [[Dispatch Mesh desktop app — design spec]] amended). Gates green; `open_findings` cleared to empty. Next: re-check with `/code-review US00012`.
+
+## [2026-11-07] code-review | US00012 fix re-check clear at 8f338a0
+- Recorded the re-check in [[Story - US00012 - Status window layout follows the design frames|US00012]]. The native maximize guard, full-text tooltips and revised title-wrapping criterion clear the three blockers. One non-blocking design-spec wording finding remains. The Windows mechanical gates passed (153 tests), and browser and isolated Tao probe evidence is in `target/us00012-final-recheck/`. Set `open_findings: 0`. Next is `/test-plan US00012`.

@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings:
+open_findings: 0
 discussion:
 updated: 2026-11-07
 completed:
@@ -413,6 +413,24 @@ Re-checked the original nine findings against `1a8f05b` and `4139a7c`, the dated
 **Verified fixes.** F1's author overflow is fixed at both widths and the full author remains in the row tooltip. The track measures 112/84 px and the first segment of a received published row stays pale (F3/F6). The dated amendments now match the title-bar icon, the shared working glyph and open-session Finish action, and the workspace switcher's accessible name (F4/F5/F7). The model test covers finishing an open session offline. The font URLs and the README's reassurance wording address F8/F9. The wrapping title stays within its row horizontally and published rows carry the changed files as screen-reader text.
 
 **Before advancing.** Reconcile the density criterion with the owner's title-wrapping decision through `/update-ticket`. In a fresh `/develop` session, preserve native maximize on reopen, keep clipped metadata and purpose inspectable, and implement any layout change the decision requires. Re-check the revised commit before `/test-plan`.
+
+### 2026-11-07 — branch us00012-status-window-design at 8f338a0
+
+Re-checked the three findings at `4139a7c` against `8f338a0`, the amended ticket and the desktop design spec. No open PR. `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings` and the full `cargo test` passed on Windows (153 tests).
+
+**Verdict.** Clear for `/test-plan`. Zero blocking findings and one non-blocking documentation finding.
+
+**Verified fixes.**
+
+- **F1 · Native maximize and restored geometry.** `show_window` shows and unminimizes the window before checking native maximize, and calls the fit only on a restored window. The pinned Wry and Tao paths process these window calls on the window thread. A standalone Tao probe on an isolated Windows desktop confirmed that reopening a hidden maximized window skips the fit and restoring a normal minimized window permits it. The fit's offset and short-work-area geometry tests pass. The probe exercised native window state independently of the tray icon. The actual tray-click and short-screen checks belong to the manual test plan.
+- **F2 · Full published titles and the revised density criterion.** The amended AC 5 and the design spec's Status window item 5 give full titles priority. In Chromium with synthetic tray payloads at 440 × 640, three one-line rows fit (third row ends at y = 605.5). Three 149–153 character published titles wrap in full with no horizontal overflow. Scrolling brings the third row and its stage fully into view. The implementation meets the revised criterion.
+- **F3 · Full-text tooltips.** The metadata and purpose each expose their own full text when clipped at 440 and 380 px. Hovering the summary uses the row's author-and-files tooltip. The browser probe confirmed the tooltip attributes and clipping at both widths.
+
+Evidence is under `target/us00012-final-recheck/` in `layout.json` and `tao-window-state.json`.
+
+1. **Non-blocking · The design spec's shorthand still describes the previous density rule.** `06_UX/Dispatch Mesh desktop app — design spec.md:205` says rows without a purpose keep three lines, and its checklist at line 239 still calls for three visible rows without qualification. Status window item 5 and amended AC 5 explicitly allow wrapping and scrolling. Align those two shorthand lines with item 5 so the manual test uses single-line titles for the three-row check and separately verifies full wrapped titles.
+
+**Next step.** Run `/test-plan US00012` against `8f338a0` and stamp the freeze there. Include the native reopen and short-screen cases and the two layout cases described above.
 
 ## Follow-ups
 

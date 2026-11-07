@@ -202,7 +202,7 @@ Only Needs attention gets color and a primary button. Offline is grey, never red
 - **Author** 13/600 shrinks and ellipsizes for long names, but leaves room for the meta (US00012 review F1).
 - **Tooltip** (Kai, US00012, 2026-11-07; the meta and purpose lines keep their own full-text tooltip, review re-check F3): hovering a row shows the author's full name, then "Changed files:" and the files one per line (at most 20, then "… and N more"). For a published row, whose line 2 is the title, screen readers get "Changed files: …" as text.
 - The stage is named **once**, as text right of the track. The track itself is `aria-hidden`; the row carries "Stage: Shared as draft, 2 of 4" for screen readers.
-- **Requested purpose** (US00012 planning decision, Kai, 2026-11-07; keeps US00005 AC 3): a session with a recorded purpose gets one more line under line 2, "Requested purpose: …" (12, `text-3`, ellipsized; several purposes read "… +N more"). Rows without a purpose keep three lines.
+- **Requested purpose** (US00012 planning decision, Kai, 2026-11-07; keeps US00005 AC 3): a session with a recorded purpose gets one more line under line 2, "Requested purpose: …" (12, `text-3`, ellipsized; several purposes read "… +N more"). Rows without a purpose keep three lines when their title or file list fits on one line; a long summary title wraps and adds lines (see *Status window* item 5).
 - Discarded sessions show a "Discarded" tag instead of the track.
 - Incoming sessions show the other author, never "You".
 
@@ -236,5 +236,5 @@ Planning decisions of 2026-11-07 are in [[Story - US00006 - Conflict list and re
 
 1. Run the window with sample data covering every summary state, with and without a remote.
 2. Take a screenshot at the default size and put it next to the matching PNG.
-3. Go through *Status window* above line by line: structure, the stage named once, track segment count, tokens, at least three rows visible.
+3. Go through *Status window* above line by line: structure, the stage named once, track segment count, tokens, at least three rows visible when their titles fit on one line (item 5). Check full wrapped titles separately: they show in full, without horizontal overflow, and the list scrolls.
 4. Record the comparison in the ticket's test plan.
