@@ -12,7 +12,7 @@ The design frames written out as text, so they can be built and checked without 
 
 1. This page: tokens, glyph paths, components, per-view rules.
 2. `frames/*.png`: one image per frame. Open the image to see it.
-3. `frames/source/*.dc.html`: the frame markup, with exact inline styles and sample data. It needs the design tool's runtime to render, but it reads as plain HTML. `03b-summary-states` mounts the window frame by its original name (`Window`), so it doesn't render standalone.
+3. `frames/source/*.dc.html`: the frame markup, with exact inline styles and sample data. It needs the design tool's runtime to render, but it reads as plain HTML. `03a2-conflicts-tab` and `03b-summary-states` mount the window frame by its original name (`Window`), so they don't render standalone.
 
 When this page and a PNG disagree, this page wins: the PNGs come from the PDF export of 2026-11-05 (see *Changes since the PDF export*).
 
@@ -22,7 +22,8 @@ When this page and a PNG disagree, this page wins: the PNGs come from the PDF ex
 |---|---|---|---|---|---|
 | 1 | Tray icon set | `frames/01-tray-icons.png` | `frames/source/01-tray-icons.dc.html` | 1 | US00001 |
 | 2 | Tray menu + Quit variants | `frames/02-tray-menu.png` | `frames/source/02-tray-menu.dc.html` | 2 | US00001, US00005 |
-| 3a | Status window, 440 × 640 | `frames/03a-status-window.png` | `frames/source/03a-status-window.dc.html` | 3 | US00005, US00012 |
+| 3a | Status window, 440 × 640 below the native title bar | `frames/03a-status-window.png` | `frames/source/03a-status-window.dc.html` | 3 | US00005, US00012 |
+| 3a2 | Conflicts tab placeholder (until US00006) | — | `frames/source/03a2-conflicts-tab.dc.html` | — | US00012 |
 | 3b | Six summary states | `frames/03b-summary-states.png` | `frames/source/03b-summary-states.dc.html` | 4 | US00012 |
 | 3c | Session detail + presence | `frames/03c-activity-presence.png` | `frames/source/03c-activity-presence.dc.html` | 5 | US00007, later |
 | 3d | Conflicts list | `frames/03d-conflicts-list.png` | `frames/source/03d-conflicts-list.dc.html` | 6 | US00006 |
@@ -43,6 +44,15 @@ Made on the canvas on 2026-11-06, so the PNGs and the PDF don't show them yet:
 - The last session stage is labelled **Added to shared history** everywhere (it was "In shared history" in 3a, 3b, 3c and 6).
 - A workspace **without a remote** shows a **three-segment** stage track (Saved on this device → Finishing up → Added to shared history), "This device only" where the last sync would be, and only the user's own sessions (US00005 AC 2).
 - The Paused row on the icon sheet (1) is drawn at full strength and marked RESERVED in text, instead of faded.
+
+Refinement decisions of 2026-11-07 ([[Story - US00012 - Status window layout follows the design frames|US00012]] Q1–Q9, [[Story - US00006 - Conflict list and resolution in the status window|US00006]] planning), applied on the canvas the same day:
+
+- Every window keeps the **native Windows title bar**. Below it the app's top row holds the app mark and workspace name only, with no hide button of its own. The window content opens at 440 × 640, fitted to shorter screens.
+- The **Activity / Conflicts** tabs are there from the start. Until US00006, Conflicts shows a placeholder (frame 3a2).
+- **No device** is ever shown: "Alice · 1 file · last saved 40 s ago", never "laptop" or a device id. Own sessions read **You**; sessions from another device get the pale first track segment.
+- **Avatars** are always circles. A hash of the email picks one of six colors; "You" is always grey.
+- New **reason and reassurance lines** (see *State card per summary state*). Offline has no Retry now button.
+- **Conflicts:** buttons name the author, and **Review and choose** is secondary. A later edit disables both buttons until US00010. Image conflicts say "the other version stays kept".
 
 ## Tokens
 
@@ -75,7 +85,7 @@ Light values are the ones used in the frames. Dark values marked on frame 6 are 
 
 ### Type
 
-IBM Plex Sans and IBM Plex Mono (Google Fonts), falling back to Segoe UI / system-ui and Consolas. Whether to bundle Plex is open in [[Story - US00012 - Status window layout follows the design frames|US00012]] Q3. Keep the sizes either way.
+IBM Plex Sans (400/500/600) and IBM Plex Mono (400/500), bundled with the app as woff2 in `tray/ui/fonts/` with the SIL OFL licence file alongside (US00012 Q3). Fallbacks: Segoe UI / system-ui and Consolas.
 
 | Role | Size / weight | Notes |
 |---|---|---|
@@ -131,44 +141,54 @@ Sizes: Windows 16 and 32 px (light taskbar `#F3F3F3`, dark `#202020`); macOS 18 
 - **Primary button:** `action` fill and border, white 13/500 text, padding 7 × 14, radius 4. **Secondary:** `surface` fill, `line-strong` border, `text`. Focus: 2 px `action` outline, offset 2. One primary button per view at most.
 - **Count badge:** `attention` fill, white 11/600, pill, line-height 17, padding 0 × 6, accessible name "N unresolved".
 - **Tag:** 11/500 `text-2`, 1 px `line-strong` border, radius 3, padding 1 × 6 ("AI summary", "Discarded"). **Coming-later tag:** 11 `text-3`, 1 px dashed border ("later in 0.3"), only on disabled items.
-- **Avatar:** 28 px, initials 11/600 white on a per-person color; circle for people. The frames draw a square avatar for an agent, but there is no agent marker in `Status` (US00005), so the build uses circles only.
+- **Avatar:** 28 px circle, initials 11/600 white. A stable hash of the author's email picks one of six colors: `#2457C5`, `#7A4FB0`, `#2F6B4F`, `#B4490B`, `#3D3F44`, `#0E6E7E`, each passing 4.5:1 with white initials (check the dark variants). **You** is always neutral grey `#3D3F44`. The same person gets the same color on every device. There is no agent marker (US00005).
 - **Stage track:** see *Status window → Session row*.
 
 ## Status window (3a, 3b)
 
-Default size 440 × 640, resizable taller. Top to bottom:
+Native Windows title bar ("Dispatch Mesh", minimise, maximise, close = hide), then content of 440 × 640 by default, fitted to the work area on a shorter screen (minimum 380 × 360). Top to bottom:
 
-1. **Top row**, 44 px, `surface`, bottom border `line-soft`: app mark 16 px, workspace name 14/600 as a button with a chevron (the workspace switcher; a plain name with one workspace), then on the right a 40 × 32 icon button "Hide window (Mesh keeps running)". Native title bar vs. this row is open in US00012 Q1.
+1. **Top row**, 44 px, `surface`, borders `line-soft`: app mark 16 px and workspace name 14/600. With several workspaces the name is a button with a chevron (the switcher); with one it is plain text. No hide button: the native close hides the window.
 2. **Path**, mono 12 `text-3`, one line, ellipsized; full path as a tooltip.
 3. **State card**, radius 8, padding 16, gap 12:
    - Row 1: glyph 28 px, then label 17/600, reason 13 `text-2` under it, and the reassurance line 13/500 where the state has one.
    - Row 2 (actions): buttons on the left, "Last synced …" 12 `text-3` pushed right ("Not synced yet", or "This device only" without a remote).
-4. **Section nav**: underlined tabs, **Activity** (current: 13/600, 2 px `text` underline) and **Conflicts** with a count badge. Timing open in US00012 Q2.
+4. **Section nav**: underlined tabs, **Activity** and **Conflicts** (current tab 13/600 with a 2 px `text` underline). Conflicts carries the count badge and the accessible name "Conflicts, N unresolved". Until US00006 the Conflicts tab shows a dashed placeholder: "N unresolved conflicts. Review them with the command line until conflict review arrives." (with none: "No unresolved conflicts."). **Open conflicts** switches to this tab.
 5. **Activity list**: session rows separated by `line-soft` 1 px dividers. No cards. At 440 × 640 at least three rows are visible.
 
 ### State card per summary state
 
-| Engine value | Label | Reason line (example) | Reassurance | Actions | Card ground / border | Label color |
+| Engine value | Label | Reason line | Reassurance | Actions | Card ground / border | Label color |
 |---|---|---|---|---|---|---|
-| `needs_attention` | Needs attention | the engine's `reason`, e.g. "2 unresolved conflicts" | e.g. "Both versions of each file are kept. Other files keep syncing." | primary per reason (Open conflicts, Finish session, Open AI settings …) | `attention-card` | `attention-text` |
-| `offline` | Offline — changes saved on this device | the engine's `reason`, e.g. "Could not reach the remote (connection timed out)." | "Keep working — your changes upload when the connection returns." | none in 0.3 (US00005: no Retry now) | `offline-card` | `text` |
+| `needs_attention` | Needs attention | the engine's `reason`, e.g. "2 unresolved conflicts" | per reason, below | primary per reason (**Open conflicts**, **Finish session**, …) | `attention-card` | `attention-text` |
+| `offline` | Offline — changes saved on this device | the engine's `reason`, e.g. "Could not reach the remote (connection timed out)." | "Keep working — your changes upload when the connection returns." | none | `offline-card` | `text` |
 | `saved_locally` | Saved on this device | "Your latest edits are captured. Sharing them as a draft in a moment." | — | secondary **Finish session** | `surface` / `line` | `text` |
 | `draft_uploaded` | Shared as draft | "Collaborators can see your session. It joins shared history after 5 minutes without edits, or when you finish it." | — | secondary **Finish session** | `surface` / `line` | `text` |
-| `waiting_for_finalization` | Finishing up | "Writing a summary for your session (N files), then adding it to shared history." | — | none | `surface` / `line` | `text` |
+| `waiting_for_finalization` | Finishing up | "Adding your finished session to shared history." / "Adding your N finished sessions to shared history." | — | none | `surface` / `line` | `text` |
 | `synced` | Up to date | "Everything you saved is in shared history." | — | none | `surface` / `line` | `text` |
+
+Reassurance line per attention reason (US00012 Q8; all wording lives in `tray/src/model.rs`):
+
+| Reason | Reassurance |
+|---|---|
+| Conflicts | "Both versions of each file are kept. Other files keep syncing." |
+| Sync failure | "Your edits are saved on this device. Mesh retries automatically." (replaces the separate retry note) |
+| Capture error | "Saved files stay as they are. Mesh tries again on the next save." |
+| Edits depend on a received draft | "Your edits are saved on this device. Finish the session to share them." |
+| AI summary failure | "Your session is added to shared history with a local summary." |
 
 Only Needs attention gets color and a primary button. Offline is grey, never red. Working states stay white.
 
 ### Session row
 
 ```
-[avatar 28]  Author 13/600   meta 12 text-3 ("2 files · last saved 2 min ago")
+[avatar 28]  Author 13/600 ("You" for this device)   meta 12 text-3 ("2 files · last saved 2 min ago", never a device)
              Title once published, else files: 13/400, one line, ellipsized
              [▬▬ ▬▬ ▭▭ ▭▭]  Stage label 12 text-2
 ```
 
 - Gap 12 between avatar and text; 6 between the three lines.
-- **Stage track:** 4 segments with a remote, 3 without; each 4 px high, radius 2, gap 3, total width 28 px × segment count (112 / 84). Segments up to the current stage are filled with `working`; a published session fills all with `synced`; later segments are `line`. For a session received from another device the first segment is `received`, because this device never had it saved locally.
+- **Stage track:** 4 segments with a remote, 3 without; each 4 px high, radius 2, gap 3, total width 28 px × segment count (112 / 84). Segments up to the current stage are filled with `working`; a published session fills all with `synced`; later segments are `line`. For a session from another device (its `device` differs from `Status.device`, US00012 Q5) the first segment is `received`, because this device never had it saved locally.
 - The stage is named **once**, as text right of the track. The track itself is `aria-hidden`; the row carries "Stage: Shared as draft, 2 of 4" for screen readers.
 - Discarded sessions show a "Discarded" tag instead of the track.
 - Incoming sessions show the other author, never "You".
@@ -183,14 +203,18 @@ Recent-save presence only: dashed `presence` ring with a filled centre dot, "Ali
 
 ## Conflicts (3d, 3e, 3f)
 
-- **List:** heading "N unresolved conflicts", explanation 13 `text-2` ("Nothing was overwritten: both versions are kept …"). One card per conflict: file icon, path mono 13/500, "Text · recorded today 11:14". Two side boxes: **Current version · shown** (1 px solid `text` border) and **Other version · kept** (1 px dashed `#8A8C91`), each with author/device and time. Primary **Review and choose**.
-- **Text detail** (window expanded to about 1000 × 760): breadcrumb "‹ Conflicts / 1 of 2", path heading mono 18, a toggle **Show common base**, a base strip (`#EFEEEA`, caps label "Common base"), then two columns. Current version has a 1.5 px solid border and "In the folder now"; other version is dashed with "Kept, not shown". Line numbers in `text-3`; differing lines tinted `attention-card` with a "≠" gutter mark (named for screen readers). A `working-tint` note about edits made after the conflict. Footer: "Both versions stay in history whichever you choose." · secondary **Use other version · <value>** · primary **Keep current version · <value>**.
-- **Binary detail:** same frame, checkerboard preview boxes, a metadata list (saved by, saved, size, purpose), whole-file choice only.
+Planning decisions of 2026-11-07 are in [[Story - US00006 - Conflict list and resolution in the status window|US00006]]; the frames follow them.
+
+- **List:** heading "N unresolved conflicts", explanation 13 `text-2` ("Nothing was overwritten: both versions are kept …"). One card per conflict: file icon, path mono 13/500, "Text · recorded today 11:14". Two side boxes: **Current version · shown** (1 px solid `text` border) and **Other version · kept** (1 px dashed `#8A8C91`), each with the author ("You" for this device, "Shared history" when no session contributed) and time, never a device. **Review and choose** is a **secondary** button on every card.
+- **Text detail** (window widened to about 1000 × 760): breadcrumb "‹ Conflicts / 1 of 2", path heading mono 18, a toggle **Show common base**, a base strip (`#EFEEEA`, caps label "Common base"), then two columns. Current version has a 1.5 px solid border and "In the folder now"; other version is dashed with "Kept, not shown". Line numbers in `text-3`; differing lines tinted `attention-card` with a "≠" gutter mark (named for screen readers). A side that is a deletion shows "Deleted by Bob · 10:50" instead of content, with no diff.
+- **Buttons** name the side's author: secondary **Use other version (Bob)** and primary **Keep current version (Alice)**. Several contributors read "(Alice +1)", no contributing session reads "(shared history)", and a deletion reads "(deleted by Bob)". Footer: "Both versions stay in history whichever you choose."
+- **Edited again after the conflict** (until [[Story - US00010 - Resolve a conflict after the file was edited again|US00010]]): a `working-tint` note "You saved this file again at 11:20, after the conflict was recorded. Your edit is safe. Choosing a version is possible once the file matches the current version again." Both buttons are disabled. US00010 enables them and switches to "That edit is protected and reconciled separately once you choose."
+- **Binary detail:** same frame, checkerboard preview boxes, a metadata list (saved by, saved, size, purpose), whole-file choice only. Sentence: "Images can't be combined. Choose which whole file stays in the folder; the other version stays kept." Never "saved copy", which means a recovery file since US00005. Footer: "Whole-file choice only. Both versions stay in history."
 
 ## Other surfaces
 
 - **Tray menu (2):** header with workspace and state, **Open status window** (default), **Finish session** with a one-line hint, a disabled **Pause sync** with the coming-later tag, separator, **Quit Dispatch Mesh** with the hint "Your edits stay saved. The session continues next start." Variant A (no Quit prompt) is the one built.
-- **Already running / first run (3g):** centred message "Mesh is already running for this workspace" with **Retry**. First run: Up to date card, dashed empty state "No changes yet" with **Open folder**, and a one-time dark popover under the hide button: "Closing this window doesn't stop Mesh. It keeps syncing from the tray." · **Got it**.
+- **Already running / first run (3g):** centred message "Mesh is already running for this workspace" with **Retry**. First run: Up to date card, dashed empty state "No changes yet" with **Open folder**, and a one-time dark popover under the native close button: "Closing this window (×) doesn't stop Mesh. It keeps syncing from the tray." · **Got it**.
 - **Several workspaces (3h):** list of workspace cards sorted by precedence (Needs attention › Offline › Working › Up to date). The tray shows the highest state, and its tooltip names that workspace.
 - **Notifications (4):** toast on a new conflict (batched within 60 s), on entering or changing a Needs attention reason, and on leaving it (only if the start was toasted). Never for offline/online, working stages or publishing, never the same workspace + reason twice within 30 min, quiet under Do not disturb.
 - **Guided setup (5):** flow-level sketch for 0.5; not a build spec.

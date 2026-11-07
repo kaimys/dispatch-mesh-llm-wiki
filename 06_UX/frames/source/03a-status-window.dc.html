@@ -15,22 +15,29 @@ a{color:#2457C5}a:hover{color:#1A408F}
 button{font-family:inherit}
 </style>
 </helmet>
-<div style="width: 440px; height: 640px; box-sizing: border-box; background: #F7F7F5; color: #1C1D1F; font-family: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column; border: 1px solid #D6D5D0; border-radius: 8px; overflow: hidden">
+<div style="width: 440px; height: 672px; box-sizing: border-box; background: #F7F7F5; color: #1C1D1F; font-family: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column; border: 1px solid #D6D5D0; border-radius: 8px; overflow: hidden">
 
-  <div style="height: 44px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 0 6px 0 14px; background: #FFFFFF; border-bottom: 1px solid #ECEBE7">
+  <div aria-hidden="true" title="Native Windows title bar (not drawn by the app)" style="height: 32px; flex-shrink: 0; display: flex; align-items: center; background: #FFFFFF; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12px; color: #1C1D1F">
+    <span style="display: flex; align-items: center; gap: 8px; padding: 0 12px">
+      <svg width="14" height="14" viewBox="0 0 16 16"><g fill="#1C1D1F" stroke="#1C1D1F"><path d="M4 4L12 4M4 4L4 12M12 4L4 12" stroke-width="1.4" fill="none"></path><circle cx="4" cy="4" r="2.2" stroke="none"></circle><circle cx="12" cy="4" r="2.2" stroke="none"></circle><circle cx="4" cy="12" r="2.2" stroke="none"></circle></g></svg>
+      Dispatch Mesh
+    </span>
+    <div style="flex: 1"></div>
+    <span style="width: 46px; height: 32px; display: flex; align-items: center; justify-content: center"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M0 5h10" stroke="#1C1D1F" stroke-width="1"></path></svg></span>
+    <span style="width: 46px; height: 32px; display: flex; align-items: center; justify-content: center"><svg width="10" height="10" viewBox="0 0 10 10"><rect x="0.5" y="0.5" width="9" height="9" fill="none" stroke="#1C1D1F" stroke-width="1"></rect></svg></span>
+    <span style="width: 46px; height: 32px; display: flex; align-items: center; justify-content: center"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M0.5 0.5l9 9M9.5 0.5l-9 9" stroke="#1C1D1F" stroke-width="1"></path></svg></span>
+  </div>
+
+  <div style="height: 44px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 0 14px; background: #FFFFFF; border-top: 1px solid #ECEBE7; border-bottom: 1px solid #ECEBE7">
     <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><g fill="#1C1D1F" stroke="#1C1D1F"><path d="M4 4L12 4M4 4L4 12M12 4L4 12" stroke-width="1.4" fill="none"></path><circle cx="4" cy="4" r="2.2" stroke="none"></circle><circle cx="12" cy="4" r="2.2" stroke="none"></circle><circle cx="4" cy="12" r="2.2" stroke="none"></circle></g></svg>
-    <button aria-label="Switch workspace" style="display: flex; align-items: center; gap: 6px; border: 0; background: transparent; padding: 6px 8px; border-radius: 4px; font-size: 14px; font-weight: 600; color: #1C1D1F">
+    <button aria-label="Workspace: Team Wiki. Switch workspace" style="display: flex; align-items: center; gap: 6px; border: 0; background: transparent; padding: 6px 8px; border-radius: 4px; font-size: 14px; font-weight: 600; color: #1C1D1F">
       Team Wiki
       <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="#55575C" stroke-width="1.4"></path></svg>
-    </button>
-    <div style="flex: 1"></div>
-    <button aria-label="Hide window (Mesh keeps running)" style="width: 40px; height: 32px; border: 0; background: transparent; border-radius: 4px; display: flex; align-items: center; justify-content: center">
-      <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="#3D3F44" stroke-width="1.3"></path></svg>
     </button>
   </div>
 
   <div style="padding: 16px 16px 0; display: flex; flex-direction: column; gap: 14px">
-    <div style="font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 12px; color: #55575C; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">C:\Users\alex\Documents\Team Wiki</div>
+    <div title="C:\Users\alex\Documents\Team Wiki" style="font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 12px; color: #55575C; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">C:\Users\alex\Documents\Team Wiki</div>
 
     <section aria-label="Workspace status" style="background: {{s.cardBg}}; border: 1px solid {{s.cardLine}}; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
       <div style="display: flex; gap: 12px; align-items: flex-start">
@@ -59,52 +66,65 @@ button{font-family:inherit}
     </section>
 
     <nav aria-label="Sections" style="display: flex; gap: 4px; border-bottom: 1px solid #E3E2DE">
-      <a href="#" aria-current="page" style="text-decoration: none; color: #1C1D1F; font-size: 13px; font-weight: 600; padding: 8px 10px; border-bottom: 2px solid #1C1D1F; margin-bottom: -1px">Activity</a>
-      <a href="#" style="text-decoration: none; color: #3D3F44; font-size: 13px; padding: 8px 10px; display: flex; gap: 6px; align-items: center">
+      <a href="#" aria-current="{{tabs.activityCurrent}}" style="text-decoration: none; color: #1C1D1F; font-size: 13px; font-weight: {{tabs.activityWeight}}; padding: 8px 10px; border-bottom: 2px solid {{tabs.activityLine}}; margin-bottom: -1px">Activity</a>
+      <a href="#" aria-current="{{tabs.conflictsCurrent}}" aria-label="{{tabs.conflictsAria}}" style="text-decoration: none; color: #1C1D1F; font-size: 13px; font-weight: {{tabs.conflictsWeight}}; padding: 8px 10px; border-bottom: 2px solid {{tabs.conflictsLine}}; margin-bottom: -1px; display: flex; gap: 6px; align-items: center">
         Conflicts
         <sc-if value="{{s.hasConflicts}}" hint-placeholder-val="{{ false }}">
-          <span aria-label="2 unresolved" style="font-size: 11px; font-weight: 600; background: #B4490B; color: #FFFFFF; border-radius: 999px; padding: 0 6px; line-height: 17px">2</span>
+          <span aria-hidden="true" style="font-size: 11px; font-weight: 600; background: #B4490B; color: #FFFFFF; border-radius: 999px; padding: 0 6px; line-height: 17px">2</span>
         </sc-if>
       </a>
     </nav>
   </div>
 
-  <div style="flex: 1; overflow: hidden; padding: 4px 16px 16px; display: flex; flex-direction: column">
-    <sc-for list="{{sessions}}" as="it" hint-placeholder-count="3">
-      <div style="display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #ECEBE7">
-        <div aria-hidden="true" style="width: 28px; height: 28px; flex-shrink: 0; border-radius: {{it.avatarRadius}}; background: {{it.avatarBg}}; color: #FFFFFF; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{it.initials}}</div>
-        <div style="display: flex; flex-direction: column; gap: 6px; min-width: 0; flex: 1">
-          <div style="display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap">
-            <span style="font-size: 13px; font-weight: 600">{{it.who}}</span>
-            <span style="font-size: 12px; color: #55575C">{{it.meta}}</span>
-          </div>
-          <div style="font-size: 13px; line-height: 1.4; color: #1C1D1F; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{it.title}}</div>
-          <div style="display: flex; align-items: center; gap: 8px">
-            <div style="display: grid; grid-template-columns: repeat({{trackCols}}, minmax(0, 1fr)); gap: 3px; width: {{trackW}}" aria-hidden="true">
-              <sc-for list="{{it.steps}}" as="st" hint-placeholder-count="4">
-                <div style="height: 4px; border-radius: 2px; background: {{st.bg}}"></div>
-              </sc-for>
+  <sc-if value="{{tabs.showActivity}}" hint-placeholder-val="{{ true }}">
+    <div style="flex: 1; overflow: hidden; padding: 4px 16px 16px; display: flex; flex-direction: column">
+      <sc-for list="{{sessions}}" as="it" hint-placeholder-count="3">
+        <div style="display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #ECEBE7">
+          <div aria-hidden="true" style="width: 28px; height: 28px; flex-shrink: 0; border-radius: 50%; background: {{it.avatarBg}}; color: #FFFFFF; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{it.initials}}</div>
+          <div style="display: flex; flex-direction: column; gap: 6px; min-width: 0; flex: 1">
+            <div style="display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap">
+              <span style="font-size: 13px; font-weight: 600">{{it.who}}</span>
+              <span style="font-size: 12px; color: #55575C">{{it.meta}}</span>
             </div>
-            <span style="font-size: 12px; color: #3D3F44">{{it.stage}}</span>
+            <div style="font-size: 13px; line-height: 1.4; color: #1C1D1F; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{it.title}}</div>
+            <div style="display: flex; align-items: center; gap: 8px" aria-label="{{it.stageAria}}">
+              <div style="display: grid; grid-template-columns: repeat({{trackCols}}, minmax(0, 1fr)); gap: 3px; width: {{trackW}}" aria-hidden="true">
+                <sc-for list="{{it.steps}}" as="st" hint-placeholder-count="4">
+                  <div style="height: 4px; border-radius: 2px; background: {{st.bg}}"></div>
+                </sc-for>
+              </div>
+              <span style="font-size: 12px; color: #3D3F44" aria-hidden="true">{{it.stage}}</span>
+            </div>
           </div>
         </div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{tabs.showConflicts}}" hint-placeholder-val="{{ false }}">
+    <div style="flex: 1; padding: 16px">
+      <div style="border: 1px dashed #C9C8C3; border-radius: 8px; padding: 24px 20px; display: flex; flex-direction: column; gap: 6px; align-items: center; text-align: center">
+        <span style="font-size: 14px; font-weight: 600">{{tabs.placeholderTitle}}</span>
+        <span style="font-size: 13px; line-height: 1.5; color: #3D3F44; max-width: 320px">{{tabs.placeholderBody}}</span>
       </div>
-    </sc-for>
-  </div>
+    </div>
+  </sc-if>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"status":{"editor":"enum","options":["synced","saved_locally","draft_uploaded","waiting_for_finalization","offline","needs_attention"],"default":"needs_attention"},"remote":{"editor":"boolean","default":true},"$preview":{"width":440,"height":640}}'>
+<script type="text/x-dc" data-dc-script data-props='{"status":{"editor":"enum","options":["synced","saved_locally","draft_uploaded","waiting_for_finalization","offline","needs_attention"],"default":"needs_attention"},"remote":{"editor":"boolean","default":true},"tab":{"editor":"enum","options":["activity","conflicts"],"default":"activity"},"$preview":{"width":440,"height":672}}'>
 class Component extends DCLogic {
   renderVals() {
     const status = this.props.status ?? 'needs_attention';
+    const tab = this.props.tab ?? 'activity';
     const circle = 'M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18z';
     const working = { outer: circle, inner: 'M8.3 12a3.7 3.7 0 0 1 6.6-2.3M15.7 12a3.7 3.7 0 0 1-6.6 2.3M15.2 7.4v2.4h-2.4M8.8 16.6v-2.4h2.4', tone: '#2457C5', glyphFill: '#EAF0FC', cardBg: '#FFFFFF', cardLine: '#E3E2DE', labelColor: '#1C1D1F' };
+    // Wording per US00012 Q8 (2026-11-07).
     const map = {
       synced: { label: 'Up to date', reason: 'Everything you saved is in shared history.', lastSync: 'Last synced 1 min ago', outer: circle, inner: 'M8 12.4l2.8 2.8L16.2 9.6', tone: '#2F6B4F', glyphFill: '#E9F3EE', cardBg: '#FFFFFF', cardLine: '#E3E2DE', labelColor: '#1C1D1F', you: 4 },
       saved_locally: { ...working, label: 'Saved on this device', reason: 'Your latest edits are captured. Sharing them as a draft in a moment.', lastSync: 'Last synced 1 min ago', secondary: 'Finish session', you: 1 },
       draft_uploaded: { ...working, label: 'Shared as draft', reason: 'Collaborators can see your session. It joins shared history after 5 minutes without edits, or when you finish it.', lastSync: 'Last synced just now', secondary: 'Finish session', you: 2 },
-      waiting_for_finalization: { ...working, label: 'Finishing up', reason: 'Writing a summary for your session (2 files), then adding it to shared history.', lastSync: 'Last synced just now', you: 3 },
-      offline: { label: 'Offline — changes saved on this device', reason: 'Could not reach the remote (connection timed out).', reassure: 'Keep working — your changes upload when the connection returns.', lastSync: 'Last synced 14 min ago', secondary: 'Retry now', outer: circle, inner: 'M6.6 6.6l10.8 10.8', tone: '#4A5568', glyphFill: '#EEF0F3', cardBg: '#F1F2F4', cardLine: '#DCDFE4', labelColor: '#1C1D1F', you: 1 },
+      waiting_for_finalization: { ...working, label: 'Finishing up', reason: 'Adding your finished session to shared history.', lastSync: 'Last synced just now', you: 3 },
+      offline: { label: 'Offline — changes saved on this device', reason: 'Could not reach the remote (connection timed out).', reassure: 'Keep working — your changes upload when the connection returns.', lastSync: 'Last synced 14 min ago', outer: circle, inner: 'M6.6 6.6l10.8 10.8', tone: '#4A5568', glyphFill: '#EEF0F3', cardBg: '#F1F2F4', cardLine: '#DCDFE4', labelColor: '#1C1D1F', you: 1 },
       needs_attention: { label: 'Needs attention', reason: '2 unresolved conflicts', reassure: 'Both versions of each file are kept. Other files keep syncing.', lastSync: 'Last synced just now', primary: 'Open conflicts', outer: 'M12 3.5L21.2 19.6H2.8z', inner: 'M12 9.6v4.4M12 16.9v0.05', tone: '#B4490B', glyphFill: '#FDE3CF', cardBg: '#FDF1E7', cardLine: '#F0C9A8', labelColor: '#8A3608', you: 2, conflicts: true }
     };
     const m = map[status] || map.needs_attention;
@@ -115,18 +135,34 @@ class Component extends DCLogic {
     const total = stageLabels.length;
     const toLocal = { 1: 1, 2: 1, 3: 2, 4: 3 };
     const pos = (n) => (remote ? n : toLocal[n]);
-    const track = (n, incoming) => { const p = pos(n); return stageLabels.map((_, k) => ({
+    // A session from another device gets a pale first segment (US00012 Q5).
+    const track = (n, received) => { const p = pos(n); return stageLabels.map((_, k) => ({
       bg: k + 1 <= p ? (p === total ? '#2F6B4F' : '#2457C5') : '#E3E2DE'
-    })).map((st, i) => (incoming && i === 0 ? { bg: '#C9D6F2' } : st)); };
+    })).map((st, i) => (received && i === 0 ? { bg: '#C9D6F2' } : st)); };
     if (!remote) { s.lastSync = 'This device only'; }
     const youTitle = { 1: 'handbook/holidays.md, index.md', 2: 'handbook/holidays.md, index.md', 3: 'handbook/holidays.md, index.md', 4: 'Update holiday dates for 2027' };
-    const youMeta = { 1: '2 files · just now', 2: '2 files · last saved 2 min ago', 3: '2 files · closed 1 min ago', 4: '2 files · 6 min ago' };
+    const youMeta = { 1: '2 files · last saved just now', 2: '2 files · last saved 2 min ago', 3: '2 files · last saved 3 min ago', 4: '2 files · last saved 6 min ago' };
+    const row = (who, meta, title, initials, avatarBg, n, received) => {
+      const p = pos(n);
+      return { who, meta, title, initials, avatarBg, steps: track(n, received), stage: stageLabels[p - 1], stageAria: 'Stage: ' + stageLabels[p - 1] + ', ' + p + ' of ' + total };
+    };
+    // Avatar colors: hash of the email picks one of six; "You" is always neutral grey (US00012 Q9). No device is ever shown (Q6).
     const sessions = [
-      { who: 'You', meta: youMeta[m.you], title: youTitle[m.you], initials: 'AL', avatarBg: '#3D3F44', avatarRadius: '50%', steps: track(m.you, false), stage: stageLabels[pos(m.you) - 1] },
-      { who: 'Alice', meta: 'laptop · 1 file · last saved 40 s ago', title: 'meetings/2026-11-04.md', initials: 'A', avatarBg: '#7A4FB0', avatarRadius: '50%', steps: track(2, true), stage: 'Shared as draft' },
-      { who: 'Research agent', meta: "on Bob's desktop · 3 files · 22 min ago", title: 'Clarify setup steps and add troubleshooting examples', initials: 'RA', avatarBg: '#2F6B4F', avatarRadius: '6px', steps: track(4, true), stage: 'Added to shared history' }
+      row('You', youMeta[m.you], youTitle[m.you], 'AL', '#3D3F44', m.you, false),
+      row('Alice', '1 file · last saved 40 s ago', 'meetings/2026-11-04.md', 'A', '#7A4FB0', 2, true),
+      row('Research agent', '3 files · last saved 22 min ago', 'Clarify setup steps and add troubleshooting examples', 'RA', '#0E6E7E', 4, true)
     ];
-    return { s, sessions: remote ? sessions : sessions.slice(0, 1), trackCols: total, trackW: (total * 28) + 'px' };
+    const onConflicts = tab === 'conflicts';
+    const tabs = {
+      showActivity: !onConflicts, showConflicts: onConflicts,
+      activityCurrent: onConflicts ? 'false' : 'page', conflictsCurrent: onConflicts ? 'page' : 'false',
+      activityWeight: onConflicts ? 400 : 600, conflictsWeight: onConflicts ? 600 : 400,
+      activityLine: onConflicts ? 'transparent' : '#1C1D1F', conflictsLine: onConflicts ? '#1C1D1F' : 'transparent',
+      conflictsAria: s.hasConflicts ? 'Conflicts, 2 unresolved' : 'Conflicts, none unresolved',
+      placeholderTitle: s.hasConflicts ? '2 unresolved conflicts' : 'No unresolved conflicts.',
+      placeholderBody: s.hasConflicts ? 'Review them with the command line until conflict review arrives.' : ''
+    };
+    return { s, tabs, sessions: remote ? sessions : sessions.slice(0, 1), trackCols: total, trackW: (total * 28) + 'px' };
   }
 }
 </script>

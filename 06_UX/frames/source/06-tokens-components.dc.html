@@ -19,7 +19,7 @@ button{font-family:inherit}
   <div style="display: flex; flex-direction: column; gap: 6px">
     <div style="font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #55575C">Deliverable 6 · toolkit-neutral</div>
     <h1 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.01em">Tokens and components</h1>
-    <p style="margin: 0; font-size: 14px; color: #55575C">Flat fills, 1 px lines, one soft shadow for floating surfaces. Nothing a native toolkit can't draw. Fonts: IBM Plex Sans + Mono, falling back to Segoe UI / SF / Cantarell and Consolas.</p>
+    <p style="margin: 0; font-size: 14px; color: #55575C">Flat fills, 1 px lines, one soft shadow for floating surfaces. Nothing a native toolkit can't draw. Fonts: IBM Plex Sans + Mono, bundled with the app (SIL OFL licence alongside), falling back to Segoe UI / system-ui and Consolas.</p>
   </div>
 
   <div style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 40px; flex: 1">
@@ -85,6 +85,13 @@ button{font-family:inherit}
           <span style="font-size: 11px; font-weight: 500; color: #3D3F44; border: 1px solid #C9C8C3; border-radius: 3px; padding: 1px 6px">AI summary</span>
           <span style="font-size: 11px; color: #55575C; border: 1px dashed #8A8C91; border-radius: 3px; padding: 0 5px">later in 0.3</span>
         </div>
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap">
+          <span style="font-size: 12px; color: #3D3F44; width: 100%">Avatars: a hash of the email picks one of six; “You” is always grey.</span>
+          <sc-for list="{{avatars}}" as="av" hint-placeholder-count="6">
+            <span title="{{av.hex}}" style="width: 28px; height: 28px; border-radius: 50%; background: {{av.hex}}; color: #FFFFFF; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{av.i}}</span>
+          </sc-for>
+          <span style="font-size: 12px; color: #3D3F44; display: flex; gap: 6px; align-items: center"><span style="width: 28px; height: 28px; border-radius: 50%; background: #3D3F44; color: #FFFFFF; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center">AL</span>You</span>
+        </div>
         <div style="display: flex; flex-direction: column; gap: 6px">
           <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3px; width: 280px" aria-hidden="true">
             <span style="height: 4px; border-radius: 2px; background: #2457C5"></span>
@@ -145,6 +152,7 @@ class Component extends DCLogic {
         { spec: '11 / 600 caps', size: '11px', weight: 600, family: sans, track: '0.04em', case: 'uppercase', sample: 'Requested purpose' },
         { spec: 'mono 12', size: '12px', weight: 400, family: mono, track: '0', case: 'none', sample: 'policies/retention.md' }
       ],
+      avatars: ['#2457C5', '#7A4FB0', '#2F6B4F', '#B4490B', '#3D3F44', '#0E6E7E'].map((hex, n) => ({ hex, i: 'ABCDEF'[n] })),
       space: [4, 8, 12, 16, 24, 32].map((v) => ({ v, px: v + 'px' })),
       glyphs: [
         { name: 'Up to date', outer: circle, inner: 'M8 12.4l2.8 2.8L16.2 9.6', tone: '#2F6B4F', fill: '#E9F3EE', op: 1 },
