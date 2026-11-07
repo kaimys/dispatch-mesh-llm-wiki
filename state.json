@@ -2575,8 +2575,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Start US00006 conflict-list and resolution work",
+        "description": "Set the story status to In progress and assign it to Kai."
+      },
+      "message_base": "224d1cebd5278d4eab1938d429199e90a5eaff63"
     },
     "4cb3d5ea-2375-42c9-800b-777a7d3e8b10": {
       "id": "4cb3d5ea-2375-42c9-800b-777a7d3e8b10",
