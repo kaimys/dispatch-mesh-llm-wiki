@@ -14,7 +14,7 @@ The design frames written out as text, so they can be built and checked without 
 2. `frames/*.png`: one image per frame. Open the image to see it.
 3. `frames/source/*.dc.html`: the frame markup, with exact inline styles and sample data. It needs the design tool's runtime to render, but it reads as plain HTML. `03a2-conflicts-tab` and `03b-summary-states` mount the window frame by its original name (`Window`), so they don't render standalone.
 
-When this page and a PNG disagree, this page wins: the PNGs come from the PDF export of 2026-11-05 (see *Changes since the PDF export*).
+The PNGs were rendered from the frame source on 2026-11-07 at 2× scale, so they match the source and this page. IBM Plex wasn't available to the renderer, so the PNGs show **Inter** in place of Plex Sans and **DejaVu Sans Mono** in place of Plex Mono: take the typeface from *Type* below, not from the pictures. When this page and a PNG disagree, this page wins. The PDF (export of 2026-11-05) predates the changes listed below.
 
 ## Frame index
 
@@ -23,7 +23,7 @@ When this page and a PNG disagree, this page wins: the PNGs come from the PDF ex
 | 1 | Tray icon set | `frames/01-tray-icons.png` | `frames/source/01-tray-icons.dc.html` | 1 | US00001 |
 | 2 | Tray menu + Quit variants | `frames/02-tray-menu.png` | `frames/source/02-tray-menu.dc.html` | 2 | US00001, US00005 |
 | 3a | Status window, 440 × 640 below the native title bar | `frames/03a-status-window.png` | `frames/source/03a-status-window.dc.html` | 3 | US00005, US00012 |
-| 3a2 | Conflicts tab placeholder (until US00006) | — | `frames/source/03a2-conflicts-tab.dc.html` | — | US00012 |
+| 3a2 | Conflicts tab placeholder (until US00006) | `frames/03a2-conflicts-tab.png` | `frames/source/03a2-conflicts-tab.dc.html` | — | US00012 |
 | 3b | Six summary states | `frames/03b-summary-states.png` | `frames/source/03b-summary-states.dc.html` | 4 | US00012 |
 | 3c | Session detail + presence | `frames/03c-activity-presence.png` | `frames/source/03c-activity-presence.dc.html` | 5 | US00007, later |
 | 3d | Conflicts list | `frames/03d-conflicts-list.png` | `frames/source/03d-conflicts-list.dc.html` | 6 | US00006 |
@@ -39,7 +39,7 @@ When this page and a PNG disagree, this page wins: the PNGs come from the PDF ex
 
 ## Changes since the PDF export
 
-Made on the canvas on 2026-11-06, so the PNGs and the PDF don't show them yet:
+Made on the canvas on 2026-11-06. The PDF doesn't show them; the PNGs do:
 
 - The last session stage is labelled **Added to shared history** everywhere (it was "In shared history" in 3a, 3b, 3c and 6).
 - A workspace **without a remote** shows a **three-segment** stage track (Saved on this device → Finishing up → Added to shared history), "This device only" where the last sync would be, and only the user's own sessions (US00005 AC 2).

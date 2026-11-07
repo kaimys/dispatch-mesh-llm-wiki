@@ -39,7 +39,7 @@ As a person working in a Mesh workspace, I want the status window to show my rec
   - **p. 4 — 3b One frame per summary state**, `06_UX/frames/03b-summary-states.png`: the same window in all six summary states.
   - **p. 5 — 3c Activity + presence**, `06_UX/frames/03c-activity-presence.png`: session detail (out of scope here, see Open questions).
   - **p. 13 — 6 Tokens + components**, `06_UX/frames/06-tokens-components.png`: colors, type scale, spacing, status glyphs, stage track.
-- **Newer than the PDF (canvas, 2026-11-06):** the last stage is labelled "Added to shared history" everywhere, and a workspace without a remote shows a three-segment track (no "Shared as draft"). The PDF export and the PNGs predate both; the design spec lists them under *Changes since the PDF export*.
+- **Newer than the PDF (canvas, 2026-11-06):** the last stage is labelled "Added to shared history" everywhere, and a workspace without a remote shows a three-segment track (no "Shared as draft"). The PDF export predates both; the PNGs were re-rendered on 2026-11-07 and show them (with Inter standing in for IBM Plex).
 - Touches `tray/ui/app.js`, `tray/ui/app.css`, `tray/ui/index.html` and the new `tray/ui/fonts/` (Q3), `tray/tauri.conf.json` (Q7), and one additive `Status` field (Q5). `tray/src/model.rs` keeps all wording; if a label the design needs is missing from the view model, it is added there, unit-tested. *(Widened at refinement, 2026-11-07; originally "only `tray/ui/*`".)*
 - Vocabulary and principles: [[Claude Design briefing — desktop app]] §3 (quiet by default), §5 (words).
 
@@ -118,13 +118,15 @@ Refinement started 2026-11-07 (no tracker or chat; questions recorded here). Che
 - [x] **Q4 — Readable design source.** Before development, add the design to the wiki in a form an agent can read.
   **Answer (Kai, 2026-11-06):** done. `06_UX/frames/*.png` (one per frame, from the PDF), `06_UX/frames/source/*.dc.html` (frame markup from the canvas, including the 2026-11-06 changes) and [[Dispatch Mesh desktop app — design spec]]. Where the spec and a PNG disagree, the spec wins.
 
+**Planning decision (Kai, 2026-11-07).** Frozen [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]] AC 1 and AC 3 require each row to show the session's start time and its requested purpose, but the frame's three-line row shows neither. Decision: the meta line reads "N files · started 10:02 · last saved 2 min ago" (ellipsized). A session with a recorded purpose gets one more ellipsized line, "Requested purpose: …" (12, `text-3`), under line 2; rows without a purpose keep three lines. US00005's criteria stay met, so no correction to US00005 is needed.
+
 ## Acceptance criteria
 
 1. With one workspace and an open session, the window opens at 440 × 640 (fitted to a shorter screen) and matches frame p. 3 in structure below the native title bar: a top row with the app mark and workspace name, the path, one state card holding glyph, label, reason, actions and last sync, the Activity / Conflicts nav, then the activity list. Checked by a side-by-side screenshot recorded in the test plan.
 2. Each of the six summary states renders like its frame on p. 4: card ground and border, glyph shape, label, the reason and reassurance lines from Q8, and the action (primary **Open conflicts** / **Finish session** for attention reasons, secondary **Finish session** for Saved on this device and Shared as draft, none otherwise). State is never shown by color alone: glyph shape and label differ per state.
-3. A session row shows avatar, author ("You" for this device's sessions) and meta ("N files · last saved …", no device) on line 1, the title or files on one ellipsized line 2, and the segmented track with the stage label on line 3. The stage name appears exactly once per row.
+3. A session row shows avatar, author ("You" for this device's sessions) and meta ("N files · started … · last saved …", no device) on line 1, the title or files on one ellipsized line 2, "Requested purpose: …" on one ellipsized line only when a purpose is recorded, and the segmented track with the stage label last. The stage name appears exactly once per row.
 4. The track has 4 segments with a remote and 3 without. Filled segments match the stage, and a published session shows all segments in the published color. A session from another device has a pale first segment. A discarded session shows a "Discarded" tag instead of a track.
-5. At 440 × 640 at least three session rows are visible without scrolling, and no text overflows horizontally. Long paths ellipsize; the full path is available as a tooltip and to screen readers.
+5. At 440 × 640 at least three session rows without a purpose are visible without scrolling, and no text overflows horizontally. Long paths ellipsize; the full path is available as a tooltip and to screen readers.
 6. Colors, sizes and spacing use the design spec's tokens, in light and dark theme; all text meets 4.5:1. Text renders in the bundled IBM Plex Sans / Mono, and the licence file ships with them.
 7. Every control keeps its US00005 keyboard order, focus outline and accessible name; the track has the screen-reader text from Scope. The Conflicts tab has the accessible name "Conflicts, N unresolved".
 8. The **Conflicts** tab shows the unresolved count as a badge and the Q2 placeholder; **Open conflicts** on the attention card switches to it.
@@ -134,9 +136,162 @@ Refinement started 2026-11-07 (no tracker or chat; questions recorded here). Che
 
 ## Implementation plan
 
-<!-- GUIDE: Written by /implementation-plan. -->
-
 **Note for the planner and developer:** read [[Dispatch Mesh desktop app — design spec]] (*Status window*, *Tokens*, *Glyphs*) and open `06_UX/frames/03a-status-window.png`, `03b-summary-states.png` and `06-tokens-components.png` as images before writing the plan. Before handing to review, compare a screenshot of the running window against them, as in the spec's *How to check a build*. Text extraction from the PDF or HTML returns nothing.
+
+### Ground truth that shapes the plan
+
+Checked on 2026-11-07 against `main` at `403b165` (US00005 done) and the design spec as updated on 2026-11-07, which adds exported SVG glyphs. Since `c03cbf8`, `dispatch/invariants.md` says that UI work follows that spec.
+
+- **Window code.**
+  - `tray/ui/app.js` (280 lines) builds the window with `el()` and `textContent` only. `glyph(tone)` draws the *tray mark* with a corner badge, not the spec's status glyphs.
+  - `card()` puts label, reason, `note`, an attention **Finish session** and **Retry** in one column. `activity()` has a caps heading "Recent activity" and a secondary **Finish session** beside it.
+  - `sessionItem()` renders a bordered card, with the stage twice (text, then a ✓/●/○ list). `detail()` puts the name as `h1`, the path, and "Last synced" in a header above the card. Relative times are redrawn every 30 s.
+- **Styles.** `tray/ui/app.css` has the old token subset: no `line-soft`, tints, `received`, card colors or `attention-text`. The body font is Segoe UI Variable.
+- **Model** (`tray/src/model.rs`).
+  - `WorkspaceView` has `label`, `tone` (`attention`/`offline`/`working`/`synced`/`neutral`), `reason`, `note` (offline note or `RETRY_NOTE`), `already_running`, `retry`, `last_sync` / `sync_label`, `open_session`, `action` (`finish_session`), `sessions` and `saved_copies`.
+  - `SessionView` has `stage`, `steps` (label + `done`/`current`/`todo`), `files`, `author` (the name, always), times, `purposes` and `title`.
+- **Attention reasons, as the engine writes them.**
+  - Conflicts: "N unresolved conflict(s)" from `status_from`.
+  - Capture: "Local capture waiting: …".
+  - Sync: `SYNC_FAILURE` "Synchronization waiting: …".
+  - Dependent edits: `RECEIVED_DRAFT_DEPENDENCY` "Edits depend on a received draft…", and "Dependent edits are saved locally…".
+  - AI: `summary_failure`.
+  - Paused synchronization: "…; synchronization paused" (history rewritten or branch deleted outside Mesh). This reason has no reassurance line under Q8, and it gets none.
+- **Status.** `Status.device` and `has_remote` exist. `SessionStatus` has no `device` (Q5).
+- **Glyphs.**
+  - `06_UX/icons/status/status-<state>-<light|dark>.svg`: 24 × 24, with hard-coded token colors per theme, `role="img"` and `<title>`.
+  - `06_UX/icons/tray/*`: the tray icons, which are out of scope. The tray's PNGs come from `scripts/tray_icons.py`.
+- **Window config.** `tray/tauri.conf.json` sets 440 × 520 and min 380 × 360. The CSP is `default-src 'self'`, so self-hosted fonts and images load without a change, and `style-src 'self'` forbids inline `style` attributes, so per-row colors must be classes.
+
+### Steps, in order
+
+1. **Engine: `SessionStatus.device`** (`src/status.rs`). Add the session's device id as an additive field, which CLI `status` shows too. Amend ADR-0010 in the same change (dated: one field, for telling own sessions from received ones). It comes first because the model's "You" and received-segment rules test against it.
+2. **Tray model** (`tray/src/model.rs`), pure and unit-tested; all wording lives here:
+   - **`WorkspaceView` gains:**
+     - `glyph`: `up-to-date` / `working` / `offline` / `needs-attention`, or `none` for already running;
+     - `body`: the reason line. Attention and offline get the engine's `reason`, and working states get their sentence from the spec / Q8. Finishing up says "Adding your finished session to shared history." or "Adding your N finished sessions to shared history.", where N counts own sessions in that stage;
+     - `reassurance`: Q8's line chosen by reason. Conflicts are recognized when `unresolved_conflicts` is non-empty, AI failure when the reason equals `summary_failure`, and the rest by their engine prefixes or constants; any other reason gets `None`. The sync-failure reassurance replaces `RETRY_NOTE`, which goes away. The offline note becomes the offline reassurance;
+     - `conflict_count` and `conflicts_placeholder` (Q2);
+     - `action` gains `open_conflicts` for the conflict reason;
+     - `finish`: `primary` (attention, dependent edits), `secondary` (Saved on this device, Shared as draft, with an open session) or `None`. This moves the "where is Finish session" rule out of `app.js`.
+   - **`SessionView` changes:**
+     - `author` reads "You" when `device == Status.device`; `own: bool` is added;
+     - `avatar: { initials, color }`: initials are up to two letters of the author's name, and the "You" row uses the user's own name, as in frame 3a ("AL"). `color` is 0–5, from a stable FNV-1a hash of the lower-cased email, or `you`;
+     - `meta`: "N file(s) · started <t> · last saved <t>". The model gives the count text, and the window fills in the times, as today;
+     - `line` (title, else the files joined), plus `purpose: Option<String>` (the first purpose, followed by " +N more" when there are several);
+     - `segments`: a list of `working` / `synced` / `received` / `empty`, with 4 or 3 entries. A published session is all `synced`; a received session's first segment is `received`;
+     - `stage` (named once); `stage_text` "Stage: Shared as draft, 2 of 4" for screen readers;
+     - `discarded: bool` replaces the empty `steps`. A discarded session shows a "Discarded" tag instead of the track. This tag replaces US00005's "No changes kept" stage label in the window, while `stage_label` stays for the menu and tooltips.
+
+     `steps` is removed.
+   - **Avatar palette** as constants `AVATAR = ["#2457C5", "#7A4FB0", "#2F6B4F", "#B4490B", "#3D3F44", "#0E6E7E"]` plus `YOU = "#3D3F44"`, with the same values in both themes, since all are dark enough for white initials. The palette lives in Rust so a test can check it (below); `app.css` mirrors it as classes `.avatar.c0`–`.c5` and `.you`.
+3. **Glyphs** (`tray/ui/glyphs/`). Copy the eight status SVGs (four states × light/dark; `paused-reserved` is not needed) verbatim from `06_UX/icons/status/`, with a short `SOURCE.md` naming the origin and date.
+   - They render as `<picture><source srcset="…-dark.svg" media="(prefers-color-scheme: dark)"><img src="…-light.svg" alt="<label>"></picture>`, at 28 px in the card and 22 px in the several-workspaces list.
+   - The `alt` text is the state label (the spec's accessible name).
+   - The tray-mark `glyph()` stays only for the app mark in the top row (16 px, no badge) and for the neutral already-running state.
+
+   Copying beats re-typing paths: the artwork is exactly the export, and the wiki is not part of the repository, so the window needs its own copy.
+4. **Fonts** (`tray/ui/fonts/`). IBM Plex Sans 400/500/600 and IBM Plex Mono 400/500 as woff2, from the official IBM Plex release, pinned to one version, with `OFL.txt` and a `SOURCE.md` giving the version, URL and SHA-256 of each file. `@font-face` in `app.css` with `font-display: block` (local files, so there's no flash); the fallbacks are `"Segoe UI", system-ui` and `Consolas, ui-monospace`.
+5. **Window size** (`tray/tauri.conf.json`): 440 × 640, min 380 × 360. In `show_window` (`tray/src/main.rs`), if the monitor's work area is shorter than the window, set the height to the work area. That is the only Rust UI change.
+6. **Styles** (`tray/ui/app.css`):
+   - **Tokens:** replace the token block with the spec's full table, light and dark: `ground`, `surface`, `line`, `line-soft`, `line-strong`, `text`–`text-3`, `action`, the status tones with their tints, `received`, `offline-card` (ground and border), `attention-card` (ground and border), `attention-text` and `presence`.
+   - **Type, spacing, radius:** the type scale, spacing and radius follow the spec.
+   - **Components:** primary, secondary and focus buttons, the count badge, the tag, the avatar, the top row, the path, the state card per tone, the section nav and the session row.
+   - **Track:** segments of 4 px height, radius 2, gap 3, 28 px each.
+   - **Ellipsis:** one-line ellipsis on the path, the row's line 2 and the purpose.
+7. **Window structure** (`tray/ui/app.js`, `index.html`):
+   - **Top row:** the app mark and the workspace name. With several workspaces the name is a button with a chevron that returns to the workspace list, replacing "‹ All workspaces".
+   - **Path:** one line, with the full path in `title` and the accessible name.
+   - **State card:** row 1 holds the glyph, the label (17/600, `attention-text` for attention), the body and the reassurance (13/500). Row 2 holds the buttons on the left and the sync line on the right. **Open conflicts** (primary) switches to the Conflicts tab.
+   - **Section nav:** `role="tablist"` with **Activity** and **Conflicts** plus the badge. The badge's accessible name is "Conflicts, N unresolved". Arrow keys move between tabs. The selected tab is remembered per workspace in memory.
+   - **Activity tab:** divider-separated rows per the session-row spec. The track is `aria-hidden` and each row carries `stage_text`. Below it, saved copies keep their disclosure, restyled.
+   - **Conflicts tab:** the placeholder text.
+   - **Already running and stopped** states keep their current content in the new card style.
+   - **Kept as is:** every existing `data-key`, the focus restoration and the accessible names.
+8. **Design spec** (wiki; Kai owns the page, and the edit is proposed in the same change). Bring the spec in line with the decisions, because the invariants make it binding for UI work:
+   - native title bar (Q1);
+   - nav now, with the placeholder (Q2);
+   - Plex bundled (Q3);
+   - "You" and no device names (Q5, Q6);
+   - the Q8 lines, including Finishing up;
+   - the avatar rule and palette (Q9);
+   - the meta and purpose lines (planning decision).
+9. **Docs:** README (`status` gains `device` per session; the tray section describes the restyled window), the AGENTS.md repository map (`ui/` now holds `glyphs/` and `fonts/`), and the ADR-0010 amendment (step 1).
+
+**Order and why.**
+- **Step 1 before 2:** the model's "You" and received rules are tested against the new field.
+- **Steps 3–4 before 6–7:** the stylesheet and markup reference the files.
+- **Step 2 before 7:** the window only renders what the model decides, which keeps the wording testable.
+- **Step 8 with the code:** the spec never contradicts a merged build. US00006 then plans against the updated spec.
+
+### Tests
+
+- **Engine** (`tests/cli.rs` or `tests/engine.rs`): `status` has `device` for an own and a received session, and every existing key is unchanged.
+- **Tray model** (unit tests in `tray/src/model.rs`):
+  - the reason and reassurance lines per state and per reason, including a "synchronization paused" reason with no reassurance and an unknown reason with none;
+  - Finishing up for one and for three sessions;
+  - `finish` placement per state;
+  - the `open_conflicts` action;
+  - segments for every stage, with and without a remote, published (all synced) and received (first `received`);
+  - `stage_text`;
+  - "You" vs. the author's name; the initials (one word, two words, an empty name);
+  - the avatar color: stable for one email whatever its case, and spread across the six colors for a sample of emails;
+  - the purpose line with zero, one and several purposes;
+  - the meta file count, singular and plural;
+  - the Conflicts placeholder with zero and with N conflicts;
+  - removal of `RETRY_NOTE`, and US00005 AC 10's sentence now inside the reassurance.
+- **Contrast check** (new unit test in `tray/src/model.rs`, which reads `../ui/app.css` with `include_str!`):
+  - every text token passes 4.5:1 on `ground` and `surface`, in light and dark;
+  - `attention-text` passes on `attention-card`;
+  - white passes on each avatar color;
+  - the CSS avatar classes use exactly the Rust palette.
+
+  The stylesheet becomes testable by the existing `cargo test` with no new tool.
+- **Host** (`tray/tests/host.rs`): unchanged, apart from adjustments to renamed view fields; no new host behavior.
+- **Manual** (for `/test-plan`, following the spec's *How to check a build*):
+  - screenshots at 440 × 640 against 3a and each state in 3b, light and dark, with and without a remote;
+  - three rows visible;
+  - long paths ellipsized, with the full path in the tooltip;
+  - Plex actually rendering (DevTools computed font);
+  - a short screen;
+  - Narrator on the card, tabs, track text and buttons;
+  - keyboard order unchanged from US00005.
+
+### External changes and migration
+
+- `status` JSON: `sessions[].device` added; no state or format change.
+- `WorkspaceView` (internal, between the tray and its own window): fields renamed or added. `steps` and `note` are replaced. No external consumer.
+- New shipped assets: eight SVGs and five woff2 files (about 250 KB) with `OFL.txt`. No new crate and no CSP change.
+
+### Wiki pages this makes wrong
+
+- [[Dispatch Mesh desktop app — design spec]]: step 8.
+- [[ADR-0010 — Report workspace status and session stages separately]]: amended in step 1.
+- README and AGENTS.md: step 9.
+- [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]]: still true (start time and purpose stay visible); nothing to annotate. Its retry note's wording now sits inside a longer sentence, which still meets its AC 10.
+- [[Story - US00006 - Conflict list and resolution in the status window|US00006]]: its plan already assumes this ticket's nav, tokens and "You" rule.
+
+### Risks and rollback
+
+- **Font licensing and supply.** Use only the official IBM release under the OFL, shipped with its licence, with checksums recorded.
+- **WebView2 `<picture>` with `prefers-color-scheme`:** supported. If the window ever follows an app theme setting instead of the system one, glyph switching needs a class-based approach (out of scope).
+- **Contrast of derived dark tokens** (`line-soft`, tints, `received`, card colors are "derived, still need checking"): the contrast test catches text pairs. Non-text segment contrast is checked manually.
+- **Row height:** a purpose line makes some rows taller. Criterion 5 counts rows without a purpose.
+- **Rollback:** revert the commits. `SessionStatus.device` is additive and ignored by older readers.
+
+### Decisions for review
+
+1. Status glyphs ship as verbatim copies of the exported SVGs, switched by `<picture>` and `prefers-color-scheme`, rather than re-drawn from paths in JS.
+2. The avatar palette lives in Rust and is mirrored as CSS classes, checked by a test that reads `app.css` (no inline styles because of the CSP).
+3. Reason → reassurance mapping keys off the engine's own constants and prefixes. Reasons without a mapping, such as "synchronization paused", get no reassurance rather than a guessed one.
+4. A discarded session shows the "Discarded" tag (spec) instead of US00005's "No changes kept" label; the menu and tooltip wording are unchanged.
+5. Several purposes show as the first one plus " +N more" on one line.
+6. With several workspaces, the top-row name with its chevron returns to the workspace list. The list itself (3h) keeps its current layout, apart from the new glyphs.
+7. Tray icons stay as they are. Whether `scripts/tray_icons.py` matches the exported `06_UX/icons/tray/*.svg` is a candidate follow-up, not part of this ticket.
+
+### Size
+
+Order of magnitude: about three to four focused days. Roughly one day for the model and tests (including the contrast check), two days for the styles and structure, and half a day for assets, config and the spec update. Not a commitment.
 
 <!-- ═══════════ RECORD ZONE ═══════════
      What actually happened. Always appendable, including after the freeze.
