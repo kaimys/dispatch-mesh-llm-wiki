@@ -619,7 +619,7 @@
       "created_at": 1794048056,
       "last_edit": 1794048538,
       "revision": 5,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
