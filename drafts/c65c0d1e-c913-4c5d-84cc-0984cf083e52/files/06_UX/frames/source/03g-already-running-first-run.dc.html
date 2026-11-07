@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Already running and first run</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#2457C5}a:hover{color:#1A408F}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 1040px; height: 640px; box-sizing: border-box; padding: 40px; background: #EDECE8; color: #1C1D1F; font-family: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 80px">
+
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <div style="font-size: 15px; font-weight: 600">Already running</div>
+    <div style="height: 520px; background: #F7F7F5; border: 1px solid #D6D5D0; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column">
+      <div aria-hidden="true" title="Native Windows title bar (not drawn by the app)" style="height: 32px; flex-shrink: 0; display: flex; align-items: center; background: #FFFFFF; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12px; color: #1C1D1F">
+        <span style="display: flex; align-items: center; gap: 8px; padding: 0 12px">
+          <svg width="14" height="14" viewBox="0 0 16 16"><g fill="#1C1D1F" stroke="#1C1D1F"><path d="M4 4L12 4M4 4L4 12M12 4L4 12" stroke-width="1.4" fill="none"></path><circle cx="4" cy="4" r="2.2" stroke="none"></circle><circle cx="12" cy="4" r="2.2" stroke="none"></circle><circle cx="4" cy="12" r="2.2" stroke="none"></circle></g></svg>
+          Dispatch Mesh
+        </span>
+        <div style="flex: 1"></div>
+        <span style="width: 46px; height: 32px; display: flex; align-items: center; justify-content: center"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M0 5h10" stroke="#1C1D1F" stroke-width="1"></path></svg></span>
+        <span style="width: 46px; height: 32px; display: flex; align-items: center; justify-content: center"><svg width="10" height="10" viewBox="0 0 10 10"><rect x="0.5" y="0.5" width="9" height="9" fill="none" stroke="#1C1D1F" stroke-width="1"></rect></svg></span>
+        <span style="width: 46px; height: 32px; display: flex; align-items: center; justify-content: center"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M0.5 0.5l9 9M9.5 0.5l-9 9" stroke="#1C1D1F" stroke-width="1"></path></svg></span>
+      </div>
+
+      <div style="height: 44px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 0 8px; background: #FFFFFF; border-top: 1px solid #ECEBE7; border-bottom: 1px solid #ECEBE7">
+      <span style="font-size: 14px; font-weight: 600; padding: 6px 8px">Team Wiki</span>
+    </div>
+      <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 32px; text-align: center">
+        <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="10" width="20" height="16" rx="3" fill="none" stroke="#4A5568" stroke-width="1.8"></rect><rect x="14" y="16" width="20" height="16" rx="3" fill="#F7F7F5" stroke="#4A5568" stroke-width="1.8"></rect></svg>
+        <h2 style="margin: 0; font-size: 17px; font-weight: 600">Mesh is already running for this workspace</h2>
+        <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #3D3F44; max-width: 320px">Another Dispatch Mesh — from the command line or a second tray app — is looking after Team Wiki. Only one can at a time. Your files keep syncing through it.</p>
+        <button style="border: 1px solid #2457C5; background: #2457C5; color: #FFFFFF; border-radius: 4px; padding: 7px 16px; font-size: 13px; font-weight: 500">Retry</button>
+        <span style="font-size: 12px; color: #55575C">Retry after closing the other one.</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <div style="font-size: 15px; font-weight: 600">First run · just initialized</div>
+    <div style="height: 520px; background: #F7F7F5; border: 1px solid #D6D5D0; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; position: relative">
+      <div aria-hidden="true" title="Native Windows title bar (not drawn by the app)" style="height: 32px; flex-shrink: 0; display: flex; align-items: center; background: #FFFFFF; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12px; color: #1C1D1F">
+        <span style="display: flex; align-items: center; gap: 8px; padding: 0 12px">
+          <svg width="14" height="14" viewBox="0 0 16 16"><g fill="#1C1D1F" stroke="#1C1D1F"><path d="M4 4L12 4M4 4L4 12M12 4L4 12" stroke-width="1.4" fill="none"></path><circle cx="4" cy="4" r="2.2" stroke="none"></circle><circle cx="12" cy="4" r="2.2" stroke="none"></circle><circle cx="4" cy="12" r="2.2" stroke="none"></circle></g></svg>
+          Dispatch Mesh
+        </span>
+        <div style="flex: 1"></div>
+        <span style="width: 46px; height: 32px; display: flex; align-items: center; justify-content: center"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M0 5h10" stroke="#1C1D1F" stroke-width="1"></path></svg></span>
+        <span style="width: 46px; height: 32px; display: flex; align-items: center; justify-content: center"><svg width="10" height="10" viewBox="0 0 10 10"><rect x="0.5" y="0.5" width="9" height="9" fill="none" stroke="#1C1D1F" stroke-width="1"></rect></svg></span>
+        <span style="width: 46px; height: 32px; display: flex; align-items: center; justify-content: center"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M0.5 0.5l9 9M9.5 0.5l-9 9" stroke="#1C1D1F" stroke-width="1"></path></svg></span>
+      </div>
+
+      <div style="height: 44px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 0 8px; background: #FFFFFF; border-top: 1px solid #ECEBE7; border-bottom: 1px solid #ECEBE7">
+      <span style="font-size: 14px; font-weight: 600; padding: 6px 8px">Team Wiki</span>
+    </div>
+      <div role="dialog" aria-label="Closing keeps Mesh running" style="position: absolute; top: 36px; right: 6px; width: 250px; background: #1C1D1F; color: #FFFFFF; border-radius: 6px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 8px 20px rgba(20,20,20,0.2)">
+        <span style="font-size: 13px; line-height: 1.45">Closing this window (×) doesn't stop Mesh. It keeps syncing from the tray.</span>
+        <button style="align-self: flex-end; border: 1px solid #FFFFFF; background: transparent; color: #FFFFFF; border-radius: 4px; padding: 4px 10px; font-size: 12px">Got it</button>
+      </div>
+      <div style="padding: 16px; display: flex; flex-direction: column; gap: 14px">
+        <div style="font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 12px; color: #55575C">C:\Users\alex\Documents\Team Wiki</div>
+        <div style="background: #FFFFFF; border: 1px solid #E3E2DE; border-radius: 8px; padding: 16px; display: flex; gap: 12px; align-items: center">
+          <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18z" fill="#E9F3EE" stroke="#2F6B4F" stroke-width="1.6"></path><path d="M8 12.4l2.8 2.8L16.2 9.6" fill="none" stroke="#2F6B4F" stroke-width="1.8" stroke-linecap="round"></path></svg>
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 17px; font-weight: 600">Up to date</span>
+            <span style="font-size: 13px; color: #3D3F44">Team Wiki is set up and shared.</span>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 36px 16px; text-align: center; border: 1px dashed #C9C8C3; border-radius: 8px">
+          <span style="font-size: 14px; font-weight: 600">No changes yet</span>
+          <span style="font-size: 13px; line-height: 1.5; color: #3D3F44; max-width: 300px">Save a file in this folder and it shows up here. Changes by collaborators and agents appear here too.</span>
+          <button style="border: 1px solid #C9C8C3; background: #FFFFFF; color: #1C1D1F; border-radius: 4px; padding: 7px 14px; font-size: 13px">Open folder</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1040,"height":640}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

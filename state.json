@@ -4923,6 +4923,76 @@
       },
       "message_base": "aeb2e83b770b219bc33b42ba0f90187496cc13e3"
     },
+    "c65c0d1e-c913-4c5d-84cc-0984cf083e52": {
+      "id": "c65c0d1e-c913-4c5d-84cc-0984cf083e52",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794045501,
+      "last_edit": 1794045501,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "06_UX/Dispatch Mesh desktop app — design spec.md": {
+          "base": {
+            "blob": "cbebc4638a16eccea15e2d23ca9d0c8de5259329"
+          },
+          "content": {
+            "blob": "a707ab74a9b43dcc1ec42efbfb807c500f47048e"
+          },
+          "intent": null,
+          "last_edit": 1794045501
+        },
+        "06_UX/Dispatch Mesh desktop app.pdf": {
+          "base": {
+            "blob": "595eccb039bf6ab5186c128f7e56a1bdcd71f41c"
+          },
+          "content": {
+            "blob": "f9b2f30e4d631060cb0e2c912fb8a9ebfe5c36e0"
+          },
+          "intent": null,
+          "last_edit": 1794045501
+        },
+        "06_UX/frames/source/03a-status-window.dc.html": {
+          "base": {
+            "blob": "acc9841cea568a7e18f45d15cb5dc1672b0fd690"
+          },
+          "content": {
+            "blob": "18f0cf982e9f2bece5cff93d069be368b7dbe83d"
+          },
+          "intent": null,
+          "last_edit": 1794045501
+        },
+        "06_UX/frames/source/03d-conflicts-list.dc.html": {
+          "base": {
+            "blob": "27c0f9d562b34ad20d4d5353d19d0a80b2386d08"
+          },
+          "content": {
+            "blob": "224c1fa10e8fc27deb62c9fb98783f0d6768e516"
+          },
+          "intent": null,
+          "last_edit": 1794045501
+        },
+        "06_UX/frames/source/03g-already-running-first-run.dc.html": {
+          "base": {
+            "blob": "fe78f5e91c9ecc56f548531117272e6cb56c23b7"
+          },
+          "content": {
+            "blob": "6fc3ddd7538bacc47288741ab2ed7bb2276db6c0"
+          },
+          "intent": null,
+          "last_edit": 1794045501
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "c7ca6bef-6128-4dee-a7ab-48946eb29798": {
       "id": "c7ca6bef-6128-4dee-a7ab-48946eb29798",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
