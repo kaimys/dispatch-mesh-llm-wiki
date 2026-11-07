@@ -1869,6 +1869,38 @@
       },
       "message_base": "1b7f280c20b3eb2710e797a614fd5196014fff3b"
     },
+    "33491941-94ab-4460-a990-e0afda8e3a66": {
+      "id": "33491941-94ab-4460-a990-e0afda8e3a66",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794049673,
+      "last_edit": 1794049673,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "06_UX/Dispatch Mesh desktop app — design spec.md": {
+          "base": {
+            "blob": "28975f53b69bcba417761e2ea668b1825fbac431"
+          },
+          "content": {
+            "blob": "912e2b132d44c169f781eba7a38a8a787b98ee85"
+          },
+          "intent": null,
+          "last_edit": 1794049673
+        }
+      },
+      "dependencies": [
+        "65f81afd-bfef-4e82-af97-456251cc42e9"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "34d24af1-c115-4eca-a955-d097bb560326": {
       "id": "34d24af1-c115-4eca-a955-d097bb560326",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
