@@ -3004,7 +3004,7 @@
       "created_at": 1794049056,
       "last_edit": 1794049177,
       "revision": 4,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -3041,8 +3041,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: refine US00012 status window implementation plan",
+        "description": "Mark US00012 In progress and assign it to Kai; expand its scope, acceptance criteria, design decisions, and implementation/test plan for the status-window redesign. Record the additive per-session device field in ADR-0010, and add a Better CLI --help task to the daily notes. These edits document planned work; they do not establish that the implementation is complete."
+      },
+      "message_base": "5c10b2f82f856a17d57d748470daccad055f33a3"
     },
     "667fae1f-b58b-4481-968c-f334ddc466e5": {
       "id": "667fae1f-b58b-4481-968c-f334ddc466e5",
