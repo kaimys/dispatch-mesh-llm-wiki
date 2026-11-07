@@ -4384,8 +4384,8 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1794045907,
-      "last_edit": 1794045907,
-      "revision": 1,
+      "last_edit": 1794046131,
+      "revision": 2,
       "closed": false,
       "published": false,
       "discarded": false,
@@ -4395,20 +4395,20 @@
             "blob": "ae6f3655c0efc22e0d70739a89671e6558a87734"
           },
           "content": {
-            "blob": "335d69843695510070fb0c589921f4ffd9cfaf47"
+            "blob": "9268d0942ea7519b9ebe56e67e65485173447557"
           },
           "intent": null,
-          "last_edit": 1794045907
+          "last_edit": 1794046131
         },
         "05_Requirements/Tickets/Story - US00012 - Status window layout follows the design frames.md": {
           "base": {
             "blob": "a427bb61cbe14a37bcf8f2aa171a4b0dbaa965b7"
           },
           "content": {
-            "blob": "40bcbe52402d9528e5432ddb3bfa95a02be94a37"
+            "blob": "38cecc7d39a3b31498620233278f33705d1a7257"
           },
           "intent": null,
-          "last_edit": 1794045907
+          "last_edit": 1794046131
         },
         "06_UX/Dispatch Mesh desktop app — design spec.md": {
           "base": {
