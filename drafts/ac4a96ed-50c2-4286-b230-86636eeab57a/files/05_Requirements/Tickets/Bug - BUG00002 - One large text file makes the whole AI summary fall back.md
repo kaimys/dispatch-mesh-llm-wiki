@@ -1,20 +1,20 @@
 ---
 id: BUG00002
 type: bug
-status: "In progress"
+status: "Done"
 priority: high
 rank: 12000
-version_target:
+version_target: v0.3.0
 size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests:
+open_tests: 0
 open_findings:
 discussion:
 updated: 2026-11-07
-completed:
-frozen:
+completed: 2026-11-07
+frozen: 2026-11-07
 ---
 With text sharing on, a session that contains one large text file gets no AI summary at all. The summary input carries the full before and after text of every changed file, and `ChatCompletions::summarize` refuses the whole request when that input exceeds 512 KiB. One oversized file therefore costs the summary for every small edit beside it: the commit gets the factual local message, and the tray shows *Needs attention* until a later summary succeeds. Reported by Kai on 2026-11-07 for the `dispatch/wiki` workspace; requested as an explicit `/fix-bug` shortcut.
 
@@ -94,6 +94,7 @@ Coverage for the small-bug shortcut (no separate `/test-plan`; its review gate i
 - `src/ai.rs`: new `SUMMARY_INPUT_LIMIT` (512 KiB, the existing value). `ChatCompletions::summarize` builds every change item without text and with `content_available: false`, sizes each shareable file's `{"before","after"}` text, then adds text smallest-first while the payload stays within the limit. The size added is computed exactly (the object's braces stand in for the two commas; `true` is one byte shorter than `false`). The final `ensure!` stays as the guard for a payload too large even without text.
 - `tests/provider.rs`: `text_too_large_for_the_input_cap_is_left_out_file_by_file`. It failed before the fix (title "Update 3 workspace files", the local fallback) and passes with it.
 - Gates on `01da7b1` (Windows): `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings` and `cargo test` all pass (engine suite 54 tests, provider 24, runner 11, tray host 10, tray model 20, CLI 11, storage/transport 8, lib 5).
+- Completed 2026-11-07 under the shortcut, with `version_target: v0.3.0` set by Kai. Not merged: the fix is on branch `BUG00002-summary-text-budget`; release, tag and merge are outside `/fix-bug`.
 - Noticed on the way: the stderr log line repeats the fallback phrase ("…using a factual local message; using a factual local message…") because the error text and `generate_with_failure` both say it. Wording only, not changed here.
 
 ## Follow-ups
