@@ -4931,12 +4931,22 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1794045501,
-      "last_edit": 1794045501,
-      "revision": 1,
+      "last_edit": 1794045575,
+      "revision": 4,
       "closed": false,
       "published": false,
       "discarded": false,
       "changes": {
+        "06_UX/Claude Design briefing — desktop app.md": {
+          "base": {
+            "blob": "18a5ab0c7d2023b7bc31e1b9dd839674debeeccb"
+          },
+          "content": {
+            "blob": "4ba17dc85710477473f13ffcdbdc3ae195226de3"
+          },
+          "intent": null,
+          "last_edit": 1794045575
+        },
         "06_UX/Dispatch Mesh desktop app — design spec.md": {
           "base": {
             "blob": "cbebc4638a16eccea15e2d23ca9d0c8de5259329"
@@ -4946,6 +4956,14 @@
           },
           "intent": null,
           "last_edit": 1794045501
+        },
+        "06_UX/Dispatch Mesh desktop app.html": {
+          "base": {
+            "blob": "1e10a9766c6306f93f3b4cd098dba72f9bc50fc3"
+          },
+          "content": null,
+          "intent": null,
+          "last_edit": 1794045541
         },
         "06_UX/Dispatch Mesh desktop app.pdf": {
           "base": {
