@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Activity and presence</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#2457C5}a:hover{color:#1A408F}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 1000px; height: 852px; box-sizing: border-box; padding: 40px; background: #EDECE8; color: #1C1D1F; font-family: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif; display: flex; gap: 40px; align-items: flex-start">
+
+  <div style="width: 460px; height: 772px; flex-shrink: 0; background: #F7F7F5; border: 1px solid #D6D5D0; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column">
+    <div aria-hidden="true" title="Native Windows title bar (not drawn by the app)" style="height: 32px; flex-shrink: 0; display: flex; align-items: center; background: #FFFFFF; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12px; color: #1C1D1F">
+      <span style="display: flex; align-items: center; gap: 8px; padding: 0 12px">
+        <svg width="14" height="14" viewBox="0 0 16 16"><g fill="#1C1D1F" stroke="#1C1D1F"><path d="M4 4L12 4M4 4L4 12M12 4L4 12" stroke-width="1.4" fill="none"></path><circle cx="4" cy="4" r="2.2" stroke="none"></circle><circle cx="12" cy="4" r="2.2" stroke="none"></circle><circle cx="4" cy="12" r="2.2" stroke="none"></circle></g></svg>
+        Dispatch Mesh
+      </span>
+      <div style="flex: 1"></div>
+      <span style="width: 46px; height: 32px; display: flex; align-items: center; justify-content: center"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M0 5h10" stroke="#1C1D1F" stroke-width="1"></path></svg></span>
+      <span style="width: 46px; height: 32px; display: flex; align-items: center; justify-content: center"><svg width="10" height="10" viewBox="0 0 10 10"><rect x="0.5" y="0.5" width="9" height="9" fill="none" stroke="#1C1D1F" stroke-width="1"></rect></svg></span>
+      <span style="width: 46px; height: 32px; display: flex; align-items: center; justify-content: center"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M0.5 0.5l9 9M9.5 0.5l-9 9" stroke="#1C1D1F" stroke-width="1"></path></svg></span>
+    </div>
+
+    <div style="border-top: 1px solid #ECEBE7; height: 44px; display: flex; align-items: center; gap: 4px; padding: 0 14px 0 6px; background: #FFFFFF; border-bottom: 1px solid #ECEBE7">
+      <a href="#" aria-label="Back to activity" style="display: flex; align-items: center; gap: 4px; text-decoration: none; color: #1C1D1F; font-size: 13px; padding: 8px">
+        <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M7.5 2.5L4 6l3.5 3.5" fill="none" stroke="#3D3F44" stroke-width="1.4"></path></svg>
+        Activity
+      </a>
+      <span style="font-size: 13px; color: #55575C">/ Session</span>
+    </div>
+
+    <div style="padding: 18px 18px 0; display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; gap: 6px; align-items: center">
+          <span style="font-size: 11px; font-weight: 600; color: #2F6B4F; background: #E9F3EE; border-radius: 3px; padding: 2px 6px">Added to shared history</span>
+          <span style="font-size: 11px; font-weight: 500; color: #3D3F44; border: 1px solid #C9C8C3; border-radius: 3px; padding: 1px 6px">AI summary</span>
+        </div>
+        <h2 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3">Clarify setup steps and add troubleshooting examples</h2>
+        <div style="display: flex; gap: 8px; align-items: center; font-size: 12px; color: #55575C">
+          <span aria-hidden="true" style="width: 20px; height: 20px; border-radius: 50%; background: #0E6E7E; color: #FFFFFF; font-size: 9px; font-weight: 600; display: flex; align-items: center; justify-content: center">RA</span>
+          <span><strong style="color: #1C1D1F; font-weight: 600">Research agent</strong> · started 10:02 · added today 10:09</span>
+        </div>
+      </div>
+
+      <div style="background: #FFFFFF; border: 1px solid #E3E2DE; border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px">
+        <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #55575C">Requested purpose · by Research agent</div>
+        <div style="font-size: 14px; line-height: 1.4">“Clarify onboarding for new colleagues”</div>
+        <div style="font-size: 12px; line-height: 1.45; color: #55575C">Applies to 2 of 3 files. This is what the agent was asked to do, not a check of what it changed.</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column">
+        <div style="font-size: 12px; font-weight: 600; color: #55575C; padding-bottom: 6px">3 files</div>
+        <sc-for list="{{files}}" as="f" hint-placeholder-count="3">
+          <div style="display: flex; align-items: center; gap: 10px; padding: 8px 0; border-top: 1px solid #ECEBE7">
+            <span style="font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 12px; flex: 1">{{f.path}}</span>
+            <span style="font-size: 11px; color: #3D3F44; border: 1px solid {{f.tagLine}}; border-radius: 3px; padding: 1px 6px; opacity: {{f.tagOpacity}}">{{f.tag}}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0">
+        <div style="font-size: 12px; font-weight: 600; color: #55575C; padding-bottom: 8px">Stages</div>
+        <sc-for list="{{timeline}}" as="t" hint-placeholder-count="4">
+          <div style="display: flex; gap: 12px; align-items: stretch">
+            <div style="width: 12px; display: flex; flex-direction: column; align-items: center">
+              <span style="width: 10px; height: 10px; border-radius: 50%; background: #2F6B4F; margin-top: 4px; flex-shrink: 0"></span>
+              <span style="width: 2px; flex: 1; background: {{t.line}}"></span>
+            </div>
+            <div style="display: flex; justify-content: space-between; flex: 1; padding-bottom: 12px; font-size: 13px">
+              <span>{{t.label}}</span>
+              <span style="color: #55575C; font-size: 12px">{{t.time}}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display: flex; gap: 10px; align-items: center; padding: 10px 12px; border: 1px dashed #C9C8C3; border-radius: 6px">
+        <span style="font-size: 11px; font-weight: 600; color: #3D3F44; border: 1px solid #8A8C91; border-radius: 3px; padding: 1px 6px">Discarded</span>
+        <span style="font-size: 12px; line-height: 1.4; color: #3D3F44">Your session at 9:41 · index.md. The edits cancelled out, so nothing was added to history.</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="flex: 1; display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <h1 style="margin: 0; font-size: 22px; font-weight: 600">Presence</h1>
+      <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #55575C">From saved changes only. Advisory, never a lock. Each entry fades out 5 minutes after the last save.</p>
+    </div>
+
+    <div style="background: #FFFFFF; border: 1px solid #D6D5D0; border-radius: 8px; overflow: hidden">
+      <div style="padding: 10px 14px; font-size: 12px; font-weight: 600; color: #55575C; border-bottom: 1px solid #ECEBE7">In the activity list</div>
+      <sc-for list="{{presence}}" as="p" hint-placeholder-count="2">
+        <div style="display: flex; gap: 10px; align-items: center; padding: 10px 14px; border-bottom: 1px solid #ECEBE7">
+          <span aria-hidden="true" style="width: 22px; height: 22px; border-radius: 50%; background: {{p.bg}}; color: #FFFFFF; font-size: 10px; font-weight: 600; display: flex; align-items: center; justify-content: center; opacity: {{p.fade}}">{{p.initial}}</span>
+          <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0">
+            <span style="font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 12px">{{p.path}}</span>
+            <span style="font-size: 12px; color: #3D3F44">{{p.text}}</span>
+          </div>
+          <div style="width: 48px; height: 4px; border-radius: 2px; background: #ECEBE7; overflow: hidden" aria-hidden="true">
+            <div style="height: 4px; width: {{p.remain}}; background: #8A8C91"></div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 600; color: #55575C">As a notice on the file</div>
+      <div role="status" style="display: flex; gap: 12px; align-items: flex-start; background: #FFFFFF; border: 1px solid #D6D5D0; border-radius: 8px; padding: 12px 14px">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" style="flex-shrink: 0; margin-top: 1px"><circle cx="9" cy="9" r="7" fill="none" stroke="#7A4FB0" stroke-width="1.5" stroke-dasharray="3 2.2"></circle><circle cx="9" cy="9" r="2.5" fill="#7A4FB0"></circle></svg>
+        <div style="display: flex; flex-direction: column; gap: 4px; flex: 1">
+          <span style="font-size: 13px; font-weight: 600">Alice recently changed this file</span>
+          <span style="font-size: 12px; line-height: 1.45; color: #3D3F44">Last saved 12 seconds ago · meetings/2026-11-04.md. You can keep editing. If you both change the same lines, Mesh keeps both versions.</span>
+        </div>
+        <button aria-label="Dismiss notice" style="border: 0; background: transparent; width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center">
+          <svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="#3D3F44" stroke-width="1.4"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px; opacity: 0.6">
+      <div style="display: flex; gap: 8px; align-items: center">
+        <span style="font-size: 12px; font-weight: 600; color: #55575C">Reserved: live editing (editor integrations)</span>
+        <span style="font-size: 11px; border: 1px dashed #8A8C91; border-radius: 3px; padding: 0 5px; color: #55575C">not in 0.3</span>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: center; background: #7A4FB0; color: #FFFFFF; border-radius: 999px; padding: 6px 14px 6px 8px; align-self: flex-start">
+        <span style="width: 8px; height: 8px; border-radius: 50%; background: #FFFFFF"></span>
+        <span style="font-size: 12px; font-weight: 500">Alice is editing now</span>
+      </div>
+      <div style="font-size: 12px; color: #55575C; line-height: 1.45">Solid, filled pill vs. the dashed ring for recent saves, so the two signals never read as the same thing.</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1000,"height":852}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const on = { tag: 'Requested purpose', tagLine: '#C9C8C3', tagOpacity: 1 };
+    const off = { tag: 'No purpose recorded', tagLine: 'transparent', tagOpacity: 0.85 };
+    return {
+      files: [
+        { path: 'onboarding/setup.md', ...on },
+        { path: 'onboarding/troubleshooting.md', ...on },
+        { path: 'index.md', ...off }
+      ],
+      timeline: [
+        { label: 'Saved on another device', time: '10:02', line: '#2F6B4F' },
+        { label: 'Shared as draft', time: '10:03', line: '#2F6B4F' },
+        { label: 'Finishing up · summary written', time: '10:09', line: '#2F6B4F' },
+        { label: 'Added to shared history', time: '10:09', line: 'transparent' }
+      ],
+      presence: [
+        { path: 'meetings/2026-11-04.md', text: 'Alice recently changed this file · 12 s ago', initial: 'A', bg: '#7A4FB0', fade: 1, remain: '96%' },
+        { path: 'policies/retention.md', text: 'Bob recently changed this file · 3 min ago', initial: 'B', bg: '#2457C5', fade: 0.6, remain: '40%' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

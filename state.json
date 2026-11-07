@@ -609,6 +609,106 @@
       },
       "message_base": "8e1fea23873ece76ef747c6fee0098f6f527522e"
     },
+    "11c52f5b-11e1-47c1-a4ed-e7c026a45ca4": {
+      "id": "11c52f5b-11e1-47c1-a4ed-e7c026a45ca4",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794048056,
+      "last_edit": 1794048056,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "10fcf69975e4483eef23a07a8abbb74d48cff3d9"
+          },
+          "content": {
+            "blob": "000122e631d8c9f1aee96b41822a700144c7850f"
+          },
+          "intent": null,
+          "last_edit": 1794048056
+        },
+        "06_UX/Dispatch Mesh desktop app — design spec.md": {
+          "base": {
+            "blob": "7b23a45433aae987a85cea12b1acfbd5b1fb3028"
+          },
+          "content": {
+            "blob": "28975f53b69bcba417761e2ea668b1825fbac431"
+          },
+          "intent": null,
+          "last_edit": 1794048056
+        },
+        "06_UX/frames/03a-status-window.png": {
+          "base": {
+            "blob": "abe5f126e732bd9523364c49ecfade42dc2b2198"
+          },
+          "content": {
+            "blob": "7b78fbf8797aafa264afd0844e7015c9af73f288"
+          },
+          "intent": null,
+          "last_edit": 1794048056
+        },
+        "06_UX/frames/03a2-conflicts-tab.png": {
+          "base": {
+            "blob": "54f03df60ae98722ca3d7c2c345217ade50eb1b3"
+          },
+          "content": {
+            "blob": "4ca972e1a25737bb25b3bc35a9eb9cc0272d9945"
+          },
+          "intent": null,
+          "last_edit": 1794048056
+        },
+        "06_UX/frames/03b-summary-states.png": {
+          "base": {
+            "blob": "3f46f8d330ed32434a434d7a2c8f6af3fd5869f1"
+          },
+          "content": {
+            "blob": "48f8dd029e06cf21a0cab8de408c77a5afe4f978"
+          },
+          "intent": null,
+          "last_edit": 1794048056
+        },
+        "06_UX/frames/03c-activity-presence.png": {
+          "base": {
+            "blob": "0acf713d5d96d381b0d046771492ede4d389421d"
+          },
+          "content": {
+            "blob": "802fc6fc411a6ae6f0b605d6a45d119cbf2e1e51"
+          },
+          "intent": null,
+          "last_edit": 1794048056
+        },
+        "06_UX/frames/source/03a-status-window.dc.html": {
+          "base": {
+            "blob": "18f0cf982e9f2bece5cff93d069be368b7dbe83d"
+          },
+          "content": {
+            "blob": "f6c92cabc8888c69a72c9cb88fd7177ffa18c583"
+          },
+          "intent": null,
+          "last_edit": 1794048056
+        },
+        "06_UX/frames/source/03c-activity-presence.dc.html": {
+          "base": {
+            "blob": "14921c676a227ec9c253df95531af4fa2659df1b"
+          },
+          "content": {
+            "blob": "6c97291dcd629f45d10667e499a4c72946a9f332"
+          },
+          "intent": null,
+          "last_edit": 1794048056
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "14d2bfc5-adc6-4d34-905e-a445783f46fb": {
       "id": "14d2bfc5-adc6-4d34-905e-a445783f46fb",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
