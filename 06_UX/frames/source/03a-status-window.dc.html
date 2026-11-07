@@ -140,7 +140,8 @@ class Component extends DCLogic {
     })).map((st, i) => (received && i === 0 ? { bg: '#C9D6F2' } : st)); };
     if (!remote) { s.lastSync = 'This device only'; }
     const youTitle = { 1: 'handbook/holidays.md, index.md', 2: 'handbook/holidays.md, index.md', 3: 'handbook/holidays.md, index.md', 4: 'Update holiday dates for 2027' };
-    const youMeta = { 1: '2 files · last saved just now', 2: '2 files · last saved 2 min ago', 3: '2 files · last saved 3 min ago', 4: '2 files · last saved 6 min ago' };
+    // Meta shows the start time and the last save (no device). Every published session has a summary title (AI-written, or the local summary).
+    const youMeta = { 1: '2 files · started 11:27 · last saved just now', 2: '2 files · started 11:27 · last saved 2 min ago', 3: '2 files · started 11:27 · last saved 3 min ago', 4: '2 files · started 11:27 · last saved 6 min ago' };
     const row = (who, meta, title, initials, avatarBg, n, received) => {
       const p = pos(n);
       return { who, meta, title, initials, avatarBg, steps: track(n, received), stage: stageLabels[p - 1], stageAria: 'Stage: ' + stageLabels[p - 1] + ', ' + p + ' of ' + total };
@@ -148,8 +149,9 @@ class Component extends DCLogic {
     // Avatar colors: hash of the email picks one of six; "You" is always neutral grey (US00012 Q9). No device is ever shown (Q6).
     const sessions = [
       row('You', youMeta[m.you], youTitle[m.you], 'AL', '#3D3F44', m.you, false),
-      row('Alice', '1 file · last saved 40 s ago', 'meetings/2026-11-04.md', 'A', '#7A4FB0', 2, true),
-      row('Research agent', '3 files · last saved 22 min ago', 'Clarify setup steps and add troubleshooting examples', 'RA', '#0E6E7E', 4, true)
+      row('Alice', '1 file · started 11:31 · last saved 40 s ago', 'meetings/2026-11-04.md', 'A', '#7A4FB0', 2, true),
+      row('Research agent', '3 files · started 10:02 · last saved 22 min ago', 'Clarify setup steps and add troubleshooting examples', 'RA', '#0E6E7E', 4, true),
+      row('You', '1 file · started 9:12 · last saved 1 h ago', 'Add owner and review date to the retention policy', 'AL', '#3D3F44', 4, false)
     ];
     const onConflicts = tab === 'conflicts';
     const tabs = {

@@ -369,3 +369,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-07] merge | BUG00002 merged to main
 - Fast-forwarded `main` to `01da7b1` (the BUG00002 fix) and pushed. Rebuilt `target/release` from it. Recorded in [[Bug - BUG00002 - One large text file makes the whole AI summary fall back|BUG00002]].
+
+## [2026-11-07] design | Session rows show start time; every published session has a title
+- Matched the frames to the built window: the session meta now reads "N files · started 11:27 · last saved …", and a second published session by "You" shows that every published session carries a summary title, not just agent sessions. Updated the canvas, `06_UX/frames/` (03a, 03a2, 03b, 03c PNGs and sources) and [[Dispatch Mesh desktop app — design spec]] (*Session row*).

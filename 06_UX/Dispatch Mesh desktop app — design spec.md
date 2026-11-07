@@ -182,12 +182,14 @@ Only Needs attention gets color and a primary button. Offline is grey, never red
 ### Session row
 
 ```
-[avatar 28]  Author 13/600 ("You" for this device)   meta 12 text-3 ("2 files · last saved 2 min ago", never a device)
-             Title once published, else files: 13/400, one line, ellipsized
+[avatar 28]  Author 13/600 ("You" for this device)   meta 12 text-3 ("2 files · started 11:27 · last saved 2 min ago", never a device)
+             Summary title once published, else files: 13/400, one line, ellipsized
              [▬▬ ▬▬ ▭▭ ▭▭]  Stage label 12 text-2
 ```
 
 - Gap 12 between avatar and text; 6 between the three lines.
+- **Meta** always carries the file count, the session's start time and its last save. The start time is a clock time ("started 11:27"; a date once it isn't today), the last save is relative.
+- **Every published session has a summary title**, whoever authored it: the AI-written title when AI summaries are on, otherwise the factual local summary. It replaces the file list on line 2. Unpublished sessions show their files. Agent sessions aren't special.
 - **Stage track:** 4 segments with a remote, 3 without; each 4 px high, radius 2, gap 3, total width 28 px × segment count (112 / 84). Segments up to the current stage are filled with `working`; a published session fills all with `synced`; later segments are `line`. For a session from another device (its `device` differs from `Status.device`, US00012 Q5) the first segment is `received`, because this device never had it saved locally.
 - The stage is named **once**, as text right of the track. The track itself is `aria-hidden`; the row carries "Stage: Shared as draft, 2 of 4" for screen readers.
 - Discarded sessions show a "Discarded" tag instead of the track.
