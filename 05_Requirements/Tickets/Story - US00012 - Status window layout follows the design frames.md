@@ -72,6 +72,7 @@ As a person working in a Mesh workspace, I want the status window to show my rec
 - Segmented stage track with the stage named once in text; screen readers get "Stage: Shared as draft, 2 of 4".
 - Saved copies (US00005) keep their disclosure, restyled with the same tokens, placed below the activity list.
 - Native title bar, then the design's top row: app mark and workspace name (switcher with several workspaces), no own hide button (Q1).
+  > Amended 2026-11-07 (review F4): no app mark in the top row; the native title bar shows it.
 - Activity / Conflicts section nav with the count badge; the Conflicts tab shows the placeholder from Q2.
 - IBM Plex Sans and Mono bundled (Q3); default window 440 × 640 (Q7).
 - `SessionStatus.device` (Q5) for "You" and the received first segment; no device names (Q6); avatar colors per Q9.
@@ -94,6 +95,7 @@ Refinement started 2026-11-07 (no tracker or chat; questions recorded here). Che
 
 - [x] **Q1 — Window chrome.** Keep the native Windows title bar ("Dispatch Mesh", minimise/maximise/close) above the design's header, or draw the design's own top row (app mark, workspace name as switcher, hide button) with Tauri `decorations: false`? The second matches p. 3 but needs a drag region and native-feeling hide/move.
   **Answer (Kai, 2026-11-07):** keep the native Windows title bar (move, snap, close = hide as today). Below it, the design's top row without its own hide button: app mark and workspace name, which is the switcher when there are several workspaces. No `decorations: false`, no drag region.
+  > Amended 2026-11-07 (review F4): the top row carries **no app mark**. The native title bar already shows it, and the design spec as revised on 2026-11-07 drops it from the row. The row holds the workspace name only.
 - [x] **Q2 — Conflicts tab.** Show the Activity / Conflicts section nav now (Conflicts empty or disabled until US00006), or introduce the nav together with US00006?
   **Answer (Kai, 2026-11-07):** build the nav now. The **Conflicts** tab carries the count badge from the existing unresolved count and shows a placeholder: "N unresolved conflicts. Review them with the command line until conflict review arrives." (with none: "No unresolved conflicts."). [[Story - US00006 - Conflict list and resolution in the status window|US00006]] replaces the placeholder.
 - [x] **Q3 — Font.** Bundle IBM Plex Sans + Mono with the app, or use the system fallback (Segoe UI, Consolas) and keep the design's sizes and weights?
@@ -123,16 +125,22 @@ Refinement started 2026-11-07 (no tracker or chat; questions recorded here). Che
 ## Acceptance criteria
 
 1. With one workspace and an open session, the window opens at 440 × 640 (fitted to a shorter screen) and matches frame p. 3 in structure below the native title bar: a top row with the app mark and workspace name, the path, one state card holding glyph, label, reason, actions and last sync, the Activity / Conflicts nav, then the activity list. Checked by a side-by-side screenshot recorded in the test plan.
+   > Amended 2026-11-07 (review F4): the top row holds the workspace name without an app mark (the native title bar shows it), per the revised design spec.
 2. Each of the six summary states renders like its frame on p. 4: card ground and border, glyph shape, label, the reason and reassurance lines from Q8, and the action (primary **Open conflicts** / **Finish session** for attention reasons, secondary **Finish session** for Saved on this device and Shared as draft, none otherwise). State is never shown by color alone: glyph shape and label differ per state.
+   > Amended 2026-11-07 (review F5): **Finish session** is a secondary action in every state while a session is open, unless it is the primary one (plan amendment in step 2; US00005 behaviour). The three working states (Saved on this device, Shared as draft, Finishing up) share one working glyph, as Scope and the design spec say; their labels differ. So state is never shown by color alone: the glyph shape differs between attention, offline, working and up to date, and the label differs for every state.
 3. A session row shows avatar, author ("You" for this device's sessions) and meta ("N files · started … · last saved …", no device) on line 1, the title or files on one ellipsized line 2, "Requested purpose: …" on one ellipsized line only when a purpose is recorded, and the segmented track with the stage label last. The stage name appears exactly once per row.
+   > Amended 2026-11-07 (Kai, after review): a published session's summary title is **not truncated**; it wraps over as many lines as it needs. A file list stays on one ellipsized line. Hovering a row shows a tooltip with the author's full name and the changed files, one per line (at most 20, then "… and N more"); screen readers get the changed files of a published row as text. A long author name ellipsizes and leaves room for the meta (review F1).
 4. The track has 4 segments with a remote and 3 without. Filled segments match the stage, and a published session shows all segments in the published color. A session from another device has a pale first segment. A discarded session shows a "Discarded" tag instead of a track.
+   > Amended 2026-11-07 (Kai, review F3): a session from another device **keeps its pale first segment after publication**, followed by published-color segments, as frames 3a/3b draw it. The track is 112 px wide with four segments and 84 px with three (review F6).
 5. At 440 × 640 at least three session rows without a purpose are visible without scrolling, and no text overflows horizontally. Long paths ellipsize; the full path is available as a tooltip and to screen readers.
 6. Colors, sizes and spacing use the design spec's tokens, in light and dark theme; all text meets 4.5:1. Text renders in the bundled IBM Plex Sans / Mono, and the licence file ships with them.
 7. Every control keeps its US00005 keyboard order, focus outline and accessible name; the track has the screen-reader text from Scope. The Conflicts tab has the accessible name "Conflicts, N unresolved".
+   > Amended 2026-11-07 (Kai, review F7): except the old "‹ All workspaces" link, which becomes the top-row workspace switcher with the accessible name "<workspace>. Show all workspaces", for example "Team Wiki. Show all workspaces". The name starts with the visible text (WCAG 2.5.3, label in name). The switcher is a new control, not a rename; AC 7 still holds for every other control. With one workspace the name is plain text, not a control.
 8. The **Conflicts** tab shows the unresolved count as a badge and the Q2 placeholder; **Open conflicts** on the attention card switches to it.
 9. Avatar colors follow Q9: the same email always gets the same color, "You" is neutral grey, and white initials meet 4.5:1 in both themes.
 10. CLI `status` includes `device` for every session; all existing fields are unchanged.
 11. `tray/src/model.rs` unit tests cover the new and changed wording (reason and reassurance lines per state and reason, Finishing up for one and several sessions, track segment count, stage-of-n text, "You" vs. author, the received first segment, the avatar color rule, the Conflicts placeholder).
+    > Amended 2026-11-07: also the row tooltip, the wrapping title flag, the received published track and the vertical window fit (review F2).
 
 ## Implementation plan
 

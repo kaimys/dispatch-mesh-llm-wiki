@@ -378,3 +378,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-07] code-review | US00012 blocked at 2f2b73a
 - Recorded the review in [[Story - US00012 - Status window layout follows the design frames|US00012]]. Seven blocking findings cover long collaborator names, short-screen placement, received published tracks, the top-row mark, state-card actions and glyphs, track widths and the switcher's accessible name. Two non-blocking findings cover font provenance and README wording. The Windows mechanical gates passed (151 tests). The headless browser measurements are in `target/us00012-review/layout.json`. Set `open_findings: 7` and kept the ticket in `In progress`. The owner and a fresh development session resolve the findings before `/test-plan`.
+
+## [2026-11-07] design | Workspace switcher accessible name
+- Set the top-row switcher's accessible name to "Team Wiki. Show all workspaces" (visible name first, WCAG 2.5.3) on the canvas, in `06_UX/frames/source/03a-status-window.dc.html` and in [[Dispatch Mesh desktop app — design spec]], following review F7 of [[Story - US00012 - Status window layout follows the design frames|US00012]].
