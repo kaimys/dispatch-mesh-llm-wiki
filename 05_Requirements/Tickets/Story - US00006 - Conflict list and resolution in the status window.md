@@ -1,12 +1,12 @@
 ---
 id: US00006
 type: story
-status: "Refinement"
+status: "In progress"
 priority: high
 rank: 5000
 version_target: v0.3.0
 size:
-assignee:
+assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
