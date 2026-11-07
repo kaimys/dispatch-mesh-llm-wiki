@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings:
+open_findings: 3
 discussion:
 updated: 2026-11-07
 completed:
@@ -362,6 +362,9 @@ Order of magnitude: about three to four focused days. Roughly one day for the mo
   - The received published row shows one pale segment and three green ones.
   - Hovering shows the tooltip with the full name and the files.
 - **Not exercised natively:** a wrapping long title (the demo's local summary titles are short) and the off-screen fit. The fit is covered by unit tests, and both belong in the test plan.
+
+**2026-11-07, independent fix re-check (`4139a7c`).** The offset fit is corrected for restored windows, and the native maximize case still fails AC 1/Q1. Wrapped titles fail the current three-row requirement in AC 5, and clipping without full-text hover fails AC 3 for timestamps and requested purposes. Keep the ticket in `In progress`. See the re-check and fix list under *Code review*.
+
 ## Code review
 
 ### 2026-11-07 — branch us00012-status-window-design at 2f2b73a
@@ -388,6 +391,20 @@ Reviewed the four US00012 commits in `main..HEAD`, their tests, ADR-0010 and the
 - Use `/update-ticket US00012` to reconcile F3, F4, F5 and F7, with the ticket owner's decision on F3.
 - Use a fresh `/develop US00012` session to fix the layout and window fit in F1, F2 and F6, apply any code changes required by the contract decisions, and verify the long-name and short-screen cases.
 - Re-check this review against the fixed commit before running `/test-plan`.
+
+### 2026-11-07 — branch us00012-status-window-design at 4139a7c
+
+Re-checked the original nine findings against `1a8f05b` and `4139a7c`, the dated contract amendments, the desktop design spec and ADR-0010. No open PR. `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings` and the full `cargo test` passed on Windows (153 tests). Ran the unmodified window assets in Chromium with synthetic tray payloads at 440 × 640 and 380 px wide. Measured decorated-window geometry with an isolated Win32 test window and traced the tray's resize and move calls through the pinned Tao runtime. Evidence is in `target/us00012-recheck/layout.json` and `target/us00012-recheck/win32-geometry.json`. The Win32 probe measured geometry independently of the running tray.
+
+**Verdict.** Blocked with three blocking findings and zero non-blocking findings. Keep US00012 in `In progress` and hold `/test-plan`.
+
+1. **Blocking · F2 re-check · AC 1 and Q1 · Fitting the window can undo native maximize.** `tray/src/main.rs:84–116`. The fit now handles the original offset case for a restored window. It also runs on every Open status window action, including when the window is already maximized. The Windows geometry probe measured a maximized outer rectangle of `[-11, -11, 2571, 1379]` against a work area of `[0, 0, 2560, 1368]`. Windows includes invisible borders in the outer rectangle. The fit asks for both a resize and a move in this case, and Tao clears the maximized flag on either call. Guard the native maximized state and apply the fit to restored geometry. Exercise both the offset short-screen case and reopening an already maximized window through the tray.
+2. **Blocking · AC 5 · Full published titles can push the third row below the viewport.** `tray/ui/app.js:185`, `tray/ui/app.css:133`. Three purpose-free published rows with provider-valid titles under the 160-character limit wrap to three lines each. At 440 × 640 the third row ends at y = 718.6, with its stage below the fold. The same fixture with short titles ends at y = 605.5. The amended AC 3 asks for titles to wrap without truncation and AC 5 still requires three complete purpose-free rows at the default size. Decide whether the three-row requirement applies to the single-line reference layout or must also hold for wrapped titles. Align AC 5 and the design spec with that decision, then assert it in the layout check.
+3. **Blocking · AC 3 and prior US00005 AC 1/3 · The row tooltip removes access to clipped timestamps and purposes.** `tray/ui/app.js:177–187`. With a long author name and a two-day-old session at 440 × 640, the metadata needs 371 px but gets 160 px. The last-save value is clipped. The child tooltip used to expose the full text. Hovering now inherits the row's author-and-files tooltip. The change also removed the full-text tooltip from the intentionally ellipsized requested-purpose line, so long purposes cannot be read visually from the window. Restore a way to inspect the full metadata and purpose while retaining the author-and-files tooltip on the rest of the row. Re-check an older session and a long purpose at both widths.
+
+**Verified fixes.** F1's author overflow is fixed at both widths and the full author remains in the row tooltip. The track measures 112/84 px and the first segment of a received published row stays pale (F3/F6). The dated amendments now match the title-bar icon, the shared working glyph and open-session Finish action, and the workspace switcher's accessible name (F4/F5/F7). The model test covers finishing an open session offline. The font URLs and the README's reassurance wording address F8/F9. The wrapping title stays within its row horizontally and published rows carry the changed files as screen-reader text.
+
+**Before advancing.** Reconcile the density criterion with the owner's title-wrapping decision through `/update-ticket`. In a fresh `/develop` session, preserve native maximize on reopen, keep clipped metadata and purpose inspectable, and implement any layout change the decision requires. Re-check the revised commit before `/test-plan`.
 
 ## Follow-ups
 
