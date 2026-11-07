@@ -2984,6 +2984,146 @@
       },
       "message_base": "fdf3bfa294f01eddea5495dcc6810c0bf3ad7fd9"
     },
+    "6b862fcf-4dad-4f01-9268-f26f0fc82232": {
+      "id": "6b862fcf-4dad-4f01-9268-f26f0fc82232",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794044643,
+      "last_edit": 1794044643,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "eaa2c0d869f668082a9793e60f15ed274cb78c10"
+          },
+          "content": {
+            "blob": "ae6f3655c0efc22e0d70739a89671e6558a87734"
+          },
+          "intent": null,
+          "last_edit": 1794044643
+        },
+        "06_UX/Dispatch Mesh desktop app — design spec.md": {
+          "base": {
+            "blob": "42758d67ad6ee31b4e427ec16d34a51970c10891"
+          },
+          "content": {
+            "blob": "cbebc4638a16eccea15e2d23ca9d0c8de5259329"
+          },
+          "intent": null,
+          "last_edit": 1794044643
+        },
+        "06_UX/frames/source/03a-status-window.dc.html": {
+          "base": {
+            "blob": "3e248fd94cabec7bcae1078c4be852ed44e5f420"
+          },
+          "content": {
+            "blob": "acc9841cea568a7e18f45d15cb5dc1672b0fd690"
+          },
+          "intent": null,
+          "last_edit": 1794044643
+        },
+        "06_UX/frames/source/03a2-conflicts-tab.dc.html": {
+          "base": null,
+          "content": {
+            "blob": "aed7caf644d269956350a5da142f1452770c6a2d"
+          },
+          "intent": null,
+          "last_edit": 1794044643
+        },
+        "06_UX/frames/source/03b-summary-states.dc.html": {
+          "base": {
+            "blob": "01eb0e90b411f0e3685c3667364d7dad6aaa0ea0"
+          },
+          "content": {
+            "blob": "5a07583ba5f811f331f58f03c9af1ba28f5939d9"
+          },
+          "intent": null,
+          "last_edit": 1794044643
+        },
+        "06_UX/frames/source/03c-activity-presence.dc.html": {
+          "base": {
+            "blob": "baaf865980e3ca3828ac1d56608b26203083e815"
+          },
+          "content": {
+            "blob": "14921c676a227ec9c253df95531af4fa2659df1b"
+          },
+          "intent": null,
+          "last_edit": 1794044643
+        },
+        "06_UX/frames/source/03d-conflicts-list.dc.html": {
+          "base": {
+            "blob": "e6fa8a8cba00f589445a6851ee8240c7e2a7fc7d"
+          },
+          "content": {
+            "blob": "27c0f9d562b34ad20d4d5353d19d0a80b2386d08"
+          },
+          "intent": null,
+          "last_edit": 1794044643
+        },
+        "06_UX/frames/source/03e-text-conflict.dc.html": {
+          "base": {
+            "blob": "62a842ba2d1d7057bc32e559496a76c8a03da178"
+          },
+          "content": {
+            "blob": "056d589fc133fb8329aecf498595ea1806182bfd"
+          },
+          "intent": null,
+          "last_edit": 1794044643
+        },
+        "06_UX/frames/source/03f-binary-conflict.dc.html": {
+          "base": {
+            "blob": "b08f4f6b8044ee94fb2b8aecbd0b7bb820f3c089"
+          },
+          "content": {
+            "blob": "7e0a679f6b4df11c23e32a89a06395de039e98de"
+          },
+          "intent": null,
+          "last_edit": 1794044643
+        },
+        "06_UX/frames/source/03g-already-running-first-run.dc.html": {
+          "base": {
+            "blob": "3bba85259e240a72cfcc48270adcc449a765c35c"
+          },
+          "content": {
+            "blob": "fe78f5e91c9ecc56f548531117272e6cb56c23b7"
+          },
+          "intent": null,
+          "last_edit": 1794044643
+        },
+        "06_UX/frames/source/06-tokens-components.dc.html": {
+          "base": {
+            "blob": "d6937c775d68b9efe466cfdf0a0aa59580883327"
+          },
+          "content": {
+            "blob": "7f660ba9e2d88f897f7ed938e2a3cf505540c7ea"
+          },
+          "intent": null,
+          "last_edit": 1794044643
+        },
+        "06_UX/frames/source/canvas.json": {
+          "base": {
+            "blob": "b2718aabdcd1af62e6d1411ffe87c77e3ea8f604"
+          },
+          "content": {
+            "blob": "ad85d4b4db7f40d506aaf06e6df063883b94d6bb"
+          },
+          "intent": null,
+          "last_edit": 1794044643
+        }
+      },
+      "dependencies": [
+        "d24d18aa-6b13-4521-bb04-1b85b0061707"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "6bef1b80-3aed-4cfd-9bda-00a78c9fd325": {
       "id": "6bef1b80-3aed-4cfd-9bda-00a78c9fd325",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
@@ -5067,7 +5207,7 @@
       "created_at": 1794044271,
       "last_edit": 1794044271,
       "revision": 1,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -5104,8 +5244,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Refine US00012 status window design contract",
+        "description": "Record Kai’s answers to the remaining US00012 refinement questions, set open_questions to 0, and update its scope and acceptance criteria for the native title bar, conflicts navigation, bundled fonts, session device data, window sizing, status wording, and avatar colors. Align US00006’s context and criteria with US00012’s decisions, including omitting device names and using “You” for this device’s contributions. Append the refinement update to the wiki log."
+      },
+      "message_base": "e256156a9bde63a5b992771c5f5d2296805e5e39"
     },
     "de967730-9a35-4d7b-bbbe-f9b027f7ba39": {
       "id": "de967730-9a35-4d7b-bbbe-f9b027f7ba39",

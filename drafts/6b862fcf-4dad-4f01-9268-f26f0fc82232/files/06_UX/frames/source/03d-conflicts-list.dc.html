@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Conflicts list</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#2457C5}a:hover{color:#1A408F}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 520px; height: 720px; box-sizing: border-box; padding: 30px; background: #EDECE8; color: #1C1D1F; font-family: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif">
+  <div style="width: 460px; height: 660px; background: #F7F7F5; border: 1px solid #D6D5D0; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column">
+  <div aria-hidden="true" title="Native Windows title bar (not drawn by the app)" style="height: 32px; flex-shrink: 0; display: flex; align-items: center; background: #FFFFFF; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12px; color: #1C1D1F">
+      <span style="display: flex; align-items: center; gap: 8px; padding: 0 12px">
+        <svg width="14" height="14" viewBox="0 0 16 16"><g fill="#1C1D1F" stroke="#1C1D1F"><path d="M4 4L12 4M4 4L4 12M12 4L4 12" stroke-width="1.4" fill="none"></path><circle cx="4" cy="4" r="2.2" stroke="none"></circle><circle cx="12" cy="4" r="2.2" stroke="none"></circle><circle cx="4" cy="12" r="2.2" stroke="none"></circle></g></svg>
+        Dispatch Mesh
+      </span>
+      <div style="flex: 1"></div>
+      <span style="width: 46px; height: 32px; display: flex; align-items: center; justify-content: center"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M0 5h10" stroke="#1C1D1F" stroke-width="1"></path></svg></span>
+      <span style="width: 46px; height: 32px; display: flex; align-items: center; justify-content: center"><svg width="10" height="10" viewBox="0 0 10 10"><rect x="0.5" y="0.5" width="9" height="9" fill="none" stroke="#1C1D1F" stroke-width="1"></rect></svg></span>
+      <span style="width: 46px; height: 32px; display: flex; align-items: center; justify-content: center"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M0.5 0.5l9 9M9.5 0.5l-9 9" stroke="#1C1D1F" stroke-width="1"></path></svg></span>
+    </div>
+
+    <div style="height: 44px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 0 14px; background: #FFFFFF; border-top: 1px solid #ECEBE7; border-bottom: 1px solid #ECEBE7">
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><g fill="#1C1D1F" stroke="#1C1D1F"><path d="M4 4L12 4M4 4L4 12M12 4L4 12" stroke-width="1.4" fill="none"></path><circle cx="4" cy="4" r="2.2" stroke="none"></circle><circle cx="12" cy="4" r="2.2" stroke="none"></circle><circle cx="4" cy="12" r="2.2" stroke="none"></circle></g></svg>
+      <span style="font-size: 14px; font-weight: 600; padding: 6px 8px">Team Wiki</span>
+    </div>
+    <div style="padding: 0 16px; display: flex; flex-direction: column">
+      <nav aria-label="Sections" style="display: flex; gap: 4px; border-bottom: 1px solid #E3E2DE; margin-top: 8px">
+        <a href="#" style="text-decoration: none; color: #3D3F44; font-size: 13px; padding: 8px 10px">Activity</a>
+        <a href="#" aria-current="page" style="text-decoration: none; color: #1C1D1F; font-size: 13px; font-weight: 600; padding: 8px 10px; border-bottom: 2px solid #1C1D1F; margin-bottom: -1px; display: flex; gap: 6px; align-items: center">
+          Conflicts
+          <span style="font-size: 11px; font-weight: 600; background: #B4490B; color: #FFFFFF; border-radius: 999px; padding: 0 6px; line-height: 17px">2</span>
+        </a>
+      </nav>
+    </div>
+
+    <div style="padding: 16px; display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <h2 style="margin: 0; font-size: 17px; font-weight: 600">2 unresolved conflicts</h2>
+        <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #3D3F44">Two people changed the same file. Nothing was overwritten: both versions are kept, and the current version stays in the folder until you choose. Other files keep syncing.</p>
+      </div>
+
+      <sc-for list="{{items}}" as="c" hint-placeholder-count="2">
+        <div style="background: #FFFFFF; border: 1px solid #E3E2DE; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; gap: 10px; align-items: flex-start">
+            <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" style="flex-shrink: 0"><path d="{{c.icon}}" fill="none" stroke="#3D3F44" stroke-width="1.4" stroke-linejoin="round"></path></svg>
+            <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0">
+              <span style="font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 13px; font-weight: 500">{{c.path}}</span>
+              <span style="font-size: 12px; color: #55575C">{{c.kind}} · recorded {{c.when}}</span>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+            <div style="border: 1px solid #1C1D1F; border-radius: 6px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px">
+              <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #1C1D1F">Current version · shown</span>
+              <span style="font-size: 13px">{{c.cur}}</span>
+              <span style="font-size: 12px; color: #55575C">{{c.curWhen}}</span>
+            </div>
+            <div style="border: 1px dashed #8A8C91; border-radius: 6px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px">
+              <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #55575C">Other version · kept</span>
+              <span style="font-size: 13px">{{c.oth}}</span>
+              <span style="font-size: 12px; color: #55575C">{{c.othWhen}}</span>
+            </div>
+          </div>
+          <a href="{{c.href}}" style="align-self: flex-start; text-decoration: none; border: 1px solid #2457C5; background: #FFFFFF; color: #1C1D1F; border-color: #C9C8C3; border-radius: 4px; padding: 7px 14px; font-size: 13px">Review and choose</a>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":520,"height":720}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      items: [
+        { path: 'policies/retention.md', kind: 'Text', when: 'today 11:14', cur: 'Alice', curWhen: 'saved 11:12', oth: 'Bob', othWhen: 'saved 11:13', href: 'ConflictText.dc.html', icon: 'M5 2.5h7l3.5 3.5v11.5H5z M12 2.5V6h3.5 M7.5 10h5M7.5 13h5' },
+        { path: 'assets/logo.png', kind: 'Image · whole-file choice', when: 'today 10:51', cur: 'Alice', curWhen: 'saved 10:48', oth: 'Bob', othWhen: 'saved 10:50', href: 'ConflictBinary.dc.html', icon: 'M3 4h14v12H3z M3 13l4-4 3 3 2.5-2.5L17 14 M12.5 7.5h.01' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Summary states</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#2457C5}a:hover{color:#1A408F}
+</style>
+</helmet>
+<div style="width: 1512px; height: 1700px; box-sizing: border-box; padding: 48px; background: #EDECE8; color: #1C1D1F; font-family: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column; gap: 32px">
+  <div style="display: flex; flex-direction: column; gap: 6px">
+    <div style="font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #55575C">Deliverable 3 · ADR-0010 workspace summary</div>
+    <h1 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.01em">One frame per summary state, highest precedence first</h1>
+    <p style="margin: 0; font-size: 14px; color: #55575C; max-width: 860px; line-height: 1.5">The card at the top is the only part that changes tone. Working states stay white and quiet; offline goes grey, not red; only Needs attention gets color and a primary action. The session list keeps the lower-priority activity visible.</p>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px">
+    <sc-for list="{{states}}" as="st" hint-placeholder-count="6">
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; align-items: baseline; gap: 10px">
+          <span style="font-size: 12px; font-weight: 600; color: #55575C">{{st.rank}}</span>
+          <span style="font-size: 15px; font-weight: 600">{{st.label}}</span>
+          <span style="font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 12px; color: #55575C">{{st.id}}</span>
+        </div>
+        <dc-import name="Window" status="{{st.id}}" hint-size="440px,640px"></dc-import>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1512,"height":1700}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      states: [
+        { rank: '1', id: 'needs_attention', label: 'Needs attention' },
+        { rank: '2', id: 'offline', label: 'Offline' },
+        { rank: '3', id: 'saved_locally', label: 'Saved on this device' },
+        { rank: '4', id: 'draft_uploaded', label: 'Shared as draft' },
+        { rank: '5', id: 'waiting_for_finalization', label: 'Finishing up' },
+        { rank: '6', id: 'synced', label: 'Up to date' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
