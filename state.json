@@ -3717,7 +3717,7 @@
       "created_at": 1794046714,
       "last_edit": 1794046714,
       "revision": 1,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -3752,8 +3752,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: track oversized text files breaking AI summaries",
+        "description": "Add BUG00002 as an in-progress ticket describing how one oversized text file causes the entire AI summary to fall back. Record the proposed per-file text budget and regression-test plan; update the wiki index and change log. No implementation fix is included."
+      },
+      "message_base": "96e453f47fd50fed4574de6e9170dfaf848154c8"
     },
     "89872dbb-0142-4c5a-b0e2-b5282b327920": {
       "id": "89872dbb-0142-4c5a-b0e2-b5282b327920",
