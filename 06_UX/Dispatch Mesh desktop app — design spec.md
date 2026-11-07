@@ -158,7 +158,7 @@ Native Windows title bar ("Dispatch Mesh", minimise, maximise, close = hide), th
    - Row 1: glyph 28 px, then label 17/600, reason 13 `text-2` under it, and the reassurance line 13/500 where the state has one.
    - Row 2 (actions): buttons on the left, "Last synced …" 12 `text-3` pushed right ("Not synced yet", or "This device only" without a remote).
 4. **Section nav**: underlined tabs, **Activity** and **Conflicts** (current tab 13/600 with a 2 px `text` underline). Conflicts carries the count badge and the accessible name "Conflicts, N unresolved". Until US00006 the Conflicts tab shows a dashed placeholder: "N unresolved conflicts. Review them with the command line until conflict review arrives." (with none: "No unresolved conflicts."). **Open conflicts** switches to this tab.
-5. **Activity list**: session rows separated by `line-soft` 1 px dividers. No cards. At 440 × 640 at least three rows are visible.
+5. **Activity list**: session rows separated by `line-soft` 1 px dividers. No cards. At 440 × 640 at least three rows are visible when their titles fit on one line; long summary titles wrap in full and may push later rows below the fold (Kai, US00012 review re-check F2).
 
 ### State card per summary state
 
@@ -200,7 +200,7 @@ Only Needs attention gets color and a primary button. Offline is grey, never red
 - **Every published session has a summary title**, whoever authored it: the AI-written title when AI summaries are on, otherwise the factual local summary. It replaces the file list on line 2. Unpublished sessions show their files. Agent sessions aren't special.
 - **Stage track:** 4 segments with a remote, 3 without; each 4 px high, radius 2, gap 3, total width 28 px × segment count (112 / 84). Segments up to the current stage are filled with `working`; a published session fills the rest with `synced`; later segments are `line`. For a session from another device (its `device` differs from `Status.device`, US00012 Q5) the first segment is `received`, because this device never had it saved locally. It stays `received` after publication, as frames 3a and 3b draw it (US00012 review F3).
 - **Author** 13/600 shrinks and ellipsizes for long names, but leaves room for the meta (US00012 review F1).
-- **Tooltip** (Kai, US00012, 2026-11-07): hovering a row shows the author's full name, then "Changed files:" and the files one per line (at most 20, then "… and N more"). For a published row, whose line 2 is the title, screen readers get "Changed files: …" as text.
+- **Tooltip** (Kai, US00012, 2026-11-07; the meta and purpose lines keep their own full-text tooltip, review re-check F3): hovering a row shows the author's full name, then "Changed files:" and the files one per line (at most 20, then "… and N more"). For a published row, whose line 2 is the title, screen readers get "Changed files: …" as text.
 - The stage is named **once**, as text right of the track. The track itself is `aria-hidden`; the row carries "Stage: Shared as draft, 2 of 4" for screen readers.
 - **Requested purpose** (US00012 planning decision, Kai, 2026-11-07; keeps US00005 AC 3): a session with a recorded purpose gets one more line under line 2, "Requested purpose: …" (12, `text-3`, ellipsized; several purposes read "… +N more"). Rows without a purpose keep three lines.
 - Discarded sessions show a "Discarded" tag instead of the track.

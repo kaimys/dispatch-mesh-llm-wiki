@@ -10,7 +10,7 @@ assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
 open_tests:
-open_findings: 3
+open_findings:
 discussion:
 updated: 2026-11-07
 completed:
@@ -130,9 +130,11 @@ Refinement started 2026-11-07 (no tracker or chat; questions recorded here). Che
    > Amended 2026-11-07 (review F5): **Finish session** is a secondary action in every state while a session is open, unless it is the primary one (plan amendment in step 2; US00005 behaviour). The three working states (Saved on this device, Shared as draft, Finishing up) share one working glyph, as Scope and the design spec say; their labels differ. So state is never shown by color alone: the glyph shape differs between attention, offline, working and up to date, and the label differs for every state.
 3. A session row shows avatar, author ("You" for this device's sessions) and meta ("N files · started … · last saved …", no device) on line 1, the title or files on one ellipsized line 2, "Requested purpose: …" on one ellipsized line only when a purpose is recorded, and the segmented track with the stage label last. The stage name appears exactly once per row.
    > Amended 2026-11-07 (Kai, after review): a published session's summary title is **not truncated**; it wraps over as many lines as it needs. A file list stays on one ellipsized line. Hovering a row shows a tooltip with the author's full name and the changed files, one per line (at most 20, then "… and N more"); screen readers get the changed files of a published row as text. A long author name ellipsizes and leaves room for the meta (review F1).
+   > Amended 2026-11-07 (review re-check F3): the clipped meta line and the requested-purpose line keep their own tooltip with their full text. Hovering anywhere else on the row shows the author-and-files tooltip.
 4. The track has 4 segments with a remote and 3 without. Filled segments match the stage, and a published session shows all segments in the published color. A session from another device has a pale first segment. A discarded session shows a "Discarded" tag instead of a track.
    > Amended 2026-11-07 (Kai, review F3): a session from another device **keeps its pale first segment after publication**, followed by published-color segments, as frames 3a/3b draw it. The track is 112 px wide with four segments and 84 px with three (review F6).
 5. At 440 × 640 at least three session rows without a purpose are visible without scrolling, and no text overflows horizontally. Long paths ellipsize; the full path is available as a tooltip and to screen readers.
+   > Amended 2026-11-07 (Kai, review re-check F2): the three-row guarantee holds for rows whose title or file list fits on one line. A full summary title matters more than a third visible row, so long titles that wrap may push later rows below the fold; the list scrolls.
 6. Colors, sizes and spacing use the design spec's tokens, in light and dark theme; all text meets 4.5:1. Text renders in the bundled IBM Plex Sans / Mono, and the licence file ships with them.
 7. Every control keeps its US00005 keyboard order, focus outline and accessible name; the track has the screen-reader text from Scope. The Conflicts tab has the accessible name "Conflicts, N unresolved".
    > Amended 2026-11-07 (Kai, review F7): except the old "‹ All workspaces" link, which becomes the top-row workspace switcher with the accessible name "<workspace>. Show all workspaces", for example "Team Wiki. Show all workspaces". The name starts with the visible text (WCAG 2.5.3, label in name). The switcher is a new control, not a rename; AC 7 still holds for every other control. With one workspace the name is plain text, not a control.
@@ -365,6 +367,12 @@ Order of magnitude: about three to four focused days. Roughly one day for the mo
 
 **2026-11-07, independent fix re-check (`4139a7c`).** The offset fit is corrected for restored windows, and the native maximize case still fails AC 1/Q1. Wrapped titles fail the current three-row requirement in AC 5, and clipping without full-text hover fails AC 3 for timestamps and requested purposes. Keep the ticket in `In progress`. See the re-check and fix list under *Code review*.
 
+
+**2026-11-07, re-check fix round.** The three findings of the re-check at `4139a7c` are addressed; `open_findings` is cleared to empty until the next re-check.
+
+- **F1 maximize:** `show_window` now shows and un-minimizes the window first, then fits it only when it is **not maximized**, and focuses it last. Fitting a maximized window would have resized or moved it, which undoes the maximize. Fitting before `unminimize` had a second problem: a minimized window reports a parking position far off screen, which the old order would have "fitted". *Not exercised natively:* reopening a maximized window needs a click on the tray icon, which the test harness here can't do. It is for `/test-plan`, together with the offset short-screen case.
+- **F2 three rows (Kai):** "full commit messages matter more than three rows in the list; you can scroll". No code change. AC 5 is amended, and so is the design spec's *Status window* item 5.
+- **F3 clipped text:** the meta line and the purpose line get back their own tooltips with the full text, and the rest of the row keeps the author-and-files tooltip. Checked in the running tray at 380 px with a long author name: hovering the clipped meta shows "2 files · started 12:51 · last saved 25 min ago", and hovering line 2 shows the author and files (`target/us00012-evidence/meta-tooltip-380.png`).
 ## Code review
 
 ### 2026-11-07 — branch us00012-status-window-design at 2f2b73a
