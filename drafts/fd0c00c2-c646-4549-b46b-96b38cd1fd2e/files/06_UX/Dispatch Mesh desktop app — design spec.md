@@ -191,14 +191,16 @@ Only Needs attention gets color and a primary button. Offline is grey, never red
 
 ```
 [avatar 28]  Author 13/600 ("You" for this device)   meta 12 text-3 ("2 files · started 11:27 · last saved 2 min ago", never a device)
-             Summary title once published, else files: 13/400, one line, ellipsized
+             Summary title once published (wraps, never cut off), else files (one line, ellipsized): 13/400
              [▬▬ ▬▬ ▭▭ ▭▭]  Stage label 12 text-2
 ```
 
 - Gap 12 between avatar and text; 6 between the three lines.
 - **Meta** always carries the file count, the session's start time and its last save. The start time is a clock time ("started 11:27"; a date once it isn't today), the last save is relative.
 - **Every published session has a summary title**, whoever authored it: the AI-written title when AI summaries are on, otherwise the factual local summary. It replaces the file list on line 2. Unpublished sessions show their files. Agent sessions aren't special.
-- **Stage track:** 4 segments with a remote, 3 without; each 4 px high, radius 2, gap 3, total width 28 px × segment count (112 / 84). Segments up to the current stage are filled with `working`; a published session fills all with `synced`; later segments are `line`. For a session from another device (its `device` differs from `Status.device`, US00012 Q5) the first segment is `received`, because this device never had it saved locally.
+- **Stage track:** 4 segments with a remote, 3 without; each 4 px high, radius 2, gap 3, total width 28 px × segment count (112 / 84). Segments up to the current stage are filled with `working`; a published session fills the rest with `synced`; later segments are `line`. For a session from another device (its `device` differs from `Status.device`, US00012 Q5) the first segment is `received`, because this device never had it saved locally. It stays `received` after publication, as frames 3a and 3b draw it (US00012 review F3).
+- **Author** 13/600 shrinks and ellipsizes for long names, but leaves room for the meta (US00012 review F1).
+- **Tooltip** (Kai, US00012, 2026-11-07): hovering a row shows the author's full name, then "Changed files:" and the files one per line (at most 20, then "… and N more"). For a published row, whose line 2 is the title, screen readers get "Changed files: …" as text.
 - The stage is named **once**, as text right of the track. The track itself is `aria-hidden`; the row carries "Stage: Shared as draft, 2 of 4" for screen readers.
 - **Requested purpose** (US00012 planning decision, Kai, 2026-11-07; keeps US00005 AC 3): a session with a recorded purpose gets one more line under line 2, "Requested purpose: …" (12, `text-3`, ellipsized; several purposes read "… +N more"). Rows without a purpose keep three lines.
 - Discarded sessions show a "Discarded" tag instead of the track.
