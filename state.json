@@ -4386,7 +4386,7 @@
       "created_at": 1794045907,
       "last_edit": 1794046131,
       "revision": 2,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -4563,8 +4563,11 @@
         "c65c0d1e-c913-4c5d-84cc-0984cf083e52"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: add US00012 implementation plan and refresh design frames",
+        "description": "Add a detailed US00012 implementation plan covering the status-window layout, session device metadata, model and UI changes, tests, and documentation updates. Update the design spec with the refreshed frame index and renderer notes, revise the ticket to match the refined design decisions, and record the plan in the wiki log. Refresh the existing frame PNGs and add the Conflicts-tab placeholder frame."
+      },
+      "message_base": "d49570f71b2cc4edcf659d3a75593d57cdab3148"
     },
     "b282f2a6-96ee-4ea4-8705-5c2b555e522e": {
       "id": "b282f2a6-96ee-4ea4-8705-5c2b555e522e",
