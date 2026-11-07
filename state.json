@@ -1606,6 +1606,48 @@
       },
       "message_base": "7062e9e2ead0956419098055290d150f7fcbf12b"
     },
+    "25a48c15-1c0a-4cd0-b4b8-d9c011056a60": {
+      "id": "25a48c15-1c0a-4cd0-b4b8-d9c011056a60",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794057068,
+      "last_edit": 1794057068,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "f79c83486535cab2b4a93e7ed95d74b374bd8fa1"
+          },
+          "content": {
+            "blob": "dcee68437c08c9495c7aaa59285a2562634cd91a"
+          },
+          "intent": null,
+          "last_edit": 1794057068
+        },
+        "05_Requirements/Tickets/Story - US00012 - Status window layout follows the design frames.md": {
+          "base": {
+            "blob": "dbd61c82ac1c27b0eeb9bf3cfef76e54aa5153f2"
+          },
+          "content": {
+            "blob": "f7259e3b6a0f0e6099410f6f76cf90b9ed582475"
+          },
+          "intent": null,
+          "last_edit": 1794057068
+        }
+      },
+      "dependencies": [
+        "5b63c302-c7e8-4b74-9792-f711b1f8331e"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "28926594-47c5-476c-8217-c5a44f76c509": {
       "id": "28926594-47c5-476c-8217-c5a44f76c509",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
@@ -3038,9 +3080,9 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1794055107,
-      "last_edit": 1794055107,
-      "revision": 1,
-      "closed": false,
+      "last_edit": 1794055159,
+      "revision": 2,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -3063,12 +3105,25 @@
           },
           "intent": null,
           "last_edit": 1794055107
+        },
+        "06_UX/Dispatch Mesh desktop app — design spec.md": {
+          "base": {
+            "blob": "e3f6b3af97274a0603f2f5f3e381e876d286ce13"
+          },
+          "content": {
+            "blob": "fb5760b33a9a2976c3d27c9c96764dfd53e469b4"
+          },
+          "intent": null,
+          "last_edit": 1794055159
         }
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: record US00012 review clearance and clarify layout checks",
+        "description": "Record the US00012 re-review as clear for test planning, set `open_findings` to 0, and retain the one non-blocking design-spec wording note. Clarify that the three-row check uses single-line titles, with full wrapped titles checked separately."
+      },
+      "message_base": "7261b3bc6e40f5f12d0f8163d4d3c17deaebe3ce"
     },
     "5c5195fe-0ec7-4641-a2c4-149ea1243daf": {
       "id": "5c5195fe-0ec7-4641-a2c4-149ea1243daf",
