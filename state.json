@@ -801,12 +801,32 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1794043143,
-      "last_edit": 1794043143,
-      "revision": 1,
+      "last_edit": 1794043188,
+      "revision": 2,
       "closed": false,
       "published": false,
       "discarded": false,
       "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "7fdb87e48a85e1ba198f7a5dff1d1f909906bda9"
+          },
+          "content": {
+            "blob": "4f7e4471743850da2ab4ba5aff0310ff086965d8"
+          },
+          "intent": null,
+          "last_edit": 1794043188
+        },
+        "06_UX/Dispatch Mesh desktop app — design spec.md": {
+          "base": {
+            "blob": "4ac54d47458e296ec0a95ff1c617d6c9f18f6a17"
+          },
+          "content": {
+            "blob": "42758d67ad6ee31b4e427ec16d34a51970c10891"
+          },
+          "intent": null,
+          "last_edit": 1794043188
+        },
         "06_UX/icons/status/status-needs-attention-dark.svg": {
           "base": null,
           "content": {
