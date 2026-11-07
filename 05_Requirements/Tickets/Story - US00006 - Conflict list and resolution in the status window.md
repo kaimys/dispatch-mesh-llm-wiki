@@ -233,7 +233,6 @@ The engine story for edits made after a conflict (Q4, Follow-ups) turns criterio
   - screenshots of the list, text detail and binary detail against 3d/3e/3f in light and dark (criterion 13);
   - widening and restoring at 100 % and 150 % scaling and on a small screen;
   - image previews;
-  - Narrator on the tabs, ≠ marks, panes and buttons;
   - a window-made resolution picked up by a second client (the full two-device check is TASK00003).
 - **When US00010 lands**, the later-edit note and refusal tests turn into reconciliation tests. That change belongs to US00010.
 

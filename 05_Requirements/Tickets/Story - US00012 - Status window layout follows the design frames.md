@@ -1,20 +1,20 @@
 ---
 id: US00012
 type: story
-status: "In progress"
+status: Done
 priority: medium
-rank: 3750
+rank: -2048
 version_target: v0.3.0
 size:
 assignee: Kai
 owner: "[[Kai]]"
 open_questions: 0
-open_tests:
+open_tests: 0
 open_findings: 0
 discussion:
 updated: 2026-11-07
-completed:
-frozen:
+completed: 2026-11-07
+frozen: 2026-11-07
 ---
 Bring the status window's header, state card and activity list in line with the design frames. [[Story - US00005 - Workspace detail with Finish session and recovery information|US00005]] delivered the right data and behaviour, but its layout was written from prose and does not follow [[Dispatch Mesh desktop app.pdf]]: the stage track is a wrapping text list, sessions are large cards whose heading is a file path, the stage is shown twice, the state card has no reason line, and **Finish session** sits outside the card. This ticket restyles the existing window to the frames. No engine or `Status` change.
 
@@ -310,6 +310,46 @@ Order of magnitude: about three to four focused days. Roughly one day for the mo
      ═══════════════════════════════════ -->
 
 ## Test plan
+
+Manual checks for the restyled status window, build `8f338a0` on branch `us00012-status-window-design` (`cargo build --release`, then `target\release\dispatch-mesh-tray.exe`). Only what the automated suites and the checks below can't cover. Sample data: `target/us00012-evidence/demo.sh <empty folder>` builds a disposable remote with Alice and Bob, one text conflict, a received draft, a published session and an intent; start the tray with `--workspace "<folder>/Team Wiki"`.
+
+- [x] **Kai: Light theme against frames 3a and 3b.** With Windows in light mode, run the tray on the demo workspace at the default size. Put screenshots next to `06_UX/frames/03a-status-window.png` and `03b-summary-states.png` and go through the design spec's *Status window* section. The demo shows **Needs attention**. For **Offline**, rename `<folder>/remote.git` and wait about 5 s; rename it back afterwards. For **Shared as draft**, save a new file in the workspace. For **Up to date**, use **Finish session** and wait until nothing is waiting. Check the card ground and border, the glyph, the label, the reason and reassurance lines, the actions with "Last synced" on the right, the tabs, and three one-line rows with tracks of 4 segments. Expected: same structure as the frames, apart from the recorded decisions: no app mark in the top row, avatars without device names, and the purpose line.
+- [x] **Kai: Dark theme.** Switch Windows to dark mode (Settings → Personalization → Colors → Choose your mode: Dark) with the tray window open, then reopen it from the tray. Expected: the window follows the theme, and the state glyph changes to its dark variant (a darker fill inside the circle or triangle). Text on **Open conflicts** and on the Conflicts count badge is dark on the light-blue / orange background. No text is hard to read. Switch back afterwards.
+- [x] **Kai: Full summary titles in a real workspace.** Run the tray on a workspace whose published sessions have long AI-written titles (for example `dispatch-mesh-wiki`). Expected: each published row shows its whole title over as many lines as it needs, never cut off with "…", and with no horizontal scrollbar. The list scrolls to later rows. Hovering a published row's title shows the author's name and "Changed files:" with the files one per line. Hovering the meta line shows its full text.
+- [x] **Kai: Short screen and offset window.** Make the work area shorter than the window: Settings → System → Display, set the scale so the screen is less than about 700 logical pixels high (for example 175 % on 1920 × 1080), or drag the window so its bottom edge is below the taskbar. Close the window with **X**, then open it again from the tray icon (left-click). Expected: the window reappears whole: its bottom edge is above the taskbar and its top below the screen's top, and it is no wider than before.
+- [x] **Kai: Maximized window stays maximized.** Maximize the status window, close it with **X**, then open it again from the tray icon. Expected: it reopens maximized and fills the screen as before. Then minimize it with **_** and open it from the tray icon. Expected: it comes back at its normal size, wholly on screen.
+- **Dropped:** **Kai: Narrator and keyboard.** With Narrator on (Ctrl+Win+Enter), open the demo window and move with Tab and the arrow keys. Expected:
+  - The state glyph is announced with the state label.
+  - The tabs are announced as "Activity" and "Conflicts, 1 unresolved", and Left/Right switch between them.
+  - Each row's stage is announced once as "Stage: Shared as draft, 2 of 4" (no second stage name).
+  - A published row announces "Changed files: …".
+  - With two workspaces (`--workspace` twice), the switcher in the top row is announced as "<name>. Show all workspaces" and is the first Tab stop. It replaces US00005's "‹ All workspaces"; review F7.
+  - **Finish session** and **Show in folder** keep their names from US00005.
+  **Dropped 2026-11-07 (Kai):** manual test plans no longer include screen-reader checks (`dispatch/invariants.md`, *No screen-reader tests*). The switcher's keyboard position was confirmed in the build (it is the first Tab stop); its accessible name and the other screen-reader texts are covered by the model tests and the code review.
+
+**Results.**
+
+- 2026-11-07, Kai, release build `8f338a0`, light theme: check 1 **passed** for Needs attention (conflict), Up to date, Offline and Shared as draft, plus a sync-failure attention state ("Your edits are saved on this device. Mesh retries automatically."). Offline was simulated by pointing the demo client's private `remote.origin.url` at a refusing address, as `scripts/test_github_workflow.py` does. A missing remote folder classifies as an attention-level sync failure, not offline, as ADR-0010 requires.
+- 2026-11-07, Kai, same build: check 2 **passed**. Dark theme for Shared as draft and Needs attention: dark glyph variants, readable text, and dark text on the light-blue **Open conflicts** and on the orange count badge (`on-action`, `on-attention`).
+- 2026-11-07, Kai, same build on `dispatch-mesh-wiki`: check 3 **passed**. Long AI titles wrap in full without horizontal scrolling; the row and meta tooltips are correct; file lists stay on one line.
+- 2026-11-07, Kai, same build: check 4 **passed**. Reopened from the tray icon, the window came back whole inside the work area.
+- 2026-11-07, Kai, same build: check 5 **passed**. A maximized window reopened from the tray stays maximized; a minimized one comes back at its normal size, on screen.
+- 2026-11-07: check 6 (Narrator and keyboard) **not run yet**. Kai skipped it in this pass; it stays open and keeps `open_tests: 1`.
+- 2026-11-07: check 6 **dropped** by Kai; screen-reader checks are no longer part of manual test plans. All remaining checks passed, so `open_tests: 0`.
+
+**Verified in the build already, not repeated above:**
+- **By me**, debug build of `8f338a0` on Windows at 150 % scaling, screenshots in `target/us00012-evidence/`:
+  - the default window at 440 × 640 shows three rows;
+  - a long author name ellipsizes at 440 and at 380 px with no overflow;
+  - the row tooltip and the meta tooltip;
+  - **Open conflicts** from the keyboard;
+  - the Conflicts placeholder;
+  - the several-workspaces list with 22 px glyphs;
+  - the switcher as first Tab stop with its focus ring;
+  - the already-running card;
+  - Plex rendering.
+- **By the review re-check:** layout measurements in Chromium; the maximize and minimize state handling in a standalone Tao probe.
+- **By the automated suites:** wording, contrast and avatar colors, window-fit geometry, and `status` `device`.
 
 ## As-built notes
 
