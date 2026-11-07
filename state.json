@@ -4376,6 +4376,196 @@
       },
       "message_base": "d71ed0bb0833b498bfd7de9c3875d8e77b360e77"
     },
+    "b12d25ec-ddb5-451a-9005-164c7d71cbc4": {
+      "id": "b12d25ec-ddb5-451a-9005-164c7d71cbc4",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794045907,
+      "last_edit": 1794045907,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "ae6f3655c0efc22e0d70739a89671e6558a87734"
+          },
+          "content": {
+            "blob": "335d69843695510070fb0c589921f4ffd9cfaf47"
+          },
+          "intent": null,
+          "last_edit": 1794045907
+        },
+        "05_Requirements/Tickets/Story - US00012 - Status window layout follows the design frames.md": {
+          "base": {
+            "blob": "a427bb61cbe14a37bcf8f2aa171a4b0dbaa965b7"
+          },
+          "content": {
+            "blob": "40bcbe52402d9528e5432ddb3bfa95a02be94a37"
+          },
+          "intent": null,
+          "last_edit": 1794045907
+        },
+        "06_UX/Dispatch Mesh desktop app — design spec.md": {
+          "base": {
+            "blob": "a707ab74a9b43dcc1ec42efbfb807c500f47048e"
+          },
+          "content": {
+            "blob": "7b23a45433aae987a85cea12b1acfbd5b1fb3028"
+          },
+          "intent": null,
+          "last_edit": 1794045907
+        },
+        "06_UX/frames/01-tray-icons.png": {
+          "base": {
+            "blob": "c920b4cc52076c59d9e665986e63dd1aaa502c26"
+          },
+          "content": {
+            "blob": "e1bb6e10b06673344bba16853a7ab07560817bc7"
+          },
+          "intent": null,
+          "last_edit": 1794045907
+        },
+        "06_UX/frames/02-tray-menu.png": {
+          "base": {
+            "blob": "bdc27aff13991b8a8cee65b517cb7d1319c5f704"
+          },
+          "content": {
+            "blob": "c3369294d662c3da9c0d4250bdd064e5e64bbdfa"
+          },
+          "intent": null,
+          "last_edit": 1794045907
+        },
+        "06_UX/frames/03a-status-window.png": {
+          "base": {
+            "blob": "996571cd5269d697634c7654624e1b41b4890568"
+          },
+          "content": {
+            "blob": "abe5f126e732bd9523364c49ecfade42dc2b2198"
+          },
+          "intent": null,
+          "last_edit": 1794045907
+        },
+        "06_UX/frames/03a2-conflicts-tab.png": {
+          "base": null,
+          "content": {
+            "blob": "54f03df60ae98722ca3d7c2c345217ade50eb1b3"
+          },
+          "intent": null,
+          "last_edit": 1794045907
+        },
+        "06_UX/frames/03b-summary-states.png": {
+          "base": {
+            "blob": "7fabc8e2620efd5dfdc9ab22bd0cd9b61dcf0815"
+          },
+          "content": {
+            "blob": "3f46f8d330ed32434a434d7a2c8f6af3fd5869f1"
+          },
+          "intent": null,
+          "last_edit": 1794045907
+        },
+        "06_UX/frames/03c-activity-presence.png": {
+          "base": {
+            "blob": "910844a344ae2c1a30234336258226ff51eee9a2"
+          },
+          "content": {
+            "blob": "0acf713d5d96d381b0d046771492ede4d389421d"
+          },
+          "intent": null,
+          "last_edit": 1794045907
+        },
+        "06_UX/frames/03d-conflicts-list.png": {
+          "base": {
+            "blob": "7c01f1c2d3ac80295e7b0f4e6a4b45310329dcee"
+          },
+          "content": {
+            "blob": "bea9831e2b52cd62f06ec6a66427e42f962fa4b3"
+          },
+          "intent": null,
+          "last_edit": 1794045907
+        },
+        "06_UX/frames/03e-text-conflict.png": {
+          "base": {
+            "blob": "cb338045c2ccd03daf7e4ce87778c091471921d6"
+          },
+          "content": {
+            "blob": "d3a0b631803b4e1bca7c1bba756e64bf1f9c79be"
+          },
+          "intent": null,
+          "last_edit": 1794045907
+        },
+        "06_UX/frames/03f-binary-conflict.png": {
+          "base": {
+            "blob": "ec2f01ca466bde0fa50e65ec6af43587c3faa141"
+          },
+          "content": {
+            "blob": "ab35b44b51641442cbf578998bd761aa0385e46b"
+          },
+          "intent": null,
+          "last_edit": 1794045907
+        },
+        "06_UX/frames/03g-already-running-first-run.png": {
+          "base": {
+            "blob": "cf56d292062ff21d56d58840728d2d55423a6b23"
+          },
+          "content": {
+            "blob": "60e1c48c89a8a270d2ae1121095ebe77bfd526a4"
+          },
+          "intent": null,
+          "last_edit": 1794045907
+        },
+        "06_UX/frames/03h-several-workspaces.png": {
+          "base": {
+            "blob": "e0dddfb21a72397b80c8e153ec1e7f175e8731e2"
+          },
+          "content": {
+            "blob": "af789305f9e6378f236ab8f17d2b1282fb3a2356"
+          },
+          "intent": null,
+          "last_edit": 1794045907
+        },
+        "06_UX/frames/04-notifications.png": {
+          "base": {
+            "blob": "20d8e8eb95b4ff99ee6a60c447c1462f72af5027"
+          },
+          "content": {
+            "blob": "aaab534ce9dfebee510ee6bbaa6fb3464c7789c3"
+          },
+          "intent": null,
+          "last_edit": 1794045907
+        },
+        "06_UX/frames/05-guided-setup.png": {
+          "base": {
+            "blob": "949b38c5f967a4f5b634dd49db5cc63077f6cf11"
+          },
+          "content": {
+            "blob": "39395abfde632453dfe9a6605b8b88846a474cbc"
+          },
+          "intent": null,
+          "last_edit": 1794045907
+        },
+        "06_UX/frames/06-tokens-components.png": {
+          "base": {
+            "blob": "8425a41cbaff8648d15ef6e9982038b967b2fe31"
+          },
+          "content": {
+            "blob": "e84e0d96fe11a79c27063118609a30a23e00f351"
+          },
+          "intent": null,
+          "last_edit": 1794045907
+        }
+      },
+      "dependencies": [
+        "c65c0d1e-c913-4c5d-84cc-0984cf083e52"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "b282f2a6-96ee-4ea4-8705-5c2b555e522e": {
       "id": "b282f2a6-96ee-4ea4-8705-5c2b555e522e",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
@@ -4933,7 +5123,7 @@
       "created_at": 1794045501,
       "last_edit": 1794045575,
       "revision": 4,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -5008,8 +5198,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Update 7 workspace files",
+        "description": "Saved editing session. No AI-generated explanation is available.\n\nFile operations:\n- Modified: 06_UX/Claude Design briefing — desktop app.md\n- Modified: 06_UX/Dispatch Mesh desktop app — design spec.md\n- Deleted: 06_UX/Dispatch Mesh desktop app.html\n- Modified: 06_UX/Dispatch Mesh desktop app.pdf\n- Modified: 06_UX/frames/source/03a-status-window.dc.html\n- Modified: 06_UX/frames/source/03d-conflicts-list.dc.html\n- Modified: 06_UX/frames/source/03g-already-running-first-run.dc.html"
+      },
+      "message_base": "2faa397b077e65982c8a63e1952f71d5fc15a3ab"
     },
     "c7ca6bef-6128-4dee-a7ab-48946eb29798": {
       "id": "c7ca6bef-6128-4dee-a7ab-48946eb29798",
