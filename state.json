@@ -3707,6 +3707,54 @@
       },
       "message_base": "bd266d9599c28f7e35930289f159f2844ce03538"
     },
+    "86fb6448-8896-4b4c-ae63-f2a7ebf131ce": {
+      "id": "86fb6448-8896-4b4c-ae63-f2a7ebf131ce",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794046714,
+      "last_edit": 1794046714,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "42753ce5d04eb2ab6879fa7a5671d584a4f678fc"
+          },
+          "content": {
+            "blob": "478da1b470cd15f0efd901fe0c70370190664d1f"
+          },
+          "intent": null,
+          "last_edit": 1794046714
+        },
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "9268d0942ea7519b9ebe56e67e65485173447557"
+          },
+          "content": {
+            "blob": "b4358ace045dc3314cc683d567b8b470041b6b7a"
+          },
+          "intent": null,
+          "last_edit": 1794046714
+        },
+        "05_Requirements/Tickets/Bug - BUG00002 - One large text file makes the whole AI summary fall back.md": {
+          "base": null,
+          "content": {
+            "blob": "3ae03c1f2c2939a97f2ea0edb035c95b1d409b84"
+          },
+          "intent": null,
+          "last_edit": 1794046714
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "89872dbb-0142-4c5a-b0e2-b5282b327920": {
       "id": "89872dbb-0142-4c5a-b0e2-b5282b327920",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
