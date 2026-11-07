@@ -80,6 +80,10 @@ Refinement decisions of 2026-11-07 ([[Story - US00012 - Status window layout fol
 | `attention-card` | Attention card ground / border | `#FDF1E7` / `#F0C9A8` | `#3A2618` / `#5C3A22` |
 | `attention-text` | Attention label | `#8A3608` | `#FFB37D` |
 | `presence` | Recent-save presence ring | `#7A4FB0` | `#B793E6` |
+| `on-action` | Text on a primary button | `#FFFFFF` | `#14161A` |
+| `on-attention` | Text on the count badge | `#FFFFFF` | `#14161A` |
+
+`on-action` and `on-attention` were added in US00012 (2026-11-07): white on the dark-theme `action` (`#7FA6FF`) and `attention` (`#FF9E57`) is about 2.4:1 and 2.0:1, so dark theme uses near-black text there. `tray/src/model.rs` tests every text pair of the shipped stylesheet against 4.5:1.
 
 Light values are the ones used in the frames. Dark values marked on frame 6 are proposed; the others (`line-soft`, tints, `received`, card colors) are derived for this page and still need checking against 4.5:1 in the build. Every text color passes 4.5:1 on `ground` and `surface`, and each status tone passes 4.5:1 on its own card ground.
 
@@ -138,8 +142,8 @@ Sizes: Windows 16 and 32 px (light taskbar `#F3F3F3`, dark `#202020`); macOS 18 
 
 ## Components
 
-- **Primary button:** `action` fill and border, white 13/500 text, padding 7 × 14, radius 4. **Secondary:** `surface` fill, `line-strong` border, `text`. Focus: 2 px `action` outline, offset 2. One primary button per view at most.
-- **Count badge:** `attention` fill, white 11/600, pill, line-height 17, padding 0 × 6, accessible name "N unresolved".
+- **Primary button:** `action` fill and border, `on-action` 13/500 text (white in light theme), padding 7 × 14, radius 4. **Secondary:** `surface` fill, `line-strong` border, `text`. Focus: 2 px `action` outline, offset 2. One primary button per view at most.
+- **Count badge:** `attention` fill, `on-attention` 11/600 (white in light theme), pill, line-height 17, padding 0 × 6, accessible name "N unresolved".
 - **Tag:** 11/500 `text-2`, 1 px `line-strong` border, radius 3, padding 1 × 6 ("AI summary", "Discarded"). **Coming-later tag:** 11 `text-3`, 1 px dashed border ("later in 0.3"), only on disabled items.
 - **Avatar:** 28 px circle, initials 11/600 white. A stable hash of the author's email picks one of six colors: `#2457C5`, `#7A4FB0`, `#2F6B4F`, `#B4490B`, `#3D3F44`, `#0E6E7E`, each passing 4.5:1 with white initials (check the dark variants). **You** is always neutral grey `#3D3F44`. The same person gets the same color on every device. There is no agent marker (US00005).
 - **Stage track:** see *Status window → Session row*.
@@ -162,7 +166,7 @@ Native Windows title bar ("Dispatch Mesh", minimise, maximise, close = hide), th
 |---|---|---|---|---|---|---|
 | `needs_attention` | Needs attention | the engine's `reason`, e.g. "2 unresolved conflicts" | per reason, below | primary per reason (**Open conflicts**, **Finish session**, …) | `attention-card` | `attention-text` |
 | `offline` | Offline — changes saved on this device | the engine's `reason`, e.g. "Could not reach the remote (connection timed out)." | "Keep working — your changes upload when the connection returns." | none | `offline-card` | `text` |
-| `saved_locally` | Saved on this device | "Your latest edits are captured. Sharing them as a draft in a moment." | — | secondary **Finish session** | `surface` / `line` | `text` |
+| `saved_locally` | Saved on this device | "Your latest edits are captured. Sharing them as a draft in a moment." Without a remote: "Your latest edits are captured. They join history after 5 minutes without edits, or when you finish the session." | — | secondary **Finish session** | `surface` / `line` | `text` |
 | `draft_uploaded` | Shared as draft | "Collaborators can see your session. It joins shared history after 5 minutes without edits, or when you finish it." | — | secondary **Finish session** | `surface` / `line` | `text` |
 | `waiting_for_finalization` | Finishing up | "Adding your finished session to shared history." / "Adding your N finished sessions to shared history." | — | none | `surface` / `line` | `text` |
 | `synced` | Up to date | "Everything you saved is in shared history." | — | none | `surface` / `line` | `text` |
@@ -174,8 +178,12 @@ Reassurance line per attention reason (US00012 Q8; all wording lives in `tray/sr
 | Conflicts | "Both versions of each file are kept. Other files keep syncing." |
 | Sync failure | "Your edits are saved on this device. Mesh retries automatically." (replaces the separate retry note) |
 | Capture error | "Saved files stay as they are. Mesh tries again on the next save." |
-| Edits depend on a received draft | "Your edits are saved on this device. Finish the session to share them." |
+| Edits depend on a received draft, or would create a circular draft dependency | "Your edits are saved on this device. Finish the session to share them." |
 | AI summary failure | "Your session is added to shared history with a local summary." |
+
+Any other reason (for example "synchronization paused" after history changed outside Mesh) gets no reassurance line.
+
+**Finish session** (US00012, 2026-11-07): the Actions column lists what a state adds. As in US00005, a secondary **Finish session** is offered in every state while a session is open, unless it is already the primary action.
 
 Only Needs attention gets color and a primary button. Offline is grey, never red. Working states stay white.
 
@@ -192,6 +200,7 @@ Only Needs attention gets color and a primary button. Offline is grey, never red
 - **Every published session has a summary title**, whoever authored it: the AI-written title when AI summaries are on, otherwise the factual local summary. It replaces the file list on line 2. Unpublished sessions show their files. Agent sessions aren't special.
 - **Stage track:** 4 segments with a remote, 3 without; each 4 px high, radius 2, gap 3, total width 28 px × segment count (112 / 84). Segments up to the current stage are filled with `working`; a published session fills all with `synced`; later segments are `line`. For a session from another device (its `device` differs from `Status.device`, US00012 Q5) the first segment is `received`, because this device never had it saved locally.
 - The stage is named **once**, as text right of the track. The track itself is `aria-hidden`; the row carries "Stage: Shared as draft, 2 of 4" for screen readers.
+- **Requested purpose** (US00012 planning decision, Kai, 2026-11-07; keeps US00005 AC 3): a session with a recorded purpose gets one more line under line 2, "Requested purpose: …" (12, `text-3`, ellipsized; several purposes read "… +N more"). Rows without a purpose keep three lines.
 - Discarded sessions show a "Discarded" tag instead of the track.
 - Incoming sessions show the other author, never "You".
 
