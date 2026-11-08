@@ -1,7 +1,7 @@
 ---
 type: log
 owner: "[[Kai]]"
-updated: 2026-11-06
+updated: 2026-11-08
 ---
 # Log
 
@@ -417,3 +417,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-07] test-plan | US00006 test plan written
 - Wrote the manual test plan in [[Story - US00006 - Conflict list and resolution in the status window|US00006]] (branch `us00006-conflict-resolution` at `2066559`): nine checks for the list, text and binary detail against frames 3d–3f in light and dark, the "Changes could not be marked here" line, widening at 100 % and 150 % scaling, on a small screen and when maximized, and a window-made choice reaching a second client. Includes a setup script for a disposable remote with three conflicts. No screen-reader checks (invariants). `open_tests: 9`, `frozen: 2026-11-07`, status `In progress` → `Review`. Gates green at the plan's build.
+
+## [2026-11-08] discovery | Provisional AI conflict fixes and later review
+- Added web research and an opt-in pilot proposal to [[AI-managed synchronization and human decisions]]. Compared draft and permanent publication policies and documented how a later correction can preserve intervening edits.

@@ -4,7 +4,7 @@ status: exploration
 owner: "[[Kai]]"
 maintained_by: "[[Kai]]"
 created: 2026-11-06
-updated: 2026-11-06
+updated: 2026-11-08
 derived_from:
   - "Kai's discussion in this chat on 2026-11-06"
   - "[[Competitor storage approaches]]"
@@ -23,6 +23,8 @@ This discovery explores that proposal. It is not an accepted ADR, implementation
 
 The central hypothesis is: **Git can provide ordinary, inspectable shared history while Mesh supplies reliable orchestration and an AI-assisted decision layer.** We should evaluate whether that reduces the need for Mesh-specific remote draft trees, without assuming it removes local state, recovery journals or durable conflict decisions.
 
+The 2026-11-08 [[#Research follow-up — Apply a provisional AI fix and review it later (2026-11-08)|research follow-up]] explores applying eligible fixes first and reviewing them later. The original approval-first flow is documented below.
+
 ## Scope clarification from Kai (2026-11-06)
 
 **Primary case:** Git cannot combine overlapping edits mechanically, but their meanings or intentions may be compatible. AI prepares a merged-text proposal; the user reviews, edits or rejects it. Even an apparently straightforward AI combination requires human approval.
@@ -32,6 +34,45 @@ The central hypothesis is: **Git can provide ordinary, inspectable shared histor
 **Outside the initial scope:** checking every commit for content consistency. Contradictions can come from one author's edits, different files, or a clean merge, so comprehensive checking would be a separate content-review feature with its own triggers, consent and cost. It must not become an implicit requirement of conflict assistance. Example 4 and prompt P3 are retained only as a deferred extension.
 
 The initial flow is: ordinary clean Git integration proceeds automatically; an unresolved text conflict triggers an AI proposal when consent and context permit; human approval authorizes the exact candidate. It is not continuous AI editorial review of the workspace.
+
+## Research follow-up — Apply a provisional AI fix and review it later (2026-11-08)
+
+Kai proposed letting Mesh apply a suitable fix as soon as it is ready, mark it for later revision, and let people keep editing the same file. This explores a separate opt-in policy alongside the approval-first flow documented here and in [[Story - US00004 - AI-proposed text conflict merges with human approval|US00004]]. The hypothesis is that **an active working version and a human decision can have separate lifecycles**. A fix can clear an integration blocker while its review stays open.
+
+### What the research supports
+
+- **AI can combine some real overlapping edits.** MergeBERT reported 63–68% resolution-synthesis accuracy for its code datasets and also studied suggestions with 25 developers. In the newer Merge-Bench, the strongest evaluated models matched the developer resolution on fewer than 60% of code conflicts under the benchmark's scoring, which includes normalized source matches. These are different benchmarks, and a developer's recorded resolution is only one possible valid answer. Neither study measures safe automatic application to Markdown or whether post-application review saves time. [MergeBERT](https://arxiv.org/abs/2109.00084) · [Merge-Bench](https://arxiv.org/abs/2605.25890)
+- **Continuing work and settling a conflict can happen separately.** Jujutsu keeps a logical conflict record through further operations and allows resolution later. Mesh could borrow the durable record and render usable provisional text in the file. Ink & Switch's Upwelling prototype shows how writers can work in drafts while editorial review happens separately. [Jujutsu conflicts](https://www.jj-vcs.dev/latest/conflicts/) · [Upwelling](https://www.inkandswitch.com/upwelling/)
+- **The text people see can include a change that still needs a decision.** Word can show the document with tracked changes incorporated while preserving controls to inspect, accept or reject them. Mesh can put those controls in its own UI so that ordinary editors receive plain Markdown. Git supplies the three-way merge for applying a later correction and the precedent of recording corrections in new commits. [Word Track Changes](https://support.microsoft.com/en-gb/word/training/track-changes-in-word) · [Git three-way file merge](https://git-scm.com/docs/git-merge-file) · [Git revert](https://git-scm.com/docs/git-revert)
+
+### Where the provisional text should go
+
+| Policy | What happens while review is pending |
+|---|---|
+| Approval first | Mesh prepares a candidate in the background. The same conflict can still delay finalization until someone approves. This is the policy specified by US00004. |
+| Apply to synchronized drafts | Opted-in collaborators can keep editing the merged file, and later saves build on the same provisional version. Publication to the permanent branch still waits for affected sessions and their dependencies. This separates the working conflict queue from the publication backlog. |
+| Apply and allow permanent publication | Eligible fixes also clear the publication gate. Mesh keeps a review item and records any later correction in a new linked commit. Collaborators and external readers may already have acted on the provisional content, so correcting the file only changes what they see going forward. |
+
+**Pilot synchronized drafts first.** It tests whether same-file work really continues without interruption. Treat permission to publish unreviewed text to `main` as a separate workspace policy to evaluate if delayed publication remains the bottleneck.
+
+### How Mesh could apply and mark a fix
+
+1. Try the normal deterministic merge. For an unresolved conflict, freeze the exact base and contributing revisions. Under separate conflict-text sharing consent and workspace authorization to auto-apply, ask the configured model for a bounded replacement for the overlapping passage, with references to each contribution, or for a question when the intentions compete.
+2. Start with small single-file prose conflicts in explicitly enrolled paths. Require both inputs and sufficient context, anchor the replacement to the frozen text, preserve cleanly merged changes and bytes outside the approved region, and check encoding and supported Markdown structure. Abstain on conflicting facts or instructions, missing context, binary files, structural changes and protected paths such as ignore rules and configuration. Model confidence and parser success alone cannot establish that both meanings survived.
+3. Recheck exact inputs, policy and current saved bytes before applying. A newer save invalidates the pending candidate for automatic application. Continue capture during inference and use the recovery journal for installation. Synchronize the resolution record and content references together so every eligible client can explain the text it renders. Keep both inputs and attribute the resolution to Mesh AI without assigning it to either author's intent or resetting their inactivity timer.
+4. Show **AI fix applied · Review later** in the status window, with both inputs, the actual applied diff and any newer edits. Offer **Confirm**, **Revise**, and **Use an original version**. Keep it out of the blocking-conflict count and available in history after review. Group outstanding items by file or session and surface a quiet digest. Silence leaves a fix unreviewed. A later save can change the current file without confirming the fix.
+
+### Revising after people have kept editing
+
+Keep the original inputs, the exact file snapshot installed by the provisional fix and a durable link to any review or replacement. A review should identify precisely which applied revision it confirms. To revise it, use the **installed snapshot** as the common ancestor, the **latest captured file** as one side, and the **human's corrected version of the installed snapshot** as the other. Selecting an original should replace only the disputed passage so other merged contributions survive. If the correction overlaps a later edit, keep the current file and show both changes in a follow-up review. Recheck freshness when applying the result. Once the fix has been published, record the correction as a new change linked to the original decision. “Revise anytime” means the original decision remains accessible and the correction can be attempted against current work.
+
+For example, Mesh could combine Alice's routing change and Bob's incident-number requirement as “Send the report to regional support with the incident number.” If a colleague later adds “archive the receipt” elsewhere, a human's wording correction to “the regional support team” can preserve that addition. If the colleague instead changes the same phrase to “local support,” Mesh has a new content question. Both outcomes were checked with `git merge-file` on disposable files. [Git three-way file merge](https://git-scm.com/docs/git-merge-file)
+
+### Fit with the current engine and how to test it
+
+[[ADR-0003 — Preserve synchronized conflict inputs and traceable resolutions]] and [[ADR-0008 — Store content as blobs referenced by metadata]] give this design a starting point. The current resolver selects a preserved version once, and the manifest chooses a single winning record per conflict using a timestamp and a digest. A provisional workflow needs explicit resolution revisions, an origin and review status, reachable snapshots, and separate rules for draft integration and permanent publication. One device can propose for the pilot. For concurrent decisions, duplicate candidates should deduplicate, a human decision should outrank an AI candidate for the same inputs, and competing human revisions should retain both choices for reconciliation. Test restarts, offline and mixed-version clients, and both publication orders before enabling synchronized application. [[Story - US00010 - Resolve a conflict after the file was edited again|US00010]] explores preserving later saves when applying a human choice.
+
+Compare approval-first and provisional drafts on representative Markdown conflicts. Measure time until the same file is usable, interruptions per session, the size and age of both the blocking and review queues, time waiting for publication, coverage, and the fraction of auto-applied fixes that preserve both contributions under human assessment. Include misleadingly plausible merges and track how often review requires rework or conflicts with subsequent saves. First replay anonymized or synthetic cases without writing into a live workspace. Verify recovery with a mock adviser and disposable workspaces separately from model quality. The useful outcome is fewer interruptions and less unresolved work without shifting equivalent effort into delayed corrections.
 
 ## What Git already handles, and what Mesh must supply
 
