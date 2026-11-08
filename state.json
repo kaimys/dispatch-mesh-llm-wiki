@@ -897,7 +897,7 @@
       "last_edit": 1794137917,
       "revision": 3,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "01_Sources/Notes/2026-11-08.md": {
