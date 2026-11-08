@@ -928,7 +928,7 @@
       "last_edit": 1794138791,
       "revision": 9,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "00_Start-Here/log.md": {
@@ -964,8 +964,11 @@
         "17dbbf9a-7976-4a64-9a2c-08f124fc84db"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Refine provisional AI conflict-fix research and add Mesh USP list",
+        "description": "Add `02_Product/Meshs USPs.md` with five product differentiators. Update the AI synchronization discovery to recommend piloting provisional fixes in synchronized drafts before considering publication to `main`, adjust the evaluation focus, and remove the detailed attachment merge-strategy section. Append log entries for the research updates."
+      },
+      "message_base": "f2c05cab8a8b2fde9fcc8b022f09a1cfa4ee5234"
     },
     "1b3c9b07-2d29-4712-8ec9-43f94ada5bfe": {
       "id": "1b3c9b07-2d29-4712-8ec9-43f94ada5bfe",
