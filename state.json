@@ -6774,12 +6774,22 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1794135849,
-      "last_edit": 1794135901,
-      "revision": 2,
+      "last_edit": 1794136013,
+      "revision": 3,
       "closed": false,
       "published": false,
       "discarded": false,
       "changes": {
+        ".obsidian/app.json": {
+          "base": {
+            "blob": "6abe4c134a9c03f65b3c19323a4081ec2782d1af"
+          },
+          "content": {
+            "blob": "4fa42b1bf233e8ff683967a31b0b5c5b64b11ece"
+          },
+          "intent": null,
+          "last_edit": 1794136013
+        },
         "00_Start-Here/log.md": {
           "base": {
             "blob": "90ae54772cc0bd13ec5668ddb88f1536514180f6"
