@@ -6777,7 +6777,7 @@
       "last_edit": 1794136121,
       "revision": 4,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         ".obsidian/app.json": {
@@ -6829,8 +6829,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Document provisional AI conflict fixes and add model comparison clipping",
+        "description": "Configure Obsidian PDF exports for portrait A4 with 2-inch margins and 85% scaling. Expand the AI synchronization discovery with research and an opt-in proposal for applying provisional conflict fixes while keeping human review and later corrections separate. Add a GPT-6.1 Sol vs. GPT-6 Astra comparison clipping in Markdown and PDF, and record the changes in the vault log."
+      },
+      "message_base": "ddeeecbdcc7f32279cf561cca6475c507b76544f"
     },
     "f1e96a40-04f7-45bb-9499-bc4e882f189b": {
       "id": "f1e96a40-04f7-45bb-9499-bc4e882f189b",
