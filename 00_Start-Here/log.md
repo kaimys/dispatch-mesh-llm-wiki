@@ -423,3 +423,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-08] discovery | Markdown publication and attachment merge strategies
 - Recorded the target of letting A and C reach the permanent branch while a provisional fix for B remains reviewable in [[AI-managed synchronization and human decisions]]. Added sourced strategies for flat and layered images, PDF, Word and Excel.
+
+## [2026-11-08] discovery | Local ACP conflict adviser
+- Added the Claude and Codex adapter options, a change classification and a restricted evaluation plan to [[AI-managed synchronization and human decisions]].
