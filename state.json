@@ -925,19 +925,39 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1794138308,
-      "last_edit": 1794138739,
-      "revision": 8,
+      "last_edit": 1794138791,
+      "revision": 9,
       "closed": false,
       "published": false,
       "discarded": false,
       "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "192295ef564956c8ed9ba0046150484229089de7"
+          },
+          "content": {
+            "blob": "91202a3664d055ee0b21772afdaf9b376509673b"
+          },
+          "intent": null,
+          "last_edit": 1794138791
+        },
         "02_Product/Meshs USPs.md": {
           "base": null,
           "content": {
-            "blob": "eb08afffefb173db8d628c92768b14dff17e9226"
+            "blob": "fd7e7ab0de14a677941b29c8326d9f75ebd087db"
           },
           "intent": null,
-          "last_edit": 1794138739
+          "last_edit": 1794138791
+        },
+        "04_Discovery/AI-managed synchronization and human decisions.md": {
+          "base": {
+            "blob": "af017c32f23d49681743d196a2182387d5371506"
+          },
+          "content": {
+            "blob": "379399c53206757034d5dbdc02701888c3716e0a"
+          },
+          "intent": null,
+          "last_edit": 1794138791
         }
       },
       "dependencies": [
