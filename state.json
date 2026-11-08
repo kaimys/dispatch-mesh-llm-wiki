@@ -5744,7 +5744,7 @@
       "created_at": 1794137141,
       "last_edit": 1794137141,
       "revision": 1,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -5761,8 +5761,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Enable line numbers in Obsidian",
+        "description": "Set `showLineNumber` to `true` in the existing Obsidian app settings."
+      },
+      "message_base": "1c0832ac3ff88c335e1e4d17885708a07aa5e571"
     },
     "c3c781a6-eecd-4291-82d2-3aa62bea045c": {
       "id": "c3c781a6-eecd-4291-82d2-3aa62bea045c",
