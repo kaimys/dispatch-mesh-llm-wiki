@@ -7006,7 +7006,7 @@
       "last_edit": 1794155715,
       "revision": 7,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "01_Sources/Notes/2026-11-07.md": {
