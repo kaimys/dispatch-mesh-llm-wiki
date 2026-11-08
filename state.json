@@ -5745,7 +5745,7 @@
       "last_edit": 1794137141,
       "revision": 1,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         ".obsidian/app.json": {
