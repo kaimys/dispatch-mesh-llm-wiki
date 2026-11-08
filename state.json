@@ -7003,9 +7003,9 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1794155493,
-      "last_edit": 1794155661,
-      "revision": 6,
-      "closed": false,
+      "last_edit": 1794155715,
+      "revision": 7,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -7014,10 +7014,10 @@
             "blob": "998114990246fc3e8c9d2ab555e18ab98b6c4ffd"
           },
           "content": {
-            "blob": "fff254b2e8f15672263bb07c37a61762a7dfb27a"
+            "blob": "43ba0269025e6e517134c7c70dba280e1a51be5e"
           },
           "intent": null,
-          "last_edit": 1794155661
+          "last_edit": 1794155715
         },
         "01_Sources/Notes/2026-11-08.md": {
           "base": {
@@ -7032,8 +7032,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: expand orchestration notes and add US00006 resume details",
+        "description": "Update the November 7 note with an agent orchestration proposal and add US00006 test-plan resume instructions to the November 8 note."
+      },
+      "message_base": "244a3a7efbdf67d5f686678c28fabc0c698e94dd"
     },
     "f1e96a40-04f7-45bb-9499-bc4e882f189b": {
       "id": "f1e96a40-04f7-45bb-9499-bc4e882f189b",
