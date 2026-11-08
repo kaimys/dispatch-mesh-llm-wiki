@@ -2323,7 +2323,7 @@
       "created_at": 1794139399,
       "last_edit": 1794139399,
       "revision": 1,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -2350,8 +2350,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: expand AI conflict-resolution discovery research",
+        "description": "Extend the existing discovery page with research on provisional AI fixes and later review, publication and correction workflows, attachment merge strategies, and local ACP advisers. Append corresponding entries to the wiki log; no implementation changes."
+      },
+      "message_base": "1ed7d42220504241dd3da9456590e24f3f066723"
     },
     "3bec8db3-6c3c-4572-8ffd-937eba9d19a4": {
       "id": "3bec8db3-6c3c-4572-8ffd-937eba9d19a4",
