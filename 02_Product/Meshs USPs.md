@@ -1,0 +1,5 @@
+- The synchronization service for LLM wikis
+- Trackability: Who changed what and when
+- Let AI solve your merge conflicts - it's just markdown.
+- Provisional merges for later human review
+- 

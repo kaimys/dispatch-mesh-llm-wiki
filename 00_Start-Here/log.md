@@ -420,3 +420,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-08] discovery | Provisional AI conflict fixes and later review
 - Added web research and an opt-in pilot proposal to [[AI-managed synchronization and human decisions]]. Compared draft and permanent publication policies and documented how a later correction can preserve intervening edits.
+
+## [2026-11-08] discovery | Markdown publication and attachment merge strategies
+- Recorded the target of letting A and C reach the permanent branch while a provisional fix for B remains reviewable in [[AI-managed synchronization and human decisions]]. Added sourced strategies for flat and layered images, PDF, Word and Excel.
