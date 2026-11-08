@@ -925,19 +925,19 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1794138308,
-      "last_edit": 1794138326,
-      "revision": 2,
+      "last_edit": 1794138399,
+      "revision": 4,
       "closed": false,
       "published": false,
       "discarded": false,
       "changes": {
-        "02_Product/USPs.md": {
+        "02_Product/Meshs USPs.md": {
           "base": null,
           "content": {
-            "blob": "5f568391378df75cef4e320b8ce4ba669e82ebb0"
+            "blob": "a2599a21cfb68e4eaca6f4d906add431997ea9a6"
           },
           "intent": null,
-          "last_edit": 1794138326
+          "last_edit": 1794138399
         }
       },
       "dependencies": [
