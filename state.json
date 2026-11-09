@@ -3707,8 +3707,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Document planned reconciliation for conflicts with later edits",
+        "description": "Refine US00010 with answers to all six questions and acceptance criteria covering later edits, session splitting, conflict outcomes, and compatibility. Add an engineering reference distinguishing current behavior from the planned, unimplemented changes, and link it from the index and change log."
+      },
+      "message_base": "443406d12aeda3912223dc491faab011b4f5cfa5"
     },
     "67fe2012-1bd5-4c63-9842-1cac0e70a22f": {
       "id": "67fe2012-1bd5-4c63-9842-1cac0e70a22f",
@@ -6661,6 +6664,48 @@
         "description": "Move US00006 to Review with its contract frozen and nine manual checks recorded; append the test-plan update to the log. Document the built conflict-list and detail behavior in the desktop design spec, and amend ADR-0010 with conflict metadata and on-demand detail rules."
       },
       "message_base": "0d0954b036891b3f6bb905565dbb4a196ecff641"
+    },
+    "dbcb9ddf-2567-46dd-be88-859eb878d7ec": {
+      "id": "dbcb9ddf-2567-46dd-be88-859eb878d7ec",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794242959,
+      "last_edit": 1794242959,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "02db769dad96cc9ddae026d426d9e0b0f884aff4"
+          },
+          "content": {
+            "blob": "492b9d281ffd104a9040487341c772b9ee454aa2"
+          },
+          "intent": null,
+          "last_edit": 1794242959
+        },
+        "05_Requirements/Tickets/Story - US00007 - Recent-save presence in the status window.md": {
+          "base": {
+            "blob": "dc91d0ddd163d40e88fcc466649e762f05670a5b"
+          },
+          "content": {
+            "blob": "17d09e99523cb8b15b9839d99074027f41f1170b"
+          },
+          "intent": null,
+          "last_edit": 1794242959
+        }
+      },
+      "dependencies": [
+        "66ef975c-41da-49e2-a4f8-8cb58eae7a0d"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
     },
     "de967730-9a35-4d7b-bbbe-f9b027f7ba39": {
       "id": "de967730-9a35-4d7b-bbbe-f9b027f7ba39",
