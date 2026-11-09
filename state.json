@@ -6926,6 +6926,142 @@
       },
       "message_base": "16706672746b6ebbfef618ceb27f88b711a4be00"
     },
+    "e999e309-be02-45be-9c7c-de583fa84fdf": {
+      "id": "e999e309-be02-45be-9c7c-de583fa84fdf",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794226753,
+      "last_edit": 1794226753,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "60d51a372ed5ccf7800e090c59f047816008b417"
+          },
+          "content": {
+            "blob": "fc1bda347c92c2e76177de2928557972648c4a79"
+          },
+          "intent": null,
+          "last_edit": 1794226753
+        },
+        "01_Sources/Notes/2026-11-07.md": {
+          "base": {
+            "blob": "43ba0269025e6e517134c7c70dba280e1a51be5e"
+          },
+          "content": {
+            "blob": "4e2e5a5c797b620e09ed56ee6add63ef58a5594c"
+          },
+          "intent": null,
+          "last_edit": 1794226753
+        },
+        "01_Sources/Notes/2026-11-08.md": {
+          "base": {
+            "blob": "d303d3b4c9bacadbb3f1e8cad4271039771c2580"
+          },
+          "content": {
+            "blob": "886b329986822a670e2b0869b6801751ceefe148"
+          },
+          "intent": null,
+          "last_edit": 1794226753
+        },
+        "05_Requirements/Tickets/Story - US00006 - Conflict list and resolution in the status window.md": {
+          "base": {
+            "blob": "56b6fb4b816875fa75976651a5997f4bd4940f3c"
+          },
+          "content": {
+            "blob": "a7f4a0c75e99ed665115061bce7d28c2548f9ba7"
+          },
+          "intent": null,
+          "last_edit": 1794226753
+        },
+        "06_UX/Dispatch Mesh desktop app — design spec.md": {
+          "base": {
+            "blob": "eb8d784354a32e06f7ec217942a5452e51b89aeb"
+          },
+          "content": {
+            "blob": "1fef4cfcfb64827415af973273ba22770be18e38"
+          },
+          "intent": null,
+          "last_edit": 1794226753
+        },
+        "07_Engineering/Decisions/ADR-0010 — Report workspace status and session stages separately.md": {
+          "base": {
+            "blob": "7e9d45cc7a1ccf29fe7cf75686ed9014fd1b68a3"
+          },
+          "content": {
+            "blob": "e078ab829fcb2f65ec80081e7b552c482fa16a5b"
+          },
+          "intent": null,
+          "last_edit": 1794226753
+        },
+        "08_Delivery-and-QA/Test evidence/US00006/US00006 check 1 - conflict list - light.png": {
+          "base": null,
+          "content": {
+            "blob": "f6d4e0806956ab224fa88ec78e8e5797ea20976e"
+          },
+          "intent": null,
+          "last_edit": 1794226753
+        },
+        "08_Delivery-and-QA/Test evidence/US00006/US00006 check 3 - binary detail - light.png": {
+          "base": null,
+          "content": {
+            "blob": "2d1d572d4ea0b178aedeacea04521547564a888f"
+          },
+          "intent": null,
+          "last_edit": 1794226753
+        },
+        "08_Delivery-and-QA/Test evidence/US00006/US00006 check 4 - diff timeout - light - failed.png": {
+          "base": null,
+          "content": {
+            "blob": "86c0f6458806d1352fdac4b42578be0e0f375283"
+          },
+          "intent": null,
+          "last_edit": 1794226753
+        },
+        "08_Delivery-and-QA/Test evidence/US00006/US00006 check 4 - diff timeout - light - rerun 1.png": {
+          "base": null,
+          "content": {
+            "blob": "bcd666960fc0bf4b6a6e461f4812b05f5f6b8bd3"
+          },
+          "intent": null,
+          "last_edit": 1794226753
+        },
+        "08_Delivery-and-QA/Test evidence/US00006/US00006 check 5 - binary detail - dark.png": {
+          "base": null,
+          "content": {
+            "blob": "351527e2583c25f24536541f1585a96d9adc9a43"
+          },
+          "intent": null,
+          "last_edit": 1794226753
+        },
+        "08_Delivery-and-QA/Test evidence/US00006/US00006 check 5 - diff timeout - dark.png": {
+          "base": null,
+          "content": {
+            "blob": "c8eeb41f65bbe9e10e2aec138f8cf7ecd9c79272"
+          },
+          "intent": null,
+          "last_edit": 1794226753
+        },
+        "08_Delivery-and-QA/Test evidence/US00006/US00006 check 5 - text detail - dark.png": {
+          "base": null,
+          "content": {
+            "blob": "af7412f9be75c511dcb6fc2dfab85cbfc33ec13d"
+          },
+          "intent": null,
+          "last_edit": 1794226753
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "ea50344f-913e-4ac9-86ff-b4f735f083c5": {
       "id": "ea50344f-913e-4ac9-86ff-b4f735f083c5",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
