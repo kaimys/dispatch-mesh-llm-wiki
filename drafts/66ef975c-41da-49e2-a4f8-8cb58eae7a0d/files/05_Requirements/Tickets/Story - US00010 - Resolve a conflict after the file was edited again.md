@@ -46,6 +46,12 @@ As a collaborator who kept working on a file after Mesh recorded a conflict in i
   - If the user's open session already holds their conflict input for the path, `capture` folds the later edit into that same change (`git.merge`, ~540). The change's fingerprint then no longer matches `accepted_sessions`, so `matching_resolution` stops recognising it as the recorded input. Nothing prunes `state.conflicts`. This is the core of Q4.
   - While the conflict is open, `publish_ready` skips every session that contains the path, so both contributors' sessions (including their other files) stay unpublished.
 - CLI: `dispatch-mesh conflicts resolve <id> --choose accepted|incoming` (`src/main.rs`).
+- **Order relative to [[Story - US00004 - AI-proposed text conflict merges with human approval|US00004]] (Kai, 2026-11-09):** US00010 comes first. US00004 does not make this story unnecessary, for three reasons:
+  - It addresses a different problem: two recorded inputs Git cannot merge, versus a third version saved after the conflict.
+  - Whole-version choice stays its fallback for binary files, for users without AI consent (ADR-0005), and as one of its review paths. A later edit blocks all of these today.
+  - US00004's own scope needs a resolution that "preserve[s] later edits" (its Q7).
+  
+  Design consequence: build the reconciliation as "the resolved content plus a later change", not as "a selected input plus a later change". US00004 can then reuse it unchanged with an approved composed text as the resolved content.
 
 ## Scope
 
