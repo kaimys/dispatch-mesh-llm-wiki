@@ -2718,6 +2718,44 @@
       },
       "message_base": "cd8e5bc580ed54d2d7a3fb3452cbb5e36af22caf"
     },
+    "48a5014b-0384-4eef-ad2a-a290d600a384": {
+      "id": "48a5014b-0384-4eef-ad2a-a290d600a384",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794240945,
+      "last_edit": 1794240960,
+      "revision": 2,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        ".obsidian/app.json": {
+          "base": {
+            "blob": "8e104645bb8de7b4a67ae50de5cba8b1a2c95380"
+          },
+          "content": {
+            "blob": "720c6ab29dad5f32678574b585f293ea139d0205"
+          },
+          "intent": null,
+          "last_edit": 1794240960
+        },
+        "01_Sources/Clippings/Any good open source Obsidian alternatives.md": {
+          "base": null,
+          "content": {
+            "blob": "21b5ef7ffd6215151df835a1ff7b6025027ffa3e"
+          },
+          "intent": null,
+          "last_edit": 1794240945
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "4c650684-bd77-4524-888b-81d5a26aec35": {
       "id": "4c650684-bd77-4524-888b-81d5a26aec35",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
