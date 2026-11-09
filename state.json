@@ -6937,7 +6937,7 @@
       "last_edit": 1794226753,
       "revision": 1,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "00_Start-Here/log.md": {
@@ -7059,8 +7059,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Complete US00006 conflict-resolution testing and record final fixes",
+        "description": "Mark US00006 Done after all nine manual checks pass; record test results and add screenshots. Update the ticket, ADR-0010, and desktop design spec with the 1,000-line comparison cap, sticky detail header/footer, and compact-window position restoration. Add orchestration findings and update source notes and the project log."
+      },
+      "message_base": "e03783e54a05f7b9ccadcda44f5f190afe121945"
     },
     "ea50344f-913e-4ac9-86ff-b4f735f083c5": {
       "id": "ea50344f-913e-4ac9-86ff-b4f735f083c5",
