@@ -5204,7 +5204,7 @@
       "last_edit": 1794240285,
       "revision": 3,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "05_Requirements/Tickets/Story - US00010 - Resolve a conflict after the file was edited again.md": {
@@ -5222,8 +5222,11 @@
         "1d0a23c1-6eba-4d9f-a341-6215dd3bfa9e"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: clarify conflict resolution behavior for later edits",
+        "description": "Update the US00010 story with answers to Q2 and Q3. Specify that overlapping edits leave the selected version visible and preserve the later edit as the other side of a new conflict, including defined outcomes for binary files and deletions."
+      },
+      "message_base": "9b700afb7629061afa7450a88819940c4b2860f1"
     },
     "b12d25ec-ddb5-451a-9005-164c7d71cbc4": {
       "id": "b12d25ec-ddb5-451a-9005-164c7d71cbc4",
