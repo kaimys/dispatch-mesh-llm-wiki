@@ -1,7 +1,7 @@
 ---
 type: log
 owner: "[[Kai]]"
-updated: 2026-11-08
+updated: 2026-11-09
 ---
 # Log
 
@@ -426,3 +426,22 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-08] discovery | Local ACP conflict adviser
 - Added the Claude and Codex adapter options, a change classification and a restricted evaluation plan to [[AI-managed synchronization and human decisions]].
+
+## [2026-11-09] test | US00006 manual test pass
+- [[Story - US00006 - Conflict list and resolution in the status window|US00006]]: recorded Kai's manual results under *Test plan → Results*, ticked the passed checks and lowered `open_tests` (all nine checks passed; open_tests 0; fixes during the pass: 5770c6d, eda1c44, 6792063). Screenshots are kept in `08_Delivery-and-QA/Test evidence/US00006/`, named `US00006 check <n> - <view> - <theme>.png`.
+
+## [2026-11-09] develop | US00006 check 4 fix: 2,000-line cap and a stable detail view
+- [[Story - US00006 - Conflict list and resolution in the status window|US00006]]: recorded Kai's ruling (each side shows its first 2,000 lines with a note), the confirmed causes of the failed check 4 and the fix (`5770c6d`) under *Test plan → Results* and *As-built notes*; annotated AC 4 and AC 5 with corrections; added the rerun expectation under check 4, which stays unticked. No counter or status changed.
+- [[ADR-0010 — Report workspace status and session stages separately|ADR-0010]]: amended with `Workspace::conflict_edited_after`.
+- [[Dispatch Mesh desktop app — design spec]]: as-built line for the 2,000-line cap and the pinned footer.
+
+## [2026-11-09] develop | US00006 check 4, second change: 1,000-line cap and a sticky breadcrumb
+- [[Story - US00006 - Conflict list and resolution in the status window|US00006]]: recorded Kai's ruling after rerun 1 of check 4 and the change (`eda1c44`) under *As-built notes* and *Test plan → Results*; added second corrections beneath AC 4 and AC 5 and the rerun-2 expectations under check 4, which stays unticked. No counter or status changed.
+- [[Dispatch Mesh desktop app — design spec]]: as-built line now names the 1,000-line cap and the pinned top row.
+
+## [2026-11-09] develop | US00006 check 7 note: Back restores the compact position
+- [[Story - US00006 - Conflict list and resolution in the status window|US00006]]: recorded Kai's ruling (Back restores the compact window's position as well as its size, clamped to the work area) and the fix (`6792063`) under *As-built notes* and *Test plan → Results*; added a correction beneath the plan's layout bullet. No counter, check or status changed.
+- [[Dispatch Mesh desktop app — design spec]]: as-built line says Back restores size and position.
+
+## [2026-11-09] status | US00006 Done
+- [[Story - US00006 - Conflict list and resolution in the status window|US00006]]: moved from Review to Done on Kai's instruction, `completed: 2026-11-09`. All nine manual checks passed (`open_tests: 0`, `open_findings: 0`); merged to `main` at `6792063` and pushed.
