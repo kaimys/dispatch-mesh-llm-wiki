@@ -3652,6 +3652,46 @@
       },
       "message_base": "c6cead94ca807dfb7fc068e6538d1c3dfe5663be"
     },
+    "66ef975c-41da-49e2-a4f8-8cb58eae7a0d": {
+      "id": "66ef975c-41da-49e2-a4f8-8cb58eae7a0d",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794242149,
+      "last_edit": 1794242149,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "00_Start-Here/log.md": {
+          "base": {
+            "blob": "a40f762a0590637714f4728dafff07f413360ac3"
+          },
+          "content": {
+            "blob": "31d8194d7c9fe614d632d58f34e0752b1428dc91"
+          },
+          "intent": null,
+          "last_edit": 1794242149
+        },
+        "05_Requirements/Tickets/Story - US00010 - Resolve a conflict after the file was edited again.md": {
+          "base": {
+            "blob": "fdb897dd9c0c7f3c2fc362e7c9b7a98c235f457d"
+          },
+          "content": {
+            "blob": "4bd6afd4eee4c3e8d80b4752b42f6783ffa459cd"
+          },
+          "intent": null,
+          "last_edit": 1794242149
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "67fe2012-1bd5-4c63-9842-1cac0e70a22f": {
       "id": "67fe2012-1bd5-4c63-9842-1cac0e70a22f",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
