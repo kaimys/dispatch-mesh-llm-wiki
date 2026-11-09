@@ -5120,7 +5120,7 @@
       "last_edit": 1794243703,
       "revision": 2,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         ".meshignore": {
@@ -5164,8 +5164,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: plan later-edit conflict resolution and exclude Obsidian app state",
+        "description": "Add `.obsidian/app.json` to the existing `.meshignore` rules; the file is excluded from synchronization and remains on each device. Update US00010 with an implementation plan for reconciling later edits during conflict resolution, including status-window behavior, CLI outcomes, tests, and documentation. Append the plan update to the wiki log; this records planned work, not an implemented fix."
+      },
+      "message_base": "29a6a48a4fbdaae86e64f1f1f11cec4ac4324b23"
     },
     "a73b6cd7-b760-431b-8a38-450925765e2d": {
       "id": "a73b6cd7-b760-431b-8a38-450925765e2d",
