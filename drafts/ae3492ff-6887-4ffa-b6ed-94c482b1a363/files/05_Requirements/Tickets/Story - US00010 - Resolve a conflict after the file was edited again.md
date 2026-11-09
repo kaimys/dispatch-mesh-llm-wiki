@@ -8,7 +8,7 @@ version_target: v0.3.0
 size:
 assignee:
 owner: "[[Kai]]"
-open_questions: 4
+open_questions: 3
 open_tests:
 open_findings:
 discussion:
@@ -70,7 +70,15 @@ Recorded here: no tracker or chat is configured.
   - **Answer (Kai, 2026-11-09):** Yes. The folder stays unchanged, the later edit remains an ordinary change of the local user (own attribution and purpose), and the conflict is marked resolved with the current version selected. `conflicts resolve` reports that the later edit was kept, alongside "combined" and "new conflict" for the other choice. Rejected alternatives: staying silent, because the two choices would then report differently and the protected edit would go unconfirmed; folding the later edit into the resolution, because the resolution would select a version that is not a recorded input (ADR-0003) and new work would be mixed into a record that holds another author's input. Precondition: the later edit must stay a change separate from the recorded conflict input (see Q4). Otherwise the next `render()` can merge the other input against the later edit and record a fresh conflict right after "keep current".
 - [x] **Q2 Overlapping later edit.** When the merge overlaps, which version stays in the folder (proposal: the later edit, never overwritten), and how are the new conflict's sides attributed? Proposal: the current side is the local user's later-edit session, and the other side is the selected version with its original author.
   - **Answer (Kai, 2026-11-09):** The **selected version** shows in the folder on every device, not the later edit. The new conflict's current side is the selected version, attributed to its original author through `accepted_sessions`; its other side is the later edit, attributed to the local user's later-edit session. Example: Alice chooses Bob's `Meet at 10:00 at the main entrance.` while her later edit says `Meet at 9:15 at the station.` Every device shows Bob's line, and the new conflict holds Alice's 9:15 line as the other side. Why: every device renders the same folder, so keeping the later edit would put text the chooser did not choose in front of the other author (Bob would lose the line he was chosen for). Showing the selected version matches today's `merge_change` behavior and ADR-0003 ("keep the accepted view visible"). Accepted cost: the chooser's later text leaves the open file and is recoverable from the new conflict. The CLI (and later the US00006 window) says so.
-- [ ] **Q3 Binary files and deletions.** A later edit to a binary file cannot be merged, and either side may be a deletion. Does choosing the other version then always produce a new whole-file conflict, or does the later edit win?
+- [x] **Q3 Binary files and deletions.** A later edit to a binary file cannot be merged, and either side may be a deletion. Does choosing the other version then always produce a new whole-file conflict, or does the later edit win?
+  - **Answer (Kai, 2026-11-09):** The Q2 rule applies unchanged to every file type, with no special case. This follows `git.merge` (`src/git.rs` ~398): when neither side equals the base, a binary file or a deletion always conflicts. Outcomes:
+    - Binary later edit, other version chosen: a new whole-file conflict; the folder shows the chosen file and the later edit is the other side.
+    - Binary later edit, current version kept: no-op (Q1).
+    - Later edit is a deletion, other version chosen: a new conflict; the folder shows the chosen file and "deleted" (local user) is the other side.
+    - Chosen version is a deletion while the later edit modified the file: a new conflict; the file is removed from the folder and the later edit is the other side.
+    - Both are deletions: clean; the file stays deleted.
+    
+    The case where the chosen version deletes the file gets its own CLI wording (the chosen version deletes the file; the later edit is kept as a new conflict) and its own regression test. Rejected: letting the later edit win for these cases, because that overrides the user's choice for some file types only and contradicts Q2.
 - [ ] **Q4 Session state of the later edit.** The later edit may sit in an open session, a closed one waiting for finalization, or one already published, since finalization waits only for sessions containing an unresolved path. How is its change rebased onto the selected version in each case, so that publication on `main` is exactly "selected version → later edit" and no empty or duplicate commit appears?
 - [ ] **Q5 Received changes after the conflict.** The guard compares against the folder, which also holds content received from other devices after the conflict. Is a received later change reconciled the same way, or is only a local edit in scope?
 - [ ] **Q6 Compatibility.** Does this need any change to the synchronized conflict or resolution format? If it does, how do clients that don't have the change yet behave, given that they still refuse? (Expectation: no format change, because the resolution stays a choice between inputs and the reconciliation is an ordinary session change.)
