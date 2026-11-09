@@ -8,7 +8,7 @@ version_target: v0.3.0
 size:
 assignee:
 owner: "[[Kai]]"
-open_questions: 2
+open_questions: 1
 open_tests:
 open_findings:
 discussion:
@@ -91,7 +91,8 @@ Recorded here: no tracker or chat is configured.
     - **Accepted cost:** the user's work lands in two commits, and the split happens even if the conflict is never resolved.
     - **Rejected:** splitting at resolve time. Until the resolve, the folded change keeps `render()` wrong: it records a second conflict and leaves the original unresolvable.
     - **Not covered:** workspaces that already hold a folded change from before this release (see Out of scope).
-- [ ] **Q5 Received changes after the conflict.** The guard compares against the folder, which also holds content received from other devices after the conflict. Is a received later change reconciled the same way, or is only a local edit in scope?
+- [x] **Q5 Received changes after the conflict.** The guard compares against the folder, which also holds content received from other devices after the conflict. Is a received later change reconciled the same way, or is only a local edit in scope?
+  - **Answer (Kai, 2026-11-09):** **The same way as a local edit; in scope.** A received later change is another device's session and therefore already a separate change. After the resolution, `render()` merges it onto the selected version. A clean merge is applied; an overlap records a new conflict with the selected version showing (Q2, Q3). If the other author's later edit would fold into their own session holding their conflict input, the Q4 split happens on their device at capture, since every device runs the same rule. Example: Bob adds `Bring snacks.` to `trip.md` at 11:15 after C1 was recorded; Alice can resolve C1 and Bob's line is combined with her choice. `conflicts resolve` names the author of the later change ("Bob's 11:15 edit was combined"). Rejected: local edits only, because the guard would then need new code to tell local from received changes, solely to refuse, and the chooser would depend on the other author undoing their edit.
 - [ ] **Q6 Compatibility.** Does this need any change to the synchronized conflict or resolution format? If it does, how do clients that don't have the change yet behave, given that they still refuse? (Expectation: no format change, because the resolution stays a choice between inputs and the reconciliation is an ordinary session change.)
 
 ## Acceptance criteria
