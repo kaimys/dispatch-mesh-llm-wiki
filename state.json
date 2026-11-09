@@ -5117,12 +5117,30 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1794243479,
-      "last_edit": 1794243479,
-      "revision": 1,
+      "last_edit": 1794243703,
+      "revision": 2,
       "closed": false,
       "published": false,
       "discarded": false,
       "changes": {
+        ".meshignore": {
+          "base": {
+            "blob": "c4fce715c38b1450cbdc1b6e4213e96cd3afe234"
+          },
+          "content": {
+            "blob": "425c9a0cc8cd05913a1c94930aa28bc7617ad64e"
+          },
+          "intent": null,
+          "last_edit": 1794243703
+        },
+        ".obsidian/app.json": {
+          "base": {
+            "blob": "720c6ab29dad5f32678574b585f293ea139d0205"
+          },
+          "content": null,
+          "intent": null,
+          "last_edit": 1794243703
+        },
         "00_Start-Here/log.md": {
           "base": {
             "blob": "492b9d281ffd104a9040487341c772b9ee454aa2"
