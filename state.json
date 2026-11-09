@@ -3388,7 +3388,7 @@
       "last_edit": 1794238459,
       "revision": 1,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "05_Requirements/Tickets/Story - US00010 - Resolve a conflict after the file was edited again.md": {
