@@ -8,7 +8,7 @@ version_target: v0.3.0
 size:
 assignee:
 owner: "[[Kai]]"
-open_questions: 1
+open_questions: 0
 open_tests:
 open_findings:
 discussion:
@@ -46,6 +46,12 @@ As a collaborator who kept working on a file after Mesh recorded a conflict in i
   - If the user's open session already holds their conflict input for the path, `capture` folds the later edit into that same change (`git.merge`, ~540). The change's fingerprint then no longer matches `accepted_sessions`, so `matching_resolution` stops recognising it as the recorded input. Nothing prunes `state.conflicts`. This is the core of Q4.
   - While the conflict is open, `publish_ready` skips every session that contains the path, so both contributors' sessions (including their other files) stay unpublished.
 - CLI: `dispatch-mesh conflicts resolve <id> --choose accepted|incoming` (`src/main.rs`).
+- **Order relative to [[Story - US00004 - AI-proposed text conflict merges with human approval|US00004]] (Kai, 2026-11-09):** US00010 comes first. US00004 does not make this story unnecessary, for three reasons:
+  - It addresses a different problem: two recorded inputs Git cannot merge, versus a third version saved after the conflict.
+  - Whole-version choice stays its fallback for binary files, for users without AI consent (ADR-0005), and as one of its review paths. A later edit blocks all of these today.
+  - US00004's own scope needs a resolution that "preserve[s] later edits" (its Q7).
+  
+  Design consequence: build the reconciliation as "the resolved content plus a later change", not as "a selected input plus a later change". US00004 can then reuse it unchanged with an approved composed text as the resolved content.
 
 ## Scope
 
@@ -53,7 +59,9 @@ As a collaborator who kept working on a file after Mesh recorded a conflict in i
 - A clean merge is written to the folder and stays the local user's change, in their session with its own attribution and purpose. It never becomes part of the resolution record.
 - Overlapping edits show the selected version in the folder on every device and record a new conflict: the current side is the selected version (original author), the other side is the later edit (local user's session). The later edit is never discarded. The original conflict is still marked resolved with the user's choice (Q2, Kai, 2026-11-09).
 - The resolution record keeps selecting exactly one recorded input (ADR-0003); synchronization and publication order behave as today.
-- CLI wording: `conflicts resolve` reports whether a later edit was combined or produced a new conflict.
+- A save to a path with an unresolved conflict whose input belongs to the active session closes that session and starts a new one (Q4).
+- Later changes received from other devices are reconciled the same way as local ones (Q5).
+- CLI wording: `conflicts resolve` reports whether a later change was kept (current version chosen), combined, or produced a new conflict. It names the later change's author, and it words the case where the chosen version deletes the file separately (Q1, Q3, Q5).
 - Regression tests with real workspaces for each outcome, for both choices, and across two devices with either publication order.
 
 ## Out of scope
@@ -93,11 +101,25 @@ Recorded here: no tracker or chat is configured.
     - **Not covered:** workspaces that already hold a folded change from before this release (see Out of scope).
 - [x] **Q5 Received changes after the conflict.** The guard compares against the folder, which also holds content received from other devices after the conflict. Is a received later change reconciled the same way, or is only a local edit in scope?
   - **Answer (Kai, 2026-11-09):** **The same way as a local edit; in scope.** A received later change is another device's session and therefore already a separate change. After the resolution, `render()` merges it onto the selected version. A clean merge is applied; an overlap records a new conflict with the selected version showing (Q2, Q3). If the other author's later edit would fold into their own session holding their conflict input, the Q4 split happens on their device at capture, since every device runs the same rule. Example: Bob adds `Bring snacks.` to `trip.md` at 11:15 after C1 was recorded; Alice can resolve C1 and Bob's line is combined with her choice. `conflicts resolve` names the author of the later change ("Bob's 11:15 edit was combined"). Rejected: local edits only, because the guard would then need new code to tell local from received changes, solely to refuse, and the chooser would depend on the other author undoing their edit.
-- [ ] **Q6 Compatibility.** Does this need any change to the synchronized conflict or resolution format? If it does, how do clients that don't have the change yet behave, given that they still refuse? (Expectation: no format change, because the resolution stays a choice between inputs and the reconciliation is an ordinary session change.)
+- [x] **Q6 Compatibility.** Does this need any change to the synchronized conflict or resolution format? If it does, how do clients that don't have the change yet behave, given that they still refuse? (Expectation: no format change, because the resolution stays a choice between inputs and the reconciliation is an ordinary session change.)
+  - **Answer (Kai, 2026-11-09):** **No format change.** The `Resolution` record is unchanged and still selects one recorded input. New conflicts use the existing `Conflict` record and its deterministic id. Split sessions are ordinary sessions. The manifest stays `version: 2`. Mixed versions interoperate: an older client renders the same folder from the same records. For its own later edits, it keeps today's refusal and its capture still folds (Q4) until it is upgraded; no data is lost. The release note states this. Rejected: enforcing a minimum client version, because it needs a version handshake that does not exist (itself a format change) and would block old devices over a bug that loses no data.
 
 ## Acceptance criteria
 
-<!-- GUIDE: Testable statements, each checkable by someone without this ticket's history. -->
+Terms: the *current* version is the one in the folder when the conflict was recorded; the *other* version is the one kept aside. A *later change* is any save to the conflicted path after the conflict was recorded, local or received.
+
+1. With a later change that does not overlap the other version, `conflicts resolve <id> --choose incoming` succeeds. The folder shows the other version with the later change merged in, the conflict is resolved with the other version selected, and the CLI reports that the later change was combined.
+2. With any later change, `--choose accepted` succeeds and leaves the folder unchanged. The conflict is resolved with the current version selected, the later change remains an unpublished change of its author, and the CLI reports that it was kept.
+3. With a later change that overlaps the other version, `--choose incoming` succeeds and the original conflict is resolved with the other version selected. On every device, the folder shows the other version, and a new conflict lists the other version as current (attributed to its original author) and the later change as other (attributed to its author). The CLI reports the new conflict.
+4. For a binary file with a later change, choosing the other version yields a new whole-file conflict as in 3. The later file is retrievable byte for byte.
+5. When the chosen version is a deletion and the later change modifies the file, the file is absent from the folder and a new conflict holds the later change. The CLI says that the chosen version deletes the file and the later change was kept as a new conflict. When both are deletions, the file stays deleted and no conflict is recorded.
+6. When the later change is a deletion and the other version is chosen, the folder shows the other version and a new conflict has "deleted" as its other side.
+7. Saving a conflicted path whose current or other input belongs to the device's open session closes that session and records the save in a new session. The recorded input's bytes are unchanged, and no further conflict is recorded for that path until the user resolves.
+8. After resolving, publication on `main` contains the contributors' sessions, then the later change's session, attributed to its author. No published commit is empty, and none repeats content already on `main`.
+9. A later change received from another device is reconciled as in 1–6, and the CLI names its author.
+10. With two devices, for both choices and either publication order of the inputs, both devices end with the same folder content and the same unresolved-conflict list.
+11. The synchronized manifest stays `version: 2` with unchanged `Resolution` and `Conflict` records. A client built without this change, syncing with one that has it, shows the same folder.
+12. Regression tests with real workspaces in `tests/engine.rs` cover 1–11, including the previously untested path where the file changed before resolving. `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` pass.
 
 ## Implementation plan
 

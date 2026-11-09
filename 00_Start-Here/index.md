@@ -68,6 +68,7 @@ Entry point for people and agents. Read this first, then follow the links. Every
 - [[Competitor storage approaches]] — source-backed comparison of all seven competitor storage models and three proposed Mesh adaptations; refresh with linked profiles before design adoption (owner: [[Kai]]).
 - [[SQLite database format]] — tables and columns, JSON state properties, logical ER diagram, blob references, transactions, recovery, migration, and retention. Maintenance: [[Kai]] reviews on schema, serialization, migration, or recovery changes and before reuse with a newer release.
 - [[Device branch format]] — version-two device branch tree, complete `state.json` field reference, session lifecycle, `base/` versus `files/`, and indefinite preview retention. Maintenance: [[Kai]] reviews on transport/schema, session lifecycle, or retention changes and before reuse with a newer release; source revision recorded on the page.
+- [[Resolving conflicts after later edits]] — how a conflict is resolved when the file changed again after it was recorded: the three-way rule, examples for clean, kept, overlapping, binary, deleted and received changes, the session split at capture and mixed-version compatibility; planned behavior from US00010. Maintenance: [[Kai]] reviews when US00010 is implemented and on changes to capture, render or resolve.
 - `07_Engineering/Decisions/` — ADRs
 
 | ADR | Decision | Status |
