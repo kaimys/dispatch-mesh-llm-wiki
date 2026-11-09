@@ -3660,21 +3660,31 @@
         "email": "kai@eightnine.de"
       },
       "created_at": 1794242149,
-      "last_edit": 1794242306,
-      "revision": 2,
+      "last_edit": 1794242551,
+      "revision": 3,
       "closed": false,
       "published": false,
       "discarded": false,
       "changes": {
+        "00_Start-Here/index.md": {
+          "base": {
+            "blob": "d0c5078ecc7e1de6352a758beb2d5f0e3420cce6"
+          },
+          "content": {
+            "blob": "afe77154857a4ae88e364cbef263cf5130f72604"
+          },
+          "intent": null,
+          "last_edit": 1794242551
+        },
         "00_Start-Here/log.md": {
           "base": {
             "blob": "a40f762a0590637714f4728dafff07f413360ac3"
           },
           "content": {
-            "blob": "2bcb6b66aec3503a5b0ede2a62bd85b9c3f2f391"
+            "blob": "02db769dad96cc9ddae026d426d9e0b0f884aff4"
           },
           "intent": null,
-          "last_edit": 1794242306
+          "last_edit": 1794242551
         },
         "05_Requirements/Tickets/Story - US00010 - Resolve a conflict after the file was edited again.md": {
           "base": {
@@ -3685,6 +3695,14 @@
           },
           "intent": null,
           "last_edit": 1794242306
+        },
+        "07_Engineering/Resolving conflicts after later edits.md": {
+          "base": null,
+          "content": {
+            "blob": "37f8c96fc1adcea6b37e759abf357fc57c08fcc1"
+          },
+          "intent": null,
+          "last_edit": 1794242551
         }
       },
       "dependencies": [],
