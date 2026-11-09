@@ -62,11 +62,15 @@ As a collaborator who kept working on a file after Mesh recorded a conflict in i
 - A save to a path with an unresolved conflict whose input belongs to the active session closes that session and starts a new one (Q4).
 - Later changes received from other devices are reconciled the same way as local ones (Q5).
 - CLI wording: `conflicts resolve` reports whether a later change was kept (current version chosen), combined, or produced a new conflict. It names the later change's author, and it words the case where the chosen version deletes the file separately (Q1, Q3, Q5).
+- Status window, the later-edit part only. The design spec assigns this to US00010 ("US00010 enables them and switches to …"). Kai decided on 2026-11-09, while planning, to include it here rather than in a follow-up ticket, so that the window never disables both buttons with text that is no longer true. Changes:
+  - **Buttons:** both stay enabled after a later edit.
+  - **Note:** the later-edit note becomes "You saved this file again at 11:20, after the conflict was recorded. That edit is protected and reconciled separately once you choose."
+  - **Confirmation:** after resolving, it says whether the later change was kept, combined or became a new conflict.
 - Regression tests with real workspaces for each outcome, for both choices, and across two devices with either publication order.
 
 ## Out of scope
 
-- Conflict UI: the list, detail view and wording in the status window belong to [[Story - US00006 - Conflict list and resolution in the status window|US00006]].
+- Conflict UI beyond the later-edit change below: the list, detail view layout and other wording in the status window belong to [[Story - US00006 - Conflict list and resolution in the status window|US00006]].
 - Writing a combined third version by hand, and AI-proposed merges ([[Story - US00004 - AI-proposed text conflict merges with human approval|US00004]]).
 - Changing how conflicts are detected or recorded in the first place.
 - Repairing workspaces whose session already folded a later edit into a recorded conflict input before this release (Q4, Kai, 2026-11-09; the console is a preview and no such workspace is known).
@@ -119,12 +123,130 @@ Terms: the *current* version is the one in the folder when the conflict was reco
 9. A later change received from another device is reconciled as in 1–6, and the CLI names its author.
 10. With two devices, for both choices and either publication order of the inputs, both devices end with the same folder content and the same unresolved-conflict list.
 11. The synchronized manifest stays `version: 2` with unchanged `Resolution` and `Conflict` records. A client built without this change, syncing with one that has it, shows the same folder.
-12. Regression tests with real workspaces in `tests/engine.rs` cover 1–11, including the previously untested path where the file changed before resolving. `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` pass.
+12. In the status window's conflict detail, a later save shows the note "You saved this file again at <time>, after the conflict was recorded. That edit is protected and reconciled separately once you choose." Both **Keep current version** and **Use other version** stay enabled. After choosing, the confirmation says whether the later change was kept, combined or became a new conflict, and in the last case the new conflict appears in the list.
+13. Regression tests with real workspaces in `tests/engine.rs` cover 1–11, including the previously untested path where the file changed before resolving. Tray model tests cover 12. `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test` pass.
 
 ## Implementation plan
 
-<!-- GUIDE: Written by /implementation-plan — ordered steps, files, risks, verification,
-     and the reason behind any order that matters. -->
+*Written 2026-11-09 against `main` at `c48141b`, after refinement (Q1–Q6) and the planning decision to include the window's later-edit change (Scope).*
+
+### Ground truth that shapes the plan
+
+- **Resolve** (`src/engine.rs` ~1536):
+  - It captures, then refuses both choices when `state.observed[path] != conflict.accepted` (~1549). Otherwise it inserts a `Resolution`, saves and calls `render()`.
+  - It returns `Result<()>`, so callers can't tell what happened to a later change.
+- **Render** (~988):
+  - It rebuilds the folder from `main` plus every unsettled session, in `created_at` order, gated by `dependencies`.
+  - `merge_change` (~1076) already three-way merges a later change that lives in its own session onto the resolved content. On overlap it records a conflict whose current side stays in the folder (Q2), and it rejects inputs the resolution did not select.
+  - So no new merge code is needed. What is missing is keeping the later change *separate* (Q4) and reporting the outcome.
+- **Capture** (~463):
+  - It reuses the device's open session.
+  - For a path the session already changed, it applies only the new delta to the existing change (`git.merge`, ~540). On failure it stops with `DependentEditsPreserved` / `RECEIVED_DRAFT_DEPENDENCY`.
+  - A new session's `dependencies` are all other unsettled sessions (~484), so a split-off session publishes after the session it was split from.
+- **`matching_resolution`** (~1156) identifies inputs by `conflict.session` plus exact base/content (other side), or by the fingerprint in `accepted_sessions`, with a legacy inference for empty `accepted_sessions` (current side).
+- **Publication.** `publish_ready` (~1352) skips sessions that hold an unresolved path and turns a session with no effective change into a discard (`discard_empty_projection`) instead of an empty commit.
+- **Callers of `resolve`:**
+  - CLI `conflicts resolve` (`src/main.rs:176`) prints a fixed sentence.
+  - `Host::resolve_conflict` (`tray/src/host.rs` ~392) builds `conflicts::confirmation(path, choice)` (`tray/src/model/conflicts.rs:811`).
+- **Window:**
+  - `later_edit_note` (`tray/src/model/conflicts.rs:655`) says choosing works once the file matches again.
+  - `detail_view` sets `can_choose: note.is_none()` (~771), and `tray/ui/app.js:454` sets `can_choose = !note` on refresh.
+  - `Workspace::edited_after` (`src/conflicts.rs:130`) stays the source of the note's time.
+- **Tests:**
+  - `tests/conflicts.rs::detail_reports_a_later_save_and_resolving_is_then_refused` asserts the refusal.
+  - `text_conflict` (`tests/conflicts.rs:58`) builds a two-device text conflict on Bob. Bob's open session holds the current side, which is exactly the Q4 case.
+  - `tests/engine.rs` ~370 and ~420 hold the publication-order tests to extend.
+- **Docs that become wrong:**
+  - `README.md:147` ("disables both buttons … reconciling it is planned separately").
+  - Design spec `06_UX/… design spec.md` lines 55 and 226 ("until US00010").
+  - [[Resolving conflicts after later edits]] ("planned").
+
+### Steps, in order
+
+1. **Failing tests first** (`tests/engine.rs`, `tests/conflicts.rs`). Move `text_conflict` into a shared `tests/common/mod.rs` so both files can use it, and add a binary variant and a deletion variant. Write the AC 1–11 scenarios (see *Tests*) and the Q4 fold reproduction: Bob saves again in his open session, syncs, and the conflict list must not gain a second entry for `note.md`. These fail today, either with the refusal or with the fold. Writing them first pins down the expected outcomes before the engine changes.
+2. **Capture: split instead of fold** (`src/engine.rs`, `capture`).
+   - **Rule:** before choosing the session id, check each changed, non-excluded path. If an unresolved conflict on that path has an input in the active session, close the active session first: `closed = true`, `discarded = changes.is_empty()` (the same as `finish`). The save then opens a new session, whose `dependencies` include the closed one.
+   - **Helper** `fn holds_conflict_input(&self, session: &Session, path: &str) -> bool`:
+     - `conflict.session == session.id`;
+     - or `accepted_sessions` contains `session.id`;
+     - or, with empty `accepted_sessions`, the same legacy inference `matching_resolution` uses.
+     
+     One helper, so capture and resolution agree on what an input is.
+   - **Why before step 3:** without the split, removing the guard turns the most common case into a wrong result. That case is the user's own open session holding their side. The resolution would no longer match the folded input, and `render()` would record a second conflict.
+   - **Side effect, intended:** a save to a conflicted path no longer hits the `RECEIVED_DRAFT_DEPENDENCY` fold failure for that path.
+3. **Resolve: no guard, report the outcome** (`src/engine.rs`, plus the type in `src/conflicts.rs`, which already holds the conflict presentation API).
+   - Delete the guard. `resolve` returns `Result<ResolveOutcome>`:
+     ```rust
+     pub enum ResolveOutcome {
+         NoLaterChange,
+         Kept { later: Vec<LaterChange> },              // current version chosen
+         Combined { later: Vec<LaterChange> },
+         NewConflict { id: String, later: Vec<LaterChange>, selected_deletes: bool },
+     }
+     pub struct LaterChange { pub author: Identity, pub device: String, pub saved_at: u64 }
+     ```
+   - **Computing it:**
+     - `later` is every unsettled session with a change on the path that is not an input of this conflict (by the step 2 helper).
+     - With no later change, the outcome is `NoLaterChange`, which keeps today's wording.
+     - Otherwise: `Kept` if the current version was chosen; `NewConflict` if `render()` left an unresolved conflict on the path that was not there before (`selected_deletes` when the selected version is `None`); else `Combined`.
+     - Everything is computed from engine state, never from guessing at the folder, so a received change (Q5) is covered too.
+   - **Failures:** `render()` errors as today, for example "New local edits arrived during synchronization". The resolution is already saved, as today.
+4. **CLI wording** (`src/main.rs:176`). Print one sentence per outcome and keep the "Run sync …" tail:
+   - `NoLaterChange`: today's sentence.
+   - `Kept`: "Kept the current version; your 11:20 edit stays as your next change."
+   - `Combined`: "Bob's 11:15 edit was combined with the chosen version."
+   - `NewConflict`: "Your 11:20 edit overlaps the chosen version; it is kept as new conflict <id>."
+   - `NewConflict` with `selected_deletes`: "The chosen version deletes this file; your 11:20 edit is kept as new conflict <id>."
+   
+   Use "your" for the local identity and the author's name otherwise. Times are local `HH:MM`, like the window.
+5. **Window** (`tray/src/model/conflicts.rs`, `tray/src/host.rs`, `tray/ui/app.js`).
+   - **Note:** `later_edit_note` gets the design wording: "You saved this file again at {TIME}, after the conflict was recorded. That edit is protected and reconciled separately once you choose."
+   - **Buttons:** `detail_view` sets `can_choose: true`. Keep the field rather than removing it, so `app.js` still has one switch. In `app.js:454`, stop deriving `can_choose` from the note.
+   - **Confirmation:** `confirmation(path, choice, &outcome)` appends the step 4 sentence after the existing text, so the two surfaces word it the same way. A shared formatter lives in the tray model; the CLI keeps its own short `format!`, because the engine crate must not depend on the tray. `Host::resolve_conflict` passes the outcome through.
+   - **New conflict:** after `NewConflict`, `next_after` already moves to the next conflict, and the new conflict appears in the list on the next snapshot. No extra plumbing.
+6. **Docs** (same branch):
+   - `README.md:147`: buttons stay enabled and the later change is reconciled. Link the three outcomes. Also add a line to the CLI `conflicts resolve` section.
+   - Design spec lines 55 and 226: drop "until US00010" and keep only the post-US00010 wording. Owner: Kai, updated by the developer in the same change.
+   - [[Resolving conflicts after later edits]]: switch "planned" to as-built, update line references, set `verified`/`source_revision`.
+   - Each wiki change gets a `log.md` entry.
+7. **Gates:** `cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test`, including the tray crate's tests.
+
+### Tests (which layer asserts what)
+
+- **`tests/engine.rs`**, real two- and three-device workspaces over a bare remote:
+  - **AC1:** later non-overlapping edit, choose other → folder = merge, conflict resolved, `Combined`.
+  - **AC2:** later edit, choose current → folder unchanged, `Kept`, the later session unsettled and owned by the local author.
+  - **AC3:** overlap → every device's folder = selected; a new conflict with current = selected (`accepted_sessions` names the original author's session) and other = the later edit (`session` = the later session); `NewConflict`.
+  - **AC4–6:** binary, chosen deletion, later deletion, both deleted.
+  - **AC7:** the split at capture. The original session is closed with its input byte-exact (fingerprint unchanged), and syncing before resolving adds no conflict.
+  - **AC8:** publication. Both inputs then the later session; after all devices finish and sync, `git log` on `main` has no empty commit and no commit that changes nothing, and the later commit's author is the later editor. Both choices and either publication order, extending the ~370/~420 pattern.
+  - **AC9:** Bob's later edit received by Alice → `Combined` naming Bob.
+  - **AC10:** both devices converge on folder content and unresolved ids.
+  - **AC11:** `manifest.version == 2` after the whole flow; `Resolution` and `Conflict` serialize with exactly today's keys (a serde snapshot).
+- **`tests/conflicts.rs`:** rename the refusal test to `detail_reports_a_later_save_and_resolving_reconciles_it`. `edited_after` is still reported, and resolve now succeeds.
+- **`tests/cli.rs`:** one case per wording branch of `conflicts resolve`.
+- **Tray model unit tests** (`tray/src/model/conflicts.rs`): note wording, `can_choose` true with a note, `confirmation` for each outcome (AC12).
+- **Newly assertable:** the outcome type makes "what happened to my later edit" testable at the engine boundary. Before, it could only be inferred from the folder.
+- **Left to the manual test plan:** a mixed-version check, a 0.2.5 client from `dist/` syncing with this build (AC11's second half; there's no way to run an old binary in `cargo test`), and the window flow.
+
+### Risks and mitigations
+
+- **More sessions and commits.** A conflict now cuts the user's session when they keep editing the path. Later work lands in its own commit with its own AI summary. Accepted in Q4. Existing tests that keep editing a conflicted path in one session may change their expectations. Step 1 surfaces them.
+- **Dependency ordering.** The split-off session depends on the closed one through `dependencies`, so it can't publish first. AC8 asserts the order rather than relying on `created_at`.
+- **Legacy conflict records** (empty `accepted_sessions`). The helper reuses `matching_resolution`'s inference, so old records split the same way. Repairing already-folded workspaces is out of scope.
+- **Outcome misreport.** `NewConflict` detection compares the unresolved ids on the path before and after `render()`. A conflict that existed before on the same path (a different C2) isn't counted as new.
+- **Rollback.** No format change, so reverting the code is safe. Sessions split by this build stay ordinary sessions that an older build publishes normally.
+
+### Order that matters, and why
+
+- Tests (1) come before code, because the Q4 fold is invisible until a test syncs after the later edit.
+- The capture split (2) comes before removing the guard (3), because removing the guard alone gives wrong results in the most common case.
+- The engine outcome (3) comes before the CLI (4) and the window (5), because both only format it.
+- Docs (6) ship in the same change, because the README and design spec otherwise describe the disabled buttons the build no longer has.
+
+### Size
+
+Order of magnitude: roughly 150 lines of engine change, 50–80 in the tray, and 400–600 lines of tests. One development session plus review.
 
 <!-- ═══════════ RECORD ZONE ═══════════
      What actually happened. Always appendable, including after the freeze.

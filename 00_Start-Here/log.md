@@ -454,3 +454,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-09] refine | US00007 Recent-save presence in the status window
 - [[Story - US00007 - Recent-save presence in the status window|US00007]] moved Backlog → Refinement. Verified against the engine: presence is derived per file from open, unsettled sessions with origin-clock timestamps; Finish session ends a file's presence early on every device; the tray renders none yet. Added three questions (finished sessions, notice placement and dismissal, several entries per file); `open_questions: 7`.
+
+## [2026-11-09] plan | US00010 implementation plan
+- Wrote the implementation plan in [[Story - US00010 - Resolve a conflict after the file was edited again|US00010]] against `c48141b`: tests first, split sessions at capture, remove the resolve guard and return an outcome, CLI and window wording, docs. Kai decided to include the window's later-edit change (enable buttons, design-spec note, outcome in the confirmation) in US00010; updated Scope, Out of scope and acceptance criteria 12–13.
