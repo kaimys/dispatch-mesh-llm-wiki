@@ -5119,7 +5119,7 @@
       "created_at": 1794243479,
       "last_edit": 1794243703,
       "revision": 2,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
