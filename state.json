@@ -1268,6 +1268,38 @@
       },
       "message_base": "8a78fd88b06229cd430cbf2054bbd7dbbc6f2921"
     },
+    "1c389505-0719-47d2-ac3a-4c2914ab1c0c": {
+      "id": "1c389505-0719-47d2-ac3a-4c2914ab1c0c",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794241391,
+      "last_edit": 1794241391,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "05_Requirements/Tickets/Story - US00010 - Resolve a conflict after the file was edited again.md": {
+          "base": {
+            "blob": "fa1ce31412a723be03a0d932eb5f550816204247"
+          },
+          "content": {
+            "blob": "ec1d65a7d6c11a657a5620ed4551189a7b79c5fe"
+          },
+          "intent": null,
+          "last_edit": 1794241391
+        }
+      },
+      "dependencies": [
+        "48a5014b-0384-4eef-ad2a-a290d600a384"
+      ],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "1d0a23c1-6eba-4d9f-a341-6215dd3bfa9e": {
       "id": "1d0a23c1-6eba-4d9f-a341-6215dd3bfa9e",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
@@ -2753,8 +2785,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Disable line numbers and add Obsidian alternatives clipping",
+        "description": "Set Obsidian’s showLineNumber preference to false and add a clipping of a Reddit discussion about open-source alternatives to Obsidian."
+      },
+      "message_base": "637f2752102ec8b6df3df7f0fa0002565f99e196"
     },
     "4c650684-bd77-4524-888b-81d5a26aec35": {
       "id": "4c650684-bd77-4524-888b-81d5a26aec35",
