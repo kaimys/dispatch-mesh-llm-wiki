@@ -8,7 +8,7 @@ version_target: v0.3.0
 size:
 assignee:
 owner: "[[Kai]]"
-open_questions: 3
+open_questions: 1
 open_tests:
 open_findings:
 discussion:
@@ -61,6 +61,7 @@ As a collaborator who kept working on a file after Mesh recorded a conflict in i
 - Conflict UI: the list, detail view and wording in the status window belong to [[Story - US00006 - Conflict list and resolution in the status window|US00006]].
 - Writing a combined third version by hand, and AI-proposed merges ([[Story - US00004 - AI-proposed text conflict merges with human approval|US00004]]).
 - Changing how conflicts are detected or recorded in the first place.
+- Repairing workspaces whose session already folded a later edit into a recorded conflict input before this release (Q4, Kai, 2026-11-09; the console is a preview and no such workspace is known).
 
 ## Open questions
 
@@ -79,8 +80,19 @@ Recorded here: no tracker or chat is configured.
     - Both are deletions: clean; the file stays deleted.
     
     The case where the chosen version deletes the file gets its own CLI wording (the chosen version deletes the file; the later edit is kept as a new conflict) and its own regression test. Rejected: letting the later edit win for these cases, because that overrides the user's choice for some file types only and contradicts Q2.
-- [ ] **Q4 Session state of the later edit.** The later edit may sit in an open session, a closed one waiting for finalization, or one already published, since finalization waits only for sessions containing an unresolved path. How is its change rebased onto the selected version in each case, so that publication on `main` is exactly "selected version → later edit" and no empty or duplicate commit appears?
-- [ ] **Q5 Received changes after the conflict.** The guard compares against the folder, which also holds content received from other devices after the conflict. Is a received later change reconciled the same way, or is only a local edit in scope?
+- [x] **Q4 Session state of the later edit.** The later edit may sit in an open session, a closed one waiting for finalization, or one already published, since finalization waits only for sessions containing an unresolved path. How is its change rebased onto the selected version in each case, so that publication on `main` is exactly "selected version → later edit" and no empty or duplicate commit appears?
+  - **Findings (2026-11-09):**
+    - *Already published* cannot occur: while a conflict is unresolved, `publish_ready` skips every session that contains its path.
+    - *Separate session* (open or closed): already handled. `render()` and, at publication, `merge_change` three-way merge the later change onto the selected version. The later session depends on the contributors' sessions, so it publishes after them.
+    - *Same open session as the user's recorded conflict input*: broken today. `capture` folds the later edit into the recorded input, its fingerprint changes and `matching_resolution` no longer recognises it.
+  - **Answer (Kai, 2026-11-09):** **Split at capture.**
+    - **Rule:** when a save touches a path with an unresolved conflict whose current or other input belongs to the active session, Mesh closes that session first and captures the save into a new session (the mechanism `finish` uses). The recorded input stays byte-exact from the moment the conflict exists, and the later edit becomes its own change with the conflict's version as base.
+    - **Example:** Alice's open session holds `trip.md` (her input) and `notes.md`, and she adds `Bring tickets.` to `trip.md` at 11:20. If she then chooses Bob's version, three commits publish in order: her first session with only `notes.md` (its `trip.md` input was rejected), Bob's session, then her new session with `Bring tickets.` None is empty or duplicated.
+    - **Accepted cost:** the user's work lands in two commits, and the split happens even if the conflict is never resolved.
+    - **Rejected:** splitting at resolve time. Until the resolve, the folded change keeps `render()` wrong: it records a second conflict and leaves the original unresolvable.
+    - **Not covered:** workspaces that already hold a folded change from before this release (see Out of scope).
+- [x] **Q5 Received changes after the conflict.** The guard compares against the folder, which also holds content received from other devices after the conflict. Is a received later change reconciled the same way, or is only a local edit in scope?
+  - **Answer (Kai, 2026-11-09):** **The same way as a local edit; in scope.** A received later change is another device's session and therefore already a separate change. After the resolution, `render()` merges it onto the selected version. A clean merge is applied; an overlap records a new conflict with the selected version showing (Q2, Q3). If the other author's later edit would fold into their own session holding their conflict input, the Q4 split happens on their device at capture, since every device runs the same rule. Example: Bob adds `Bring snacks.` to `trip.md` at 11:15 after C1 was recorded; Alice can resolve C1 and Bob's line is combined with her choice. `conflicts resolve` names the author of the later change ("Bob's 11:15 edit was combined"). Rejected: local edits only, because the guard would then need new code to tell local from received changes, solely to refuse, and the chooser would depend on the other author undoing their edit.
 - [ ] **Q6 Compatibility.** Does this need any change to the synchronized conflict or resolution format? If it does, how do clients that don't have the change yet behave, given that they still refuse? (Expectation: no format change, because the resolution stays a choice between inputs and the reconciliation is an ordinary session change.)
 
 ## Acceptance criteria
