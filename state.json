@@ -1279,7 +1279,7 @@
       "last_edit": 1794241482,
       "revision": 2,
       "closed": true,
-      "published": false,
+      "published": true,
       "discarded": false,
       "changes": {
         "05_Requirements/Tickets/Story - US00010 - Resolve a conflict after the file was edited again.md": {
@@ -1297,8 +1297,11 @@
         "48a5014b-0384-4eef-ad2a-a290d600a384"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "docs: refine US00010 conflict-resolution requirements",
+        "description": "Update the existing story with answers to Q1–Q5, including session splitting for later edits, merge behavior for received changes, and binary/deletion cases. Clarify the out-of-scope handling of workspaces with edits already folded into conflict inputs; Q6 remains open."
+      },
+      "message_base": "fa078d0e35e22c0d6017661a84d1c245d68cf87b"
     },
     "1d0a23c1-6eba-4d9f-a341-6215dd3bfa9e": {
       "id": "1d0a23c1-6eba-4d9f-a341-6215dd3bfa9e",
