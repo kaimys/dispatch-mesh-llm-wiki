@@ -6704,8 +6704,11 @@
         "66ef975c-41da-49e2-a4f8-8cb58eae7a0d"
       ],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Refine US00007 with presence behavior findings and open questions",
+        "description": "Append the US00007 refinement entry to the log. Update the existing ticket from Backlog to Refinement, record verified presence and clock-skew behavior, and expand its open questions from 4 to 7, covering finished sessions, notice placement and dismissal, and multiple savers per file."
+      },
+      "message_base": "f86a5860f243c0091395ac174f77fdbaab2098a6"
     },
     "de967730-9a35-4d7b-bbbe-f9b027f7ba39": {
       "id": "de967730-9a35-4d7b-bbbe-f9b027f7ba39",
