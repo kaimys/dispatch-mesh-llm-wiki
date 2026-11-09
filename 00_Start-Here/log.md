@@ -451,3 +451,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-09] engineering | Resolving conflicts after later edits
 - Created [[Resolving conflicts after later edits]] from the refined [[Story - US00010 - Resolve a conflict after the file was edited again|US00010]], ADR-0003 and the engine at `c48141b`: today's refusal, the planned three-way rule, examples for every outcome, the session split at capture and compatibility. Listed in [[index]] under Engineering.
+
+## [2026-11-09] refine | US00007 Recent-save presence in the status window
+- [[Story - US00007 - Recent-save presence in the status window|US00007]] moved Backlog → Refinement. Verified against the engine: presence is derived per file from open, unsettled sessions with origin-clock timestamps; Finish session ends a file's presence early on every device; the tray renders none yet. Added three questions (finished sessions, notice placement and dismissal, several entries per file); `open_questions: 7`.
