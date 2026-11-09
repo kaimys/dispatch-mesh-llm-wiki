@@ -445,3 +445,6 @@ Append-only. One entry per change: `## [YYYY-MM-DD] <type> | <title>`, followed 
 
 ## [2026-11-09] status | US00006 Done
 - [[Story - US00006 - Conflict list and resolution in the status window|US00006]]: moved from Review to Done on Kai's instruction, `completed: 2026-11-09`. All nine manual checks passed (`open_tests: 0`, `open_findings: 0`); merged to `main` at `6792063` and pushed.
+
+## [2026-11-09] refine | US00010 Resolve a conflict after the file was edited again
+- Started refinement of [[Story - US00010 - Resolve a conflict after the file was edited again|US00010]]: Backlog → Refinement. Re-verified the engine: the resolve guard refuses both choices; `render()` already merges a separate later-edit change onto the selected version; folding a later edit into the recorded input breaks `matching_resolution` (core of Q4). Q1 answered by Kai (keep current = no-op, CLI reports the kept edit). `open_questions: 5`.

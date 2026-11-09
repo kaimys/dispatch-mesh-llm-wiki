@@ -8,7 +8,7 @@ version_target: v0.3.0
 size:
 assignee:
 owner: "[[Kai]]"
-open_questions: 6
+open_questions: 5
 open_tests:
 open_findings:
 discussion:
@@ -40,6 +40,11 @@ As a collaborator who kept working on a file after Mesh recorded a conflict in i
   - `capture_at` captures saved edits into the local session as a `Change { base, content }`. The base of a later edit is the folder view the user edited, which is the current version, and the change merges with an existing open change via `git.merge` (line ~492).
   - `merge_change` / `matching_resolution` (line ~984 onward) let a recorded resolution govern the original inputs whatever order they are published in. A conflict is created through `state.conflicts.entry(..).or_insert_with(..)` with `accepted_sessions` holding the contributing revisions.
   - No test covers the refusal path. Resolve tests: `tests/engine.rs` lines ~149, ~370, ~437.
+- **Engine re-read during refinement (2026-11-09):**
+  - `resolve` is now at `src/engine.rs` ~1536 and the guard at ~1549. The guard ignores the choice: "keep current" is refused as well as "choose incoming".
+  - `render()` rebuilds the folder from `main` plus every unsettled session. A later edit captured as its *own* change (base = current version) is therefore already three-way merged onto the selected version by `merge_change` once a resolution exists. On overlap, `merge_change` records a new conflict with the selected version on the current side and keeps that current side in the folder, as ADR-0003 requires ("keep the accepted view visible").
+  - If the user's open session already holds their conflict input for the path, `capture` folds the later edit into that same change (`git.merge`, ~540). The change's fingerprint then no longer matches `accepted_sessions`, so `matching_resolution` stops recognising it as the recorded input. Nothing prunes `state.conflicts`. This is the core of Q4.
+  - While the conflict is open, `publish_ready` skips every session that contains the path, so both contributors' sessions (including their other files) stay unpublished.
 - CLI: `dispatch-mesh conflicts resolve <id> --choose accepted|incoming` (`src/main.rs`).
 
 ## Scope
@@ -61,7 +66,8 @@ As a collaborator who kept working on a file after Mesh recorded a conflict in i
 
 Recorded here: no tracker or chat is configured.
 
-- [ ] **Q1 Keep current version with a later edit.** Choosing the current version is a no-op on the folder, since the later edit is already based on it. Is that the whole behavior: the later edit simply stays as the user's next change?
+- [x] **Q1 Keep current version with a later edit.** Choosing the current version is a no-op on the folder, since the later edit is already based on it. Is that the whole behavior: the later edit simply stays as the user's next change?
+  - **Answer (Kai, 2026-11-09):** Yes. The folder stays unchanged, the later edit remains an ordinary change of the local user (own attribution and purpose), and the conflict is marked resolved with the current version selected. `conflicts resolve` reports that the later edit was kept, alongside "combined" and "new conflict" for the other choice. Rejected alternatives: staying silent, because the two choices would then report differently and the protected edit would go unconfirmed; folding the later edit into the resolution, because the resolution would select a version that is not a recorded input (ADR-0003) and new work would be mixed into a record that holds another author's input. Precondition: the later edit must stay a change separate from the recorded conflict input (see Q4). Otherwise the next `render()` can merge the other input against the later edit and record a fresh conflict right after "keep current".
 - [ ] **Q2 Overlapping later edit.** When the merge overlaps, which version stays in the folder (proposal: the later edit, never overwritten), and how are the new conflict's sides attributed? Proposal: the current side is the local user's later-edit session, and the other side is the selected version with its original author.
 - [ ] **Q3 Binary files and deletions.** A later edit to a binary file cannot be merged, and either side may be a deletion. Does choosing the other version then always produce a new whole-file conflict, or does the later edit win?
 - [ ] **Q4 Session state of the later edit.** The later edit may sit in an open session, a closed one waiting for finalization, or one already published, since finalization waits only for sessions containing an unresolved path. How is its change rebased onto the selected version in each case, so that publication on `main` is exactly "selected version → later edit" and no empty or duplicate commit appears?
