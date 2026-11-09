@@ -3387,7 +3387,7 @@
       "created_at": 1794238459,
       "last_edit": 1794238459,
       "revision": 1,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
@@ -3404,8 +3404,11 @@
       },
       "dependencies": [],
       "intents": {},
-      "message": null,
-      "message_base": null
+      "message": {
+        "title": "Move US00010 into refinement",
+        "description": "Update the conflict-resolution story’s status from Backlog to Refinement and set its updated date to 2026-11-09."
+      },
+      "message_base": "97c8bb4a6f1276582953acd86f48d23454747ff2"
     },
     "65f81afd-bfef-4e82-af97-456251cc42e9": {
       "id": "65f81afd-bfef-4e82-af97-456251cc42e9",
