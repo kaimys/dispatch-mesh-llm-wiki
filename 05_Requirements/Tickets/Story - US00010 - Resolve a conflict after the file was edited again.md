@@ -1,7 +1,7 @@
 ---
 id: US00010
 type: story
-status: Backlog
+status: Refinement
 priority: high
 rank: 4500
 version_target: v0.3.0
@@ -12,7 +12,7 @@ open_questions: 6
 open_tests:
 open_findings:
 discussion:
-updated: 2026-11-06
+updated: 2026-11-09
 completed:
 frozen:
 ---
