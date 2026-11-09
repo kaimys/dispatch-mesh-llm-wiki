@@ -3377,6 +3377,36 @@
       },
       "message_base": "741018ca6cedb1d8ba7c0e2d828dd04f8d6a34d6"
     },
+    "65531f00-abdd-437e-a335-3cbac40bc2ce": {
+      "id": "65531f00-abdd-437e-a335-3cbac40bc2ce",
+      "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
+      "author": {
+        "name": "kaimys",
+        "email": "kai@eightnine.de"
+      },
+      "created_at": 1794238459,
+      "last_edit": 1794238459,
+      "revision": 1,
+      "closed": false,
+      "published": false,
+      "discarded": false,
+      "changes": {
+        "05_Requirements/Tickets/Story - US00010 - Resolve a conflict after the file was edited again.md": {
+          "base": {
+            "blob": "6673a1b46fbd3dd60604da0d18aa5f3f68578a1b"
+          },
+          "content": {
+            "blob": "5f74f6e0738f17d8d576d6bb89d74824af3da1ef"
+          },
+          "intent": null,
+          "last_edit": 1794238459
+        }
+      },
+      "dependencies": [],
+      "intents": {},
+      "message": null,
+      "message_base": null
+    },
     "65f81afd-bfef-4e82-af97-456251cc42e9": {
       "id": "65f81afd-bfef-4e82-af97-456251cc42e9",
       "device": "75a0b028-c3e4-4025-8a90-c7c981d8ec9c",
