@@ -3662,7 +3662,7 @@
       "created_at": 1794242149,
       "last_edit": 1794242551,
       "revision": 3,
-      "closed": false,
+      "closed": true,
       "published": false,
       "discarded": false,
       "changes": {
